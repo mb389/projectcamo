@@ -4,10 +4,7 @@ import classNames from 'classnames/bind';
 import EntryBox from 'components/EntryBox';
 import MainSection from 'components/MainSection';
 import Scoreboard from 'components/Scoreboard';
-<<<<<<< HEAD
 import Table from 'components/Table';
-=======
->>>>>>> 4b697a897ea65728d59ebb45844449662e33bf89
 import {
   createTopic, typing, incrementCount,
   decrementCount, destroyTopic, fetchTopics } from 'actions/topics';

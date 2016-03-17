@@ -18,4 +18,3 @@ Now you can organize of your information, including videos, images, lists, check
 CAMO leverages ReactJS to quickly render all of your information, and the functionality of Redux to give users complete access to their data's history. 
 
 The backend is supported by NodeJs, ExpressJS, and MongoDB. 
->>>>>>> 4b697a897ea65728d59ebb45844449662e33bf89

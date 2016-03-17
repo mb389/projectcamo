@@ -1,4 +1,21 @@
 .MagicBar {
   border: 1px solid black;
   height: 30px;
+  display: inline-block;
+}
+
+.SearchButton {
+  display: inline-block;
+  border: 1px solid blue;
+  width: 25px;
+  margin-left: 15px;
+  background-color: #d5d5d5;
+}
+
+.FormulaBar {
+  display: inline-block;
+}
+
+.FormulaBar span {
+  vertical-align: middle;
 }

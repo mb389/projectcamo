@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from 'containers/App';
 import Vote from 'containers/Vote';
 import About from 'containers/About';
-import Table from 'components/Table';
+import Space from 'containers/SpaceControl';
 import LoginOrRegister from 'containers/LoginOrRegister';
 import Dashboard from 'containers/Dashboard';
 

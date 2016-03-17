@@ -15,7 +15,8 @@
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
     "postinstall": "npm run build"
-  },  "author": "Assaf Packin, Oscar Pena, Cody Schwarz, Michael Bushoy",
+  },
+  "author": "Assaf Packin, Oscar Pena, Cody Schwarz, Michael Bushoy",
   "license": "MIT",
   "devDependencies": {
     "expect": "^1.15.2",
@@ -91,6 +92,7 @@
     "postcss-reporter": "^1.3.3",
     "postcss-simple-vars": "^1.2.0",
     "react": "^0.14.7",
+    "react-bootstrap": "^0.28.3",
     "react-data-grid": "^0.14.16",
     "react-dom": "^0.14.7",
     "react-helmet": "2.3.1",

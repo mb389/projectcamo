@@ -6,7 +6,7 @@ import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
-export default class Table extends Component {
+export default class Space extends Component {
 
   render () {
     console.log(this.props.grid)
@@ -20,4 +20,3 @@ export default class Table extends Component {
     );
   }
 }
-

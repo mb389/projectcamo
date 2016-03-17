@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Navigation from 'containers/Navigation';
+import SpaceControl from 'containers/SpaceControl';
 import Message from 'containers/Message';
 import classNames from 'classnames/bind';
 import styles from 'css/main';
@@ -20,8 +21,8 @@ const App = ({children}) => {
   return (
     <div className={cx('app')}>
       <Navigation />
-      <Message />
-        {children}
+      <SpaceControl />
+
     </div>
   );
 };

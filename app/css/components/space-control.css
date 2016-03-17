@@ -1,0 +1,17 @@
+.SheetButton {
+  border-color: #656565;
+  border-style: solid;
+  height: 25px;
+  border-width: 1px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.AddSheetButton {
+  width: 30px;
+}
+
+
+.SheetTab {
+
+}

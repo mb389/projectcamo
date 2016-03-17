@@ -2,20 +2,31 @@
 @value color-black, color-dodger-blue from '../common/colors.css';
 
 .navigation {
-  padding: 0 28px;
+  border-bottom: 1px solid #08346a;
+  display: block;
+  height: 50px;
 }
 
 .item {
   display: inline-block;
+  margin-top: auto;
+  margin-bottom: auto;
   text-decoration: none;
-  padding: 16px 32px;
+  padding: 16px 16px;
   color: color-black;
 }
 
-.logo {
-  font-size: font-x-large;
+.main {
+}
+
+.spaceName {
+  margin: auto;
 }
 
 .active {
   color: color-dodger-blue;
+}
+
+.logInProfile {
+  float: right;
 }

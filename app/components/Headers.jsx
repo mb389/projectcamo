@@ -1,25 +1,29 @@
 import React, { Component, PropTypes } from 'react';
+import ColumnOptions from './ColumnOptions';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
-export default class Headers extends Component {
-
-  render () {
-    const headers = this.props.headers.map((header, key) => {
+function generateColumnOptions (headers) {
+  return headers.map((header, key) => {
       return (
-        <div className={cx('thead')} key={key}>
-            {header.name}
-        </div>
+          <ColumnOptions data={header} key={header.id}/>
       )
-    })
-
-    return (
-        <div className={cx('theaders')}>
-          {headers}
-        </div>
-    );
-  }
+  })
 }
+
+const Headers = (props) => {
+  return (
+      <div className={cx('theaders')}>
+          {generateColumnOptions(props.headers)}
+      </div>
+    );
+}
+
+export default Headers;
+
+
+
+
 

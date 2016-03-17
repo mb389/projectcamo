@@ -1,5 +1,4 @@
 /* Structure Overview */
-
 const spaces = {
   SheetID: {name: '',
             sheet: {}}

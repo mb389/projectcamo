@@ -6,7 +6,7 @@ import styles from 'css/components/table';
 const cx = classNames.bind(styles);
 
 const Grid = (props) => {
-  const grid = this.props.grid.map((row, key) => {
+  const grid = props.grid.map((row, key) => {
     const cells = []
     for (let key in row) {
       cells.push(<Cell cell={row[key]} key={key}/>);

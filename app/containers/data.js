@@ -15,7 +15,7 @@ const row = {columnIdX:{cell01Info}, columnIdY:{cell02Info}}
 
 /* Example with nested Data */
 
-spaces = {
+const spaces = {
   SheetID: {
     name: '',
     Sheet: {

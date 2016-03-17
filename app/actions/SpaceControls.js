@@ -23,5 +23,13 @@ function makeTopicRequest(method, id, data, api='/topic') {
 
 export function addSheet() {
   //make request to server to add a new sheet in the account. Get back the mongoID and then add a new sheet with that ID and link to that sheet
-  return
+  console.log('addSheet');
+}
+
+// Fetch posts logic
+export function fetchTopics() {
+  return {
+    type: types.GET_TOPICS,
+    promise: makeTopicRequest('get')
+  };
 }

@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
+import Table from 'components/Table';
 
 
 class SpaceControl extends Component {
@@ -15,6 +16,7 @@ class SpaceControl extends Component {
         <div>
           <SheetsBar space={this.props.space}/>
           <MagicBar />
+          <Table />
         </div>
     );
   }

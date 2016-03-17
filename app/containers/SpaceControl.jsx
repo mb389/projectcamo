@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
-import Table from 'components/Table';
+import Table from 'components/Sheet/Table';
 
 
 class SpaceControl extends Component {

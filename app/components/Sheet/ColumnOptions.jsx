@@ -10,7 +10,7 @@ export default class ColumnOptions extends Component {
 
 	render () {
 		return (
-	  	 	<SplitButton className={cx('thead')} bsStyle='default' title={this.props.data.name} key='1' id={`dropdown-${this.props.data.name}`}>
+	  	 	<SplitButton className={cx('thead')} bsStyle='default' title={this.props.data.name} key={this.props.data.id} id={`dropdown-${this.props.data.name}`}>
 				{generateMenuItems()};
 		    </SplitButton>
 		);

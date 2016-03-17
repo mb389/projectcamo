@@ -1,0 +1,21 @@
+.table {
+}
+
+.theaders {
+	border: 1px solid black;
+	display: inline-block;
+	min-width: 75px;
+}
+
+.trows {
+}
+
+.trow {
+	border: 1px solid red;
+}
+
+.cell {
+	display: inline-block;
+	border: 1px solid red;
+	min-width: 75px;
+}

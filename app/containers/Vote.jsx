@@ -66,49 +66,251 @@ class Vote extends Component {
     ]
 
     const row = {
-      '123': {
-        type: 'string',
-        data: 'asd'
-      },
-      '124': {
-        type: 'url',
-        data: 'github.com/elpenao'
-      },
-      '125': {
-        type: 'url',
-        data: 'linkedIn.com/elpenao'
-      }
+       '123': {
+          type: 'string',
+          data: 'Oscar'
+        },
+        "124": {
+          type: 'url',
+          data: 'github.com/elpenao'
+        },
+        "125": {
+          type: 'url',
+          data: 'linkedIn.com/elpenao'
+        }
     }
 
     const row1 = {
-      '123': {
-        type: 'string',
-        data: 'not asd'
-      },
-      '124': {
-        type: 'url',
-        data: 'not github.com/elpenao'
-      },
-      '125': {
-        type: 'url',
-        data: 'not linkedIn.com/elpenao'
-      }
+        '123': {
+          type: 'string',
+          data: 'Assaf'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/apackin'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/apackin'
+        }
     }
 
-    const grid = [row, row1]
+    const row2 = {
+        '123': {
+          type: 'string',
+          data: 'Cody'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/cschwarz'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/cschwarz'
+        }
+    }
+
+    const row3 = {
+        '123': {
+          type: 'string',
+          data: 'Mike'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/mbushoy'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/mbushoy'
+        }
+    }
+
+    const row4 = {
+       '123': {
+          type: 'string',
+          data: 'Oscar'
+        },
+        "124": {
+          type: 'url',
+          data: 'github.com/elpenao'
+        },
+        "125": {
+          type: 'url',
+          data: 'linkedIn.com/elpenao'
+        }
+    }
+
+    const row5 = {
+        '123': {
+          type: 'string',
+          data: 'Assaf'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/apackin'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/apackin'
+        }
+    }
+
+    const row6 = {
+        '123': {
+          type: 'string',
+          data: 'Cody'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/cschwarz'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/cschwarz'
+        }
+    }
+
+    const row7 = {
+        '123': {
+          type: 'string',
+          data: 'Mike'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/mbushoy'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/mbushoy'
+        }
+    }
+
+    const row8 = {
+       '123': {
+          type: 'string',
+          data: 'Oscar'
+        },
+        "124": {
+          type: 'url',
+          data: 'github.com/elpenao'
+        },
+        "125": {
+          type: 'url',
+          data: 'linkedIn.com/elpenao'
+        }
+    }
+
+    const row9 = {
+        '123': {
+          type: 'string',
+          data: 'Assaf'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/apackin'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/apackin'
+        }
+    }
+
+    const row10 = {
+        '123': {
+          type: 'string',
+          data: 'Cody'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/cschwarz'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/cschwarz'
+        }
+    }
+
+    const row11 = {
+        '123': {
+          type: 'string',
+          data: 'Mike'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/mbushoy'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/mbushoy'
+        }
+    }
+
+    const row12 = {
+       '123': {
+          type: 'string',
+          data: 'Oscar'
+        },
+        "124": {
+          type: 'url',
+          data: 'github.com/elpenao'
+        },
+        "125": {
+          type: 'url',
+          data: 'linkedIn.com/elpenao'
+        }
+    }
+
+    const row13 = {
+        '123': {
+          type: 'string',
+          data: 'Assaf'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/apackin'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/apackin'
+        }
+    }
+
+    const row14 = {
+        '123': {
+          type: 'string',
+          data: 'Cody'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/cschwarz'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/cschwarz'
+        }
+    }
+
+    const row15 = {
+        '123': {
+          type: 'string',
+          data: 'Mike'
+        },
+        '124': {
+          type: 'url',
+          data: 'github.com/mbushoy'
+        },
+        '125': {
+          type: 'url',
+          data: 'linkedIn.com/mbushoy'
+        }
+    }
+
+    const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
 
 
     return (
       <div className={cx('vote')}>
         <Table grid={grid} headers={headers}/>
-        <EntryBox topic={newTopic}
-          onEntryChange={this.onEntryChange}
-          onEntrySave={this.onEntrySave} />
-        <MainSection topics={topics}
-          onIncrement={this.onIncrement}
-          onDecrement={this.onDecrement}
-          onDestroy={this.onDestroy} />
-        <Scoreboard topics={topics} />
       </div>
     );
   }

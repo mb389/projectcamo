@@ -18,11 +18,10 @@ const Grid = (props) => {
   });
 
   return (
-    <div>
+    <div className={cx('trows')}>
       {grid}
     </div>
   );
-
 }
 
 export default Grid;

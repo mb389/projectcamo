@@ -10,7 +10,7 @@ const MagicBar = (props) => {
   return (
     <div className={cx('MagicBar')} >
       <SearchButton />
-      <div className={cx('FormulaBar')}><span>Formula bar / Contents of the selected cell</span></div>
+      <div className={cx('FormulaBar')}><input className={cx('InputToSearch')} placeholder="Formula Bar Search" /></div>
     </div>
   );
 };

@@ -1,4 +1,5 @@
 .table {
+    display: inline-block;
     position: relative;
     width: 100%;
 }
@@ -42,4 +43,12 @@
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
     overflow: none;
+}
+
+.rnum {
+    padding: 10px;
+    padding-right: 15px;
+    width: 10px;
+    display: inline-block;
+    border-bottom: 1px solid #dde1e3;
 }

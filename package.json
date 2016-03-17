@@ -1,8 +1,8 @@
 {
-  "name": "react-webpack-node",
-  "version": "1.5.0",
-  "description": "A simple Node.js app using Express 4 with Webpack, React, alt, ImmutableJS",
-  "repository": "https://github.com/choonkending/react-webpack-node",
+  "name": "CAMO",
+  "version": "1.0.0",
+  "description": "Increases functionality of spreadsheets by integrating extensive data typing, collaborative tools and version history",
+  "repository": "https://github.com/mb389/projectcamo",
   "main": "index.js",
   "scripts": {
     "lint": "eslint app",
@@ -15,8 +15,7 @@
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
     "postinstall": "npm run build"
-  },
-  "author": "Choon Ken Ding",
+  },  "author": "Assaf Packin, Oscar Pena, Cody Schwarz, Michael Bushoy",
   "license": "MIT",
   "devDependencies": {
     "expect": "^1.15.2",

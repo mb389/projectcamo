@@ -311,14 +311,6 @@ class Vote extends Component {
     return (
       <div className={cx('vote')}>
         <Table grid={grid} headers={headers}/>
-        <EntryBox topic={newTopic}
-          onEntryChange={this.onEntryChange}
-          onEntrySave={this.onEntrySave} />
-        <MainSection topics={topics}
-          onIncrement={this.onIncrement}
-          onDecrement={this.onDecrement}
-          onDestroy={this.onDestroy} />
-        <Scoreboard topics={topics} />
       </div>
     );
   }

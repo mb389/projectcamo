@@ -24,11 +24,10 @@ function generateCells (row) {
 
 const Grid = (props) => {
   return (
-    <div>
+    <div className={cx('trows')}>
       {generateRows(props.grid)}
     </div>
   );
-
 }
 
 export default Grid;

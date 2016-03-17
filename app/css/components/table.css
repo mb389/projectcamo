@@ -1,12 +1,12 @@
 .table {
-	position: relative;
-	width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .theaders {
-		position: absolute;
-		top: 0;
-  	left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-block;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
@@ -15,32 +15,31 @@
 }
 
 .thead {
-	min-width: 200px;
-  display: inline-block;
-  background: #fff;
-  border-right: 1px solid #dde1e3;
-  padding: 10px;
-
+    min-width: 175px;
+    display: inline-block;
+    background: #fff;
+    border-right: 1px solid #dde1e3;
+    padding: 10px;
 }
 
 .trows {
-	margin-top: 40px;
-	height: 100%;
-	overflow: scroll;
+    margin-top: 40px;
+    height: 100%;
+    overflow: scroll;
 }
 
 .trow {
-	width: 100%;
-	display: inline-block;
+    width: 100%;
+    display: inline-block;
 }
 
 .cell {
-	width: 200px;
-	padding: 10px;
-	display: inline-block;
-	border-bottom: 1px solid #dde1e3;
-  border-left: 1px solid #dde1e3;
-  border-right: 1px solid transparent;
-  border-top: 1px solid transparent;
-	overflow: none;
+    width: 200px;
+    padding: 10px;
+    display: inline-block;
+    border-bottom: 1px solid #dde1e3;
+    border-left: 1px solid #dde1e3;
+    border-right: 1px solid transparent;
+    border-top: 1px solid transparent;
+    overflow: none;
 }

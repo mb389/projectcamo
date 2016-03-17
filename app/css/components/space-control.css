@@ -5,6 +5,9 @@
   border-width: 1px;
   text-align: center;
   vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .AddSheetButton {
@@ -13,5 +16,11 @@
 
 
 .SheetTab {
+  padding-left: 20px;
+  padding-right: 20px;
 
+}
+
+.ActiveSheetTab {
+  background-color: #0c6965;
 }

@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const Navigation = ({user, dispatch, }) => {
     return (
       <nav className={cx('navigation')} role="navigation">
-        <Link to="/"
+        <Link to="dashboard"
           className={cx('item', 'main')}
           activeClassName={cx('active')}>Main</Link>
         <div className={cx('item', 'spaceName')}>Space Name</div>

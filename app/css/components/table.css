@@ -1,5 +1,6 @@
 .table {
 	position: relative;
+	width: 100%;
 }
 
 .theaders {
@@ -24,6 +25,8 @@
 
 .trows {
 	margin-top: 40px;
+	height: 100%;
+	overflow: scroll;
 }
 
 .trow {

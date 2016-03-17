@@ -9,7 +9,7 @@ export default class Cell extends Component {
   render () {
 
     return (
-       <div className={cx('cell')} key={this.props.key} contentEditable>
+       <div className={cx('cell')} key={this.props.key}>
         {this.props.cell.data}
        </div>
     );

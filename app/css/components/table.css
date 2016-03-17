@@ -1,21 +1,43 @@
 .table {
+	position: relative;
 }
 
 .theaders {
-	border: 1px solid black;
-	display: inline-block;
-	min-width: 75px;
+		position: absolute;
+		top: 0;
+  	left: 0;
+    display: inline-block;
+    background: #fff;
+    border-bottom: 1px solid #d1d1d1;
+    border-top: 1px solid transparent;
+    border-left: 1px solid #dde1e3;
+}
+
+.thead {
+	min-width: 200px;
+  display: inline-block;
+  background: #fff;
+  border-right: 1px solid #dde1e3;
+  padding: 10px;
+
 }
 
 .trows {
+	margin-top: 40px;
 }
 
 .trow {
-	border: 1px solid red;
+	width: 100%;
+	display: inline-block;
 }
 
 .cell {
+	width: 200px;
+	padding: 10px;
 	display: inline-block;
-	border: 1px solid red;
-	min-width: 75px;
+	border-bottom: 1px solid #dde1e3;
+  border-left: 1px solid #dde1e3;
+  border-right: 1px solid transparent;
+  border-top: 1px solid transparent;
+	overflow: none;
 }

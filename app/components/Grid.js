@@ -20,7 +20,7 @@ export default class Grid extends Component {
     });
 
     return (
-      <div>
+      <div className={cx('trows')}>
         {grid}
       </div>
     );

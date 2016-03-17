@@ -9,7 +9,7 @@ export default class Headers extends Component {
   render () {
     const headers = this.props.headers.map((header, key) => {
       return (
-        <div className={cx('theaders')} key={key}>
+        <div className={cx('thead')} key={key}>
             {header.name}
         </div>
       )

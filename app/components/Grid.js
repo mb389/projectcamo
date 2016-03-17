@@ -5,21 +5,27 @@ import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
-const Grid = (props) => {
-  const grid = props.grid.map((row, key) => {
-    const cells = []
+function generateRows(grid) {
+  return grid.map( (row, key) => {
+    return (
+    <div className={cx('trow')} key={key}>
+      {generateCells(row)}
+    </div>);
+  });
+}
+
+function generateCells (row) {
+    const cells = [];
     for (let key in row) {
       cells.push(<Cell cell={row[key]} key={key}/>);
     }
-    return (
-    <div className={cx('trow')} key={key}>
-      {cells}
-    </div>);
-  });
+    return cells;
+}
 
+const Grid = (props) => {
   return (
     <div className={cx('trows')}>
-      {grid}
+      {generateRows(props.grid)}
     </div>
   );
 }

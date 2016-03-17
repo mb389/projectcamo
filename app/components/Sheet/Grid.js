@@ -9,7 +9,7 @@ function generateRows(grid) {
   return grid.map( (row, key) => {
     return (
     <div className={cx('trow')} key={key}>
-      <div className={cx('rnum cell')}>{key}</div>
+      <div className={cx('rnum')}>{key}</div>
       {generateCells(row)}
     </div>);
   });

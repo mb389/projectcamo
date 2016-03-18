@@ -62,11 +62,11 @@ module.exports = function(app, passport) {
     sheets.add(req, res);
   });
 
-  app.put('/topic/:id', function(req, res) {
+  app.put('/sheet/:id', function(req, res) {
     sheets.update(req, res);
   });
 
-  app.delete('/topic/:id', function(req, res) {
+  app.delete('/sheet/:id', function(req, res) {
     sheets.remove(req, res);
   });
 

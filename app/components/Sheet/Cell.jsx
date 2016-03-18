@@ -10,6 +10,9 @@ export default class Cell extends Component {
 
     return (
        <div className={cx('cell')} key={this.props.key}>
+       	<div className={cx('cell-expand')}>
+       		<a >E</a>
+       	</div>
         {this.props.cell.data}
        </div>
     );

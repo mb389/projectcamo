@@ -1,5 +1,6 @@
 .table {
     position: relative;
+    display: inline-block;
     width: 100%;
 }
 
@@ -42,4 +43,9 @@
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
     overflow: none;
+}
+
+.cell-expand {
+    display: inline-block;
+    margin-right: 5px;
 }

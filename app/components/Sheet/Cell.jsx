@@ -24,12 +24,11 @@ export default class Cell extends Component {
     this.setState({ showModal: true });
   }
 
-  
-	handleChange(evt){
+  handleChange(evt){
 		console.log("changed", evt.target.value)
     this.setState({html: evt.target.value});
+    // this.dispatch(updateCell(evt.target.value, this.props.key, this.props.idx))
   }
-
 
   render () {
   	if (this.props.idx === 0) {

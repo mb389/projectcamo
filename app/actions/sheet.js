@@ -21,7 +21,8 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function fetchTopics(data) {
+export function updateCell(data) {
+
   return {
     type: types.UPDATE_CELL,
     data: data

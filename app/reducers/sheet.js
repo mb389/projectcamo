@@ -1,4 +1,5 @@
-import { UPDATE_CELL
+import { 
+  UPDATE_CELL
 } from 'constants/index';
 
 
@@ -6,11 +7,10 @@ const initialState = { grid: grid, columnHeaders: columnHeaders }
 
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
-    case UPDATE_CELL:
-      return Object.assign({}, state, {
-        message: action.message,
-        type: 'SUCCESS'
-      });
+    // case UPDATE_ROW:
+    //   return Object.assign({}, state, {
+        
+    //   });
     default:
       return state;
   }
@@ -26,7 +26,7 @@ const columnHeaders = [
 const row = {
    '123': {
       type: 'string',
-      data: 'Oscar'
+      data: 'sdkfajdks'
     },
     "124": {
       type: 'url',

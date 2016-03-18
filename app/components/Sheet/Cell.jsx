@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import { connect } from 'react-redux';
+import { updateCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 
 const cx = classNames.bind(styles);
 
-export default class Cell extends Component {
+class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
 		this.state = {showModal: false, html: this.props.cell.data}
-
 		this.close = this.close.bind(this)
 		this.open = this.open.bind(this)
 		this.handleChange = this.handleChange.bind(this)
@@ -25,13 +26,13 @@ export default class Cell extends Component {
   }
 
   handleChange(evt){
-		console.log("changed", evt.target.value)
+  	const { dispatch } = this.props;
     this.setState({html: evt.target.value});
-    // this.dispatch(updateCell(evt.target.value, this.props.key, this.props.idx))
+    dispatch(updateCell(evt.target.value, this.props.cellKey, this.props.rowIdx))
   }
 
   render () {
-  	if (this.props.idx === 0) {
+  	if (this.props.cellIdx === 0) {
   		return (
 	      <div className={cx('cell')} key={this.props.key}>
 	       	<a className={cx('cell-expand')} onClick={this.open}>
@@ -58,4 +59,11 @@ export default class Cell extends Component {
     );
   }
 }
+
+Cell.propTypes = {
+  dispatch: PropTypes.func
+};
+
+
+export default connect()(Cell);
 

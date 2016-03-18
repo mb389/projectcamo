@@ -21,10 +21,13 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function updateCell(data) {
-
+export function updateCell(data, key, idx) {
   return {
     type: types.UPDATE_CELL,
-    data: data
+    cell: {
+    	data: data,
+    	key: key,
+    	idx: idx
+    }
   };
 }

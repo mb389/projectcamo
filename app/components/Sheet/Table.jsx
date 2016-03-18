@@ -9,9 +9,6 @@ const cx = classNames.bind(styles);
 export default class Table extends Component {
 
   render () {
-    console.log(this.props.grid)
-    console.log(this.props.headers)
-
     return (
       <div className={cx('table')}>
         <Headers headers={this.props.headers} />

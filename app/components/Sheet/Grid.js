@@ -18,7 +18,7 @@ function generateRows(grid) {
 function generateCells (row) {
     const cells = [];
     for (let key in row) {
-      cells.push(<Cell cell={row[key]} key={key}/>);
+      cells.push(<Cell cell={row[key]} key={key} idx={cells.length}/> );
     }
     return cells;
 }

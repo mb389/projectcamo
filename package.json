@@ -93,6 +93,7 @@
     "postcss-simple-vars": "^1.2.0",
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.3",
+    "react-contenteditable": "^1.1.0",
     "react-data-grid": "^0.14.16",
     "react-dom": "^0.14.7",
     "react-helmet": "2.3.1",

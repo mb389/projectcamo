@@ -28,3 +28,6 @@ export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 //NEW CONSTS
 
 export const ADD_SHEET = 'ADD_SHEET';
+
+// SHEET CONSTS
+export const UPDATE_CELL = 'UPDATE_CELL';

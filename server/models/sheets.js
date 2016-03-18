@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
     required: true
   },
   creationDate: Date,
-  workspace: { type: Schema.Types.ObjectId, ref: 'Workspace' }
+  workspace: { type: mongoose.Schema.Types.ObjectId, ref: 'Workspace' }
 });
 
 // Compiles the schema into a model, opening (or creating, if

@@ -2,7 +2,6 @@ import {
   UPDATE_CELL
 } from 'constants/index';
 
-
 const columnHeaders = [
       { id: '123', type: 'name', name: 'Names', idx: 0 },
       { id: '124', type: 'url', name: 'Github URL', idx: 1 },
@@ -251,14 +250,15 @@ const row15 = {
 
 const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
 
+
 const initialState = { grid: grid, columnHeaders: columnHeaders }
 
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
-    // case UPDATE_ROW:
-    //   return Object.assign({}, state, {
-        
-    //   });
+    case UPDATE_CELL:
+      let newState = Object.assign({}, state, {});
+      newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+      return newState
     default:
       return state;
   }

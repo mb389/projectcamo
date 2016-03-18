@@ -37,18 +37,29 @@
 
 .cell {
     width: 200px;
+    max-height: 40px;
     padding: 10px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     border-left: 1px solid #dde1e3;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
-    overflow: none;
+    overflow: scroll;
 }
 
 .cell-expand {
     display: inline-block;
     margin-right: 5px;
+    padding: 6px;
+    border-radius: 12px;
+    width: 23px;
+    height: 23px;
+    opacity: 0;   
+}
+
+.cell-expand:hover {
+    opacity: 1;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .rnum {
@@ -57,4 +68,5 @@
     width: 10px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
+    overflow: scroll;
 }

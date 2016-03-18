@@ -1,5 +1,21 @@
-import {
+import { UPDATE_CELL
 } from 'constants/index';
+
+
+const initialState = { grid: grid, columnHeaders: columnHeaders }
+
+export default function sheet(state = initialState, action = {}) {
+  switch (action.type) {
+    case UPDATE_CELL:
+      return Object.assign({}, state, {
+        message: action.message,
+        type: 'SUCCESS'
+      });
+    default:
+      return state;
+  }
+}
+
 
 const columnHeaders = [
       { id: '123', type: 'name', name: 'Names', idx: 0 },
@@ -248,14 +264,3 @@ const row15 = {
 }
 
 const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
-
-
-
-const initialState = { grid: grid, columnHeaders: columnHeaders }
-
-export default function sheet(state = initialState, action = {}) {
-  switch (action.type) {
-    default:
-      return state;
-  }
-}

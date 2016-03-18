@@ -1,0 +1,32 @@
+.MagicBar {
+  padding-top: 5px;
+  height: 50px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.SearchButton {
+  display: inline-block;
+  width: 25px;
+  margin-left: 15px;
+}
+
+.FormulaBar {
+  display: inline-block;
+  width: 400px;
+}
+
+.FormulaBar span {
+  vertical-align: middle;
+}
+
+.InputToSearch {
+  border: 1px solid #cfcfcf;
+  border-radius: 5px;
+  margin-left: 30px;
+  margin-right: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  width: 350px;
+  height: 32px;
+}

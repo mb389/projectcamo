@@ -20,10 +20,7 @@ export default class ColumnOptions extends Component {
 						<Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 		      </Dropdown.Toggle>
 		      <Dropdown.Menu className={cx('columnMenu')}>
-		        <MenuItem eventKey="1">Action</MenuItem>
-		        <MenuItem eventKey="2">Another action</MenuItem>
-		        <MenuItem eventKey="3" active>Active Item</MenuItem>
-		        <MenuItem eventKey="4">Separated link</MenuItem>
+		      	{generateMenuItems()}
 		      </Dropdown.Menu>
 		    </Dropdown>
 		);

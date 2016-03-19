@@ -17,7 +17,7 @@ export default class ColumnOptions extends Component {
 				<Dropdown id="dropdown-custom-1">
 		      <Dropdown.Toggle noCaret className={cx('thead')}>
 		        {this.props.data.name}
-						<Glyphicon className={cx('columnCarrat')} glyph="chevron-down" />
+						<Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 		      </Dropdown.Toggle>
 		      <Dropdown.Menu className={cx('columnMenu')}>
 		        <MenuItem eventKey="1">Action</MenuItem>

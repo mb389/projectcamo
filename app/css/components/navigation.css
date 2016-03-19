@@ -5,7 +5,7 @@
   display: block;
   height: 50px;
   color: white;
-  background:  #00BCD4;
+  background:  primary-color;
   /*box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);*/
   /*margin-bottom: 30px;*/
 }
@@ -15,17 +15,27 @@
   margin-top: auto;
   margin-bottom: auto;
   text-decoration: none;
-  padding: 16px 16px;
+  padding: 8px 8px;
   color: color-black;
 }
 
 .main {
+  margin-left: 16px;
+  text-decoration: none;
+}
 
+.main:link, .main:visited {
+    color: white;
+}
+
+.main:hover {
+
+    text-decoration: none;
 }
 
 .spaceName {
   margin-left: 40%;
-  font-size: 115%;
+  font-size: 140%;
 }
 
 .active {
@@ -34,4 +44,8 @@
 
 .logInProfile {
   float: right;
+}
+
+.dashboardLink {
+  font-size: 140%;
 }

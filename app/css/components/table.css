@@ -21,6 +21,8 @@
     display: inline-block;
     background: #fff;
     border-right: 1px solid #dde1e3;
+    border-bottom: 0;
+    border-radius: 0;
     padding: 10px;
 }
 
@@ -45,6 +47,26 @@
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
     overflow: scroll;
+}
+
+.cell:focus {
+    z-index: 100;
+    width: 200px;
+    max-height: 1000px;
+}
+
+.first-cell {
+    width: 150px;
+    padding: 0px;
+    display: inline-block;
+    border: none;
+    overflow: scroll;
+}
+
+.first-cell:focus {
+    z-index: 100;
+    width: 150px;
+    max-height: 1000px;
 }
 
 .cell-expand {

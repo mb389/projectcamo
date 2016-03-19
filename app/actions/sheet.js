@@ -31,3 +31,22 @@ export function updateCell(data, key, idx) {
     }
   };
 }
+
+export function showRowModal(rowIdx){
+	return {
+		 type: types.SHOW_ROW_MODAL,
+		 rowIdx: rowIdx
+	}
+}
+
+export function closeRowModal() {
+	return {
+		type: types.CLOSE_ROW_MODAL
+	}
+}
+
+export function addRow() {
+	return {
+		type: types.ADD_ROW
+	}
+}

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell } from 'actions/sheet';
+import { updateCell, showRowModal } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
@@ -11,24 +11,21 @@ const cx = classNames.bind(styles);
 class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
-		this.state = {showModal: false, html: this.props.cell.data}
-		this.close = this.close.bind(this)
-		this.open = this.open.bind(this)
+		this.state = {html: this.props.cell.data}
+    this.open = this.open.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
 
-	close() {
-    this.setState({ showModal: false });
-  }
-
-  open() {
-    this.setState({ showModal: true });
+  open(){
+    // dispatch show modal
+    const { dispatch, rowIdx } = this.props;
+    dispatch(showRowModal(rowIdx))
   }
 
   handleChange(evt){
-  	const { dispatch } = this.props;
+  	const { dispatch, cellKey, rowIdx } = this.props;
     this.setState({html: evt.target.value});
-    dispatch(updateCell(evt.target.value, this.props.cellKey, this.props.rowIdx))
+    dispatch(updateCell(evt.target.value, cellKey, rowIdx))
   }
 
   render () {
@@ -38,17 +35,25 @@ class Cell extends Component {
 	       	<a className={cx('cell-expand')} onClick={this.open}>
 	       		<i className="glyphicon glyphicon-resize-full" />
 	       	</a>
-	        {this.props.cell.data}
-	        <Modal show={this.state.showModal} onHide={this.close}>
-		        <Modal.Body>
-		        	<div className="input-group">
-		          	<input className="form-control" value={this.props.cell.data} />
-		          </div>
-		        </Modal.Body>
-		      </Modal>
+	        <ContentEditable className={cx('cell', 'first-cell')}
+            html={this.state.html} // innerHTML of the editable div
+            disabled={false}       // use true to disable edition
+            onChange={this.handleChange} // handle innerHTML change
+          />
 	      </div>
 	    );
   	}
+
+    if (this.props.cell.type === 'url') {
+      // make this a nice link somehow or add a glyiphicon to follow
+      return (
+        <ContentEditable className={cx('cell')}
+          html={this.state.html} // innerHTML of the editable div
+          disabled={false}       // use true to disable edition
+          onChange={this.handleChange} // handle innerHTML change
+        />
+      )
+    }
 
     return (
     	<ContentEditable className={cx('cell')}

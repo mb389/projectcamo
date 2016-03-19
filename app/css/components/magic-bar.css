@@ -1,8 +1,12 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
 .MagicBar {
   padding-top: 5px;
-  height: 50px;
+  height: 45px;
   display: inline-block;
   vertical-align: middle;
+  background-color: light-primary-color;
+  width: 100%;
 }
 
 .SearchButton {
@@ -11,9 +15,13 @@
   margin-left: 15px;
 }
 
+.SearchButton button {
+  /*background-color: #f1f1f1;*/
+}
+
 .FormulaBar {
   display: inline-block;
-  width: 400px;
+  width: 500px;
 }
 
 .FormulaBar span {
@@ -27,6 +35,6 @@
   margin-right: 20px;
   padding-left: 10px;
   padding-right: 20px;
-  width: 350px;
-  height: 32px;
+  width: 500px;
+  height: 35px;
 }

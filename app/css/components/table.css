@@ -1,8 +1,30 @@
+@value columnWidth: 200px;
+
 .table {
     display: inline-block;
     position: relative;
     display: inline-block;
     width: 100%;
+}
+
+.dropdown {
+
+  border-radius: 0px;
+  background-color: red;
+}
+
+.dropdown-toggle {
+  border-radius: 0px;
+  background-color: red;
+  border-color: red;
+}
+
+.columnCarrat {
+  float: right;
+}
+
+.columnMenu {
+  width: columnWidth;
 }
 
 .theaders {
@@ -14,16 +36,18 @@
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid transparent;
     border-left: 1px solid #dde1e3;
+    border-top: 0px;
 }
 
 .thead {
-    min-width: 175px;
+    min-width: columnWidth;
     display: inline-block;
     background: #fff;
     border-right: 1px solid #dde1e3;
     border-bottom: 0;
     border-radius: 0;
     padding: 10px;
+    height: 34px;
 }
 
 .trows {
@@ -35,11 +59,13 @@
 .trow {
     width: 100%;
     display: inline-block;
+    height: 34px;
 }
 
 .cell {
     width: 200px;
     max-height: 40px;
+
     padding: 10px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
@@ -76,7 +102,7 @@
     border-radius: 12px;
     width: 23px;
     height: 23px;
-    opacity: 0;   
+    opacity: 0;
 }
 
 .cell-expand:hover {
@@ -91,4 +117,8 @@
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     overflow: scroll;
+}
+
+#dropdown-Names {
+  border-radius: 0px;
 }

@@ -1,9 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700);
 
 @value montserrat: 'Montserrat', Helvetica, Arial, sans-serif;
+@value lato: 'Lato', sans-serif;
+
 
 .heading {
-  font-family: montserrat;
+  font-family: lato;
   font-size: 28px;
   font-weight: 700;
 
@@ -11,7 +13,7 @@
 }
 
 .subheading {
-  font-family: montserrat;
+  font-family: lato;
   font-size: 21px;
   font-weight: 700;
 
@@ -19,7 +21,7 @@
 }
 
 .normal {
-  font-family: montserrat;
+  font-family: lato;
   font-size: 16px;
   font-weight: 400;
 
@@ -27,7 +29,7 @@
 }
 
 .small {
-  font-family: montserrat;
+  font-family: lato;
   font-size: 12px;
   font-weight: 400;
 

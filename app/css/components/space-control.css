@@ -1,26 +1,48 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
 .SheetButton {
-  border-color: #656565;
+  background: light-primary-color;
+  border-color: primary-color;
   border-style: solid;
-  height: 25px;
   border-width: 1px;
+  height: 30px;
+  width: 120px;
   text-align: center;
+  font-size: 110%;
+  line-height: 27px;
   vertical-align: middle;
   display: inline-block;
   cursor: pointer;
   cursor: hand;
+  font-weight: 200;
+}
+
+.SheetButton active {
+  background: dark-primary-color;
+  border-bottom: 1px solid light-primary-color;
 }
 
 .AddSheetButton {
-  width: 30px;
+  background: dark-primary-color;
+  width: 40px;
+  height: 30px;
+  font-size: 125%;
+  color: white;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 
 .SheetTab {
-  padding-left: 20px;
-  padding-right: 20px;
-
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .ActiveSheetTab {
-  background-color: #0c6965;
+  background-color: dark-primary-color;
+}
+
+.SheetsBar {
+  background-color: primary-color;
 }

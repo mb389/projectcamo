@@ -1,4 +1,3 @@
 {
-  "esnext" :true,
-  "asi": true
+  "esnext" :true
 }

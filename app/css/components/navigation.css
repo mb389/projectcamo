@@ -29,7 +29,6 @@
 }
 
 .main:hover {
-
     text-decoration: none;
 }
 
@@ -46,6 +45,6 @@
   float: right;
 }
 
-.dashboardLink {
+.dashboardLink, .logInNav {
   font-size: 140%;
 }

@@ -20,7 +20,7 @@ const Navigation = ({user, dispatch, }) => {
             <Link onClick={()=> pass}
               className={cx('item', 'logInProfile')} to="/"><Button className={cx('prolifeNav')}></Button></Link>
           ) : (
-            <Link className={cx('item', 'logInProfile')} to="/login"><Button className={cx('logInNav')}>Log in</Button></Link>
+            <Link className={cx('item', 'main', 'logInProfile')} to="/login"><span className={cx('logInNav')}>Log In</span></Link>
           )}
       </nav>
     );

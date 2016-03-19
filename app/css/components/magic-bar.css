@@ -9,10 +9,22 @@
   width: 100%;
 }
 
-.SearchButton {
+.SearchButton, .ShareButton, .HistoryButton {
   display: inline-block;
   width: 25px;
   margin-left: 15px;
+}
+
+.ShareButton, .HistoryButton {
+  display: inline-block;
+  width: 25px;
+  float: right;
+  margin-left: 10px;
+}
+
+.HistoryButton {
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
 .SearchButton button {

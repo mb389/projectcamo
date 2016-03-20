@@ -17,10 +17,28 @@ export default class ColumnOptions extends Component {
 		this.duplicate = this.duplicate.bind(this);
 		this.sortAsc = this.sortAsc.bind(this);
 		this.sortDec = this.sortDec.bind(this);
+		this.exitTypeMenu = this.exitTypeMenu.bind(this);
+		this.saveTypeChanges = this.saveTypeChanges.bind(this);
+		this.itemSelected = this.itemSelected.bind(this);
 	}
 
 	handleSelection(evt, evtKey){
 		this[evtKey]();
+	}
+
+	itemSelected(e, ekey) {
+		console.log('itemSelected', ekey);
+		this.setState({selectedType: ekey});
+	}
+
+	exitTypeMenu() {
+		console.log('exitTypeMenu');
+		this.setState({view: 'dropdown'});
+	}
+
+	saveTypeChanges() {
+		console.log('saveTypeChanges');
+		this.exitTypeMenu();
 	}
 
 	changeType() {
@@ -86,9 +104,9 @@ export default class ColumnOptions extends Component {
 			viewing = (
 				<div className={cx('editNameAndType')}>
 					<div className={cx('thead') + ' col-md-12'} contentEditable>{this.props.data.name}</div>
-					<Dropdown id="dropdown-custom-1" onSelect={this.changeType} className={cx('typeDropdown') + ' col-md-12'}>
+					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        {this.state.selectedType || this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
@@ -97,8 +115,8 @@ export default class ColumnOptions extends Component {
 
 				    <p className='col-md-12'> A single line of text. You can optionally prefill each cell with a default value: </p>
 				    <div className='col-md-12'>
-					    <button className="btn col-md-5" type="button" onClick={this.exitMenu}>Cancel</button>
-					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveChanges}>Save</button>
+					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
+					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>
 					</div>
 				</div>
 				)

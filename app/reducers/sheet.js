@@ -16,12 +16,15 @@ export default function sheet(state = initialState, action = {}) {
     case SHOW_ROW_MODAL:
       return Object.assign({}, state, {
         showRowModal: true,
-        modalRow: state.grid[action.rowIdx]
+        modalRow: { 
+          data: state.grid[action.rowIdx],
+          rowIdx: action.rowIdx
+        }
       });
     case CLOSE_ROW_MODAL:
       return Object.assign({}, state, {
         showRowModal: false,
-        modalRow: null
+        modalRow: {data:null, rowIdx:null}
       });
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});

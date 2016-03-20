@@ -12,11 +12,11 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
 		this.state = {html: this.props.cell.data}
-    this.open = this.open.bind(this)
+    this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 	}
 
-  open(){
+  openModal(){
     // dispatch show modal
     const { dispatch, rowIdx } = this.props;
     dispatch(showRowModal(rowIdx))
@@ -32,7 +32,7 @@ class Cell extends Component {
   	if (this.props.cellIdx === 0) {
   		return (
 	      <div className={cx('cell')} key={this.props.key}>
-	       	<a className={cx('cell-expand')} onClick={this.open}>
+	       	<a className={cx('cell-expand')} onClick={this.openModal}>
 	       		<i className="glyphicon glyphicon-resize-full" />
 	       	</a>
 	        <ContentEditable className={cx('cell', 'first-cell')}
@@ -69,6 +69,12 @@ Cell.propTypes = {
   dispatch: PropTypes.func
 };
 
+function mapStateToProps(store) {
+  return {
+    grid: store.sheet.grid
+  };
+}
 
-export default connect()(Cell);
+
+export default connect(mapStateToProps)(Cell);
 

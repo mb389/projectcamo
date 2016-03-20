@@ -1,8 +1,30 @@
+@value columnWidth: 200px;
+
 .table {
     display: inline-block;
     position: relative;
     display: inline-block;
     width: 100%;
+}
+
+.dropdown {
+
+  border-radius: 0px;
+  background-color: red;
+}
+
+.dropdown-toggle {
+  border-radius: 0px;
+  background-color: red;
+  border-color: red;
+}
+
+.columnCarrat {
+  float: right;
+}
+
+.columnMenu {
+  width: columnWidth;
 }
 
 .theaders {
@@ -14,18 +36,22 @@
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid transparent;
     border-left: 1px solid #dde1e3;
+    border-top: 0px;
 }
 
 .thead {
-    min-width: 175px;
+    min-width: columnWidth;
     display: inline-block;
     background: #fff;
     border-right: 1px solid #dde1e3;
+    border-bottom: 0;
+    border-radius: 0;
     padding: 10px;
+    height: 34px;
 }
 
 .trows {
-    margin-top: 40px;
+    margin-top: 35px;
     height: 100%;
     overflow: scroll;
 }
@@ -33,11 +59,13 @@
 .trow {
     width: 100%;
     display: inline-block;
+    height: 34px;
 }
 
 .cell {
     width: 200px;
     max-height: 40px;
+
     padding: 10px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
@@ -47,6 +75,26 @@
     overflow: scroll;
 }
 
+.cell:focus {
+    z-index: 100;
+    width: 200px;
+    max-height: 1000px;
+}
+
+.first-cell {
+    width: 150px;
+    padding: 0px;
+    display: inline-block;
+    border: none;
+    overflow: scroll;
+}
+
+.first-cell:focus {
+    z-index: 100;
+    width: 150px;
+    max-height: 1000px;
+}
+
 .cell-expand {
     display: inline-block;
     margin-right: 5px;
@@ -54,7 +102,7 @@
     border-radius: 12px;
     width: 23px;
     height: 23px;
-    opacity: 0;   
+    opacity: 0;
 }
 
 .cell-expand:hover {
@@ -69,4 +117,8 @@
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     overflow: scroll;
+}
+
+#dropdown-Names {
+  border-radius: 0px;
 }

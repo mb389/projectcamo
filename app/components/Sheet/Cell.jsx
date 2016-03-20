@@ -1,17 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import { connect } from 'react-redux';
+import { updateCell, showRowModal } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 
 const cx = classNames.bind(styles);
 
-export default class Cell extends Component {
+class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
-		this.state = {showModal: false, html: this.props.cell.data, disabled: true}
-
-		this.close = this.close.bind(this)
+		this.state = {html: this.props.cell.data}
 		this.open = this.open.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.editable = this.editable.bind(this)
@@ -19,20 +19,17 @@ export default class Cell extends Component {
 		this.setMouseLeave = this.setMouseLeave.bind(this)
 	}
 
-	close() {
-	    this.setState({ showModal: false });
+	open(){
+	// dispatch show modal
+	const { dispatch, rowIdx } = this.props;
+	dispatch(showRowModal(rowIdx))
 	}
 
-	open() {
-	    this.setState({ showModal: true });
+	handleChange(evt){
+		const { dispatch, cellKey, rowIdx } = this.props;
+	this.setState({html: evt.target.value});
+	dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
-
-    handleChange (evt) {
-    	console.log('evt',evt);
-		console.log("changed", evt.target.value);
-    	this.setState({html: evt.target.value});
-    // this.dispatch(updateCell(evt.target.value, this.props.key, this.props.idx))
-  	}
 
   	editable (evt) {
   		this.setState({disabled: false});
@@ -46,29 +43,27 @@ export default class Cell extends Component {
   		evt.target.parentElement.style.backgroundColor = '';
   	}
 
-    render () {
-  	  if (this.props.idx === 0) {
-  		return (
-	      <div className={cx('cell')} key={this.props.key}>
-	       	<a className={cx('cell-expand')} onClick={this.open}>
-	       		<i className="glyphicon glyphicon-resize-full" />
-	       	</a>
-	        {this.props.cell.data}
-	        <Modal show={this.state.showModal} onHide={this.close}>
-		        <Modal.Body>
-		        	<div className="input-group">
-		          	<input className="form-control" value={this.props.cell.data} />
-		          </div>
-		        </Modal.Body>
-		      </Modal>
-	      </div>
-	    );
+	render () {
+		if (this.props.cellIdx === 0) {
+	  		return (
+		      <div className={cx('cell')} key={this.props.key}>
+		       	<a className={cx('cell-expand')} onClick={this.open}>
+		       		<i className="glyphicon glyphicon-resize-full" />
+		       	</a>
+		        <ContentEditable className={cx('cell', 'first-cell')}
+	            html={this.state.html} // innerHTML of the editable div
+	            disabled={false}       // use true to disable edition
+	            onChange={this.handleChange} // handle innerHTML change
+	          />
+		      </div>
+		    );
   	}
 
     return (
     	<ContentEditable className={cx('cell')}
         html={this.state.html} // innerHTML of the editable div
         disabled={this.state.disabled}       // use true to disable edition
+        onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
         onMouseEnter={this.setMouseEnter} // handle innerHTML change 
         onMouseLeave={this.setMouseLeave} // handle innerHTML change 
@@ -76,4 +71,11 @@ export default class Cell extends Component {
     );
   }
 }
+
+Cell.propTypes = {
+  dispatch: PropTypes.func
+};
+
+
+export default connect()(Cell);
 

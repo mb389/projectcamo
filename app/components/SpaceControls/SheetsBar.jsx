@@ -8,13 +8,20 @@ import styles from 'css/components/space-control';
 const cx = classNames.bind(styles);
 
 const SheetsBar = (props) => {
+  // to be replace with real sheets fed in via props
+  const sheets = !props.sheetNames ? [] : props.sheetNames;
+
+  const sheetsToView = sheets.map((sheetForTab, i) => (
+    <SheetTab spaceId={props.space._id}
+      activeSheet={props.sheetToShow}
+      key={i}
+      sheet={sheetForTab}
+    />));
 
   // Will need a loop over sheets in space to render the tabs
   return (
     <div className={cx('SheetsBar')}>
-      {/*Multiple tabs put in while waiting for data*/}
-      <SheetTab sheet={{name:"Test1"}} />
-      <SheetTab sheet={{name:"Test2"}} />
+      {sheetsToView}
       <AddSheetButton />
     </div>
   );

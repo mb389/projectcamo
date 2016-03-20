@@ -21,10 +21,32 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function updateCell(data) {
-
+export function updateCell(data, key, idx) {
   return {
     type: types.UPDATE_CELL,
-    data: data
+    cell: {
+    	data: data,
+    	key: key,
+    	idx: idx
+    }
   };
+}
+
+export function showRowModal(rowIdx){
+	return {
+		 type: types.SHOW_ROW_MODAL,
+		 rowIdx: rowIdx
+	}
+}
+
+export function closeRowModal() {
+	return {
+		type: types.CLOSE_ROW_MODAL
+	}
+}
+
+export function addRow() {
+	return {
+		type: types.ADD_ROW
+	}
 }

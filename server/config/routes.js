@@ -1,12 +1,17 @@
 /**
  * Routes for express app
  */
-var topics = require('../controllers/topics');
+
 var express = require('express');
 var users = require('../controllers/users');
 var mongoose = require('mongoose');
 var _ = require('lodash');
 var Topic = mongoose.model('Topic');
+var topics = require('../controllers/topics');
+var Sheet = mongoose.model('Sheet');
+var sheets = require('../controllers/sheets');
+var Workspace = mongoose.model('Workspace');
+var workspaces = require('../controllers/workspaces');
 var path = require('path');
 var compiled_app_module_path = path.resolve(__dirname, '../../', 'public', 'assets', 'server.js');
 var App = require(compiled_app_module_path);
@@ -51,6 +56,45 @@ module.exports = function(app, passport) {
   app.delete('/topic/:id', function(req, res) {
     topics.remove(req, res);
   });
+
+  // sheets routes
+  app.get('/sheet', sheets.all);
+
+  app.get('/sheet/:spaceId/:sheetName', sheets.one);
+
+  app.post('/sheet', function(req, res) {
+    sheets.add(req, res);
+  });
+
+  app.post('/sheet/:spaceId', function(req, res) {
+    sheets.addSheetToSpace(req, res);
+  });
+
+  app.put('/sheet/:id', function(req, res) {
+    sheets.update(req, res);
+  });
+
+  app.delete('/sheet/:id', function(req, res) {
+    sheets.remove(req, res);
+  });
+
+  // workspace routes
+  app.get('/workspace', workspaces.all);
+
+  app.get('/workspace/:id', workspaces.one);
+
+  app.post('/workspace', function(req, res) {
+    workspaces.add(req, res);
+  });
+
+  app.put('/workspace/:id', function(req, res) {
+    workspaces.update(req, res);
+  });
+
+  app.delete('/workspace/:id', function(req, res) {
+    workspaces.remove(req, res);
+  });
+
 
   // This is where the magic happens. We take the locals data we have already
   // fetched and seed our stores with data.

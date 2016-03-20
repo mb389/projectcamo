@@ -29,10 +29,11 @@ export default class ColumnOptions extends Component {
 
 function generateMenuItems () {
 	var items = [
-		<MenuItem key="1" eventKey="1" active>Sort</MenuItem>,
-		<MenuItem key="2" eventKey="2">Another action</MenuItem>,
-		<MenuItem key="3" eventKey="3">Active Item</MenuItem>,
-		<MenuItem key="4" eventKey="4">Separated link</MenuItem>
+		<MenuItem key="1" eventKey="1">Change Type</MenuItem>,
+		<MenuItem key="2" eventKey="2">Rename Column</MenuItem>,
+		<MenuItem key="3" eventKey="3">Duplicate Field</MenuItem>,
+		<MenuItem key="4" eventKey="4">Sort A -> Z</MenuItem>,
+		<MenuItem key="4" eventKey="4">Sort Z -> A</MenuItem>
 		];
 
 	return items;

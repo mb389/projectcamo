@@ -32,8 +32,8 @@ export default function sheet(state = initialState, action = {}) {
       let newColumn = {
         id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         // How are we making ids?
-        type: action.column.type,
-        name: action.column.name,
+        type: 'Text',
+        name: 'Column ' + addColumnState.columnHeaders.length,
         idx: addColumnState.columnHeaders.length,
       } 
 

@@ -14,18 +14,15 @@ class AddColumn extends Component {
 
   addColumn(){
     console.log("column add");
-    let type = 'number';
-    let name = 'Phone number';
     this.props.dispatch(addColumn(type, name));
   }
 
   render () {
     return (
-      <button className="btn btn-primary" type="button" onClick={this.addColumn}>Add Column</button>
+      <button className={cx('thead')} onClick={this.addColumn}> + </button>
     );
 	}
 }
-
 
 export default connect()(AddColumn);
 

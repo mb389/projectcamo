@@ -33,3 +33,20 @@ export function fetchTopics() {
     promise: makeTopicRequest('get')
   };
 }
+
+export function loadSpace(obj) {
+  return {
+    type: types.LOAD_SPACE,
+    space: obj.space,
+    sheet: obj.sheet
+  };
+}
+
+export function getSpace() {
+  const tempID = '56edc92bcbc0172e37d30cce';
+  return (dispatch) => {
+    request(`/workspace/${tempID}`)
+    .then(res => res.data)
+    .then(res => dispatch(loadSpace({ space: res.space, sheet: res.sheet })));
+  };
+}

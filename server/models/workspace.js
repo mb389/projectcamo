@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  sheets: [String],
+  // sheets: [String],
   name: {
     type: String,
     required: true

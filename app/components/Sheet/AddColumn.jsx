@@ -13,9 +13,9 @@ class AddColumn extends Component {
 	}
 
   addColumn(){
-    console.log("column add")
-    let type = 'number',
-    let name = 'Phone number',
+    console.log("column add");
+    let type = 'number';
+    let name = 'Phone number';
     this.props.dispatch(addColumn(type, name));
   }
 

@@ -25,9 +25,9 @@ export default function sheet(state = initialState, action = {}) {
         modalRow: null
       });
     case ADD_COLUMN:
-      let AddColumnState = Object.assign({}, state, {});
+      let addColumnState = Object.assign({}, state, {});
       let newColumn = {
-        id: addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id+10;
+        id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         // How are we making ids?
         type: action.column.type,
         name: action.column.name,
@@ -36,14 +36,14 @@ export default function sheet(state = initialState, action = {}) {
 
       addColumnState.columnHeaders.push(newColumn);
 
-      AddColumnState.grid.forEach(row => {
+      addColumnState.grid.forEach(row => {
           row[newColumn.id] = {
             type: newColumn.type,
             data: null,
           }
         });
 
-      return AddColumnState;
+      return addColumnState;
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});
       let lastRow = addRowState.grid[addRowState.grid.length - 1]

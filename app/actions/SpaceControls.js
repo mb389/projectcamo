@@ -68,6 +68,26 @@ export function getSheet(spaceId, sheetName) {
     .then(res => res.data)
     .then(res => dispatch(loadSheet({
       sheetToShow: res
+    })));
+  };
+}
+
+export function addSheetToView(obj) {
+  return {
+    type: types.ADD_SHEET_VIEW,
+    newSheetId: obj.newSheetId,
+    sheetName: obj.sheetName
+  }
+}
+
+export function addSheet(spaceId) {
+  return (dispatch) => {
+    request.post(`/sheet/${spaceId}`)
+    .then(res => res.data)
+    .then(res => dispatch(addSheetToView({
+      newSheetId: res._id,
+      sheetName: res.name
+
     })))
   }
 }

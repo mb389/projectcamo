@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
+import * as Actions from '../../actions/spacecontrols';
 
 
 const cx = classNames.bind(styles);
@@ -13,9 +14,7 @@ class AddSheetButton extends Component {
   }
 
   addSheet() {
-    // this.props.dispatch();
-    // dispatch action to create a new sheet in mongo
-    console.log('addingSheet');
+    this.props.dispatch(Actions.addSheet(this.props.space._id));
   }
 
   render() {
@@ -26,5 +25,12 @@ class AddSheetButton extends Component {
 
 }
 
+const mapStateToProps = (store) => {
+  return {
+    space: store.spacecontrol.space,
+  };
+};
 
-export default connect()(AddSheetButton);
+
+
+export default connect(mapStateToProps)(AddSheetButton);

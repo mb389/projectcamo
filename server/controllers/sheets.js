@@ -24,6 +24,17 @@ exports.all = function(req, res) {
    .catch(err => res.status(400).send(err));
  };
 
+ /**
+  * Add a Sheet
+  */
+ exports.addSheetToSpace = function(req, res) {
+   Sheet.create({name: 'Sheet Name', workspace: req.params.spaceId})
+   .then(sheet => res.json(sheet))
+   .catch(err => res.status(400).send(err))
+ };
+
+
+
 /**
  * Add a Sheet
  */

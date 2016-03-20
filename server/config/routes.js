@@ -66,6 +66,10 @@ module.exports = function(app, passport) {
     sheets.add(req, res);
   });
 
+  app.post('/sheet/:spaceId', function(req, res) {
+    sheets.addSheetToSpace(req, res);
+  });
+
   app.put('/sheet/:id', function(req, res) {
     sheets.update(req, res);
   });

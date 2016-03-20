@@ -39,6 +39,11 @@
   min-width: 120px;
 }
 
+.activeSheet {
+  background-color: black;
+  color: black;
+}
+
 .ActiveSheetTab {
   background-color: dark-primary-color;
 }

@@ -18,10 +18,13 @@ class SheetsTab extends Component {
   }
 
   render() {
+    let active = this.props.activeSheet &&
+      this.props.activeSheet.name === this.props.sheet ?
+      'activeSheet' : '';
     return (
       <div onClick={this.showSheet}
-      className={cx('SheetTab', 'SheetButton')}>{this.props.sheet}
-      </div>
+        className={cx('SheetTab', 'SheetButton', active)}
+      >{this.props.sheet}</div>
     );
   }
 }

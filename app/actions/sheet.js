@@ -45,20 +45,20 @@ export function closeRowModal() {
 	}
 }
 
-export function addRow(type, name) {
+export function addRow() {
 	return {
-		type: types.ADD_ROW,
+		type: types.ADD_ROW
+	}
+}
+
+export function addColumn(type, name) {
+	return {
+		type: types.ADD_COLUMN,
 		column: {
 			type: type,
 			name: name,
 			// type,
 			// name,
 		}
-	}
-}
-
-export function addColumn() {
-	return {
-		type: types.ADD_COLUMN
 	}
 }

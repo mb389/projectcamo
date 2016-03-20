@@ -9,29 +9,45 @@ const cx = classNames.bind(styles);
 export default class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
-		this.state = {showModal: false, html: this.props.cell.data}
+		this.state = {showModal: false, html: this.props.cell.data, disabled: true}
 
 		this.close = this.close.bind(this)
 		this.open = this.open.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.editable = this.editable.bind(this)
+		this.setMouseEnter = this.setMouseEnter.bind(this)
+		this.setMouseLeave = this.setMouseLeave.bind(this)
 	}
 
 	close() {
-    this.setState({ showModal: false });
-  }
+	    this.setState({ showModal: false });
+	}
 
-  open() {
-    this.setState({ showModal: true });
-  }
+	open() {
+	    this.setState({ showModal: true });
+	}
 
-  handleChange(evt){
-		console.log("changed", evt.target.value)
-    this.setState({html: evt.target.value});
+    handleChange (evt) {
+    	console.log('evt',evt);
+		console.log("changed", evt.target.value);
+    	this.setState({html: evt.target.value});
     // this.dispatch(updateCell(evt.target.value, this.props.key, this.props.idx))
-  }
+  	}
 
-  render () {
-  	if (this.props.idx === 0) {
+  	editable (evt) {
+  		this.setState({disabled: false});
+  	}
+
+  	setMouseEnter (evt) {
+  		evt.target.parentElement.style.backgroundColor = '#e9e9e9';
+  	}
+
+  	setMouseLeave (evt) {
+  		evt.target.parentElement.style.backgroundColor = '';
+  	}
+
+    render () {
+  	  if (this.props.idx === 0) {
   		return (
 	      <div className={cx('cell')} key={this.props.key}>
 	       	<a className={cx('cell-expand')} onClick={this.open}>
@@ -52,8 +68,10 @@ export default class Cell extends Component {
     return (
     	<ContentEditable className={cx('cell')}
         html={this.state.html} // innerHTML of the editable div
-        disabled={false}       // use true to disable edition
-        onChange={this.handleChange} // handle innerHTML change
+        disabled={this.state.disabled}       // use true to disable edition
+        onDoubleClick={this.editable} // allow for cell editing after focus
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
       />
     );
   }

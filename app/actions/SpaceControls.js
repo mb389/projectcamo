@@ -21,11 +21,6 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function addSheet() {
-  //make request to server to add a new sheet in the account. Get back the mongoID and then add a new sheet with that ID and link to that sheet
-  console.log('addSheet');
-}
-
 // Fetch posts logic
 export function fetchTopics() {
   return {
@@ -33,3 +28,68 @@ export function fetchTopics() {
     promise: makeTopicRequest('get')
   };
 }
+
+export function loadSpace(obj) {
+  return {
+    type: types.LOAD_SPACE,
+    space: obj.space,
+    sheetToShow: obj.sheetToShow,
+    sheetNames: obj.sheetNames
+  };
+}
+
+export function getSpace(spaceId) {
+  return (dispatch) => {
+    request(`/workspace/${spaceId}`)
+    .then(res => res.data)
+    .then(res => dispatch(loadSpace({
+      space: res.space,
+      sheetToShow: res.sheet,
+      sheetNames: res.sheetNames
+    })));
+  };
+}
+
+export function loadSheet(obj) {
+  return {
+    type: types.LOAD_SHEET,
+    sheetToShow: obj.sheetToShow
+  };
+}
+
+export function getSheet(spaceId, sheetName) {
+  return (dispatch) => {
+    request(`/sheet/${spaceId}/${sheetName}`)
+    .then(res => res.data)
+    .then(res => dispatch(loadSheet({
+      sheetToShow: res
+    })));
+  };
+}
+
+export function addSheetToView(obj) {
+  return {
+    type: types.ADD_SHEET_VIEW,
+    newSheetId: obj.newSheetId,
+    sheetName: obj.sheetName
+  }
+}
+
+export function addSheet(spaceId) {
+  return (dispatch) => {
+    request.post(`/sheet/${spaceId}`)
+    .then(res => res.data)
+    .then(res => dispatch(addSheetToView({
+      newSheetId: res._id,
+      sheetName: res.name
+
+    })))
+  }
+}
+
+// export function makeActiveSheet(sheet) {
+//   return {
+//     type: types.MAKE_ACTIVE_SHEET,
+//     activeSheet: sheet.name
+//   }
+// }

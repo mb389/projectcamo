@@ -60,8 +60,14 @@ module.exports = function(app, passport) {
   // sheets routes
   app.get('/sheet', sheets.all);
 
-  app.post('/sheet/:id', function(req, res) {
+  app.get('/sheet/:spaceId/:sheetName', sheets.one);
+
+  app.post('/sheet', function(req, res) {
     sheets.add(req, res);
+  });
+
+  app.post('/sheet/:spaceId', function(req, res) {
+    sheets.addSheetToSpace(req, res);
   });
 
   app.put('/sheet/:id', function(req, res) {
@@ -75,7 +81,9 @@ module.exports = function(app, passport) {
   // workspace routes
   app.get('/workspace', workspaces.all);
 
-  app.post('/workspace/:id', function(req, res) {
+  app.get('/workspace/:id', workspaces.one);
+
+  app.post('/workspace', function(req, res) {
     workspaces.add(req, res);
   });
 

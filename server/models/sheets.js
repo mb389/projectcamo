@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  creationDate: Date,
+  creationDate: { type: Date, default: Date.now },
   workspace: { type: mongoose.Schema.Types.ObjectId, ref: 'Workspace' }
 });
 

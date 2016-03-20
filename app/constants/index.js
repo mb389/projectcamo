@@ -1,4 +1,4 @@
-//GENERATOR CONSTS
+// GENERATOR CONSTS
 
 export const TOGGLE_LOGIN_MODE = 'TOGGLE_LOGIN_MODE';
 export const MANUAL_LOGIN_USER = 'MANUAL_LOGIN_USER';
@@ -12,13 +12,15 @@ export const LOGOUT_SUCCESS_USER = 'LOGOUT_SUCCESS_USER';
 export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 
 
-//NEW CONSTS
+// NEW CONSTS
 
 export const ADD_SHEET = 'ADD_SHEET';
+export const LOAD_SPACE = 'LOAD_SPACE';
+export const LOAD_SHEET = 'LOAD_SHEET';
+export const ADD_SHEET_VIEW = 'ADD_SHEET_VIEW';
 
 // SHEET CONSTS
 export const UPDATE_CELL = 'UPDATE_CELL';
 export const SHOW_ROW_MODAL = 'SHOW_ROW_MODAL';
 export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
-

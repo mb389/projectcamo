@@ -10,7 +10,7 @@ export default function sheet(state = initialState, action = {}) {
     case LOAD_SPACE:
       return Object.assign({}, state, {
         space: action.space,
-        sheetToShow: action.sheet,
+        sheetToShow: action.sheetToShow,
         sheetNames: action.sheetNames
       });
     case ADD_SHEET:

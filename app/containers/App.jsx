@@ -18,9 +18,9 @@ const cx = classNames.bind(styles);
  * https://github.com/rackt/react-router/blob/latest/docs/Introduction.md
  */
 const App = ({children}) => {
+  // <Navigation /> // placed in space controller container so it can inherit props
   return (
     <div className={cx('app')}>
-      // <Navigation /> // placed in space controller container so it can inherit props
         {children}
     </div>
   );

@@ -38,7 +38,7 @@ export function loadSpace(obj) {
   return {
     type: types.LOAD_SPACE,
     space: obj.space,
-    sheet: obj.sheet,
+    sheetToShow: obj.sheetToShow,
     sheetNames: obj.sheetNames
   };
 }
@@ -50,7 +50,7 @@ export function getSpace() {
     .then(res => res.data)
     .then(res => dispatch(loadSpace({
       space: res.space,
-      sheet: res.sheet,
+      sheetToShow: res.sheet,
       sheetNames: res.sheetNames
     })));
   };

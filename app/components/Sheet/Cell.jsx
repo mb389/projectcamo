@@ -14,6 +14,9 @@ class Cell extends Component {
 		this.state = {html: this.props.cell.data}
     this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.editable = this.editable.bind(this)
+		this.setMouseEnter = this.setMouseEnter.bind(this)
+		this.setMouseLeave = this.setMouseLeave.bind(this)
 	}
 
   openModal(){
@@ -22,44 +25,48 @@ class Cell extends Component {
     dispatch(showRowModal(rowIdx))
   }
 
-  handleChange(evt){
-  	const { dispatch, cellKey, rowIdx } = this.props;
-    this.setState({html: evt.target.value});
-    dispatch(updateCell(evt.target.value, cellKey, rowIdx))
+	handleChange(evt){
+	  const { dispatch, cellKey, rowIdx } = this.props;
+	  this.setState({html: evt.target.value});
+	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
+	}
+
+  editable (evt) {
+    this.setState({disabled: false});
   }
 
-  render () {
-  	if (this.props.cellIdx === 0) {
-  		return (
-	      <div className={cx('cell')} key={this.props.key}>
-	       	<a className={cx('cell-expand')} onClick={this.openModal}>
-	       		<i className="glyphicon glyphicon-resize-full" />
-	       	</a>
-	        <ContentEditable className={cx('cell', 'first-cell')}
-            html={this.state.html} // innerHTML of the editable div
-            disabled={false}       // use true to disable edition
-            onChange={this.handleChange} // handle innerHTML change
-          />
-	      </div>
-	    );
-  	}
+  setMouseEnter (evt) {
+    evt.target.parentElement.style.backgroundColor = '#e9e9e9';
+  }
 
-    if (this.props.cell.type === 'url') {
-      // make this a nice link somehow or add a glyiphicon to follow
-      return (
-        <ContentEditable className={cx('cell')}
-          html={this.state.html} // innerHTML of the editable div
-          disabled={false}       // use true to disable edition
-          onChange={this.handleChange} // handle innerHTML change
-        />
-      )
-    }
+  setMouseLeave (evt) {
+    evt.target.parentElement.style.backgroundColor = '';
+  }
+
+	render () {
+		if (this.props.cellIdx === 0) {
+	  		return (
+		      <div className={cx('cell')} key={this.props.key}>
+		       	<a className={cx('cell-expand')} onClick={this.open}>
+		       		<i className="glyphicon glyphicon-resize-full" />
+		       	</a>
+		        <ContentEditable className={cx('cell', 'first-cell')}
+	            html={this.state.html} // innerHTML of the editable div
+	            disabled={false}       // use true to disable edition
+	            onChange={this.handleChange} // handle innerHTML change
+	          />
+		      </div>
+		    );
+  	}
 
     return (
     	<ContentEditable className={cx('cell')}
         html={this.state.html} // innerHTML of the editable div
-        disabled={false}       // use true to disable edition
+        disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
+        onDoubleClick={this.editable} // allow for cell editing after focus
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
       />
     );
   }

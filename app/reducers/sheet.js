@@ -10,7 +10,7 @@ import initialState from './sheetState'
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
     case UPDATE_CELL:
-      let newState = Object.assign({}, state, {});
+      let newState = Object.assign({}, state);
       newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
       return newState
     case SHOW_ROW_MODAL:

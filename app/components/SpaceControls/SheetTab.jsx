@@ -11,19 +11,24 @@ class SheetsTab extends Component {
   constructor(props) {
     super(props);
     this.showSheet = this.showSheet.bind(this);
+    this.active = '';
   }
 
   showSheet() {
+    console.log('showSheet', this.props);
+    this.active = 'activeSheet';
+    this.forceUpdate(); // will cause the tab to re-render
     this.props.dispatch(Actions.getSheet(this.props.spaceId, this.props.sheet));
   }
 
   render() {
-    let active = this.props.activeSheet &&
-      this.props.activeSheet.name === this.props.sheet ?
-      'activeSheet' : '';
+    console.log('render', this.props);
+    // let active = this.props.activeSheet &&
+    //   this.props.activeSheet.name === this.props.sheet ?
+    //   'activeSheet' : '';
     return (
       <div onClick={this.showSheet}
-        className={cx('SheetTab', 'SheetButton', active)}
+        className={cx('SheetTab', 'SheetButton', this.active)}
       >{this.props.sheet}</div>
     );
   }

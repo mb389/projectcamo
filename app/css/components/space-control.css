@@ -1,7 +1,7 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .SheetButton {
-  background: light-primary-color;
+  background: dark-primary-color;
   border-color: primary-color;
   border-style: solid;
   border-width: 1px;
@@ -40,8 +40,8 @@
 }
 
 .activeSheet {
-  background-color: black;
-  color: black;
+  background-color: light-primary-color;
+  border-bottom: 0px;
 }
 
 .ActiveSheetTab {

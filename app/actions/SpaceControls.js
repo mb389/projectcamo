@@ -59,7 +59,7 @@ export function loadSheet(obj) {
   return {
     type: types.LOAD_SHEET,
     sheetToShow: obj.sheetToShow
-  }
+  };
 }
 
 export function getSheet(spaceId, sheetName) {

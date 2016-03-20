@@ -9,9 +9,7 @@ const cx = classNames.bind(styles);
 
 const SheetsBar = (props) => {
   // to be replace with real sheets fed in via props
-  console.log(props);
   const sheets = !props.sheetNames ? [] : props.sheetNames;
-  // const sheets = ['test1', 'testing2']
 
   const sheetsToView = sheets.map((sheetForTab, i) => <SheetTab key={i} sheet={sheetForTab} />);
 

@@ -9,6 +9,7 @@ import styles from 'css/components/navigation';
 
 const cx = classNames.bind(styles);
 
+
 class Navigation extends Component {
   constructor(props, context) {
     super(props, context);
@@ -21,7 +22,7 @@ class Navigation extends Component {
       <Link to="dashboard"
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
-    <div className={cx('item', 'spaceName')}>{this.props.space.name}</div>
+    <div className={cx('item', 'spaceName')}>{!this.props.space ? 'Loading' : this.props.space.name}</div>
   { this.props.user.authenticated ? (
         <Link onClick={()=> pass}
         className={cx('item', 'logInProfile')} to="/"><Button className={cx('prolifeNav')}></Button></Link>
@@ -32,8 +33,8 @@ class Navigation extends Component {
       );
     }
 }
-// const Navigation = ({ user, dispatch, space }) => {
-// };
+
+
 
 
 Navigation.propTypes = {

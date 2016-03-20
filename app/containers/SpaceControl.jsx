@@ -19,22 +19,19 @@ class SpaceControl extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
         <div>
           <Navigation space={this.props.space} />
         <SheetsBar sheetToShow={this.props.sheetToShow}
           space={this.props.space}
           sheetNames={this.props.sheetNames}
-          />
+        />
           <MagicBar />
           <Table grid={this.props.sheet.grid} headers={this.props.sheet.columnHeaders} />
         </div>
     );
   }
 }
-
-
 
 
 

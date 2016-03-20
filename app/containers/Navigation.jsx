@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { logOut } from 'actions/users';
 import { Button, Glyphicon } from 'react-bootstrap';
 import * as Actions from '../actions/navigation';
-import TagName from '../components/SpaceControls/SpaceSheetName';
+// import TagName from '../components/SpaceControls/SpaceSheetName';
 import ContentEditable from 'react-contenteditable';
 
 import classNames from 'classnames/bind';
@@ -20,15 +20,9 @@ class Navigation extends Component {
     // this.onNameChange = this.onNameChange.bind(this);
   }
 
-  editSpaceName() {
-    console.log('editing');
-    this.props.dispatch(Actions.changeSpaceName(this.props.space));
+  editSpaceName(e) {
+    this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
   }
-
-  // onNameChange(e) {
-  //   this.setState({ name: e.target.value });
-  //   console.log(this.state.name);
-  // }
 
   render() {
     return (
@@ -36,7 +30,12 @@ class Navigation extends Component {
       <Link to="dashboard"
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
-    <div className={cx('item', 'spaceName')}>{!this.props.space ? 'Loading' : this.props.space.name}</div>
+      <ContentEditable className={cx('item', 'spaceName')}
+          html={!this.props.space ? 'Loading' : this.props.space.name}
+            // innerHTML of the editable div
+          disabled={false}     // use true to disable edition
+          onChange={this.editSpaceName} // handle innerHTML change
+        />
   { this.props.user.authenticated ? (
         <Link onClick={()=> pass}
         className={cx('item', 'logInProfile')} to="/"><Button className={cx('prolifeNav')}></Button></Link>
@@ -47,23 +46,6 @@ class Navigation extends Component {
       );
     }
 }
-
-// <ContentEditable className={cx('item', 'spaceName')}
-//     html={!this.props.space ? 'Loading' : this.props.space.name}
-//       // innerHTML of the editable div
-//     disabled={false}       // use true to disable edition
-//     onChange={this.editSpaceName} // handle innerHTML change
-//   />
-
-
-// <TagName
-//   html={!this.props.space ? 'Loading' : this.state.name || this.props.space.name}
-//   className={cx('item', 'spaceName')}
-//   // onChange={this.editSpaceName}
-//   onBlur={this.editSpaceName}
-//   // onNameChange={this.onNameChange}
-//   onInput={console.log('ASSAF')}
-// />
 
 
 Navigation.propTypes = {

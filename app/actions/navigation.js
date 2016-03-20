@@ -36,10 +36,10 @@ export function updateSpaceName(name) {
   }
 }
 
-export function changeSpaceName(space) {
+export function changeSpaceName(spaceId, name) {
   return (dispatch) => {
-    request.put(`/workspace/${space._id}`, { name: space.name })
+    request.put(`/workspace/${spaceId}`, { name })
     .then(res => res.data)
-    .then(() => dispatch(updateSpaceName(space.name)))
+    .then(() => dispatch(updateSpaceName(name)))
   }
 }

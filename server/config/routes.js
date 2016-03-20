@@ -60,6 +60,8 @@ module.exports = function(app, passport) {
   // sheets routes
   app.get('/sheet', sheets.all);
 
+  app.get('/sheet/:spaceId/:sheetName', sheets.one);
+
   app.post('/sheet', function(req, res) {
     sheets.add(req, res);
   });

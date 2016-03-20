@@ -9,8 +9,20 @@ var Sheet = mongoose.model('Sheet');
 exports.all = function(req, res) {
   Sheet.find({})
   .then(() => res.json(Sheets))
-  .catch((err) => console.log('Error in first query'));
+  .catch((err) => res.status(400).send(err));
 };
+
+/**
+ * Add a Sheet
+ */
+ exports.one = function(req, res) {
+   Sheet.findOne({
+     name: req.params.sheetName,
+     workspace: req.params.spaceId
+   })
+   .then(sheet => res.json(sheet))
+   .catch(err => res.status(400).send(err));
+ };
 
 /**
  * Add a Sheet

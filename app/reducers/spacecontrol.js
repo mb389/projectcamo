@@ -1,6 +1,7 @@
 import {
   LOAD_SPACE,
-  ADD_SHEET
+  ADD_SHEET,
+  LOAD_SHEET
 } from 'constants/index';
 
 import initialState from './sheetState';
@@ -13,6 +14,8 @@ export default function sheet(state = initialState, action = {}) {
         sheetToShow: action.sheetToShow,
         sheetNames: action.sheetNames
       });
+    case LOAD_SHEET:
+      return Object.assign({}, state, { sheetToShow: action.sheetToShow });
     case ADD_SHEET:
       return state;
     default:

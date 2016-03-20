@@ -29,6 +29,7 @@ export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 
 export const ADD_SHEET = 'ADD_SHEET';
 export const LOAD_SPACE = 'LOAD_SPACE';
+export const LOAD_SHEET = 'LOAD_SHEET';
 
 // SHEET CONSTS
 export const UPDATE_CELL = 'UPDATE_CELL';

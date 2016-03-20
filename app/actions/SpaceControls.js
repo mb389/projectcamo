@@ -44,9 +44,8 @@ export function loadSpace(obj) {
 }
 
 export function getSpace(spaceId) {
-  const tempID = spaceId;
   return (dispatch) => {
-    request(`/workspace/${tempID}`)
+    request(`/workspace/${spaceId}`)
     .then(res => res.data)
     .then(res => dispatch(loadSpace({
       space: res.space,
@@ -54,4 +53,21 @@ export function getSpace(spaceId) {
       sheetNames: res.sheetNames
     })));
   };
+}
+
+export function loadSheet(obj) {
+  return {
+    type: types.LOAD_SHEET,
+    sheetToShow: obj.sheetToShow
+  }
+}
+
+export function getSheet(spaceId, sheetName) {
+  return (dispatch) => {
+    request(`/sheet/${spaceId}/${sheetName}`)
+    .then(res => res.data)
+    .then(res => dispatch(loadSheet({
+      sheetToShow: res
+    })))
+  }
 }

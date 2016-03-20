@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import Cell from './Cell';
+import TextModal from './ModalTypes/Text';
 import { connect } from 'react-redux';
 import { closeRowModal } from 'actions/sheet';
 import styles from 'css/components/table';
@@ -12,25 +12,17 @@ class RowModal extends Component {
 	constructor(props, state){
 		super(props, state)
 		this.close = this.close.bind(this)
-		this.handleChange = this.handleChange.bind(this)
 	}
 
 	close() {
-    // dispatch close modal
     this.props.dispatch(closeRowModal())
   }
 
-  handleChange(evt){
-  	const { dispatch } = this.props;
-    this.setState({html: evt.target.value});
-    dispatch(updateCell(evt.target.value, this.props.cellKey, this.props.rowIdx))
-  }
-
   rowCells(){
-    const { modalRow } = this.props;
+    const { modalRow, modalRowIdx } = this.props;
     const cells = [];
     for (let key in modalRow) {
-      cells.push(<Cell cell={modalRow[key]} key={key} cellKey={key} row={modalRow} cellIdx={cells.length}/>);
+      cells.push(<TextModal cell={modalRow[key]} key={key} cellKey={key} row={modalRow} rowIdx={modalRowIdx} cellIdx={cells.length}/>);
     }
     return cells    
   }
@@ -50,7 +42,8 @@ class RowModal extends Component {
 function mapStateToProps(store) {
   return {
     showRowModal: store.sheet.showRowModal,
-    modalRow: store.sheet.modalRow
+    modalRow: store.sheet.modalRow.data,
+    modalRowIdx: store.sheet.modalRow.rowIdx
   };
 }
 

@@ -13,7 +13,6 @@ class AddRow extends Component {
 	}
 
   addRow(){
-    console.log("hi")
     this.props.dispatch(addRow())
   }
 

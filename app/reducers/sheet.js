@@ -17,12 +17,15 @@ export default function sheet(state = initialState, action = {}) {
     case SHOW_ROW_MODAL:
       return Object.assign({}, state, {
         showRowModal: true,
-        modalRow: state.grid[action.rowIdx]
+        modalRow: { 
+          data: state.grid[action.rowIdx],
+          rowIdx: action.rowIdx
+        }
       });
     case CLOSE_ROW_MODAL:
       return Object.assign({}, state, {
         showRowModal: false,
-        modalRow: null
+        modalRow: {data:null, rowIdx:null}
       });
     case ADD_COLUMN:
       let addColumnState = Object.assign({}, state, {});
@@ -46,11 +49,11 @@ export default function sheet(state = initialState, action = {}) {
       return addColumnState;
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});
-      let lastRow = addRowState.grid[addRowState.grid.length - 1]
-      for (let key in lastRow) {
-        lastRow[key].data = null
-      }
-      addRowState.grid.push(lastRow)
+      let newRow = {}
+      addRowState.columnHeaders.forEach(function (col) {
+        newRow[col.id] = { data: null, type: col.type }
+      })
+      addRowState.grid.push(newRow)
       return addRowState
     default:
       return state;

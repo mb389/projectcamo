@@ -85,21 +85,21 @@ export default class ColumnOptions extends Component {
 
 			viewing = (
 				<div className={cx('editNameAndType')}>
-					<div className={cx('thead')} contentEditable>{this.props.data.name}</div>
-					<Dropdown id="dropdown-custom-1" onSelect={this.changeType} className={cx('thead')}>
-				      <Dropdown.Toggle noCaret className={cx('thead')}>
-				        {this.props.data.type}
-								<Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+					<div className={cx('thead') + ' col-md-12'} contentEditable>{this.props.data.name}</div>
+					<Dropdown id="dropdown-custom-1" onSelect={this.changeType} className={cx('typeDropdown') + ' col-md-12'}>
+				      <Dropdown.Toggle noCaret className=' col-md-12'>
+				        {this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
 				      </Dropdown.Menu>
 				    </Dropdown>
 
-				    <p> description of type </p>
-
-				    <button className="btn" type="button" onClick={this.exitMenu}>Cancel</button>
-				    <button className="btn btn-primary" type="button" onClick={this.saveChanges}>Save</button>
+				    <p className='col-md-12'> A single line of text. You can optionally prefill each cell with a default value: </p>
+				    <div className='col-md-12'>
+					    <button className="btn col-md-5" type="button" onClick={this.exitMenu}>Cancel</button>
+					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveChanges}>Save</button>
+					</div>
 				</div>
 				)
 		}

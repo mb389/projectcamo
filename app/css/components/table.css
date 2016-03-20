@@ -8,17 +8,27 @@
     width: 100%;
 }
 
+.typeDropdown {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
 .editNameAndType {
   z-index: 99;
   margin-top: 10px;
   padding: 10px;
+  width: 250px;
   position: absolute;
-  background: light-primary-color;
-  width: columnWidth*2;
+  background: #d1d1d1;
   border-bottom: 1px solid #d1d1d1;
   border-top: 1px solid transparent;
   border-left: 1px solid #dde1e3;
   border-top: 1px solid #dde1e3;
+}
+
+.editNameAndType button {
+    margin:5px;
 }
 
 .dropdown {

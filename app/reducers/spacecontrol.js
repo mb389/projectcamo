@@ -1,7 +1,8 @@
 import {
   LOAD_SPACE,
   LOAD_SHEET,
-  ADD_SHEET_VIEW
+  ADD_SHEET_VIEW,
+  CHANGE_SPACE_NAME
 } from 'constants/index';
 
 import initialState from './sheetState';
@@ -21,6 +22,10 @@ export default function sheet(state = initialState, action = {}) {
       return Object.assign({}, state, {
         newSheetId: action.newSheetId, sheetNames
       });
+    case CHANGE_SPACE_NAME:
+      const space = state.space;
+      space.name = action.name;
+      return Object.assign({}, state, { space })
     default:
       return state;
   }

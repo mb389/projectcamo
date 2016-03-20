@@ -17,17 +17,7 @@ polyfill();
  * @param String endpoint
  * @return Promise
  */
-function makeTopicRequest(method, id, data, api='/topic') {
-  return request[method](api + (id ? ('/' + id) : ''), data);
-}
 
-// Fetch posts logic
-export function fetchTopics() {
-  return {
-    type: types.GET_TOPICS,
-    promise: makeTopicRequest('get')
-  };
-}
 
 export function loadSpace(obj) {
   return {

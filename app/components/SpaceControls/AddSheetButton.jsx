@@ -9,12 +9,12 @@ const cx = classNames.bind(styles);
 class AddSheetButton extends Component {
   constructor(props) {
     super(props);
-  this.addSheet = this.addSheet.bind(this);
+    this.addSheet = this.addSheet.bind(this);
   }
 
   addSheet() {
     // this.props.dispatch();
-    //dispatch action to create a new sheet in mongo
+    // dispatch action to create a new sheet in mongo
     console.log('addingSheet');
   }
 

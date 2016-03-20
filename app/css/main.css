@@ -1,4 +1,4 @@
-@value montserrat from './common/typography.css';
+@value lato from './common/typography.css';
 
 /*
  * Add any global styles here
@@ -14,7 +14,7 @@ body {
 .app {
   composes: box from './common/layout.css';
 
-  font-family: montserrat;
+  font-family: lato;
   font-weight: normal;
   font-smoothing: antialiased;
 }

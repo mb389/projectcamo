@@ -1,10 +1,13 @@
-@value font-x-large from '../settings.css';
-@value color-black, color-dodger-blue from '../common/colors.css';
+
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .navigation {
-  border-bottom: 1px solid #08346a;
   display: block;
   height: 50px;
+  color: white;
+  background:  primary-color;
+  /*box-shadow: 0 3px 10px rgba(0,0,0,0.23),0 3px 10px rgba(0,0,0,0.16);*/
+  /*margin-bottom: 30px;*/
 }
 
 .item {
@@ -12,21 +15,36 @@
   margin-top: auto;
   margin-bottom: auto;
   text-decoration: none;
-  padding: 16px 16px;
+  padding: 8px 8px;
   color: color-black;
 }
 
 .main {
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+.main:link, .main:visited {
+    color: white;
+}
+
+.main:hover {
+    text-decoration: none;
 }
 
 .spaceName {
-  margin: auto;
+  margin-left: 40%;
+  font-size: 140%;
 }
 
 .active {
-  color: color-dodger-blue;
+  color: primary-color;
 }
 
 .logInProfile {
   float: right;
+}
+
+.dashboardLink, .logInNav {
+  font-size: 140%;
 }

@@ -28,11 +28,11 @@ export default function sheet(state = initialState, action = {}) {
       });
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});
-      let lastRow = addRowState.grid[addRowState.grid.length - 1]
-      for (let key in lastRow) {
-        lastRow[key].data = null
-      }
-      addRowState.grid.push(lastRow)
+      let newRow = {}
+      addRowState.columnHeaders.forEach(function (col) {
+        newRow[col.id] = { data: null, type: col.type }
+      })
+      addRowState.grid.push(newRow)
       return addRowState
     default:
       return state;

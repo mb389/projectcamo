@@ -47,7 +47,7 @@ class Cell extends Component {
 		if (this.props.cellIdx === 0) {
 	  		return (
 		      <div className={cx('cell')} key={this.props.key}>
-		       	<a className={cx('cell-expand')} onClick={this.open}>
+		       	<a className={cx('cell-expand')} onClick={this.openModal}>
 		       		<i className="glyphicon glyphicon-resize-full" />
 		       	</a>
 		        <ContentEditable className={cx('cell', 'first-cell')}

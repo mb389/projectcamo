@@ -20,9 +20,12 @@ class SpaceControl extends Component {
   render() {
     return (
         <div>
-          <SheetsBar sheet={this.props.sheet} space={this.props.space}/>
+          <SheetsBar sheet={this.props.sheet}
+            space={this.props.space}
+            sheetNames={this.props.sheetNames}
+          />
           <MagicBar />
-          <Table grid={this.props.sheet.grid} headers={this.props.sheet.columnHeaders}/>
+          <Table grid={this.props.sheet.grid} headers={this.props.sheet.columnHeaders} />
         </div>
     );
   }
@@ -35,7 +38,8 @@ class SpaceControl extends Component {
 function mapStateToProps(store) {
   return {
     space: store.space,
-    sheet: store.sheet
+    sheet: store.sheet,
+    sheetNames: store.sheetNames
   };
 }
 

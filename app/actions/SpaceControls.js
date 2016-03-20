@@ -38,7 +38,8 @@ export function loadSpace(obj) {
   return {
     type: types.LOAD_SPACE,
     space: obj.space,
-    sheet: obj.sheet
+    sheet: obj.sheet,
+    sheetNames: obj.sheetNames
   };
 }
 
@@ -47,6 +48,10 @@ export function getSpace() {
   return (dispatch) => {
     request(`/workspace/${tempID}`)
     .then(res => res.data)
-    .then(res => dispatch(loadSpace({ space: res.space, sheet: res.sheet })));
+    .then(res => dispatch(loadSpace({
+      space: res.space,
+      sheet: res.sheet,
+      sheetNames: res.sheetNames
+    })));
   };
 }

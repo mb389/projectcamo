@@ -8,7 +8,11 @@ import initialState from './sheetState';
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD_SPACE:
-      return Object.assign({}, state, { space: action.space, sheet: action.sheet });
+      return Object.assign({}, state, {
+        space: action.space,
+        sheet: action.sheet,
+        sheetNames: action.sheetNames
+      });
     case ADD_SHEET:
       return state;
     default:

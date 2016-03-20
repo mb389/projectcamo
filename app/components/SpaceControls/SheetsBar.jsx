@@ -9,9 +9,9 @@ const cx = classNames.bind(styles);
 
 const SheetsBar = (props) => {
   // to be replace with real sheets fed in via props
-  const sheets = [{name:"Test1"}, {name:"Test2"}, {name:"Test3"}]
+  const sheets = props.sheetNames;
 
-  const sheetsToView = sheets.map((sheetForTab, i) => <SheetTab key={i} sheet={sheetForTab} />)
+  const sheetsToView = sheets.map((sheetForTab, i) => <SheetTab key={i} sheet={sheetForTab} />);
 
   // Will need a loop over sheets in space to render the tabs
   return (

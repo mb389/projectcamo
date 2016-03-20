@@ -21,11 +21,6 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
-export function addSheet() {
-  //make request to server to add a new sheet in the account. Get back the mongoID and then add a new sheet with that ID and link to that sheet
-  console.log('addSheet');
-}
-
 // Fetch posts logic
 export function fetchTopics() {
   return {
@@ -91,3 +86,10 @@ export function addSheet(spaceId) {
     })))
   }
 }
+
+// export function makeActiveSheet(sheet) {
+//   return {
+//     type: types.MAKE_ACTIVE_SHEET,
+//     activeSheet: sheet.name
+//   }
+// }

@@ -43,8 +43,8 @@ export function loadSpace(obj) {
   };
 }
 
-export function getSpace() {
-  const tempID = '56edc92bcbc0172e37d30cce';
+export function getSpace(spaceId) {
+  const tempID = spaceId;
   return (dispatch) => {
     request(`/workspace/${tempID}`)
     .then(res => res.data)

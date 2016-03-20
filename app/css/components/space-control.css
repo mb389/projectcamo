@@ -6,7 +6,6 @@
   border-style: solid;
   border-width: 1px;
   height: 30px;
-  width: 120px;
   text-align: center;
   font-size: 110%;
   line-height: 27px;
@@ -37,6 +36,7 @@
 .SheetTab {
   padding-left: 30px;
   padding-right: 30px;
+  min-width: 120px;
 }
 
 .ActiveSheetTab {

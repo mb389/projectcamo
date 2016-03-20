@@ -14,7 +14,7 @@ class SpaceControl extends Component {
 
   componentWillMount() {
     if (!this.props.space) {
-      this.props.dispatch(Actions.getSpace());
+      this.props.dispatch(Actions.getSpace(this.props.params.spaceId));
     }
   }
 

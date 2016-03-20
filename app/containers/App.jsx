@@ -20,7 +20,7 @@ const cx = classNames.bind(styles);
 const App = ({children}) => {
   return (
     <div className={cx('app')}>
-      <Navigation />
+      // <Navigation /> // placed in space controller container so it can inherit props
         {children}
     </div>
   );

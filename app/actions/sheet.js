@@ -50,3 +50,9 @@ export function addRow() {
 		type: types.ADD_ROW
 	}
 }
+
+export function addColumn() {
+	return {
+		type: types.ADD_COLUMN
+	}
+}

@@ -24,3 +24,4 @@ export const UPDATE_CELL = 'UPDATE_CELL';
 export const SHOW_ROW_MODAL = 'SHOW_ROW_MODAL';
 export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
+export const ADD_COLUMN = 'ADD_COLUMN';

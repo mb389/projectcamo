@@ -8,8 +8,8 @@ const cx = classNames.bind(styles);
 
 class AddColumn extends Component {
 	constructor(props, state){
-		super(props, state)
-		this.addColumn = this.addColumn.bind(this)
+		super(props, state);
+		this.addColumn = this.addColumn.bind(this);
 	}
 
   addColumn(){

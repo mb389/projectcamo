@@ -33,7 +33,7 @@ export default function sheet(state = initialState, action = {}) {
         id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         // How are we making ids?
         type: 'Text',
-        name: 'Column ' + addColumnState.columnHeaders.length,
+        name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
       } 
 

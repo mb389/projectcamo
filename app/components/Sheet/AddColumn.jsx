@@ -14,12 +14,12 @@ class AddColumn extends Component {
 
   addColumn(){
     console.log("column add");
-    this.props.dispatch(addColumn(type, name));
+    this.props.dispatch(addColumn());
   }
 
   render () {
     return (
-      <button className={cx('thead')} onClick={this.addColumn}> + </button>
+      <button id={cx('addColumn')} className={cx('thead')} onClick={this.addColumn}> + </button>
     );
 	}
 }

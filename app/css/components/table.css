@@ -1,4 +1,5 @@
-@value columnWidth: 200px;
+@value columnWidth: 199px;
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .table {
     display: inline-block;
@@ -7,8 +8,20 @@
     width: 100%;
 }
 
-.dropdown {
+.editNameAndType {
+  z-index: 99;
+  margin-top: 10px;
+  padding: 10px;
+  position: absolute;
+  background: light-primary-color;
+  width: columnWidth*2;
+  border-bottom: 1px solid #d1d1d1;
+  border-top: 1px solid transparent;
+  border-left: 1px solid #dde1e3;
+  border-top: 1px solid #dde1e3;
+}
 
+.dropdown {
   border-radius: 0px;
   background-color: red;
 }
@@ -23,7 +36,7 @@
   float: right;
 }
 
-.columnMenu {
+.columnWidth {
   width: columnWidth;
 }
 
@@ -44,9 +57,8 @@
     display: inline-block;
     background: #fff;
     border-right: 1px solid #dde1e3;
-    border-bottom: 0;
+    border-bottom: 1px solid #d1d1d1;
     border-radius: 0;
-    padding: 10px;
     height: 34px;
 }
 

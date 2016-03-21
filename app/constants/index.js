@@ -25,6 +25,7 @@ export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
 export const UPDATE_COLUMN = 'UPDATE_COLUMN';
 export const SORT_COLUMN = 'SORT_COLUMN';
+export const REMOVE_COLUMN = 'REMOVE_COLUMN';
 export const UPDATE_MODAL_CELL = 'UPDATE_MODAL_CELL';
 
 // NAV CONSTS

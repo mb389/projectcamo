@@ -45,7 +45,6 @@ class ColumnOptions extends Component {
 			return element;
 		};
 		this.props.dispatch(formulaColumn('map', dup, this.props.data.id));
-
 	}
 
 	insertLeft() {

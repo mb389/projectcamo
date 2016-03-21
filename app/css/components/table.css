@@ -73,7 +73,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    display: inline-block;
+    display: flex;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid transparent;
@@ -99,7 +99,7 @@
 
 .trow {
     width: 100%;
-    display: inline-block;
+    display: flex;
     height: 34px;
 }
 

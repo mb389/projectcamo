@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { 
+import {
   UPDATE_CELL,
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
@@ -17,29 +17,40 @@ import initialState from './sheetState';
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
     case UPDATE_CELL:
-      {let newState =  _.cloneDeep(state);
-            newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
-            return newState}
+      {
+        let newState = _.cloneDeep(state);
+        newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+        return newState
+      }
     case UPDATE_MODAL_CELL:
-      {let modalRowState =  _.cloneDeep(state);
-            console.log(modalRowState)
-            modalRowState.modalRow.data[action.cell.key].data = action.cell.data
-            return modalRowState}
+      {
+        let modalRowState = _.cloneDeep(state);
+        if (Array.isArray(modalRowState.modalRow.data[action.cell.key].data)) { 
+          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data) 
+        } else {
+          modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+        }
+        return modalRowState
+      }
     case SHOW_ROW_MODAL:
-      {let modalState = _.cloneDeep(state)
-            modalState.showRowModal = true;
-            modalState.modalRow = { 
-                data: state.grid[action.rowIdx],
-                rowIdx: action.rowIdx
-              }
-            return modalState}
+      {
+        let modalState = _.cloneDeep(state)
+        modalState.showRowModal = true;
+        modalState.modalRow = {
+          data: state.grid[action.rowIdx],
+          rowIdx: action.rowIdx
+        }
+        return modalState
+      }
     case CLOSE_ROW_MODAL:
-      {let modalCloseState = _.cloneDeep(state)
-            modalCloseState.showRowModal = false;
-            modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
-            modalCloseState.modalRow.data = null;
-            modalCloseState.modalRow.rowIdx = null;
-            return modalCloseState}
+      {
+        let modalCloseState = _.cloneDeep(state)
+        modalCloseState.showRowModal = false;
+        modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+        modalCloseState.modalRow.data = null;
+        modalCloseState.modalRow.rowIdx = null;
+        return modalCloseState
+      }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
       let newColumn = {
@@ -50,16 +61,21 @@ export default function sheet(state = initialState, action = {}) {
       } 
 
       addColumnState.columnHeaders.push(newColumn);
-
       addColumnState = insertNewColInRows(addColumnState, newColumn);
-      // addColumnState.grid.forEach(row => {
-      //     row[newColumn.id] = {
-      //       type: newColumn.type,
-      //       data: null,
-      //     }
-      //   });
-
       return addColumnState;}
+    case UPDATE_COLUMN:
+      {
+        let updateColumnState = _.cloneDeep(state);
+        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column => {
+          if (column.id === action.data.id) {
+            return action.data
+          } else return column;
+        })
+        updateColumnState.grid.forEach(row => {
+          row[action.data.id].type = action.data.type;
+        })
+        return updateColumnState;
+      }
     case INSERT_COLUMN:{
       let insertColumnState = _.cloneDeep(state);
       let newColumn = {
@@ -77,13 +93,6 @@ export default function sheet(state = initialState, action = {}) {
       insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
-
-      // insertColumnState.grid.forEach(row => {
-      //     row[newColumn.id] = {
-      //       type: newColumn.type,
-      //       data: null,
-      //     }
-      // });
 
       return insertColumnState}
     case UPDATE_COLUMN:{
@@ -122,13 +131,15 @@ export default function sheet(state = initialState, action = {}) {
 
       return removeColumnState;}
     case ADD_ROW:
-      {let addRowState = _.cloneDeep(state);
-            let newRow = {}
-            addRowState.columnHeaders.forEach(function (col) {
-              newRow[col.id] = { data: null, type: col.type }
-            })
-            addRowState.grid.push(newRow)
-            return addRowState}
+      {
+        let addRowState = _.cloneDeep(state);
+        let newRow = {}
+        addRowState.columnHeaders.forEach(function(col) {
+          newRow[col.id] = { data: null, type: col.type }
+        })
+        addRowState.grid.push(newRow)
+        return addRowState
+      }
     default:
       return state;
   }

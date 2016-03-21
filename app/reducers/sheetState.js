@@ -15,7 +15,7 @@ const row = {
     },
     "125": {
       type: 'images',
-      data: ['http://lorempixel.com/800/800/1','http://lorempixel.com/800/800/2']
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 

@@ -22,7 +22,8 @@ class SpaceControl extends Component {
   render() {
     return (
         <div>
-          <Navigation space={this.props.space} />
+          <Navigation disabled={false}
+            space={this.props.space} />
           <SheetsBar sheetToShow={this.props.sheetToShow}
             space={this.props.space}
             sheetNames={this.props.sheetNames} />

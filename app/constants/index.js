@@ -16,6 +16,7 @@ export const ADD_SHEET = 'ADD_SHEET';
 export const LOAD_SPACE = 'LOAD_SPACE';
 export const LOAD_SHEET = 'LOAD_SHEET';
 export const ADD_SHEET_VIEW = 'ADD_SHEET_VIEW';
+export const LOAD_USER_SPACES = 'LOAD_USER_SPACES';
 
 // SHEET CONSTS
 export const UPDATE_CELL = 'UPDATE_CELL';

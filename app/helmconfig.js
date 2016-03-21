@@ -33,7 +33,7 @@ const config = {
     // Setting IE=edge tells Internet Explorer to use the latest engine to render the page and execute Javascript
     { 'http-equiv': 'X-UA-Compatible', 'content': 'IE=edge' },
     //  Meta descriptions are commonly used on search engine result pages to display preview snippets for a given page.
-    { 'name': 'description', 'content': 'Camo' },
+    { 'name': 'description', 'content': 'CAmo' },
     // Mobile Safari introduced this tag to let web developers control the viewport's size and scale
     // The width property controls the size of the viewport, the initial-scale property controls
     // the zoom level when the page is first loaded

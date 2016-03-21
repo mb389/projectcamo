@@ -22,11 +22,11 @@ class SpaceControl extends Component {
   render() {
     return (
         <div>
-          <Navigation space={this.props.space} />
+          <Navigation disabled={false}
+            space={this.props.space} />
           <SheetsBar sheetToShow={this.props.sheetToShow}
             space={this.props.space}
-            sheetNames={this.props.sheetNames}
-          />
+            sheetNames={this.props.sheetNames} />
           <MagicBar />
           <Table grid={this.props.sheet.grid} headers={this.props.sheet.columnHeaders} />
         </div>

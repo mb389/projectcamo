@@ -2,16 +2,15 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { logOut } from 'actions/users';
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon, DropdownButton, Dropdown, MenuItem } from 'react-bootstrap';
+import ColumnOptions from '../components/Sheet/ColumnOptions'
 import * as Actions from '../actions/navigation';
 // import TagName from '../components/SpaceControls/SpaceSheetName';
 import ContentEditable from 'react-contenteditable';
-
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
 
 const cx = classNames.bind(styles);
-
 
 class Navigation extends Component {
   constructor(props, context) {
@@ -27,18 +26,24 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="dashboard"
+      <Link to="/dashboard"
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
       <ContentEditable className={cx('item', 'spaceName')}
-          html={!this.props.space ? 'Loading' : this.props.space.name}
+          html={!this.props.space ? 'Project CAMO' : this.props.space.name}
             // innerHTML of the editable div
-          disabled={false}     // use true to disable edition
+          disabled={this.props.disabled}     // use true to disable edition
           onChange={this.editSpaceName} // handle innerHTML change
         />
   { this.props.user.authenticated ? (
-        <Link onClick={()=> pass}
-        className={cx('item', 'logInProfile')} to="/"><Button className={cx('prolifeNav')}></Button></Link>
+        <div className={cx('item','logInProfile')}>
+        <DropdownButton title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
+            <MenuItem key="1" href='/'>Home</MenuItem>
+              <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
+            <MenuItem divider />
+            <MenuItem key="3" href='/logout'>Log Out</MenuItem>
+          </DropdownButton>
+        </div>
       ) : (
         <Link className={cx('item', 'main', 'logInProfile')} to="/login"><span className={cx('logInNav')}>Log In</span></Link>
       )}
@@ -46,7 +51,6 @@ class Navigation extends Component {
       );
     }
 }
-
 
 Navigation.propTypes = {
   workSpaceName: PropTypes.string,

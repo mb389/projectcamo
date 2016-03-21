@@ -42,6 +42,17 @@
   color: black;
 }
 
+.profileNav {
+  width: 40px;
+  height: 40px;
+  margin-right: 15px;
+  border-radius: 50%;
+  border: 0;
+  padding-left: 10px;
+  background: transparent url(https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png) no-repeat center;
+  background-size: 100%;
+}
+
 .active {
   color: primary-color;
 }

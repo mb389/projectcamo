@@ -12,11 +12,6 @@ import styles from 'css/components/navigation';
 
 const cx = classNames.bind(styles);
 
-const dropdownData = {
-  name: 'profile',
-  id: 1
-}
-
 class Navigation extends Component {
   constructor(props, context) {
     super(props, context);
@@ -27,8 +22,6 @@ class Navigation extends Component {
   editSpaceName(e) {
     this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
   }
-
-
 
   render() {
     return (
@@ -51,8 +44,6 @@ class Navigation extends Component {
             <MenuItem key="3" href='/logout'>Log Out</MenuItem>
           </DropdownButton>
         </div>
-
-
       ) : (
         <Link className={cx('item', 'main', 'logInProfile')} to="/login"><span className={cx('logInNav')}>Log In</span></Link>
       )}

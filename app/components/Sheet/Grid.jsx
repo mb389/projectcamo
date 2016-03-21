@@ -5,18 +5,6 @@ import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
-// function generateCells (row, idx) {
-//     // const cells = [];
-//     // for (let key in row) {
-//     //   cells.push(<Cell cell={row[key]} key={key} cellKey={key} row={row} rowIdx={idx} cellIdx={cells.length}/> );
-//     // }
-//     // return cells;
-
-//     return this.props.headers.map((head) => {
-//       return (<Cell cell={row[head.id]} key={head.id} cellKey={head.id} row={row} rowIdx={idx} cellIdx={cells.length}/> );
-//     });
-// }
-
 const Grid = (props) => {
 
   function generateRows(grid) {

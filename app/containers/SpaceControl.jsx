@@ -20,7 +20,6 @@ class SpaceControl extends Component {
   }
 
   render() {
-    console.log("table render", this.props.sheet.grid)
     return (
         <div>
           <Navigation space={this.props.space} />

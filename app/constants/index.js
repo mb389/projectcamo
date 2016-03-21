@@ -13,7 +13,7 @@ export const LOGOUT_ERROR_USER = 'LOGOUT_ERROR_USER';
 
 
 // NEW CONSTS
-
+export const CHANGE_SHEET_NAME = 'CHANGE_SHEET_NAME';
 export const ADD_SHEET = 'ADD_SHEET';
 export const LOAD_SPACE = 'LOAD_SPACE';
 export const LOAD_SHEET = 'LOAD_SHEET';

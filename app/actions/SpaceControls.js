@@ -47,12 +47,11 @@ export function loadSheet(obj) {
   };
 }
 
-export function getSheet(spaceId, sheetName) {
+export function getSheet(sheetId) {
   return (dispatch) => {
-    request(`/sheet/${spaceId}/${sheetName}`)
-    .then(res => res.data)
+    request(`/sheet/${sheetId}`)
     .then(res => dispatch(loadSheet({
-      sheetToShow: res
+      sheetToShow: res.data
     })));
   };
 }
@@ -77,9 +76,17 @@ export function addSheet(spaceId) {
   }
 }
 
-// export function makeActiveSheet(sheet) {
-//   return {
-//     type: types.MAKE_ACTIVE_SHEET,
-//     activeSheet: sheet.name
-//   }
-// }
+function updateSheetName(name, sheetId) {
+  return {
+    type: types.CHANGE_SHEET_NAME,
+    name,
+    sheetId
+  }
+}
+
+export function changeSheetName(sheetId, newName) {
+  return (dispatch) => {
+    request.put(`/sheet/${sheetId}`, { name: newName })
+    .then(() => dispatch(updateSheetName(newName, sheetId)))
+  }
+}

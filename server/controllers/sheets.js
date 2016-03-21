@@ -15,13 +15,10 @@ exports.all = function(req, res) {
 /**
  * Add a Sheet
  */
- exports.one = function(req, res) {
-   Sheet.findOne({
-     name: req.params.sheetName,
-     workspace: req.params.spaceId
-   })
-   .then(sheet => res.json(sheet))
-   .catch(err => res.status(400).send(err));
+exports.one = function(req, res) {
+  Sheet.findById(req.params.sheetId)
+  .then(sheet => res.json(sheet))
+  .catch(err => res.status(400).send(err));
  };
 
  /**
@@ -48,12 +45,21 @@ exports.add = function(req, res) {
  * Update a Sheet
  */
 exports.update = function(req, res) {
-  var query = { id: req.params.id };
-
-    Sheet.findOneAndUpdate(query, data)
-    .then(() => res.status(200).send('Updated successfully'))
-    .catch(err => res.status(500).send('We failed to save to due some reason'))
+  Sheet.findByIdAndUpdate(req.params.id, req.body)
+  .then(() => res.status(200).send('Updated successfully'))
+  .catch(() => res.status(500).send('We failed to save to due some reason'))
 };
+
+exports.updateName = function(req, res) {
+  console.log('run')
+  console.log(req.body);
+  Sheet.findOneAndUpdate({
+    name: req.params.sheetName,
+    workspace: req.params.spaceId
+  }, req.body )
+  .then(() => res.sendStatus(200))
+  .catch(() => res.sendStatus(500));
+}
 
 /**
  * Remove a Sheet

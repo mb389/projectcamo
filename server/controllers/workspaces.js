@@ -20,7 +20,9 @@ exports.one = function(req, res) {
     Sheet.find({ workspace: req.params.id })
   ])
   .then(promiseArr => {
-    const sheetNames = promiseArr[2].map(sheet => sheet.name);
+    const sheetNames = promiseArr[2].map(sheet => {
+      return { name: sheet.name, id: sheet.id }
+    });
     res.json({ space: promiseArr[0], sheet: promiseArr[1], sheetNames });
   })
   .catch(err => res.status(400).send(err));

@@ -32,6 +32,14 @@
   vertical-align: middle;
 }
 
+.BottomBar {
+  height: 20px;
+  display: block;
+  background-color: light-primary-color;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+}
 
 .SheetTab {
   padding-left: 30px;

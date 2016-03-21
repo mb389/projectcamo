@@ -37,7 +37,7 @@ class MenuEditCol extends Component {
 	}
 
 	render () {
-		let columnTypes = ['Text','Number','Checkbox','Select'];
+		let columnTypes = ['Text','Number','Images','Checkbox','Select','Link'];
 
 		function generateTypes () {
 				return columnTypes.map((type, idx) =>

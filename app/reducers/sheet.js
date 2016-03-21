@@ -9,6 +9,7 @@ import {
   SORT_COLUMN,
   REMOVE_COLUMN,
   INSERT_COLUMN,
+  FORMULA_COLUMN,
   UPDATE_MODAL_CELL,
 } from 'constants/index';
 
@@ -129,7 +130,14 @@ export default function sheet(state = initialState, action = {}) {
         return row;
       })
 
-      return removeColumnState;}
+      return removeColumnState;
+    }
+    case FORMULA_COLUMN:{
+      let formulaColumnState = _.cloneDeep(state);
+      formulaColumnState.columnHeaders
+      action.colId;
+      action.func;
+    }
     case ADD_ROW:
       {
         let addRowState = _.cloneDeep(state);

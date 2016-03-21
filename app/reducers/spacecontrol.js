@@ -19,7 +19,10 @@ export default function sheet(state = initialState, action = {}) {
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
     case ADD_SHEET_VIEW:
-      const sheetNamesToShow = state.sheetNames.concat(action.sheetName);
+      const sheetNamesToShow = state.sheetNames.concat({
+        name: action.sheetName,
+        id: action.newSheetId
+      });
       return Object.assign({}, state, {
         newSheetId: action.newSheetId, sheetNames: sheetNamesToShow
       });

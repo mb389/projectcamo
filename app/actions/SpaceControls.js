@@ -71,7 +71,6 @@ export function addSheet(spaceId) {
     .then(res => dispatch(addSheetToView({
       newSheetId: res._id,
       sheetName: res.name
-
     })))
   }
 }

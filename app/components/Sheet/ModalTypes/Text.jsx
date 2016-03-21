@@ -17,7 +17,7 @@ class TextModal extends Component {
   handleChange(evt){
   	const { dispatch, cellKey, rowIdx } = this.props;
     this.setState({html: evt.target.value});
-    dispatch(updateModalCell(evt.target.value, cellKey, rowIdx))
+    // dispatch(updateModalCell(evt.target.value, cellKey, rowIdx))
   }
 
   render () {

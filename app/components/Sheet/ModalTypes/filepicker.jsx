@@ -29,6 +29,7 @@ class FilepickerInput extends React.Component {
 
   handleChangeFileUrl(e) {
     console.log('Filepicker URL', e.target.value);
+    // dispatch add to cell
   }
 
 }

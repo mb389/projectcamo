@@ -15,7 +15,8 @@ const SheetsBar = (props) => {
     <SheetTab spaceId={props.space._id}
       activeSheet={props.sheetToShow}
       key={i}
-      sheet={sheetForTab}
+      sheet={sheetForTab.name}
+      sheetId={sheetForTab.id}
     />));
 
   // Will need a loop over sheets in space to render the tabs

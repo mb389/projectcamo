@@ -33,4 +33,4 @@ class FilepickerInput extends React.Component {
 
 }
 
-export default FilepickerInput
+export default connect()(FilepickerInput);

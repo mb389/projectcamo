@@ -12,20 +12,7 @@ class ImageList extends Component {
 	constructor(props, state){
 		super(props, state)
     this.state = {html: this.props.cell.data}
-    this.openUpload = this.openUpload.bind(this)
-		this.handleChange = this.handleChange.bind(this)
 	}
-
-  handleChange(evt){
-  	const { dispatch, cellKey, rowIdx } = this.props;
-    this.setState({html: evt.target.value});
-    dispatch(updateCell(evt.target.value, cellKey, rowIdx))
-  }
-
-  openUpload(){
-
-  }
-
 
   render () {
     const images = this.props.cell.data.map(function (img, i) {
@@ -49,5 +36,5 @@ class ImageList extends Component {
 }
 
 
-export default connect()(ImageList);
+export default ImageList;
 

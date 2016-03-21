@@ -18,7 +18,8 @@ export default function sheet(state = initialState, action = {}) {
       return newState
     case UPDATE_MODAL_CELL:
       let modalRowState =  _.cloneDeep(state);
-      modalRowState.sheet.modalRow = action.modalRow
+      console.log(modalRowState)
+      modalRowState.modalRow.data[action.cell.key].data = action.cell.data
       return modalRowState
     case SHOW_ROW_MODAL:
       let modalState = _.cloneDeep(state)
@@ -31,7 +32,9 @@ export default function sheet(state = initialState, action = {}) {
     case CLOSE_ROW_MODAL:
       let modalCloseState = _.cloneDeep(state)
       modalCloseState.showRowModal = false;
-      modalCloseState.modalRow = {data:null, rowIdx:null};
+      modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+      modalCloseState.modalRow.data = null;
+      modalCloseState.modalRow.rowIdx = null;
       return modalCloseState
     case ADD_COLUMN:
       let addColumnState = Object.assign({}, state, {});

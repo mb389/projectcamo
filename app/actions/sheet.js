@@ -39,10 +39,14 @@ export function showRowModal(rowIdx){
 	}
 }
 
-export function updateModalCell(data) {
+export function updateModalCell(data, key, idx) {
 	return {
 		type: types.UPDATE_MODAL_CELL,
-		data: data
+		cell: {
+    	data: data,
+    	key: key,
+    	idx: idx
+    }
 	}
 }
 

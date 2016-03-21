@@ -37,9 +37,13 @@ function renderFullPage(renderedContent, initialState, head={
         ${head.meta}
 
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
-
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
         ${head.link}
-
+        <style type="text/css">
+          .fp__overlay {
+            z-index: 1100 !important;
+          }
+        </style>
     </head>
     <body>
     <div id="app">${renderedContent}</div>
@@ -47,6 +51,9 @@ function renderFullPage(renderedContent, initialState, head={
       window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
     </script>
     <script type="text/javascript" charset="utf-8" src="/assets/app.js"></script>
+
+    <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+
     </body>
     </html>
 

@@ -16,7 +16,7 @@ export default class Table extends Component {
         <Headers headers={this.props.headers} />
         <Grid grid={this.props.grid}/>
         <AddRow />
-        <RowModal />
+        <RowModal className={cx('row-modal')}/>
       </div>
     );
   }

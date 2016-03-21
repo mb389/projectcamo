@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell } from 'actions/sheet';
+import { updateModalCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import ContentEditable from 'react-contenteditable';
 
@@ -17,7 +17,7 @@ class TextModal extends Component {
   handleChange(evt){
   	const { dispatch, cellKey, rowIdx } = this.props;
     this.setState({html: evt.target.value});
-    dispatch(updateCell(evt.target.value, cellKey, rowIdx))
+    dispatch(updateModalCell(evt.target.value, cellKey, rowIdx))
   }
 
   render () {

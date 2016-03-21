@@ -1,0 +1,10 @@
+.col-header {
+	font-size: 1.2em
+}
+
+.wrapper {
+	margin: 15px 0;
+	box-shadow: 0 0 0 1px #04bfd4 !important;
+	border-radius: 4px;
+	padding: 10px
+}

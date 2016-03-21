@@ -37,6 +37,11 @@
   font-size: 140%;
 }
 
+.spaceName:focus {
+  background: light-primary-color;
+  color: black;
+}
+
 .active {
   color: primary-color;
 }

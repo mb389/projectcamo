@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { 
   UPDATE_CELL,
   SHOW_ROW_MODAL,
@@ -6,30 +7,37 @@ import {
   ADD_COLUMN,
   UPDATE_COLUMN,
   SORT_COLUMN,
+  UPDATE_MODAL_CELL,
 } from 'constants/index';
 
 import initialState from './sheetState';
-import _ from 'lodash';
 
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
     case UPDATE_CELL:
-      let newState = Object.assign({}, state, {});
+      let newState =  _.cloneDeep(state);
       newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
       return newState
+    case UPDATE_MODAL_CELL:
+      let modalRowState =  _.cloneDeep(state);
+      console.log(modalRowState)
+      modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+      return modalRowState
     case SHOW_ROW_MODAL:
-      return Object.assign({}, state, {
-        showRowModal: true,
-        modalRow: { 
+      let modalState = _.cloneDeep(state)
+      modalState.showRowModal = true;
+      modalState.modalRow = { 
           data: state.grid[action.rowIdx],
           rowIdx: action.rowIdx
         }
-      });
+      return modalState
     case CLOSE_ROW_MODAL:
-      return Object.assign({}, state, {
-        showRowModal: false,
-        modalRow: {data:null, rowIdx:null}
-      });
+      let modalCloseState = _.cloneDeep(state)
+      modalCloseState.showRowModal = false;
+      modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+      modalCloseState.modalRow.data = null;
+      modalCloseState.modalRow.rowIdx = null;
+      return modalCloseState
     case ADD_COLUMN:
       let addColumnState = Object.assign({}, state, {});
       let newColumn = {
@@ -73,7 +81,7 @@ export default function sheet(state = initialState, action = {}) {
       console.log(sortColumnState.grid[0]);
       return sortColumnState;
     case ADD_ROW:
-      let addRowState = Object.assign({}, state, {});
+      let addRowState = _.cloneDeep(state);
       let newRow = {}
       addRowState.columnHeaders.forEach(function (col) {
         newRow[col.id] = { data: null, type: col.type }

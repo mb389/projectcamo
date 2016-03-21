@@ -36,13 +36,13 @@
 }
 
 .dropdown-toggle {
-  border-radius: 0px;
-  background-color: red;
-  border-color: red;
+    border-radius: 0px;
+    background-color: red;
+    border-color: red;
 }
 
 .columnCarrat {
-  float: right;
+    float: right;
 }
 
 .columnWidth {
@@ -96,7 +96,6 @@
 .cell {
     width: 200px;
     max-height: 40px;
-
     padding: 10px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
@@ -151,5 +150,8 @@
 }
 
 #dropdown-Names {
-  border-radius: 0px;
+    border-radius: 0px;
 }
+
+
+

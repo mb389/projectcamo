@@ -7,6 +7,7 @@ import * as Actions from '../actions/spacecontrols';
 import Navigation from 'containers/Navigation';
 
 
+
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
@@ -19,6 +20,7 @@ class SpaceControl extends Component {
   }
 
   render() {
+    console.log("table render", this.props.sheet.grid)
     return (
         <div>
           <Navigation space={this.props.space} />

@@ -74,7 +74,7 @@ export default function sheet(state = initialState, action = {}) {
         return column;
       })
 
-      insertColumnState.splice(action.colIdx, 0, newColumn);
+      insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
 

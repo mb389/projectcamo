@@ -39,6 +39,17 @@ export function showRowModal(rowIdx){
 	}
 }
 
+export function updateModalCell(data, key, idx) {
+	return {
+		type: types.UPDATE_MODAL_CELL,
+		cell: {
+    	data: data,
+    	key: key,
+    	idx: idx
+    }
+	}
+}
+
 export function closeRowModal() {
 	return {
 		type: types.CLOSE_ROW_MODAL
@@ -51,14 +62,39 @@ export function addRow() {
 	}
 }
 
-export function addColumn(type, name) {
+export function addColumn() {
 	return {
-		type: types.ADD_COLUMN,
-		column: {
-			type: type,
-			name: name,
-			// type,
-			// name,
+		type: types.ADD_COLUMN
+	}
+}
+
+export function updateColumn(data) {
+	return {
+		type: types.UPDATE_COLUMN,
+		data,
+	}
+}
+
+export function sortColumn(colId, sign) {
+	return {
+		type: types.SORT_COLUMN,
+		sortBy: {
+			colId: colId,
+			order: sign,
 		}
+	}
+}
+
+export function removeColumn(colId) {
+	return {
+		type: types.REMOVE_COLUMN,
+		colId,
+	}
+}
+
+export function insertColumn(colIdx){
+	return {
+		type: types.INSERT_COLUMN,
+		colIdx,
 	}
 }

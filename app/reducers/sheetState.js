@@ -1,21 +1,21 @@
 const columnHeaders = [
       { id: '123', type: 'name', name: 'Names', idx: 0 },
       { id: '124', type: 'url', name: 'Github URL', idx: 1 },
-      { id: '125', type: 'ref', name: 'Repos', idx: 2 },
+      { id: '125', type: 'ref', name: 'Images', idx: 2 },
     ]
 
 const row = {
    '123': {
       type: 'string',
-      data: 'sdkfajdks'
+      data: 'Oscar'
     },
     "124": {
       type: 'url',
       data: 'https://github.com/elpenao'
     },
     "125": {
-      type: 'url',
-      data: 'linkedIn.com/elpenao'
+      type: 'images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -245,7 +245,6 @@ const row15 = {
 }
 
 const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
-
 const initialState = { grid: grid, columnHeaders: columnHeaders, showRowModal: false, modalRow: { data:null, rowIdx: null} }
 
 export default initialState

@@ -8,24 +8,21 @@ const cx = classNames.bind(styles);
 
 class AddColumn extends Component {
 	constructor(props, state){
-		super(props, state)
-		this.addColumn = this.addColumn.bind(this)
+		super(props, state);
+		this.addColumn = this.addColumn.bind(this);
 	}
 
   addColumn(){
     console.log("column add");
-    let type = 'number';
-    let name = 'Phone number';
-    this.props.dispatch(addColumn(type, name));
+    this.props.dispatch(addColumn());
   }
 
   render () {
     return (
-      <button className="btn btn-primary" type="button" onClick={this.addColumn}>Add Column</button>
+      <button className={cx('addColumn') } onClick={this.addColumn}> + </button>
     );
 	}
 }
-
 
 export default connect()(AddColumn);
 

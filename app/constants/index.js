@@ -24,6 +24,11 @@ export const SHOW_ROW_MODAL = 'SHOW_ROW_MODAL';
 export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
+export const UPDATE_COLUMN = 'UPDATE_COLUMN';
+export const SORT_COLUMN = 'SORT_COLUMN';
+export const REMOVE_COLUMN = 'REMOVE_COLUMN';
+export const INSERT_COLUMN = 'INSERT_COLUMN';
+export const UPDATE_MODAL_CELL = 'UPDATE_MODAL_CELL';
 
 // NAV CONSTS
 export const CHANGE_SPACE_NAME = 'CHANGE_SPACE_NAME';

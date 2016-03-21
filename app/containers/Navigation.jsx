@@ -37,7 +37,7 @@ class Navigation extends Component {
         />
   { this.props.user.authenticated ? (
         <div className={cx('item','logInProfile')}>
-        <DropdownButton bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
+        <DropdownButton title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
             <MenuItem key="1" href='/'>Home</MenuItem>
               <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
             <MenuItem divider />

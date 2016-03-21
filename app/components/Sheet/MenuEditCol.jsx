@@ -37,13 +37,51 @@ class MenuEditCol extends Component {
 	}
 
 	render () {
-		let columnTypes = ['Text','Number','Checkbox','Select'];
+		let columnTypes = {
+			'Text': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> A single line of text. </p>
+				</div>
+				),
+			'Number': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> A number feild </p>
+				</div>
+				), 
+			'Formula': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> Allows you to create custom formulas for manipulating your data: </p>
+					<textarea id="functionDefine" className='col-md-12'> </textarea>
+				</div>
+				), 
+			'Images': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> Upload custom images </p>
+				</div>
+				), 
+			'Checkbox': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> Creates checkboxes </p>
+				</div>
+				), 
+			'Select': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> Select a single predefined option from a dropdown </p>
+				</div>
+				), 
+			'Link': (
+				<div className='col-md-12'>
+					<p className='col-md-12'> Create a link to an external site </p>
+				</div>
+				), 
+		}
 
 		function generateTypes () {
-				return columnTypes.map((type, idx) =>
-				{
-					return (<MenuItem key={idx+1} eventKey={type}>{type}</MenuItem>);
-				})
+			var MenuItems = [];
+			for (let feildType in columnTypes) {
+				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={feildType}>{feildType}</MenuItem>);
+			}
+			return MenuItems;
 			}
 
 		return (
@@ -58,7 +96,8 @@ class MenuEditCol extends Component {
 				      </Dropdown.Menu>
 				    </Dropdown>
 
-				    <p className='col-md-12'> A single line of text. You can optionally prefill each cell with a default value: </p>
+				    
+				    {columnTypes[this.state.colType]}
 				    <div className='col-md-12'>
 					    <button className="btn col-md-5" type="button" onClick={this.props.exitTypeMenu}>Cancel</button>
 					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>

@@ -62,14 +62,25 @@ export function addRow() {
 	}
 }
 
-export function addColumn(type, name) {
+export function addColumn() {
 	return {
-		type: types.ADD_COLUMN,
-		column: {
-			type: type,
-			name: name,
-			// type,
-			// name,
+		type: types.ADD_COLUMN
+	}
+}
+
+export function updateColumn(data) {
+	return {
+		type: types.UPDATE_COLUMN,
+		data,
+	}
+}
+
+export function sortColumn(colId, sign) {
+	return {
+		type: types.SORT_COLUMN,
+		sortBy: {
+			colId: colId,
+			order: sign,
 		}
 	}
 }

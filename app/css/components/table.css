@@ -1,4 +1,6 @@
-@value columnWidth: 200px;
+@value columnWidth: 199px;
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
 .table {
     display: inline-block;
     position: relative;
@@ -6,9 +8,31 @@
     width: 100%;
 }
 
+.typeDropdown {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0;
+}
+
+.editNameAndType {
+  z-index: 99;
+  padding: 10px;
+  width: 250px;
+  position: absolute;
+  background: #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  border-top: 1px solid transparent;
+  border-left: 1px solid #dde1e3;
+  border-top: 1px solid #dde1e3;
+}
+
+.editNameAndType button {
+    margin:5px;
+}
+
 .dropdown {
-    border-radius: 0px;
-    background-color: red;
+  border-radius: 0px;
+  background-color: red;
 }
 
 .dropdown-toggle {
@@ -21,8 +45,18 @@
     float: right;
 }
 
-.columnMenu {
-    width: columnWidth;
+.columnWidth {
+  width: columnWidth;
+}
+
+.addColumn {
+  width: 50px;
+  display: inline-block;
+  background: #fff;
+  border-right: 1px solid #dde1e3;
+  border-bottom: 1px solid #d1d1d1;
+  border-radius: 0;
+  height: 34px;
 }
 
 .theaders {
@@ -42,9 +76,8 @@
     display: inline-block;
     background: #fff;
     border-right: 1px solid #dde1e3;
-    border-bottom: 0;
+    border-bottom: 1px solid #d1d1d1;
     border-radius: 0;
-    padding: 10px;
     height: 34px;
 }
 

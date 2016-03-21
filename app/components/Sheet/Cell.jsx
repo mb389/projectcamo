@@ -11,20 +11,20 @@ const cx = classNames.bind(styles);
 class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
-    const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true, html: this.props.cell.data}
-    this.openModal = this.openModal.bind(this)
+	    const { cellKey, rowIdx, grid } = this.props;
+	    this.state = {disabled: true, html: this.props.cell.data}
+	    this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.editable = this.editable.bind(this)
 		this.setMouseEnter = this.setMouseEnter.bind(this)
 		this.setMouseLeave = this.setMouseLeave.bind(this)
 	}
 
-  openModal(){
-    // dispatch show modal
-    const { dispatch, rowIdx } = this.props;
-    dispatch(showRowModal(rowIdx))
-  }
+	openModal(){
+	// dispatch show modal
+	const { dispatch, rowIdx } = this.props;
+	dispatch(showRowModal(rowIdx))
+	}
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx } = this.props;
@@ -32,17 +32,17 @@ class Cell extends Component {
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 
-  editable (evt) {
-    this.setState({disabled: false});
-  }
+	editable (evt) {
+	this.setState({disabled: false});
+	}
 
-  setMouseEnter (evt) {
-    evt.target.parentElement.style.backgroundColor = '#e9e9e9';
-  }
+	setMouseEnter (evt) {
+	evt.target.parentElement.style.backgroundColor = '#e9e9e9';
+	}
 
-  setMouseLeave (evt) {
-    evt.target.parentElement.style.backgroundColor = '';
-  }
+	setMouseLeave (evt) {
+	evt.target.parentElement.style.backgroundColor = '';
+	}
 
 	render () {
     const { cellKey, rowIdx, grid, cell } = this.props;

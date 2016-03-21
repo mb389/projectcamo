@@ -5,10 +5,12 @@ import {
   CLOSE_ROW_MODAL,
   ADD_ROW,
   ADD_COLUMN,
-  UPDATE_MODAL_CELL
+  UPDATE_COLUMN,
+  SORT_COLUMN,
+  UPDATE_MODAL_CELL,
 } from 'constants/index';
 
-import initialState from './sheetState'
+import initialState from './sheetState';
 
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
@@ -41,8 +43,8 @@ export default function sheet(state = initialState, action = {}) {
       let newColumn = {
         id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         // How are we making ids?
-        type: action.column.type,
-        name: action.column.name,
+        type: 'Text',
+        name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
       } 
 
@@ -56,6 +58,28 @@ export default function sheet(state = initialState, action = {}) {
         });
 
       return addColumnState;
+    case UPDATE_COLUMN:
+      let updateColumnState = Object.assign({}, state, {});
+      updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
+        if (column.id===action.data.id) {return action.data}
+        else return column;
+      })
+      updateColumnState.grid.forEach(row=>{
+        row[action.data.id].type = action.data.type;
+      })
+      return updateColumnState;
+    case SORT_COLUMN:
+      let sortColumnState = _.cloneDeep(state);
+      console.log(action.sortBy, sortColumnState.grid[0]);
+      let colId = action.sortBy.colId;
+      let sortFn = function(a,b){
+          if (a[colId].data > b[colId].data) return (1*action.sortBy.order);
+          else if (b[colId].data > a[colId].data) return (-1*action.sortBy.order);
+          else return 0;
+      };
+      sortColumnState.grid = sortColumnState.grid.sort(sortFn);
+      console.log(sortColumnState.grid[0]);
+      return sortColumnState;
     case ADD_ROW:
       let addRowState = _.cloneDeep(state);
       let newRow = {}

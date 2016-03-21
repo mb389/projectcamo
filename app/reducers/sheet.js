@@ -23,11 +23,13 @@ export default function sheet(state = initialState, action = {}) {
       }
     case UPDATE_MODAL_CELL:
       {
-        let newState = _.cloneDeep(state);
-        let cell = newState.grid[action.cell.idx][action.cell.key].data
-        if (typeof cell === 'array') cell.push(action.cell.data)
-        else newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
-        return newState
+        let modalRowState = _.cloneDeep(state);
+        if (Array.isArray(modalRowState.modalRow.data[action.cell.key].data)) { 
+          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data) 
+        } else {
+          modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+        }
+        return modalRowState
       }
     case SHOW_ROW_MODAL:
       {
@@ -75,7 +77,8 @@ export default function sheet(state = initialState, action = {}) {
         let updateColumnState = _.cloneDeep(state);
         updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column => {
           if (column.id === action.data.id) {
-            return action.data } else return column;
+            return action.data
+          } else return column;
         })
         updateColumnState.grid.forEach(row => {
           row[action.data.id].type = action.data.type;

@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell } from 'actions/sheet';
+import { updateModalCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import Slider from 'react-slick';
 
 class FilepickerInput extends React.Component {
+  constructor(props, state){
+    super(props, state)
+    this.handleChangeFileUrl = this.handleChangeFileUrl.bind(this)
+  }
 
   componentDidMount() {
     const filepickerElement = this.refs.filepicker;
@@ -27,9 +31,9 @@ class FilepickerInput extends React.Component {
       type="filepicker" id="fpOverlay"/>
   }
 
-  handleChangeFileUrl(e) {
-    console.log('Filepicker URL', e.target.value);
-    // dispatch add to cell
+  handleChangeFileUrl(evt) {
+    console.log('Filepicker URL', evt.target.value);
+    this.props.dispatch(updateModalCell(evt.target.value, this.props.cellKey, this.props.rowIdx))
   }
 
 }

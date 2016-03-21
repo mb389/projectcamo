@@ -112,7 +112,7 @@
     border-left: 1px solid #dde1e3;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .cell:focus {

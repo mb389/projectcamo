@@ -60,7 +60,7 @@ module.exports = function(app, passport) {
   // sheets routes
   app.get('/sheet', sheets.all);
 
-  app.get('/sheet/:spaceId/:sheetName', sheets.one);
+  app.get('/sheet/:sheetId', sheets.one);
 
   app.post('/sheet', function(req, res) {
     sheets.add(req, res);
@@ -73,6 +73,8 @@ module.exports = function(app, passport) {
   app.put('/sheet/:id', function(req, res) {
     sheets.update(req, res);
   });
+
+  app.put('/sheet/:spaceId/:sheetName', sheets.updateName);
 
   app.delete('/sheet/:id', function(req, res) {
     sheets.remove(req, res);

@@ -15,7 +15,6 @@ class Navigation extends Component {
     super(props, context);
   }
 
-
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
@@ -25,7 +24,8 @@ class Navigation extends Component {
     <div className={cx('item', 'spaceName')}>{!this.props.space ? 'Loading' : this.props.space.name}</div>
   { this.props.user.authenticated ? (
         <Link onClick={()=> pass}
-        className={cx('item', 'logInProfile')} to="/"><Button className={cx('prolifeNav')}></Button></Link>
+        className={cx('item', 'logInProfile')} to="/">
+        <Button className={cx('prolifeNav')}></Button></Link>
       ) : (
         <Link className={cx('item', 'main', 'logInProfile')} to="/login"><span className={cx('logInNav')}>Log In</span></Link>
       )}
@@ -33,8 +33,6 @@ class Navigation extends Component {
       );
     }
 }
-
-
 
 
 Navigation.propTypes = {

@@ -3,13 +3,12 @@ import styles from 'css/components/dashboard';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
-export default class UserProfile extends Component {
-
-  render () {
+ const UserProfile = props => {
     return (
       <div className={cx('profile')}>
         123
       </div>
     );
   }
-}
+
+export default UserProfile;

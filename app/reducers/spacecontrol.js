@@ -6,7 +6,7 @@ import {
 
 import initialState from './sheetState';
 
-export default function sheet(state = initialState, action = {}) {
+export default function spaceControl(state = {}, action = {}) {
   switch (action.type) {
     case LOAD_SPACE:
       return Object.assign({}, state, {

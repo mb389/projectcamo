@@ -99,11 +99,12 @@ export function insertColumn(colIdx){
 	}
 }
 
-export function formulaColumn(colId, func){
+export function formulaColumn(arrMeth, func, colId){
 	return {
 		type: types.FORMULA_COLUMN,
 		colId,
 		func,
+		arrMeth,
 	}
 }
 

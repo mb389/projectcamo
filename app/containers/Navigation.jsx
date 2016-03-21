@@ -3,6 +3,9 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { logOut } from 'actions/users';
 import { Button, Glyphicon } from 'react-bootstrap';
+import * as Actions from '../actions/navigation';
+// import TagName from '../components/SpaceControls/SpaceSheetName';
+import ContentEditable from 'react-contenteditable';
 
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
@@ -13,6 +16,12 @@ const cx = classNames.bind(styles);
 class Navigation extends Component {
   constructor(props, context) {
     super(props, context);
+    this.editSpaceName = this.editSpaceName.bind(this);
+    // this.onNameChange = this.onNameChange.bind(this);
+  }
+
+  editSpaceName(e) {
+    this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
   }
 
   render() {
@@ -21,7 +30,12 @@ class Navigation extends Component {
       <Link to="dashboard"
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
-    <div className={cx('item', 'spaceName')}>{!this.props.space ? 'Loading' : this.props.space.name}</div>
+      <ContentEditable className={cx('item', 'spaceName')}
+          html={!this.props.space ? 'Loading' : this.props.space.name}
+            // innerHTML of the editable div
+          disabled={false}     // use true to disable edition
+          onChange={this.editSpaceName} // handle innerHTML change
+        />
   { this.props.user.authenticated ? (
         <Link onClick={()=> pass}
         className={cx('item', 'logInProfile')} to="/">

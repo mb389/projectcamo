@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-
 import App from 'containers/App';
 import About from 'containers/About';
 import SpaceControl from 'containers/SpaceControl';
@@ -35,7 +34,7 @@ export default (store) => {
   };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={SpaceControl} />
+      <IndexRoute component={Dashboard} />
 
       <Route path="/login"
         component={LoginOrRegister} onEnter={redirectAuth} />

@@ -9,13 +9,16 @@ polyfill();
 function loadSpaces(spaces) {
   return {
     type: types.LOAD_USER_SPACES,
-    spaces
+    spaces: spaces
   }
 }
 
 export function getSpaces() {
   return (dispatch) => {
     request(`/workspace`)
-    .then(res => dispatch(loadSpaces(res.data)))
+    .then(res => {
+      dispatch(loadSpaces(res.data))
+      console.log(res)
+    })
   }
 }

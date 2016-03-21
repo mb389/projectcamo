@@ -1,10 +1,8 @@
-import {
-  LOAD_USER_SPACES
-} from 'constants/index';
+import _ from 'lodash';
 
-import initialState from './sheetState';
+import {LOAD_USER_SPACES} from 'constants/index';
 
-export default function dashboard(state = initialState, action = {}) {
+export default function dashboard(state = {}, action = {}) {
   switch (action.type) {
     case LOAD_USER_SPACES:
       return Object.assign({}, state, {

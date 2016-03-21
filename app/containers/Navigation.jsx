@@ -31,15 +31,15 @@ class Navigation extends Component {
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
       <ContentEditable className={cx('item', 'spaceName')}
-          html={!this.props.space ? 'Loading' : this.props.space.name}
+          html={!this.props.space ? 'Project CAMO' : this.props.space.name}
             // innerHTML of the editable div
           disabled={false}     // use true to disable edition
           onChange={this.editSpaceName} // handle innerHTML change
         />
   { this.props.user.authenticated ? (
         <Link onClick={()=> pass}
-        className={cx('item', 'logInProfile')} to="/">
-        <Button className={cx('prolifeNav')}></Button></Link>
+        className={cx('item', 'logInProfile')} to="/dashboard">
+        <Button className={cx('profileNav')}></Button></Link>
       ) : (
         <Link className={cx('item', 'main', 'logInProfile')} to="/login"><span className={cx('logInNav')}>Log In</span></Link>
       )}

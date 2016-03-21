@@ -39,7 +39,7 @@ export default function sheet(state = initialState, action = {}) {
       modalCloseState.modalRow.rowIdx = null;
       return modalCloseState
     case ADD_COLUMN:
-      let addColumnState = Object.assign({}, state);
+      let addColumnState =  _.cloneDeep(state);
       let newColumn = {
         id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         // How are we making ids?
@@ -59,7 +59,7 @@ export default function sheet(state = initialState, action = {}) {
 
       return addColumnState;
     case UPDATE_COLUMN:
-      let updateColumnState = Object.assign({}, state);
+      let updateColumnState =  _.cloneDeep(state);
       updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
         if (column.id===action.data.id) {return action.data}
         else return column;

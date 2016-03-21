@@ -19,233 +19,232 @@ const row = {
     }
 }
 
-// const row1 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Assaf'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/apackin'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/apackin'
-//     }
-// }
+const row1 = {
+    '123': {
+      type: 'string',
+      data: 'Assaf'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/apackin'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/apackin'
+    }
+}
 
-// const row2 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Cody'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/cschwarz'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/cschwarz'
-//     }
-// }
+const row2 = {
+    '123': {
+      type: 'string',
+      data: 'Cody'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/cschwarz'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/cschwarz'
+    }
+}
 
-// const row3 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Mike'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/mbushoy'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/mbushoy'
-//     }
-// }
+const row3 = {
+    '123': {
+      type: 'string',
+      data: 'Mike'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/mbushoy'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/mbushoy'
+    }
+}
 
-// const row4 = {
-//    '123': {
-//       type: 'string',
-//       data: 'Oscar'
-//     },
-//     "124": {
-//       type: 'url',
-//       data: 'github.com/elpenao'
-//     },
-//     "125": {
-//       type: 'url',
-//       data: 'linkedIn.com/elpenao'
-//     }
-// }
+const row4 = {
+   '123': {
+      type: 'string',
+      data: 'Oscar'
+    },
+    "124": {
+      type: 'url',
+      data: 'github.com/elpenao'
+    },
+    "125": {
+      type: 'url',
+      data: 'linkedIn.com/elpenao'
+    }
+}
 
-// const row5 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Assaf'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/apackin'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/apackin'
-//     }
-// }
+const row5 = {
+    '123': {
+      type: 'string',
+      data: 'Assaf'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/apackin'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/apackin'
+    }
+}
 
-// const row6 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Cody'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/cschwarz'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/cschwarz'
-//     }
-// }
+const row6 = {
+    '123': {
+      type: 'string',
+      data: 'Cody'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/cschwarz'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/cschwarz'
+    }
+}
 
-// const row7 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Mike'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/mbushoy'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/mbushoy'
-//     }
-// }
+const row7 = {
+    '123': {
+      type: 'string',
+      data: 'Mike'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/mbushoy'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/mbushoy'
+    }
+}
 
-// const row8 = {
-//    '123': {
-//       type: 'string',
-//       data: 'Oscar'
-//     },
-//     "124": {
-//       type: 'url',
-//       data: 'github.com/elpenao'
-//     },
-//     "125": {
-//       type: 'url',
-//       data: 'linkedIn.com/elpenao'
-//     }
-// }
+const row8 = {
+   '123': {
+      type: 'string',
+      data: 'Oscar'
+    },
+    "124": {
+      type: 'url',
+      data: 'github.com/elpenao'
+    },
+    "125": {
+      type: 'url',
+      data: 'linkedIn.com/elpenao'
+    }
+}
 
-// const row9 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Assaf'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/apackin'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/apackin'
-//     }
-// }
+const row9 = {
+    '123': {
+      type: 'string',
+      data: 'Assaf'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/apackin'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/apackin'
+    }
+}
 
-// const row10 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Cody'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/cschwarz'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/cschwarz'
-//     }
-// }
+const row10 = {
+    '123': {
+      type: 'string',
+      data: 'Cody'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/cschwarz'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/cschwarz'
+    }
+}
 
-// const row11 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Mike'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/mbushoy'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/mbushoy'
-//     }
-// }
+const row11 = {
+    '123': {
+      type: 'string',
+      data: 'Mike'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/mbushoy'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/mbushoy'
+    }
+}
 
-// const row12 = {
-//    '123': {
-//       type: 'string',
-//       data: 'Oscar'
-//     },
-//     "124": {
-//       type: 'url',
-//       data: 'github.com/elpenao'
-//     },
-//     "125": {
-//       type: 'url',
-//       data: 'linkedIn.com/elpenao'
-//     }
-// }
+const row12 = {
+   '123': {
+      type: 'string',
+      data: 'Oscar'
+    },
+    "124": {
+      type: 'url',
+      data: 'github.com/elpenao'
+    },
+    "125": {
+      type: 'url',
+      data: 'linkedIn.com/elpenao'
+    }
+}
 
-// const row13 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Assaf'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/apackin'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/apackin'
-//     }
-// }
+const row13 = {
+    '123': {
+      type: 'string',
+      data: 'Assaf'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/apackin'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/apackin'
+    }
+}
 
-// const row14 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Cody'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/cschwarz'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/cschwarz'
-//     }
-// }
+const row14 = {
+    '123': {
+      type: 'string',
+      data: 'Cody'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/cschwarz'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/cschwarz'
+    }
+}
 
-// const row15 = {
-//     '123': {
-//       type: 'string',
-//       data: 'Mike'
-//     },
-//     '124': {
-//       type: 'url',
-//       data: 'github.com/mbushoy'
-//     },
-//     '125': {
-//       type: 'url',
-//       data: 'linkedIn.com/mbushoy'
-//     }
-// }
+const row15 = {
+    '123': {
+      type: 'string',
+      data: 'Mike'
+    },
+    '124': {
+      type: 'url',
+      data: 'github.com/mbushoy'
+    },
+    '125': {
+      type: 'url',
+      data: 'linkedIn.com/mbushoy'
+    }
+}
 
-// const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
-const grid = [row]
+const grid = [row, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15]
 const initialState = { grid: grid, columnHeaders: columnHeaders, showRowModal: false, modalRow: { data:null, rowIdx: null} }
 
 export default initialState

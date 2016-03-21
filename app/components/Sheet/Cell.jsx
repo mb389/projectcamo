@@ -11,19 +11,20 @@ const cx = classNames.bind(styles);
 class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
-	    const { cellKey, rowIdx, grid } = this.props;
-	    this.state = {disabled: true, html: this.props.cell.data}
-	    this.openModal = this.openModal.bind(this)
+    const { cellKey, rowIdx, grid } = this.props;
+    this.state = {disabled: true, html: this.props.cell.data}
+    this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.editable = this.editable.bind(this)
 		this.setMouseEnter = this.setMouseEnter.bind(this)
 		this.setMouseLeave = this.setMouseLeave.bind(this)
+    this.cell = this.cell.bind(this)
 	}
 
 	openModal(){
-	// dispatch show modal
-	const { dispatch, rowIdx } = this.props;
-	dispatch(showRowModal(rowIdx))
+  	// dispatch show modal
+  	const { dispatch, rowIdx } = this.props;
+  	dispatch(showRowModal(rowIdx))
 	}
 
 	handleChange(evt){
@@ -36,6 +37,23 @@ class Cell extends Component {
 	this.setState({disabled: false});
 	}
 
+  cell(cell, cellKey, row, rowIdx, cellIdx){
+    if (cell.type === 'images') {
+      return (cell.data.map(function (img, i) {
+        return (<img src={img} key={i} className={cx('img-thumb')}/>)
+      }))
+    } else {
+      return (<ContentEditable 
+        html={cell.data} // innerHTML of the editable div
+        disabled={this.state.disabled}       // use true to disable edition
+        onChange={this.handleChange} // handle innerHTML change
+        onDoubleClick={this.editable} // allow for cell editing after focus
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
+      />)
+    }
+  }
+
 	setMouseEnter (evt) {
 	evt.target.parentElement.style.backgroundColor = '#e9e9e9';
 	}
@@ -45,7 +63,7 @@ class Cell extends Component {
 	}
 
 	render () {
-    const { cellKey, rowIdx, grid, cell } = this.props;
+    const { cellKey, rowIdx, grid, cell, row } = this.props;
     if (this.props.cellIdx === 0) {
         return (
           <div className={cx('cell')} key={this.props.key}>
@@ -64,41 +82,17 @@ class Cell extends Component {
         );
     }
 
-    // if (grid[rowIdx][cellKey].type === 'images') {
-    //     return (
-    //       <div className={cx('cell')} key={this.props.key}>
-    //         <a className={cx('cell-expand')} onClick={this.openModal}>
-    //           <i className="glyphicon glyphicon-resize-full" />
-    //         </a>
-    //         <div>
-    //           {cell.data}
-    //         </div>
-    //       </div>
-    //     );
-    // }
-
     return (
-    	<ContentEditable className={cx('cell')}
-        html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled}       // use true to disable edition
-        onChange={this.handleChange} // handle innerHTML change
-        onDoubleClick={this.editable} // allow for cell editing after focus
-        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
-        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
-      />
-    );
+      <div className={cx('cell')}>
+        {this.cell(cell,cellKey,row,rowIdx)}
+      </div>
+      );
   }
 }
 
 Cell.propTypes = {
   dispatch: PropTypes.func
 };
-
-// function mapStateToProps(store) {
-//   return {
-//     grid: store.sheet.grid
-//   };
-// }
 
 export default connect()(Cell);
 

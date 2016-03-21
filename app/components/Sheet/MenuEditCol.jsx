@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 export default class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {selectedType: false};
+		this.state = {colType: false};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -19,11 +19,19 @@ export default class MenuEditCol extends Component {
 
 	itemSelected(e, ekey) {
 		console.log('itemSelected', ekey);
-		this.setState({selectedType: ekey});
+		this.setState({colType: ekey});
 	}
 
 	saveTypeChanges() {
-		console.log('saveTypeChanges');
+		let newColData = {
+			id: this.props.data.id,
+			type: this.state.colType || this.props.data.type,
+			name: document.getElementById("newColName").innerHTML,
+			idx: this.props.data.id,
+		}
+
+		if (newColData == this.props.data) console.log('No Change');
+		else dispatch(updateCol(newColData))
 		this.props.exitTypeMenu();
 	}
 
@@ -39,10 +47,10 @@ export default class MenuEditCol extends Component {
 
 		return (
 				<div className={cx('editNameAndType')}>
-					<div className={cx('thead') + ' col-md-12'} contentEditable>{this.props.data.name}</div>
+					<div className={cx('thead') + ' col-md-12'} id="newColName" contentEditable>{this.props.data.name}</div>
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.state.selectedType || this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        {this.state.colType || this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}

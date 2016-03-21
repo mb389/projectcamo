@@ -22,3 +22,7 @@ body {
 .dropdown-toggle {
 	border: 0;
 }
+
+.fp__container {
+	z-index: 1100 !important;
+}

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import TextModal from './ModalTypes/Text';
+import ImageList from './ModalTypes/ImageList';
 import { connect } from 'react-redux';
 import { closeRowModal } from 'actions/sheet';
 import styles from 'css/components/modal';
@@ -12,10 +13,16 @@ class RowModal extends Component {
 	constructor(props, state){
 		super(props, state)
 		this.close = this.close.bind(this)
+    this.cell = this.cell.bind(this)
 	}
 
 	close() {
     this.props.dispatch(closeRowModal())
+  }
+
+  cell(cell, cellKey, row, rowIdx, cellIdx){
+    if (cell.type === 'images') return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
+    else return <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
   }
 
   rowCells(){
@@ -26,7 +33,7 @@ class RowModal extends Component {
         <div key={key}>
           <div className={cx('col-header')}>{columnHeaders[cells.length].name}</div>
           <div className={cx('wrapper')}>
-            <TextModal cell={modalRow[key]} cellKey={key} row={modalRow} rowIdx={modalRowIdx} cellIdx={cells.length}/>
+            {this.cell(modalRow[key],key,modalRow,modalRowIdx,cells.length)}
           </div>
         </div>
       );
@@ -36,7 +43,7 @@ class RowModal extends Component {
 
   render () {
     return (
-      <Modal show={this.props.showRowModal} onHide={this.close}>
+      <Modal show={this.props.showRowModal} onHide={this.close} className={cx('modalRow')}>
         <Modal.Body>
           {this.rowCells()}
         </Modal.Body>

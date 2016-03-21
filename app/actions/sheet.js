@@ -39,6 +39,13 @@ export function showRowModal(rowIdx){
 	}
 }
 
+export function updateModalCell(data) {
+	return {
+		type: types.UPDATE_MODAL_CELL,
+		data: data
+	}
+}
+
 export function closeRowModal() {
 	return {
 		type: types.CLOSE_ROW_MODAL

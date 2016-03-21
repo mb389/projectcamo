@@ -12,7 +12,7 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true}
+    this.state = {disabled: true, html: this.props.cell.data}
     this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.editable = this.editable.bind(this)
@@ -28,7 +28,7 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx } = this.props;
-	  this.setState({html: evt.target.value});
+	  // this.setState({html: evt.target.value});
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 
@@ -45,8 +45,7 @@ class Cell extends Component {
   }
 
 	render () {
-    console.log("cell rendered")
-    const { cellKey, rowIdx, grid } = this.props;
+    const { cellKey, rowIdx, grid, cell } = this.props;
     if (this.props.cellIdx === 0) {
         return (
           <div className={cx('cell')} key={this.props.key}>
@@ -54,7 +53,7 @@ class Cell extends Component {
               <i className="glyphicon glyphicon-resize-full" />
             </a>
             <ContentEditable className={cx('cell', 'first-cell')}
-              html={grid[rowIdx][cellKey].data} // innerHTML of the editable div
+              html={cell.data} // innerHTML of the editable div
               disabled={this.state.disabled}       // use true to disable edition
               onChange={this.handleChange} // handle innerHTML change
               onDoubleClick={this.editable} // allow for cell editing after focus
@@ -65,9 +64,22 @@ class Cell extends Component {
         );
     }
 
+    // if (grid[rowIdx][cellKey].type === 'images') {
+    //     return (
+    //       <div className={cx('cell')} key={this.props.key}>
+    //         <a className={cx('cell-expand')} onClick={this.openModal}>
+    //           <i className="glyphicon glyphicon-resize-full" />
+    //         </a>
+    //         <div>
+    //           {cell.data}
+    //         </div>
+    //       </div>
+    //     );
+    // }
+
     return (
     	<ContentEditable className={cx('cell')}
-        html={grid[rowIdx][cellKey].data} // innerHTML of the editable div
+        html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
@@ -82,11 +94,11 @@ Cell.propTypes = {
   dispatch: PropTypes.func
 };
 
-function mapStateToProps(store) {
-  return {
-    grid: store.sheet.grid
-  };
-}
+// function mapStateToProps(store) {
+//   return {
+//     grid: store.sheet.grid
+//   };
+// }
 
-export default connect(mapStateToProps)(Cell);
+export default connect()(Cell);
 

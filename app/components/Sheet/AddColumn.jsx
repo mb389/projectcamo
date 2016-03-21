@@ -19,7 +19,7 @@ class AddColumn extends Component {
 
   render () {
     return (
-      <button id={cx('addColumn')} className={cx('thead')} onClick={this.addColumn}> + </button>
+      <button className={cx('addColumn') } onClick={this.addColumn}> + </button>
     );
 	}
 }

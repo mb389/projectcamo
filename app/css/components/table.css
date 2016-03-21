@@ -49,6 +49,16 @@
   width: columnWidth;
 }
 
+.addColumn {
+  width: 50px;
+  display: inline-block;
+  background: #fff;
+  border-right: 1px solid #dde1e3;
+  border-bottom: 1px solid #d1d1d1;
+  border-radius: 0;
+  height: 34px;
+}
+
 .theaders {
     position: absolute;
     top: 0;

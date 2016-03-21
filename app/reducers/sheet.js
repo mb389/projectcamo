@@ -8,7 +8,8 @@ import {
   SORT_COLUMN,
 } from 'constants/index';
 
-import initialState from './sheetState'
+import initialState from './sheetState';
+import _ from 'lodash';
 
 export default function sheet(state = initialState, action = {}) {
   switch (action.type) {
@@ -60,7 +61,7 @@ export default function sheet(state = initialState, action = {}) {
       })
       return updateColumnState;
     case SORT_COLUMN:
-      let sortColumnState = Object.assign({}, state, {});
+      let sortColumnState = _.cloneDeep(state);
       console.log(action.sortBy, sortColumnState.grid[0]);
       let colId = action.sortBy.colId;
       let sortFn = function(a,b){
@@ -68,7 +69,7 @@ export default function sheet(state = initialState, action = {}) {
           else if (b[colId].data > a[colId].data) return (-1*action.sortBy.order);
           else return 0;
       };
-      sortColumnState.grid.sort(sortFn);
+      sortColumnState.grid = sortColumnState.grid.sort(sortFn);
       console.log(sortColumnState.grid[0]);
       return sortColumnState;
     case ADD_ROW:

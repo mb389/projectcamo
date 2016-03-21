@@ -63,3 +63,13 @@ export function updateColumn(data) {
 		data,
 	}
 }
+
+export function sortColumn(colId, bool) {
+	return {
+		type: types.SORT_COLUMN,
+		sortBy: {
+			colId: colId,
+			ascending: bool,
+		}
+	}
+}

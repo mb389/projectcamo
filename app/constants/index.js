@@ -26,3 +26,4 @@ export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
 export const UPDATE_COLUMN = 'UPDATE_COLUMN';
+export const SORT_COLUMN = 'SORT_COLUMN';

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import { connect } from 'react-redux';
+import { sortColumn } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -7,14 +9,13 @@ import MenuEditCol from './MenuEditCol';
 
 const cx = classNames.bind(styles);
 
-export default class ColumnOptions extends Component {
+class ColumnOptions extends Component {
 	constructor(props,state){
 		super(props, state);
 		this.state = {view: 'dropdown'};
 
 		this.handleSelection = this.handleSelection.bind(this);
 		this.changeType = this.changeType.bind(this);
-		this.rename = this.rename.bind(this);
 		this.duplicate = this.duplicate.bind(this);
 		this.sortAsc = this.sortAsc.bind(this);
 		this.sortDec = this.sortDec.bind(this);
@@ -31,13 +32,7 @@ export default class ColumnOptions extends Component {
 	}
 
 	changeType() {
-		console.log('changeType');
-		this.setState({view: 'editNameAndType'});
-	}
-
-
-	rename() {
-		console.log('rename');
+		console.log('changeTypeorName');
 		this.setState({view: 'editNameAndType'});
 	}
 
@@ -48,11 +43,12 @@ export default class ColumnOptions extends Component {
 
 	sortAsc() {
 		console.log('run sort on column ascending');
-
+		this.props.dispatch(sortColumn(this.props.data.id, true));
 	}
 
 	sortDec() {
 		console.log('run sort on column descending');
+		this.props.dispatch(sortColumn(this.props.data.id, false));
 	}
 
 	render () {
@@ -60,8 +56,8 @@ export default class ColumnOptions extends Component {
 		if (!this.state || this.state.view === 'dropdown') {
 			function generateMenuItems () {
 				var items = [
-					<MenuItem key="1" eventKey="changeType">Change Type</MenuItem>,
-					<MenuItem key="2" eventKey="rename">Rename Column</MenuItem>,
+					<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
+					<MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
 					<MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
 					<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
 					<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>
@@ -91,3 +87,5 @@ export default class ColumnOptions extends Component {
 		);
 	}
 }
+
+export default connect()(ColumnOptions);

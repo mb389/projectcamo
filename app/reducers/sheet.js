@@ -5,6 +5,7 @@ import {
   ADD_ROW,
   ADD_COLUMN,
   UPDATE_COLUMN,
+  SORT_COLUMN,
 } from 'constants/index';
 
 import initialState from './sheetState'
@@ -54,14 +55,14 @@ export default function sheet(state = initialState, action = {}) {
         if (column.id===action.data.id) {return action.data}
         else return column;
       })
-
-      console.log(updateColumnState.columnHeaders);
-
       updateColumnState.grid.forEach(row=>{
         row[action.data.id].type = action.data.type;
       })
-
       return updateColumnState;
+    case SORT_COLUMN:
+      let sortColumnState = Object.assign({}, state, {});
+      console.log(action.sortBy);
+      return sortColumnState;
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});
       let newRow = {}

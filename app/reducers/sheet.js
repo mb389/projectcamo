@@ -61,7 +61,15 @@ export default function sheet(state = initialState, action = {}) {
       return updateColumnState;
     case SORT_COLUMN:
       let sortColumnState = Object.assign({}, state, {});
-      console.log(action.sortBy);
+      console.log(action.sortBy, sortColumnState.grid[0]);
+      let colId = action.sortBy.colId;
+      let sortFn = function(a,b){
+          if (a[colId].data > b[colId].data) return (1*action.sortBy.order);
+          else if (b[colId].data > a[colId].data) return (-1*action.sortBy.order);
+          else return 0;
+      };
+      sortColumnState.grid.sort(sortFn);
+      console.log(sortColumnState.grid[0]);
       return sortColumnState;
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});

@@ -43,12 +43,12 @@ class ColumnOptions extends Component {
 
 	sortAsc() {
 		console.log('run sort on column ascending');
-		this.props.dispatch(sortColumn(this.props.data.id, true));
+		this.props.dispatch(sortColumn(this.props.data.id, 1));
 	}
 
 	sortDec() {
 		console.log('run sort on column descending');
-		this.props.dispatch(sortColumn(this.props.data.id, false));
+		this.props.dispatch(sortColumn(this.props.data.id, -1));
 	}
 
 	render () {

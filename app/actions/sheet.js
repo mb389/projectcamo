@@ -64,12 +64,12 @@ export function updateColumn(data) {
 	}
 }
 
-export function sortColumn(colId, bool) {
+export function sortColumn(colId, sign) {
 	return {
 		type: types.SORT_COLUMN,
 		sortBy: {
 			colId: colId,
-			ascending: bool,
+			order: sign,
 		}
 	}
 }

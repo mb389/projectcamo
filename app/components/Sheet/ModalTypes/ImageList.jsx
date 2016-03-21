@@ -29,7 +29,7 @@ class ImageList extends Component {
         <Slider {...settings}>
           {images}
         </Slider>
-        <FilepickerInput  style={fileStyle}/>
+        <FilepickerInput  style={fileStyle} />
       </div>  
     );
 	}

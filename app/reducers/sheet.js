@@ -20,8 +20,9 @@ export default function sheet(state = initialState, action = {}) {
       return newState
     case UPDATE_MODAL_CELL:
       let modalRowState =  _.cloneDeep(state);
-      console.log(modalRowState)
-      modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+      let cell = newState.grid[action.cell.idx][action.cell.key].data
+      if (typeof cell === 'array') cell.push(action.cell.data)
+        else cell = action.cell.data
       return modalRowState
     case SHOW_ROW_MODAL:
       let modalState = _.cloneDeep(state)

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { sortColumn, removeColumn } from 'actions/sheet';
+import { sortColumn, removeColumn, insertColumn } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -21,6 +21,8 @@ class ColumnOptions extends Component {
 		this.sortDec = this.sortDec.bind(this);
 		this.exitTypeMenu = this.exitTypeMenu.bind(this);
 		this.removeCol = this.removeCol.bind(this);
+		this.insertLeft = this.insertLeft.bind(this);
+		this.insertRight = this.insertRight.bind(this);
 	}
 
 	handleSelection(evt, evtKey){
@@ -42,17 +44,23 @@ class ColumnOptions extends Component {
 
 	}
 
+	insertLeft() {
+		this.props.dispatch(insertColumn(this.props.data.idx));
+	}
+
+	insertRight() {
+		this.props.dispatch(insertColumn(1+this.props.data.idx));
+	}
+
 	removeCol() {
 		this.props.dispatch(removeColumn(this.props.data.id));
 	}
 
 	sortAsc() {
-		console.log('run sort on column ascending');
 		this.props.dispatch(sortColumn(this.props.data.id, 1));
 	}
 
 	sortDec() {
-		console.log('run sort on column descending');
 		this.props.dispatch(sortColumn(this.props.data.id, -1));
 	}
 
@@ -64,6 +72,8 @@ class ColumnOptions extends Component {
 					<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
 					<MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
 					<MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
+					<MenuItem key="7" eventKey="insertLeft"> Insert Left </MenuItem>,
+					<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
 					<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
 					<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
 					<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>

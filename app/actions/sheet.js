@@ -91,3 +91,10 @@ export function removeColumn(colId) {
 		colId,
 	}
 }
+
+export function insertColumn(colIdx){
+	return {
+		type: types.INSERT_COLUMN,
+		colIdx,
+	}
+}

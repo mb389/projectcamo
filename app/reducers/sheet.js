@@ -8,6 +8,7 @@ import {
   UPDATE_COLUMN,
   SORT_COLUMN,
   REMOVE_COLUMN,
+  INSERT_COLUMN,
   UPDATE_MODAL_CELL,
 } from 'constants/index';
 
@@ -39,11 +40,10 @@ export default function sheet(state = initialState, action = {}) {
             modalCloseState.modalRow.data = null;
             modalCloseState.modalRow.rowIdx = null;
             return modalCloseState}
-    case ADD_COLUMN:
-      {let addColumnState =  _.cloneDeep(state);
+    case ADD_COLUMN:{
+      let addColumnState =  _.cloneDeep(state);
       let newColumn = {
-        id: (1+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
-        // How are we making ids?
+        id: (Date.now()+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
         type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
@@ -51,16 +51,43 @@ export default function sheet(state = initialState, action = {}) {
 
       addColumnState.columnHeaders.push(newColumn);
 
-      addColumnState.grid.forEach(row => {
-          row[newColumn.id] = {
-            type: newColumn.type,
-            data: null,
-          }
-        });
+      addColumnState = insertNewColInRows(addColumnState, newColumn);
+      // addColumnState.grid.forEach(row => {
+      //     row[newColumn.id] = {
+      //       type: newColumn.type,
+      //       data: null,
+      //     }
+      //   });
 
       return addColumnState;}
-    case UPDATE_COLUMN:
-      {let updateColumnState =  _.cloneDeep(state);
+    case INSERT_COLUMN:{
+      let insertColumnState = _.cloneDeep(state);
+      let newColumn = {
+        id: (Date.now()+insertColumnState.columnHeaders[insertColumnState.columnHeaders.length-1].id).toString(),
+        type: 'Text',
+        name: 'Column ' + (1+action.colIdx),
+        idx: action.colIdx,
+      } 
+
+      insertColumnState.columnHeaders = insertColumnState.columnHeaders.map(column=>{
+        if (column.idx >= action.colIdx) {column.idx++}
+        return column;
+      })
+
+      insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
+
+      insertColumnState = insertNewColInRows(insertColumnState, newColumn);
+
+      // insertColumnState.grid.forEach(row => {
+      //     row[newColumn.id] = {
+      //       type: newColumn.type,
+      //       data: null,
+      //     }
+      // });
+
+      return insertColumnState}
+    case UPDATE_COLUMN:{
+      let updateColumnState =  _.cloneDeep(state);
       updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
         if (column.id===action.data.id) {return action.data}
         else return column;
@@ -69,8 +96,8 @@ export default function sheet(state = initialState, action = {}) {
         row[action.data.id].type = action.data.type;
       })
       return updateColumnState;}
-    case SORT_COLUMN:
-      {let sortColumnState = _.cloneDeep(state);
+    case SORT_COLUMN:{
+      let sortColumnState = _.cloneDeep(state);
       let colId = action.sortBy.colId;
       let sortFn = function(a,b){
           if (!a[colId].data) return (1);
@@ -81,8 +108,8 @@ export default function sheet(state = initialState, action = {}) {
       };
       sortColumnState.grid = sortColumnState.grid.sort(sortFn);
       return sortColumnState;}
-    case REMOVE_COLUMN:
-      {let removeColumnState = _.cloneDeep(state);
+    case REMOVE_COLUMN:{
+      let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;
       removeColumnState.columnHeaders = removeColumnState.columnHeaders.filter(col => {
         return colId !== col.id;
@@ -105,4 +132,14 @@ export default function sheet(state = initialState, action = {}) {
     default:
       return state;
   }
+}
+
+function insertNewColInRows (state, newColumn){
+  state.grid.forEach(row => {
+    row[newColumn.id] = {
+      type: newColumn.type,
+      data: null,
+    }
+  });
+  return state;
 }

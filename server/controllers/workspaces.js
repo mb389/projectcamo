@@ -41,7 +41,6 @@ exports.add = function(req, res) {
  * Update a Workspace
  */
 exports.update = function(req, res) {
-    console.log('update', req.body);
     Workspace.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then((space) => res.status(200).json(space))
     .catch(err => res.status(500).send('We failed to save to due some reason'))

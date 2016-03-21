@@ -98,3 +98,12 @@ export function insertColumn(colIdx){
 		colIdx,
 	}
 }
+
+export function formulaColumn(colId, func){
+	return {
+		type: types.FORMULA_COLUMN,
+		colId,
+		func,
+	}
+}
+

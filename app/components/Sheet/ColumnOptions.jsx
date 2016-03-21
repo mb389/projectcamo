@@ -41,6 +41,10 @@ class ColumnOptions extends Component {
 
 	duplicate() {
 		console.log('duplicate this column');
+		let dup = function (element) {
+			return element;
+		};
+		this.props.dispatch(formulaColumn(this.props.data.id, dup));
 
 	}
 

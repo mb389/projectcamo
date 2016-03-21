@@ -84,3 +84,10 @@ export function sortColumn(colId, sign) {
 		}
 	}
 }
+
+export function removeColumn(colId) {
+	return {
+		type: types.REMOVE_COLUMN,
+		colId,
+	}
+}

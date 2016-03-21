@@ -38,16 +38,9 @@ class Cell extends Component {
 	}
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
-    const thumbStyle = {
-      width: "25px", 
-      height: "25px",
-      "box-shadow": "0 0 0 1px rgba(0,0,0,0.3)",
-      "border-radius": "4px",
-      "margin-right": "7px"
-    }
     if (cell.type === 'images') {
       return (cell.data.map(function (img, i) {
-        return (<img src={img} key={i} style={thumbStyle}/>)
+        return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
       return (<ContentEditable 

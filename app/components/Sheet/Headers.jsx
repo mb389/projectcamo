@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ColumnOptions from './ColumnOptions';
+import AddColumn from './AddColumn';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 
@@ -18,6 +19,7 @@ const Headers = (props) => {
       <div className={cx('theaders')}>
         <div className={cx('rnum')} />
         {generateColumnOptions(props.headers)}
+        <AddColumn />
       </div>
     );
 }

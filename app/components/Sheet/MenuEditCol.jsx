@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
+import { connect } from 'react-redux';
+import { updateColumn } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
-import ColumnOptions from './ColumnOptions';
 
 const cx = classNames.bind(styles);
 
 
-export default class MenuEditCol extends Component {
+class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
 		this.state = {colType: false};
@@ -27,11 +28,11 @@ export default class MenuEditCol extends Component {
 			id: this.props.data.id,
 			type: this.state.colType || this.props.data.type,
 			name: document.getElementById("newColName").innerHTML,
-			idx: this.props.data.id,
+			idx: this.props.data.idx,
 		}
 
 		if (newColData == this.props.data) console.log('No Change');
-		else dispatch(updateCol(newColData))
+		else this.props.dispatch(updateColumn(newColData))
 		this.props.exitTypeMenu();
 	}
 
@@ -66,3 +67,5 @@ export default class MenuEditCol extends Component {
 				)
 	}
 }
+
+export default connect()(MenuEditCol);

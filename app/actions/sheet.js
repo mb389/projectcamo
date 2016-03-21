@@ -56,3 +56,10 @@ export function addColumn() {
 		type: types.ADD_COLUMN
 	}
 }
+
+export function updateColumn(data) {
+	return {
+		type: types.UPDATE_COLUMN,
+		data,
+	}
+}

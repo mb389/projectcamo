@@ -3,7 +3,8 @@ import {
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
   ADD_ROW,
-  ADD_COLUMN
+  ADD_COLUMN,
+  UPDATE_COLUMN,
 } from 'constants/index';
 
 import initialState from './sheetState'
@@ -47,6 +48,20 @@ export default function sheet(state = initialState, action = {}) {
         });
 
       return addColumnState;
+    case UPDATE_COLUMN:
+      let updateColumnState = Object.assign({}, state, {});
+      updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
+        if (column.id===action.data.id) {return action.data}
+        else return column;
+      })
+
+      console.log(updateColumnState.columnHeaders);
+
+      updateColumnState.grid.forEach(row=>{
+        row[action.data.id].type = action.data.type;
+      })
+
+      return updateColumnState;
     case ADD_ROW:
       let addRowState = Object.assign({}, state, {});
       let newRow = {}

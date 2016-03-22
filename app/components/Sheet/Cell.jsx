@@ -53,8 +53,8 @@ class Cell extends Component {
         disabled={false}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
-        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
-        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change
       />)
     }
   }
@@ -68,19 +68,24 @@ class Cell extends Component {
 	}
 
   keyPress (evt) {
+		console.log(evt.keyCode);
     let col = Number(evt.target.id.substr(0,3));
     let row = Number(evt.target.id.substr(3));
     switch (evt.keyCode) {
       case 37:{
+							evt.preventDefault();
               this.handleFocus(""+(col-1)+row);
               break;}
       case 38:{
+							evt.preventDefault();
               this.handleFocus(""+col+(row-1));
               break;}
       case 39:{
+							evt.preventDefault();
               this.handleFocus(""+(col+1)+row);
               break;}
-      case 40:{
+      case 40 || 13:{
+							evt.preventDefault();
               this.handleFocus(""+col+(row+1));
               break;}
       default:
@@ -95,28 +100,24 @@ class Cell extends Component {
 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
-    if (this.props.cellIdx === 0) {
-        return (
-          <div tabIndex='-1' className={cx('cell')} key={this.props.key}
-            id={''+this.props.cellKey+this.props.rowIdx}
-            onDoubleClick={this.editable} // allow for cell editing after focus
-            onKeyDown={this.keyPress} // for key navigation
-            >
-            <Glyphicon
-                className={cx('cell-expand')}
-                glyph="fullscreen"
-                onClick={this.openModal} />
-            <ContentEditable className={cx('cell', 'first-cell')}
-              html={cell.data} // innerHTML of the editable div
-              disabled={this.state.disabled}       // use true to disable edition
-              onChange={this.handleChange} // handle innerHTML change
-              onDoubleClick={this.editable} // allow for cell editing after focus
-              onMouseEnter={this.setMouseEnter} 
-              onMouseLeave={this.setMouseLeave} 
-            />
-          </div>
-        );
-    }
+    // if (this.props.cellIdx === 0) {
+    //     return (
+    //       <div tabIndex='-1' className={cx('cell')} key={this.props.key}
+    //         id={''+this.props.cellKey+this.props.rowIdx}
+    //         onDoubleClick={this.editable} // allow for cell editing after focus
+    //         onKeyDown={this.keyPress} // for key navigation
+    //         >
+    //         <ContentEditable className={cx('first-cell')}
+    //           html={cell.data} // innerHTML of the editable div
+    //           disabled={this.state.disabled}       // use true to disable edition
+    //           onChange={this.handleChange} // handle innerHTML change
+    //           onDoubleClick={this.editable} // allow for cell editing after focus
+    //           onMouseEnter={this.setMouseEnter}
+    //           onMouseLeave={this.setMouseLeave}
+    //         />
+    //       </div>
+    //     );
+    // }
 
     return (
       <div tabIndex='-1' className={cx('cell')} id={''+this.props.cellKey+this.props.rowIdx}
@@ -134,4 +135,3 @@ Cell.propTypes = {
 };
 
 export default connect()(Cell);
-

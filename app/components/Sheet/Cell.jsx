@@ -67,7 +67,6 @@ class Cell extends Component {
 	}
 
   keyPress (evt) {
-    console.log(evt.target.id);
     let col = Number(evt.target.id.substr(0,3));
     let row = Number(evt.target.id.substr(3));
     switch (evt.keyCode) {
@@ -90,8 +89,7 @@ class Cell extends Component {
   }
 
   handleFocus (selId) {
-    console.log('handleFocus ', selId)
-    document.getElementById(selId).focus();
+    if(document.getElementById(selId)) document.getElementById(selId).focus();
   }
 
 	render () {

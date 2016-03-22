@@ -20,6 +20,8 @@ class SpaceControl extends Component {
   }
 
   render() {
+    if (!this.props.sheet) return <div>loading ...</div>
+
     return (
         <div>
           <Navigation disabled={false}

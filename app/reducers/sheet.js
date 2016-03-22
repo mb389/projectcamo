@@ -10,12 +10,23 @@ import {
   REMOVE_COLUMN,
   INSERT_COLUMN,
   UPDATE_MODAL_CELL,
+  CHANGE_SHEET
 } from 'constants/index';
 
 import initialState from './sheetState';
 
-export default function sheet(state = initialState, action = {}) {
+export default function sheet(state = { grid: [], columnHeaders: [], showRowModal: false, modalRow: {data:null,rowIdx:null} }, action = {}) {
   switch (action.type) {
+    case CHANGE_SHEET:
+      return {
+        columnHeaders: action.sheet.columnHeaders,
+        grid: action.sheet.grid,
+        modalRow: {
+          data: null,
+          rowIdx: null
+        },
+        showRowModal: false
+      }
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);

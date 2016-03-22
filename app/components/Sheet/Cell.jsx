@@ -45,7 +45,7 @@ class Cell extends Component {
     } else {
       return (<ContentEditable 
         html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled}       // use true to disable edition
+        disabled={false}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
         onMouseEnter={this.setMouseEnter} // handle innerHTML change 

@@ -7,246 +7,246 @@ var Workspace = Promise.promisifyAll(mongoose.model('Workspace'));
 var Sheet = Promise.promisifyAll(mongoose.model('Sheet'));
 
 const columnHeaders = [
-      { id: '123', type: 'name', name: 'Names', idx: 0 },
-      { id: '124', type: 'url', name: 'Github URL', idx: 1 },
-      { id: '125', type: 'ref', name: 'Images', idx: 2 },
+      { id: '0', type: 'name', name: 'Names', idx: 0 },
+      { id: '1', type: 'url', name: 'Github URL', idx: 1 },
+      { id: '2', type: 'ref', name: 'Images', idx: 2 },
     ]
 
 const row = {
-   '123': {
+   '0': {
       type: 'string',
       data: 'Oscar'
     },
-    "124": {
+    '1': {
       type: 'url',
       data: 'https://github.com/elpenao'
     },
-    "125": {
+    '2': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row1 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Assaf'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/apackin'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/apackin'
     }
 }
 
 const row2 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Cody'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/cschwarz'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/cschwarz'
     }
 }
 
 const row3 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Mike'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/mbushoy'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/mbushoy'
     }
 }
 
 const row4 = {
-   '123': {
+   '0': {
       type: 'string',
       data: 'Oscar'
     },
-    "124": {
+    '1': {
       type: 'url',
       data: 'github.com/elpenao'
     },
-    "125": {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/elpenao'
     }
 }
 
 const row5 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Assaf'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/apackin'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/apackin'
     }
 }
 
 const row6 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Cody'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/cschwarz'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/cschwarz'
     }
 }
 
 const row7 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Mike'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/mbushoy'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/mbushoy'
     }
 }
 
 const row8 = {
-   '123': {
+   '0': {
       type: 'string',
       data: 'Oscar'
     },
-    "124": {
+    '1': {
       type: 'url',
       data: 'github.com/elpenao'
     },
-    "125": {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/elpenao'
     }
 }
 
 const row9 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Assaf'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/apackin'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/apackin'
     }
 }
 
 const row10 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Cody'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/cschwarz'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/cschwarz'
     }
 }
 
 const row11 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Mike'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/mbushoy'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/mbushoy'
     }
 }
 
 const row12 = {
-   '123': {
+   '0': {
       type: 'string',
       data: 'Oscar'
     },
-    "124": {
+    '1': {
       type: 'url',
       data: 'github.com/elpenao'
     },
-    "125": {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/elpenao'
     }
 }
 
 const row13 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Assaf'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/apackin'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/apackin'
     }
 }
 
 const row14 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Cody'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/cschwarz'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/cschwarz'
     }
 }
 
 const row15 = {
-    '123': {
+    '0': {
       type: 'string',
       data: 'Mike'
     },
-    '124': {
+    '1': {
       type: 'url',
       data: 'github.com/mbushoy'
     },
-    '125': {
+    '2': {
       type: 'url',
       data: 'linkedIn.com/mbushoy'
     }
@@ -262,19 +262,19 @@ var seedUsers = function () {
     var users = [
         {
             email: 'cody@camo.com',
-            password: '123'
+            password: '0'
         },
         {
             email: 'oscar@camo.com',
-            password: '123'
+            password: '0'
         },
         {
           email: 'mb@camo.com',
-          password: '123'
+          password: '0'
         },
         {
           email: 'assaf@camo.com',
-          password: '123'
+          password: '0'
         }
     ];
     return User.createAsync(users);
@@ -284,7 +284,7 @@ var seedUsers = function () {
 var seedSheet = function (workspaceId) {
   var sheet = [
     {
-      name: "Sheet1",
+      name: 'Sheet1',
       content: sheetState,
       workspace: workspaceId
     }
@@ -296,7 +296,7 @@ var seedSheet = function (workspaceId) {
 var seedWorkspace = function () {
   var workspace = [
     {
-      name: "Seedspace"
+      name: 'Seedspace'
     }
   ]
   return Workspace.createAsync(workspace);

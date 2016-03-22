@@ -13,12 +13,18 @@ function loadSpaces(spaces) {
   }
 }
 
+export function clearSheet() {
+  return {
+    type: types.CLEAR_SHEET
+  };
+}
+
 export function getSpaces() {
   return (dispatch) => {
     request(`/workspace`)
     .then(res => {
       dispatch(loadSpaces(res.data))
-      console.log(res)
     })
+    .then(() => dispatch(clearSheet()))
   }
 }

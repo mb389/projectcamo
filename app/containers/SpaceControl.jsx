@@ -4,6 +4,7 @@ import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
 import Table from 'components/Sheet/Table';
 import * as Actions from '../actions/spacecontrols';
+import * as SheetActions from '../actions/sheet';
 import Navigation from 'containers/Navigation';
 import BottomBar from 'components/BottomBar';
 
@@ -14,20 +15,24 @@ import styles from 'css/components/space-control';
 const cx = classNames.bind(styles);
 
 
-
-
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
   }
 
   componentWillMount() {
-    if (!this.props.space) {
+    if (!this.props.space || !this.props.sheet.grid) {
       this.props.dispatch(Actions.getSpace(this.props.params.spaceId));
     }
   }
 
+  componentWillUnmount(){
+    this.props.dispatch(SheetActions.clearSheet())
+  }
+
   render() {
+    if (!this.props.sheet) return <div>loading ...</div>
+
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>

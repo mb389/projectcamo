@@ -15,7 +15,6 @@ class Cell extends Component {
     const { cellKey, rowIdx, grid } = this.props;
     this.state = {disabled: true};
     // leaving disabled in case we choose to use it later
-    this.openModal = this.openModal.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.setMouseEnter = this.setMouseEnter.bind(this);
 		this.setMouseLeave = this.setMouseLeave.bind(this);

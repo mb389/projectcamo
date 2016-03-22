@@ -32,7 +32,7 @@ class SpaceControl extends Component {
   }
 
   render() {
-    if (!this.props.sheet) return <div>loading ...</div>
+    if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     let boundActionCreators = bindActionCreators(SheetActions, this.props.dispatch)
     return (
       <div className={cx('SpaceControl')}>

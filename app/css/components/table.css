@@ -68,7 +68,6 @@
   border: 1px solid #dde1e3;
   border-radius: 0;
   height: 25px;
-  margin-top: 5px;
   margin-bottom: 30px;
 }
 
@@ -76,11 +75,12 @@
     /*position: absolute;*/
     top: 115;
     left: 0;
-    display: block;
+    display: flex;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid #d1d1d1;
-    position: fixed;
+    /*position: fixed;*/
+    /*overflow: scroll;*/
 }
 
 .thead {
@@ -95,15 +95,15 @@
 
 .trows {
     /*position: relative;*/
-    margin-top: 35px;
+    /*margin-top: 35px;*/
     height: 100%;
-    overflow: hidden;
+    overflow: scroll;
     display: block;
 }
 
 .trow {
     width: 100%;
-    display: block;
+    display: flex;
     height: 34px;
 }
 

@@ -73,7 +73,7 @@ export default function sheet(state = {
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
       let newColumn = {
-        id: addColumnState.columnHeaders.length.toString(),
+        id: (100+addColumnState.columnHeaders.length).toString(),
         type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
@@ -98,7 +98,7 @@ export default function sheet(state = {
     case INSERT_COLUMN:{
       let insertColumnState = _.cloneDeep(state);
       let newColumn = {
-        id: insertColumnState.columnHeaders.length.toString(),
+        id: (100+insertColumnState.columnHeaders.length).toString(),
         type: 'Text',
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
@@ -157,7 +157,7 @@ export default function sheet(state = {
 
 
       let newColumn = {
-        id: formulaColumnState.columnHeaders.length.toString(),
+        id: (100+formulaColumnState.columnHeaders.length).toString(),
         name: 'Column ' + (1+formulaColumnState.columnHeaders.length),
         idx: formulaColumnState.columnHeaders.length,
       } 

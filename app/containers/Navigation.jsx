@@ -26,9 +26,9 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="/dashboard"
+      <a href="/dashboard"
       className={cx('item', 'main')}
-      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
+      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></a>
       <ContentEditable className={cx('item', 'spaceName')}
           html={!this.props.space ? 'Project CAMO' : this.props.space.name}
             // innerHTML of the editable div
@@ -37,11 +37,12 @@ class Navigation extends Component {
         />
   { this.props.user.authenticated ? (
         <div className={cx('item','logInProfile')}>
-        <DropdownButton title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
+        <DropdownButton id='profile' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
             <MenuItem key="1" href='/'>Home</MenuItem>
-              <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
-            <MenuItem divider />
-            <MenuItem key="3" href='/logout'>Log Out</MenuItem>
+            <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
+            <MenuItem key="4" href='/about'>About CAMO</MenuItem>
+              <MenuItem divider />
+            <MenuItem key="5" href='/logout'>Log Out</MenuItem>
           </DropdownButton>
         </div>
       ) : (

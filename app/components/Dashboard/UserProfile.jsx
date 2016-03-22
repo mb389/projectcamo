@@ -9,7 +9,7 @@ const UserProfile = props => {
    console.log(user)
     return (
           <div className={cx('profile')}>
-              <div className="col-xs-12 col-sm-6 col-md-6">
+              <div className="col-md-6">
                 <div className="well well-sm">
                   <div className="row">
                     <div className="col-sm-6 col-md-4">

@@ -3,8 +3,9 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showRowModal } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal } from 'react-bootstrap';
+import { Modal, Glyphicon } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
+
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,7 @@ class Cell extends Component {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
-      return (<ContentEditable 
+      return (<ContentEditable className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
@@ -68,9 +69,10 @@ class Cell extends Component {
     if (this.props.cellIdx === 0) {
         return (
           <div className={cx('cell')} key={this.props.key}>
-            <a className={cx('cell-expand')} onClick={this.openModal}>
-              <i className="glyphicon glyphicon-resize-full" />
-            </a>
+							<Glyphicon
+								className={cx('cell-expand')}
+								glyph="fullscreen"
+								onClick={this.openModal} />
             <ContentEditable className={cx('cell', 'first-cell')}
               html={cell.data} // innerHTML of the editable div
               disabled={this.state.disabled}       // use true to disable edition

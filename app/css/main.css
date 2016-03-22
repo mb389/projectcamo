@@ -14,6 +14,7 @@ body {
 .app {
   composes: box from './common/layout.css';
 
+  overflow: hidden;
   font-family: lato;
   font-weight: normal;
   font-smoothing: antialiased;

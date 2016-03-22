@@ -12,7 +12,7 @@ const MagicBar = (props) => {
   return (
     <div className={cx('MagicBar')} >
       <SearchButton />
-      <div className={cx('FormulaBar')}><input className={cx('InputToSearch')} placeholder="Formula Bar Search" /></div>
+      <div className={cx('FormulaBar')}><input className={cx('InputToSearch')} placeholder="Magic Bar" /></div>
       <HistoryButton />
       <ShareButton />
     </div>

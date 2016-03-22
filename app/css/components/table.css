@@ -62,13 +62,13 @@
 }
 
 .addRow {
-  width: 30px;
+  width: 54px;
   display: inline-block;
   background: #fff;
   border: 1px solid #dde1e3;
   border-radius: 0;
-  height: 25px;
-  margin-bottom: 30px;
+  height: 30px;
+  margin-bottom: 40px;
 }
 
 .theaders {
@@ -113,8 +113,8 @@
     padding: 0px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
-    border-left: 1px solid #dde1e3;
-    border-right: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid #dde1e3;
     border-top: 1px solid transparent;
     overflow: hidden;
 }
@@ -172,6 +172,7 @@
 
 .row-opener {
   border-bottom: 1px solid #dde1e3;
+  border-right: 1px solid #dde1e3;
 }
 
 .cell-expand:hover {

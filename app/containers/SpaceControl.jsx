@@ -38,10 +38,14 @@ class SpaceControl extends Component {
           />
           <MagicBar />
       </div>
-        <div className={cx('tableBox')}>
-          <Table grid={this.props.sheet.grid}
-            headers={this.props.sheet.columnHeaders}
-          />
+        <div className={cx('masterControl')}>
+          <div className={cx('scrollControl')}>
+            <div className={cx('tableBox')}>
+              <Table grid={this.props.sheet.grid}
+                headers={this.props.sheet.columnHeaders}
+              />
+            </div>
+          </div>
         </div>
         <BottomBar />
       </div>

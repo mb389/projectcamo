@@ -12,7 +12,7 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true, html: this.props.cell.data}
+    this.state = {disabled: false, html: this.props.cell.data}
     this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
 		this.editable = this.editable.bind(this)
@@ -44,7 +44,7 @@ class Cell extends Component {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
-      return (<ContentEditable
+      return (<ContentEditable 
         html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change

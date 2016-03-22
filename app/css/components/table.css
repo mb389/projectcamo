@@ -2,10 +2,11 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .table {
-    display: inline-block;
-    position: relative;
-    display: inline-block;
+    display: block;
+    /*position: relative;*/
     width: 100%;
+    height: inherit;
+    overflow-y: scroll;
 }
 
 .typeDropdown {
@@ -53,22 +54,33 @@
   width: 50px;
   display: inline-block;
   background: #fff;
-  border-right: 1px solid #dde1e3;
-  border-bottom: 1px solid #d1d1d1;
+  /*border-right: 1px solid #dde1e3;
+  border-bottom: 1px solid #d1d1d1;*/
+  border: 1px solid #d1d1d1;
   border-radius: 0;
   height: 34px;
 }
 
+.addRow {
+  width: 30px;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #dde1e3;
+  border-radius: 0;
+  height: 25px;
+  margin-bottom: 30px;
+}
+
 .theaders {
-    position: absolute;
-    top: 0;
+    /*position: absolute;*/
+    top: 115;
     left: 0;
-    display: inline-block;
+    display: inline-flex;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
-    border-top: 1px solid transparent;
-    border-left: 1px solid #dde1e3;
-    border-top: 0px;
+    border-top: 1px solid #d1d1d1;
+    /*position: fixed;
+    overflow: scroll;*/
 }
 
 .thead {
@@ -82,27 +94,36 @@
 }
 
 .trows {
-    margin-top: 35px;
+    /*position: relative;*/
+    /*margin-top: 35px;*/
     height: 100%;
     overflow: scroll;
+    display: block;
 }
 
 .trow {
     width: 100%;
-    display: inline-block;
+    display: flex;
     height: 34px;
 }
 
 .cell {
     width: 200px;
     max-height: 40px;
-    padding: 10px;
+    padding: 1px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     border-left: 1px solid #dde1e3;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
-    overflow: scroll;
+    overflow: hidden;
+}
+
+.cellContent {
+  height: 22px;
+  margin: 4px;
+  vertical-align: middle;
+  vertical-align: inherit;
 }
 
 .cell:focus {
@@ -112,8 +133,9 @@
 }
 
 .first-cell {
-    width: 150px;
+    width: 160px;
     padding: 0px;
+    margin: 4px;
     display: inline-block;
     border: none;
     overflow: scroll;
@@ -126,9 +148,11 @@
 }
 
 .cell-expand {
-    display: inline-block;
+    float: left;
     margin-right: 5px;
-    padding: 6px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
     border-radius: 12px;
     width: 23px;
     height: 23px;
@@ -141,25 +165,36 @@
 }
 
 .rnum {
-    padding: 10px;
-    padding-right: 15px;
-    width: 10px;
+    padding: 5px;
+    /*padding-right: 20px;*/
+    width: 30px;
+    text-align: center;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     overflow: scroll;
 }
+
+.topCorner {
+
+  /*padding-right: 20px;*/
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+
+
+}
+
 
 #dropdown-Names {
     border-radius: 0px;
 }
 
 .img-thumb {
+    margin: 2px;
     width: 25px;
     height: 25px;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.3);
     border-radius: 4px;
     margin-right: 7px;
+    vertical-align: midde;
 }
-
-
-

@@ -17,7 +17,7 @@ function generateColumnOptions (headers) {
 const Headers = (props) => {
   return (
       <div className={cx('theaders')}>
-        <div className={cx('rnum')} />
+        <div className={cx('topCorner')} />
         {generateColumnOptions(props.headers)}
         <AddColumn />
       </div>

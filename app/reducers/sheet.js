@@ -9,6 +9,7 @@ import {
   SORT_COLUMN,
   REMOVE_COLUMN,
   INSERT_COLUMN,
+  FORMULA_COLUMN,
   UPDATE_MODAL_CELL,
 } from 'constants/index';
 
@@ -54,7 +55,7 @@ export default function sheet(state = initialState, action = {}) {
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
       let newColumn = {
-        id: (Date.now()+addColumnState.columnHeaders[addColumnState.columnHeaders.length-1].id).toString(),
+        id: addColumnState.columnHeaders.length.toString(),
         type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
@@ -79,7 +80,7 @@ export default function sheet(state = initialState, action = {}) {
     case INSERT_COLUMN:{
       let insertColumnState = _.cloneDeep(state);
       let newColumn = {
-        id: (Date.now()+insertColumnState.columnHeaders[insertColumnState.columnHeaders.length-1].id).toString(),
+        id: insertColumnState.columnHeaders.length.toString(),
         type: 'Text',
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
@@ -129,7 +130,36 @@ export default function sheet(state = initialState, action = {}) {
         return row;
       })
 
-      return removeColumnState;}
+      return removeColumnState;
+    }
+    case FORMULA_COLUMN:{
+      let formulaColumnState = _.cloneDeep(state);
+      formulaColumnState.columnHeaders
+
+
+
+      let newColumn = {
+        id: formulaColumnState.columnHeaders.length.toString(),
+        name: 'Column ' + (1+formulaColumnState.columnHeaders.length),
+        idx: formulaColumnState.columnHeaders.length,
+      } 
+
+      // console.log('ARRAY METHOD', action.arrMeth);
+      formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{
+        console.log(row, action.colId);
+        let newData = action.func(row[action.colId].data);
+        if (!newColumn.type) newColumn.type = 'Text'; // this should corralate to the Typeof newData
+        row[newColumn.id] = {
+          data: newData,
+          type: newColumn.type,
+        }
+        return row;
+      })
+
+      formulaColumnState.columnHeaders.push(newColumn);
+
+      return formulaColumnState;
+    }
     case ADD_ROW:
       {
         let addRowState = _.cloneDeep(state);

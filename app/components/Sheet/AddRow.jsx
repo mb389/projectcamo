@@ -18,11 +18,10 @@ class AddRow extends Component {
 
   render () {
     return (
-      <button className="btn btn-primary" type="button" onClick={this.addRow}>AddRow</button>
+      <button className={cx('addRow') } onClick={this.addRow}>+</button>
     );
 	}
 }
 
 
 export default connect()(AddRow);
-

@@ -15,7 +15,10 @@
   margin-top: auto;
   margin-bottom: auto;
   text-decoration: none;
-  padding: 8px 8px;
+  padding-left: 8px;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 4px;
   color: color-black;
 }
 
@@ -33,7 +36,9 @@
 }
 
 .spaceName {
+
   margin-left: 32%;
+
   font-size: 140%;
 }
 

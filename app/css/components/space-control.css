@@ -1,5 +1,39 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
+.SpaceControl {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  position: fixed;
+}
+
+.masterControl {
+  overflow: scroll;
+  position: absolute;
+  top: 115px;
+}
+
+.scrollControl {
+  overflow: scroll;
+  display: inline-block;
+}
+
+.ControlBar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  z-index: 10;
+}
+
+.tableBox {
+  display: block;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+
 .SheetButton {
   background: dark-primary-color;
   border-color: primary-color;
@@ -32,6 +66,16 @@
   vertical-align: middle;
 }
 
+.BottomBar {
+  border-top: 1px solid primary-color;
+  height: 20px;
+  display: block;
+  background-color: light-primary-color;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  opacity: 0.8;
+}
 
 .SheetTab {
   padding-left: 30px;
@@ -50,4 +94,8 @@
 
 .SheetsBar {
   background-color: primary-color;
+  display: block;
+  overflow-y: hidden;
+  overflow-x: visible;
+  width: inherit;
 }

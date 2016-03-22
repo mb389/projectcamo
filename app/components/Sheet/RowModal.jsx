@@ -21,7 +21,7 @@ class RowModal extends Component {
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
-    if (cell.type === 'images') return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
+    if (cell.type === 'Images') return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
     else return <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
   }
 

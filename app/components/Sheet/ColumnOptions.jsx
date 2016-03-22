@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { sortColumn, removeColumn, insertColumn } from 'actions/sheet';
+import { sortColumn, removeColumn, insertColumn, formulaColumn } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -41,7 +41,10 @@ class ColumnOptions extends Component {
 
 	duplicate() {
 		console.log('duplicate this column');
-
+		let dup = function (element) {
+			return element;
+		};
+		this.props.dispatch(formulaColumn('map', dup, this.props.data.id));
 	}
 
 	insertLeft() {

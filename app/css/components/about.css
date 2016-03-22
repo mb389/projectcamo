@@ -5,6 +5,7 @@
 
 .description {
   composes: normal from '../common/typography';
+  text-align: center;
 }
 
 .contribute {

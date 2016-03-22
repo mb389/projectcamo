@@ -29,9 +29,11 @@ class Dashboard extends Component {
     return (
       <div>
         <Navigation disabled={true} />
-        <UserProfile user={this.props.user} />
-        <SpaceList spaces={this.props.spaces} />
+        <div className={cx('dashboard')}>
+          <UserProfile user={this.props.user} />
+          <SpaceList spaces={this.props.spaces} />
       </div>
+    </div>
     )
   }
 }

@@ -31,4 +31,3 @@ const Grid = (props) => {
 }
 
 export default Grid;
-

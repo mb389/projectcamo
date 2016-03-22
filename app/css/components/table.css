@@ -2,10 +2,11 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .table {
-    display: inline-block;
-    position: relative;
-    display: inline-block;
+    display: block;
+    /*position: relative;*/
     width: 100%;
+    height: inherit;
+    overflow-y: scroll;
 }
 
 .typeDropdown {
@@ -53,22 +54,33 @@
   width: 50px;
   display: inline-block;
   background: #fff;
-  border-right: 1px solid #dde1e3;
-  border-bottom: 1px solid #d1d1d1;
+  /*border-right: 1px solid #dde1e3;
+  border-bottom: 1px solid #d1d1d1;*/
+  border: 1px solid #d1d1d1;
   border-radius: 0;
   height: 34px;
 }
 
+.addRow {
+  width: 30px;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #dde1e3;
+  border-radius: 0;
+  height: 25px;
+  margin-bottom: 30px;
+}
+
 .theaders {
-    position: absolute;
-    top: 0;
+    /*position: absolute;*/
+    top: 115;
     left: 0;
-    display: inline-block;
+    display: flex;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
-    border-top: 1px solid transparent;
-    border-left: 1px solid #dde1e3;
-    border-top: 0px;
+    border-top: 1px solid #d1d1d1;
+    /*position: fixed;*/
+    /*overflow: scroll;*/
 }
 
 .thead {
@@ -82,14 +94,16 @@
 }
 
 .trows {
-    margin-top: 35px;
+    /*position: relative;*/
+    /*margin-top: 35px;*/
     height: 100%;
     overflow: scroll;
+    display: block;
 }
 
 .trow {
     width: 100%;
-    display: inline-block;
+    display: flex;
     height: 34px;
 }
 
@@ -102,7 +116,7 @@
     border-left: 1px solid #dde1e3;
     border-right: 1px solid transparent;
     border-top: 1px solid transparent;
-    overflow: scroll;
+    overflow: hidden;
 }
 
 .cell:focus {
@@ -141,13 +155,25 @@
 }
 
 .rnum {
-    padding: 10px;
-    padding-right: 15px;
-    width: 10px;
+    padding: 5px;
+    /*padding-right: 20px;*/
+    width: 30px;
+    text-align: center;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     overflow: scroll;
 }
+
+.topCorner {
+
+  /*padding-right: 20px;*/
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+
+
+}
+
 
 #dropdown-Names {
     border-radius: 0px;
@@ -160,6 +186,3 @@
     border-radius: 4px;
     margin-right: 7px;
 }
-
-
-

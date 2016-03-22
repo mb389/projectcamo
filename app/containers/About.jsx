@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/about';
+import Navigation from 'containers/Navigation';
 
 const cx = classNames.bind(styles);
 
@@ -11,13 +12,16 @@ const cx = classNames.bind(styles);
  */
 const About = props => {
   return (
+    <div>
+    <Navigation disabled={true} />
     <div className={cx('about')}>
       <h1 className={cx('header')}>About CAMO</h1>
       <div className={cx('description')}>
-        <p>SHEETS!
+        <p>SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!
         </p>
       </div>
     </div>
+  </div>
   );
 };
 

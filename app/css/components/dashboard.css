@@ -4,10 +4,13 @@
 
 .profile {
   margin: auto;
-  padding: 50px;
-  align-items: center;
+  padding-top: 50px;
+  padding-right: 10px;
 }
 
 .spaces {
-
+  height: 162px;
+  font-size: 150%;
+  margin-left: 10px;
+  line-height: 200%;
 }

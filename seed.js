@@ -7,246 +7,246 @@ var Workspace = Promise.promisifyAll(mongoose.model('Workspace'));
 var Sheet = Promise.promisifyAll(mongoose.model('Sheet'));
 
 const columnHeaders = [
-      { id: '0', type: 'name', name: 'Names', idx: 0 },
-      { id: '1', type: 'url', name: 'Github URL', idx: 1 },
-      { id: '2', type: 'ref', name: 'Images', idx: 2 },
+      { id: '100', type: 'Text', name: 'Names', idx: 0 },
+      { id: '101', type: 'Link', name: 'Github URL', idx: 1 },
+      { id: '102', type: 'Images', name: 'Pictures', idx: 2 },
     ]
 
 const row = {
-   '0': {
-      type: 'string',
+   '100': {
+      type: 'Text',
       data: 'Oscar'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'https://github.com/elpenao'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row1 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Assaf'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/apackin'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row2 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Cody'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/cschwarz'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row3 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Mike'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/mbushoy'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row4 = {
-   '0': {
-      type: 'string',
+   '100': {
+      type: 'Text',
       data: 'Oscar'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/elpenao'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row5 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Assaf'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/apackin'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row6 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Cody'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/cschwarz'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row7 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Mike'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/mbushoy'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row8 = {
-   '0': {
-      type: 'string',
+   '100': {
+      type: 'Text',
       data: 'Oscar'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/elpenao'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row9 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Assaf'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/apackin'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row10 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Cody'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/cschwarz'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row11 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Mike'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/mbushoy'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row12 = {
-   '0': {
-      type: 'string',
+   '100': {
+      type: 'Text',
       data: 'Oscar'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/elpenao'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row13 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Assaf'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/apackin'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row14 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Cody'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/cschwarz'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
 const row15 = {
-    '0': {
-      type: 'string',
+    '100': {
+      type: 'Text',
       data: 'Mike'
     },
-    '1': {
-      type: 'url',
+    '101': {
+      type: 'Link',
       data: 'github.com/mbushoy'
     },
-    '2': {
+    '102': {
       type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }

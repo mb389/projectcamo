@@ -1,0 +1,19 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
+.BottomBar {
+  border-top: 1px solid primary-color;
+  height: 30px;
+  display: block;
+  background-color: light-primary-color;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+  opacity: 0.8;
+  padding-left: 10px;
+  vertical-align: middle;
+  padding-top: 4px;
+}
+
+.BottomBarCount {
+
+}

@@ -5,6 +5,8 @@ import About from 'containers/About';
 import SpaceControl from 'containers/SpaceControl';
 import LoginOrRegister from 'containers/LoginOrRegister';
 import Dashboard from 'containers/Dashboard';
+import { logOut } from 'actions/users';
+import Logout from 'containers/Logout';
 
 /*
  * @param {Redux Store}
@@ -34,9 +36,11 @@ export default (store) => {
   };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={SpaceControl} />
+      <IndexRoute component={Dashboard} />
       <Route path="login"
         component={LoginOrRegister} onEnter={redirectAuth} />
+      <Route path="logout"
+          component={Logout} onEnter={redirectAuth} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
       <Route path="space/:spaceId" component={SpaceControl} />

@@ -3,8 +3,9 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showRowModal } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal } from 'react-bootstrap';
+import { Modal, Glyphicon } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
+
 
 const cx = classNames.bind(styles);
 
@@ -42,17 +43,17 @@ class Cell extends Component {
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
     if (cell.type === 'Images') {
-			cell.data = cell.data || [];
       return (cell.data.map(function (img, i) {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
-      return (<ContentEditable
+      return (<ContentEditable className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled}       // use true to disable edition
+        disabled={false}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
-        onMouseEnter={this.setMouseEnter} // highlight row
-        onMouseLeave={this.setMouseLeave} // remove highlght
+        onDoubleClick={this.editable} // allow for cell editing after focus
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
       />)
     }
   }
@@ -102,15 +103,17 @@ class Cell extends Component {
             onDoubleClick={this.editable} // allow for cell editing after focus
             onKeyDown={this.keyPress} // for key navigation
             >
-            <a className={cx('cell-expand')} onClick={this.openModal}>
-              <i className="glyphicon glyphicon-resize-full" />
-            </a>
+            <Glyphicon
+                className={cx('cell-expand')}
+                glyph="fullscreen"
+                onClick={this.openModal} />
             <ContentEditable className={cx('cell', 'first-cell')}
               html={cell.data} // innerHTML of the editable div
               disabled={this.state.disabled}       // use true to disable edition
               onChange={this.handleChange} // handle innerHTML change
-              onMouseEnter={this.setMouseEnter} // highlight row
-              onMouseLeave={this.setMouseLeave} // remove highlght
+              onDoubleClick={this.editable} // allow for cell editing after focus
+              onMouseEnter={this.setMouseEnter} 
+              onMouseLeave={this.setMouseLeave} 
             />
           </div>
         );
@@ -132,3 +135,4 @@ Cell.propTypes = {
 };
 
 export default connect()(Cell);
+

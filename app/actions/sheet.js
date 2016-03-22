@@ -21,6 +21,12 @@ function makeTopicRequest(method, id, data, api='/topic') {
   return request[method](api + (id ? ('/' + id) : ''), data);
 }
 
+export function clearSheet() {
+  return {
+    type: types.CLEAR_SHEET
+  };
+}
+
 export function updateCell(data, key, idx) {
   return {
     type: types.UPDATE_CELL,

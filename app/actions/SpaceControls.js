@@ -28,15 +28,27 @@ export function loadSpace(obj) {
   };
 }
 
+export function changeSheet(obj) {
+  return {
+    type: types.CHANGE_SHEET,
+    sheet: obj.sheetToShow.content
+  };
+}
+
 export function getSpace(spaceId) {
   return (dispatch) => {
     request(`/workspace/${spaceId}`)
     .then(res => res.data)
-    .then(res => dispatch(loadSpace({
-      space: res.space,
-      sheetToShow: res.sheet,
-      sheetNames: res.sheetNames
-    })));
+    .then((res) => {
+      dispatch(loadSpace({
+        space: res.space,
+        sheetToShow: res.sheet,
+        sheetNames: res.sheetNames
+      }))
+      return res
+    }).then(res => dispatch(changeSheet({
+        sheetToShow: res.sheet
+      })));
   };
 }
 
@@ -50,9 +62,15 @@ export function loadSheet(obj) {
 export function getSheet(sheetId) {
   return (dispatch) => {
     request(`/sheet/${sheetId}`)
-    .then(res => dispatch(loadSheet({
-      sheetToShow: res.data
-    })));
+    .then((res) => {
+      dispatch(loadSheet({
+        sheetToShow: res.data
+      }))
+      console.log(res.data)
+      return res.data
+    }).then(res => dispatch(changeSheet({
+        sheetToShow: res
+      })));
   };
 }
 

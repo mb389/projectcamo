@@ -13,7 +13,7 @@ exports.all = function(req, res) {
 };
 
 /**
- * Add a Sheet
+ * Find a Sheet?
  */
 exports.one = function(req, res) {
   Sheet.findById(req.params.sheetId)
@@ -25,21 +25,31 @@ exports.one = function(req, res) {
   * Add a Sheet
   */
  exports.addSheetToSpace = function(req, res) {
-   Sheet.create({name: 'Sheet Name', workspace: req.params.spaceId})
-   .then(sheet => res.json(sheet))
-   .catch(err => res.status(400).send(err))
+   Sheet.create({
+    name: 'Sheet Name', 
+    workspace: req.params.spaceId, 
+    content: { 
+      grid: [], 
+      columnHeaders: [], 
+      showRowModal: false, 
+      modalRow: {data:null,rowIdx:null} 
+      }
+    })
+    .then(sheet => res.json(sheet))
+    .catch(err => res.status(400).send(err))
  };
 
 
 
-/**
- * Add a Sheet
- */
-exports.add = function(req, res) {
-  Sheet.create(req.body)
-  .then(() => res.status(200).send('OK'))
-  .catch(err => res.status(400).send(err))
-};
+// /**
+//  * Add a Sheet
+//  */
+// exports.add = function(req, res) {
+//   console.log("hello",req.body)
+//   Sheet.create(req.body)
+//   .then(() => res.status(200).send('OK'))
+//   .catch(err => res.status(400).send(err))
+// };
 
 /**
  * Update a Sheet

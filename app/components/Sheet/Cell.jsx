@@ -99,28 +99,24 @@ class Cell extends Component {
 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
-    if (this.props.cellIdx === 0) {
-        return (
-          <div tabIndex='-1' className={cx('cell')} key={this.props.key}
-            id={''+this.props.cellKey+this.props.rowIdx}
-            onDoubleClick={this.editable} // allow for cell editing after focus
-            onKeyDown={this.keyPress} // for key navigation
-            >
-            <Glyphicon
-                className={cx('cell-expand')}
-                glyph="fullscreen"
-                onClick={this.openModal} />
-            <ContentEditable className={cx('first-cell')}
-              html={cell.data} // innerHTML of the editable div
-              disabled={this.state.disabled}       // use true to disable edition
-              onChange={this.handleChange} // handle innerHTML change
-              onDoubleClick={this.editable} // allow for cell editing after focus
-              onMouseEnter={this.setMouseEnter}
-              onMouseLeave={this.setMouseLeave}
-            />
-          </div>
-        );
-    }
+    // if (this.props.cellIdx === 0) {
+    //     return (
+    //       <div tabIndex='-1' className={cx('cell')} key={this.props.key}
+    //         id={''+this.props.cellKey+this.props.rowIdx}
+    //         onDoubleClick={this.editable} // allow for cell editing after focus
+    //         onKeyDown={this.keyPress} // for key navigation
+    //         >
+    //         <ContentEditable className={cx('first-cell')}
+    //           html={cell.data} // innerHTML of the editable div
+    //           disabled={this.state.disabled}       // use true to disable edition
+    //           onChange={this.handleChange} // handle innerHTML change
+    //           onDoubleClick={this.editable} // allow for cell editing after focus
+    //           onMouseEnter={this.setMouseEnter}
+    //           onMouseLeave={this.setMouseLeave}
+    //         />
+    //       </div>
+    //     );
+    // }
 
     return (
       <div tabIndex='-1' className={cx('cell')} id={''+this.props.cellKey+this.props.rowIdx}

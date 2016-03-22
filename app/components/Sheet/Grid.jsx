@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Cell from './Cell';
+import RowOpener from './RowOpener'
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 
@@ -12,6 +13,7 @@ const Grid = (props) => {
       return (
       <div className={cx('trow')} key={idx}>
         <div className={cx('rnum')}>{idx + 1}</div>
+        <RowOpener className={cx('rnum')} row={idx}/>
         {generateCells(row, idx)}
       </div>);
     });

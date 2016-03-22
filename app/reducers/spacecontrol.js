@@ -31,7 +31,6 @@ export default function spaceControl(state = {}, action = {}) {
       space.name = action.name;
       return Object.assign({}, state, { space })
     case CHANGE_SHEET_NAME:
-      console.log(action);
       const sheetToShow = Object.assign({}, state.sheetToShow);
       sheetToShow.name = action.name
       const sheetNames = state.sheetNames.map(

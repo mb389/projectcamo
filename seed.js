@@ -22,7 +22,7 @@ const row = {
       data: 'https://github.com/elpenao'
     },
     "125": {
-      type: 'images',
+      type: 'Images',
       data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
@@ -297,9 +297,6 @@ var seedWorkspace = function () {
   var workspace = [
     {
       name: "Seedspace"
-    },
-    {
-      name: "SeedspacePart2"
     }
   ]
   return Workspace.createAsync(workspace);

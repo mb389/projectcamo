@@ -39,18 +39,17 @@ class Cell extends Component {
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
     if (cell.type === 'Images') {
-			cell.data = cell.data || [];
       return (cell.data.map(function (img, i) {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
-      return (<ContentEditable
+      return (<ContentEditable 
         html={cell.data} // innerHTML of the editable div
         disabled={false}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
-        onMouseEnter={this.setMouseEnter} // handle innerHTML change
-        onMouseLeave={this.setMouseLeave} // handle innerHTML change
+        onMouseEnter={this.setMouseEnter} // handle innerHTML change 
+        onMouseLeave={this.setMouseLeave} // handle innerHTML change 
       />)
     }
   }
@@ -76,8 +75,8 @@ class Cell extends Component {
               disabled={this.state.disabled}       // use true to disable edition
               onChange={this.handleChange} // handle innerHTML change
               onDoubleClick={this.editable} // allow for cell editing after focus
-              onMouseEnter={this.setMouseEnter}
-              onMouseLeave={this.setMouseLeave}
+              onMouseEnter={this.setMouseEnter} 
+              onMouseLeave={this.setMouseLeave} 
             />
           </div>
         );
@@ -96,3 +95,4 @@ Cell.propTypes = {
 };
 
 export default connect()(Cell);
+

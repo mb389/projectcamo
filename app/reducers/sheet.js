@@ -11,17 +11,24 @@ import {
   INSERT_COLUMN,
   FORMULA_COLUMN,
   UPDATE_MODAL_CELL,
-  CHANGE_SHEET
+  CHANGE_SHEET,
+  CLEAR_SHEET
 } from 'constants/index';
 
 import initialState from './sheetState';
 
-export default function sheet(state = { grid: [], columnHeaders: [], showRowModal: false, modalRow: {data:null,rowIdx:null} }, action = {}) {
+export default function sheet(state = { 
+  grid: [], 
+  columnHeaders: [], 
+  showRowModal: false, 
+  modalRow: {data:null,rowIdx:null} }, action = {}) {
   switch (action.type) {
+    case CLEAR_SHEET:
+      return {}
     case CHANGE_SHEET:
       return {
-        columnHeaders: action.sheet.columnHeaders,
-        grid: action.sheet.grid,
+        columnHeaders: action.sheet.columnHeaders || [],
+        grid: action.sheet.grid || [],
         modalRow: {
           data: null,
           rowIdx: null

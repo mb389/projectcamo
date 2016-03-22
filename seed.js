@@ -37,8 +37,8 @@ const row1 = {
       data: 'github.com/apackin'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/apackin'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -52,8 +52,8 @@ const row2 = {
       data: 'github.com/cschwarz'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/cschwarz'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -67,8 +67,8 @@ const row3 = {
       data: 'github.com/mbushoy'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/mbushoy'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -82,8 +82,8 @@ const row4 = {
       data: 'github.com/elpenao'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/elpenao'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -97,8 +97,8 @@ const row5 = {
       data: 'github.com/apackin'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/apackin'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -112,8 +112,8 @@ const row6 = {
       data: 'github.com/cschwarz'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/cschwarz'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -127,8 +127,8 @@ const row7 = {
       data: 'github.com/mbushoy'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/mbushoy'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -142,8 +142,8 @@ const row8 = {
       data: 'github.com/elpenao'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/elpenao'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -157,8 +157,8 @@ const row9 = {
       data: 'github.com/apackin'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/apackin'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -172,8 +172,8 @@ const row10 = {
       data: 'github.com/cschwarz'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/cschwarz'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -187,8 +187,8 @@ const row11 = {
       data: 'github.com/mbushoy'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/mbushoy'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -202,8 +202,8 @@ const row12 = {
       data: 'github.com/elpenao'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/elpenao'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -217,8 +217,8 @@ const row13 = {
       data: 'github.com/apackin'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/apackin'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -232,8 +232,8 @@ const row14 = {
       data: 'github.com/cschwarz'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/cschwarz'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 
@@ -247,8 +247,8 @@ const row15 = {
       data: 'github.com/mbushoy'
     },
     '2': {
-      type: 'url',
-      data: 'linkedIn.com/mbushoy'
+      type: 'Images',
+      data: ['http://placehold.it/350x150','http://placehold.it/450x250']
     }
 }
 

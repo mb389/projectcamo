@@ -119,6 +119,10 @@
     overflow: hidden;
 }
 
+.cellContent:focus {
+  background-color: light-primary-color;
+}
+
 .cellContent {
   height:32px;
   /*margin: 4px;*/
@@ -137,7 +141,6 @@
 .cell:focus {
     z-index: 100;
     width: 200px;
-    max-height: 1000px;
 }
 
 .first-cell {

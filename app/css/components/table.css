@@ -110,7 +110,7 @@
 .cell {
     width: 200px;
     max-height: 40px;
-    padding: 1px;
+    padding: 0px;
     display: inline-block;
     border-bottom: 1px solid #dde1e3;
     border-left: 1px solid #dde1e3;
@@ -120,10 +120,18 @@
 }
 
 .cellContent {
-  height: 22px;
-  margin: 4px;
+  height:32px;
+  /*margin: 4px;*/
   vertical-align: middle;
-  vertical-align: inherit;
+  line-height: 32px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  /*flex-direction:column;*/
+}
+
+.cellContent::-webkit-scrollbar {
+  display: none;
 }
 
 .cell:focus {

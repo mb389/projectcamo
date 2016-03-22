@@ -1,7 +1,7 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .BottomBar {
-  border-top: 1px solid primary-color;
+  border-top: 1px solid dark-primary-color;
   height: 30px;
   display: block;
   background-color: light-primary-color;

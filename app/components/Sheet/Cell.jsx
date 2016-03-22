@@ -12,10 +12,10 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true, html: this.props.cell.data}
+    this.state = {disabled: false, html: this.props.cell.data}
+    // leaving disabled in case we choose to use it later
     this.openModal = this.openModal.bind(this)
 		this.handleChange = this.handleChange.bind(this)
-		this.editable = this.editable.bind(this)
 		this.setMouseEnter = this.setMouseEnter.bind(this)
 		this.setMouseLeave = this.setMouseLeave.bind(this)
     this.cell = this.cell.bind(this)
@@ -33,10 +33,6 @@ class Cell extends Component {
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 
-	editable (evt) {
-	this.setState({disabled: false});
-	}
-
   cell(cell, cellKey, row, rowIdx, cellIdx){
     if (cell.type === 'Images') {
 			cell.data = cell.data || [];
@@ -48,7 +44,6 @@ class Cell extends Component {
         html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
-        onDoubleClick={this.editable} // allow for cell editing after focus
         onMouseEnter={this.setMouseEnter} // handle innerHTML change
         onMouseLeave={this.setMouseLeave} // handle innerHTML change
       />)
@@ -56,11 +51,11 @@ class Cell extends Component {
   }
 
 	setMouseEnter (evt) {
-	evt.target.parentElement.style.backgroundColor = '#e9e9e9';
+	evt.target.parentElement.parentElement.style.backgroundColor = '#e9e9e9';
 	}
 
 	setMouseLeave (evt) {
-	evt.target.parentElement.style.backgroundColor = '';
+	evt.target.parentElement.parentElement.style.backgroundColor = '';
 	}
 
 	render () {
@@ -75,7 +70,6 @@ class Cell extends Component {
               html={cell.data} // innerHTML of the editable div
               disabled={this.state.disabled}       // use true to disable edition
               onChange={this.handleChange} // handle innerHTML change
-              onDoubleClick={this.editable} // allow for cell editing after focus
               onMouseEnter={this.setMouseEnter}
               onMouseLeave={this.setMouseLeave}
             />

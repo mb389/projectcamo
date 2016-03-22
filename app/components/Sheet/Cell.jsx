@@ -21,6 +21,7 @@ class Cell extends Component {
     this.cell = this.cell.bind(this);
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
 	}
 
 	openModal(){
@@ -66,26 +67,30 @@ class Cell extends Component {
 
   keyPress (evt) {
     console.log(evt.target.id);
-
+    let col = Number(evt.target.id.substr(0,3));
+    let row = Number(evt.target.id.substr(3));
     switch (evt.keyCode) {
-      case 37:
-        console.log(""+(Number(evt.target.id)-1));
-        console.log("go Left");
-        break;
-      case 38:
-        console.log("go up");
-        break;
-      case 39:
-        console.log(""+(Number(evt.target.id)+1));
-        console.log("go Right");
-        break;
-      case 40:
-        console.log("go Down");
-        break;
+      case 37:{
+              this.handleFocus(""+(col-1)+row);
+              break;}
+      case 38:{
+              this.handleFocus(""+col+(row-1));
+              break;}
+      case 39:{
+              this.handleFocus(""+(col+1)+row);
+              break;}
+      case 40:{
+              this.handleFocus(""+col+(row+1));
+              break;}
       default:
         this.editable(evt);
         break;
     }
+  }
+
+  handleFocus (selId) {
+    console.log('handleFocus ', selId)
+    document.getElementById(selId).focus();
   }
 
 	render () {

@@ -75,12 +75,12 @@
     /*position: absolute;*/
     top: 115;
     left: 0;
-    display: flex;
+    display: inline-flex;
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid #d1d1d1;
-    /*position: fixed;*/
-    /*overflow: scroll;*/
+    /*position: fixed;
+    overflow: scroll;*/
 }
 
 .thead {

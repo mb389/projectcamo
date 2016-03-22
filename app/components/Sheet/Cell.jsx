@@ -43,6 +43,7 @@ class Cell extends Component {
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
     if (cell.type === 'Images') {
+      cell.data = cell.data || [];
       return (cell.data.map(function (img, i) {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))

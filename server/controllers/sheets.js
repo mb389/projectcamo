@@ -55,14 +55,17 @@ exports.one = function(req, res) {
  * Update a Sheet
  */
 exports.update = function(req, res) {
-  Sheet.findByIdAndUpdate(req.params.id, req.body)
+  console.log(req.body)
+  Sheet.findById(req.params.id)
+  .then((sheet) => {
+    sheet.content = req.body
+    sheet.save()
+  })
   .then(() => res.status(200).send('Updated successfully'))
   .catch(() => res.status(500).send('We failed to save to due some reason'))
 };
 
 exports.updateName = function(req, res) {
-  console.log('run')
-  console.log(req.body);
   Sheet.findOneAndUpdate({
     name: req.params.sheetName,
     workspace: req.params.spaceId

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
 import Table from 'components/Sheet/Table';
+import { bindActionCreators } from 'redux';
 import * as Actions from '../actions/spacecontrols';
 import * as SheetActions from '../actions/sheet';
 import Navigation from 'containers/Navigation';
@@ -32,7 +33,7 @@ class SpaceControl extends Component {
 
   render() {
     if (!this.props.sheet) return <div>loading ...</div>
-
+    let boundActionCreators = bindActionCreators(SheetActions, this.props.dispatch)
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>
@@ -41,7 +42,7 @@ class SpaceControl extends Component {
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
-          <MagicBar />
+          <MagicBar {...boundActionCreators} />
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>

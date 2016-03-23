@@ -40,7 +40,7 @@ class SpaceControl extends Component {
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
-          <MagicBar />
+        <MagicBar currentCell={this.props.sheet.currentCell}/>
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>

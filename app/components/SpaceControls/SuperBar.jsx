@@ -12,10 +12,17 @@ const cx = classNames.bind(styles);
 const SuperBar = (props) => {
   return (
     <div className={cx('SuperBar')} >
-      <input className={cx('InputToSearch')} placeholder="Magic Bar" />
+      <input
+        className={cx('InputToSearch')}
+        value={props.cell ? props.cell.cell.data : ''}
+        placeholder={props.cell ? props.cell.cell.data : 'Magic Bar'}
+      />
     </div>
   );
 };
 
 
 export default SuperBar;
+
+
+//   value={props.cell ? props.cell.type : ''}

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showRowModal } from 'actions/sheet';
+import { updateCell, showRowModal, currentCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
@@ -15,7 +15,7 @@ class Cell extends Component {
     const { cellKey, rowIdx, grid } = this.props;
     this.state = {disabled: true};
     // leaving disabled in case we choose to use it later
-		this.handleFocus = this.handleFocus.bind(this);
+		this.handleCell = this.handleCell.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.setMouseEnter = this.setMouseEnter.bind(this);
 		this.setMouseLeave = this.setMouseLeave.bind(this);
@@ -44,7 +44,6 @@ class Cell extends Component {
       return (<ContentEditable
 				className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
-				data={cell}
         disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
@@ -60,6 +59,11 @@ class Cell extends Component {
 
 	setMouseLeave (evt) {
 		evt.target.parentElement.parentElement.style.backgroundColor = '';
+	}
+
+	handleCell() {
+		console.log('handling cell', this.props);
+		this.props.dispatch(currentCell(this.props))
 	}
 
   keyPress (evt) {
@@ -89,12 +93,8 @@ class Cell extends Component {
   }
 
   handleFocus (selId) {
-    if(document.getElementById(selId)) document.getElementById(selId).focus();
+    // if(document.getElementById(selId)) document.getElementById(selId).focus();
   }
-
-	handleFocus() {
-		console.log(this.props);
-	}
 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
@@ -122,8 +122,8 @@ class Cell extends Component {
 				className={cx('cell')}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
-        onKeyDown={this.keyPress} // for key navigation
-				onFocus={this.onFocus}
+				onFocus={this.handleCell}
+				onKeyDown={this.keyPress} // for key navigation
         >
         {this.cell(cell,cellKey,row,rowIdx)}
       </div>

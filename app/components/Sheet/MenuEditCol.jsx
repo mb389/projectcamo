@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateColumn } from 'actions/sheet';
+import { updateColumn, formulaUpload } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -17,9 +17,11 @@ class MenuEditCol extends Component {
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
-		this.customFormula = this.customFormula.bind(this);
+		this.handleFormulaCustom = this.handleFormulaCustom.bind(this);
 		this.handleEditName = this.handleEditName.bind(this);
 		this.exitTypeMenu = this.exitTypeMenu.bind(this);
+		this.formulaUpload = this.formulaUpload.bind(this);
+		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 	}
 
 	itemSelected(e, ekey) {
@@ -30,8 +32,18 @@ class MenuEditCol extends Component {
 		this.setState({colName: e.target.value});
 	}
 
-	customFormula(e) {	
+	handleFormulaCustom(e) {	
 		this.setState({formula: e.target.value});
+	}
+
+	handleFormulaNameChange(e) {
+		this.setState({formulaName: e.target.value});
+	}
+
+	formulaUpload() {
+		// let them pick a name to save with
+		console.log('uploadThisFormulaToDatabase', this.state.formulaName, this.state.formula);
+		this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
 	}
 
 	saveTypeChanges() {
@@ -59,6 +71,7 @@ class MenuEditCol extends Component {
 
 	render () {
 		let columnTypes = {
+			// TODO this is getting bloated pull out bigger components
 			'Text': (
 				<div className='col-md-12'>
 					<p className='col-md-12'> A single line of text. </p>
@@ -72,8 +85,10 @@ class MenuEditCol extends Component {
 			'Formula': (
 				<div className='col-md-12'>
 					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
-					<textarea onChange={this.customFormula} className='col-md-12' value={this.state.formula} />
-					<button className="btn col-md-5" type="button" onClick={this.saveFormula}>Save this Formula</button>
+					<ContentEditable className='clearfix col-md-12' onChange={this.handleFormulaNameChange} html={this.state.formulaName||'Please Name'} /> <br></br>
+
+					<textarea onChange={this.handleFormulaCustom} className='col-md-12' value={this.state.formula} />
+					<button className="btn col-md-8 col-md-offset-4" type="button" onClick={this.formulaUpload}>Upload Formula</button>
 				</div>
 				), 
 			'Images': (

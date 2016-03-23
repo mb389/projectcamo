@@ -90,6 +90,13 @@ export function insertColumn(colIdx){
 	}
 }
 
+export function currentCell(cell) {
+  return {
+    type: types.CURRENT_CELL,
+    cell
+  }
+}
+
 export function formulaColumn(arrMeth, func, colData){
 	return {
 		type: types.FORMULA_COLUMN,
@@ -99,9 +106,11 @@ export function formulaColumn(arrMeth, func, colData){
 	}
 }
 
-export function currentCell(cell) {
-  return {
-    type: types.CURRENT_CELL,
-    cell
-  }
+export function formulaUpload(name, functionStr) {
+	return {
+		type: types.FORMULA_UPLOAD,
+		name,
+		functionStr,
+	}
 }
+

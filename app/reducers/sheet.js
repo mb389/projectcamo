@@ -202,11 +202,11 @@ function runCustomFunc (state, row, funcText) {
 
   state.columnHeaders.forEach((elem, idx) => { 
     // TODO remove the column that we're adding to to prevent errors?
-    funcText = funcText.replace(elem.name, 'userCol' + idx);
+    funcText = funcText.replace(elem.name, 'Col' + idx);
 
     let userData = decorationType(row[elem.id]);
 
-    columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
+    columnDefs += 'let Col' + idx + ' = ' + userData + '; ';
     });
 
   return eval(columnDefs+funcText);

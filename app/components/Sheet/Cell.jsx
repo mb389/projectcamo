@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showRowModal } from 'actions/sheet';
+import { updateCell, showRowModal, currentCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
@@ -15,6 +15,7 @@ class Cell extends Component {
     const { cellKey, rowIdx, grid } = this.props;
     this.state = {disabled: true};
     // leaving disabled in case we choose to use it later
+		this.handleCell = this.handleCell.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.setMouseEnter = this.setMouseEnter.bind(this);
 		this.setMouseLeave = this.setMouseLeave.bind(this);
@@ -40,9 +41,10 @@ class Cell extends Component {
         return (<img src={img} key={i} className={cx('img-thumb')}/>)
       }))
     } else {
-      return (<ContentEditable className={cx('cellContent')}
+      return (<ContentEditable
+				className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
-        disabled={false}       // use true to disable edition
+        disabled={this.state.disabled}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
         onMouseEnter={this.setMouseEnter} // handle innerHTML change
@@ -52,15 +54,18 @@ class Cell extends Component {
   }
 
 	setMouseEnter (evt) {
-	evt.target.parentElement.parentElement.style.backgroundColor = '#e9e9e9';
+		evt.target.parentElement.parentElement.style.backgroundColor = '#e9e9e9';
 	}
 
 	setMouseLeave (evt) {
-	evt.target.parentElement.parentElement.style.backgroundColor = '';
+		evt.target.parentElement.parentElement.style.backgroundColor = '';
+	}
+
+	handleCell() {
+		this.props.dispatch(currentCell(this.props))
 	}
 
   keyPress (evt) {
-		console.log(evt.keyCode);
     let col = Number(evt.target.id.substr(0,3));
     let row = Number(evt.target.id.substr(3));
     switch (evt.keyCode) {
@@ -87,7 +92,7 @@ class Cell extends Component {
   }
 
   handleFocus (selId) {
-    if(document.getElementById(selId)) document.getElementById(selId).focus();
+    // if(document.getElementById(selId)) document.getElementById(selId).focus();
   }
 
 	render () {
@@ -112,9 +117,12 @@ class Cell extends Component {
     // }
 
     return (
-      <div tabIndex='-1' className={cx('cell')} id={''+this.props.cellKey+this.props.rowIdx}
+      <div tabIndex='-1'
+				className={cx('cell')}
+				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
-        onKeyDown={this.keyPress} // for key navigation
+				onFocus={this.handleCell}
+				onKeyDown={this.keyPress} // for key navigation
         >
         {this.cell(cell,cellKey,row,rowIdx)}
       </div>

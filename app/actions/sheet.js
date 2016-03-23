@@ -99,3 +99,9 @@ export function formulaColumn(arrMeth, func, colId){
 	}
 }
 
+export function currentCell(cell) {
+  return {
+    type: types.CURRENT_CELL,
+    cell
+  }
+}

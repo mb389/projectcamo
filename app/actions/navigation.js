@@ -18,8 +18,6 @@ polyfill();
  * @return Promise
  */
 
-
-
 export function loadSpace(obj) {
   return {
     type: types.LOAD_SPACE,

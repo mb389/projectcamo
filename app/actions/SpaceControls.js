@@ -114,3 +114,15 @@ export function changeSheetName(sheetId, newName) {
     .then(() => dispatch(updateSheetName(newName, sheetId)))
   }
 }
+
+export function showShareModal(){
+	return {
+		 type: types.SHOW_SHARE_MODAL
+	}
+}
+
+export function closeShareModal() {
+	return {
+		type: types.CLOSE_SHARE_MODAL
+	}
+}

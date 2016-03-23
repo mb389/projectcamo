@@ -3,12 +3,14 @@ import {
   LOAD_SHEET,
   ADD_SHEET_VIEW,
   CHANGE_SPACE_NAME,
-  CHANGE_SHEET_NAME
+  CHANGE_SHEET_NAME,
+  SHOW_SHARE_MODAL,
+  CLOSE_SHARE_MODAL
 } from 'constants/index';
 
-import initialState from './sheetState';
 
-export default function spaceControl(state = {}, action = {}) {
+export default function spaceControl(state = { showShareModal: false }, action = {}) {
+
   switch (action.type) {
     case LOAD_SPACE:
       return Object.assign({}, state, {
@@ -18,6 +20,14 @@ export default function spaceControl(state = {}, action = {}) {
       });
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
+    case SHOW_SHARE_MODAL:
+      {
+          return Object.assign({},state,{ showShareModal: true});
+      }
+      case CLOSE_SHARE_MODAL:
+        {
+          return Object.assign({},state,{ showShareModal: false});
+        }
     case ADD_SHEET_VIEW:
       const sheetNamesToShow = state.sheetNames.concat({
         name: action.sheetName,

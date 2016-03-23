@@ -26,7 +26,7 @@ class SaveButton extends Component {
 	    </div>
 	  );
  	}
-};
+}
 
 function mapStateToProps(store) {
   return {

@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
+    this.runUpdateCell = this.runUpdateCell.bind(this);
   }
 
   componentWillMount() {
@@ -30,6 +31,10 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.clearSheet())
   }
 
+  runUpdateCell(evt, cellKey, rowIdx) {
+    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
@@ -40,9 +45,11 @@ class SpaceControl extends Component {
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
-          <MagicBar />
-
-            <ShareModal />
+        <MagicBar
+          cell={this.props.sheet.currentCell}
+          updateCell={this.runUpdateCell}
+        />
+        <ShareModal />
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>

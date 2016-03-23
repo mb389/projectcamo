@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: this.props.data.type, colName: this.props.data.name };
+		this.state = {colType: this.props.data.type, colName: this.props.data.name, formula: this.props.data.formula };
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -66,7 +66,7 @@ class MenuEditCol extends Component {
 			'Formula': (
 				<div className='col-md-12'>
 					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
-					<textarea onChange={this.customFormula} className='col-md-12'>{this.state.userFunction}</textarea>
+					<textarea onChange={this.customFormula} className='col-md-12' value={this.state.formula} />
 				</div>
 				), 
 			'Images': (

@@ -149,12 +149,10 @@ export default function sheet(state = {
     case FORMULA_COLUMN:{
       let formulaColumnState = _.cloneDeep(state);
 
-      let newColumn = {
-        id: (100+formulaColumnState.columnHeaders.length).toString(),
-        name: 'Column ' + (1+formulaColumnState.columnHeaders.length),
-        idx: formulaColumnState.columnHeaders.length,
-        type: action.colData.type,
-      }
+      let newColumn = Object.assign({}, action.colData);
+      newColumn.id = (100+formulaColumnState.columnHeaders.length).toString();
+      newColumn.name = 'Column ' + (1+formulaColumnState.columnHeaders.length);
+      newColumn.idx = formulaColumnState.columnHeaders.length;
 
       // action.arrMeth usually = 'map' or 'reduce';
       formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{
@@ -200,25 +198,25 @@ function insertNewColInRows (state, newColumn){
 }
 
 function runCustomFunc (state, row, funcText) {
-  let columnDefs = 'let document = undefined; let window = undefined; ';
+  let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
   state.columnHeaders.forEach((elem, idx) => { 
     // TODO remove the column that we're adding to to prevent errors?
     funcText = funcText.replace(elem.name, 'userCol' + idx);
-    let userData = decorationType(row[elem.id].data);
+
+    let userData = decorationType(row[elem.id]);
+
     columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
     });
 
   return eval(columnDefs+funcText);
 }
 
-function decorationType (type) {
-  if (Array.isArray(type)) return '["' + type.join('","') + '"]';
-  else if (typeof type === 'string') return '"' + type + '"';
-  else return type;
+function decorationType (cell) {
+  switch (cell.type) {
+    case 'Images': return '["' + cell.data.join('","') + '"]';
+    case 'Link': case 'Text': return '"' + cell.data + '"';
+    default: return cell.data;
+  }
 }
-
-
-
-
 

@@ -33,6 +33,7 @@ export default function sheet(state = {
         columnHeaders: action.sheet.columnHeaders || [],
         grid: action.sheet.grid || [],
         history: action.history || [],
+        historySheet: action.historySheet || null,
         modalRow: {
           data: null,
           rowIdx: null

@@ -19,6 +19,8 @@ class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
     this.runUpdateCell = this.runUpdateCell.bind(this);
+    this.clearMagicBar = this.clearMagicBar.bind(this);
+    this.searchSheet = this.searchSheet.bind(this)
   }
 
   componentWillMount() {
@@ -35,6 +37,14 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
   }
 
+  clearMagicBar() {
+    this.props.dispatch(SheetActions.currentCell())
+  }
+
+  searchSheet() {
+    // filters the rows for cells that match the current search criteria
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
@@ -48,6 +58,8 @@ class SpaceControl extends Component {
         <MagicBar
           cell={this.props.sheet.currentCell}
           updateCell={this.runUpdateCell}
+          clearMagicBar={this.clearMagicBar}
+          searchSheet={this.searchSheet}
         />
         <ShareModal />
       </div>

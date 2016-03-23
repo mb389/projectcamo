@@ -18,7 +18,7 @@ const SuperBar = (props) => {
       <input
         className={cx('InputToSearch')}
         placeholder={'Magic Bar'}
-        disabled
+        onChange={props.searchSheet}
       />
   )
   return (

@@ -17,7 +17,8 @@ import {
   CLOSE_HISTORY_MODAL,
   CURRENT_CELL,
   SET_HISTORY_TABLE,
-  UPDATE_HISTORY
+  UPDATE_HISTORY,
+  SEARCH_SHEET
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -162,6 +163,18 @@ export default function sheet(state = {
       };
       sortColumnState.grid = sortColumnState.grid.sort(sortFn);
       return sortColumnState;}
+    case SEARCH_SHEET:
+      let searchState = _.cloneDeep(state);
+      searchState.searchGrid = searchState.grid.filter((row, idx) => {
+        let toSave;
+        for(let cell in row) {
+          if (row[cell].data) {
+            row[cell].data.indexOf(action.term) > -1 ? toSave = true : null;
+          }
+        }
+        return toSave
+      })
+      return searchState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;
@@ -229,7 +242,7 @@ function insertNewColInRows (state, newColumn){
 function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined; let window = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     // TODO remove this column?
     funcText = funcText.replace(elem.name, 'userCol' + idx);
     let userData = decorationType(row[elem.id].data);
@@ -246,8 +259,3 @@ function decorationType (type) {
   else if (typeof type === 'string') return '"' + type + '"';
   else return type;
 }
-
-
-
-
-

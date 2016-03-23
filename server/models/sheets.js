@@ -5,7 +5,10 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  content: Object,
+  content: {
+    columnHeaders: Array,
+    grid: Array
+  },
   history: [{
     columnHeaders: Array,
     grid: Array

@@ -74,7 +74,7 @@ module.exports = function(app, passport) {
     sheets.update(req, res);
   });
 
-  app.put('/sheet/:spaceId/:sheetName', sheets.updateName);
+  app.put('/sheet/:sheetId/name', sheets.updateName);
 
   app.delete('/sheet/:id', function(req, res) {
     sheets.remove(req, res);

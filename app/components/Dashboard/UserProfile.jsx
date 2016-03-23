@@ -12,10 +12,10 @@ const UserProfile = props => {
               <div className="col-md-6">
                 <div className="well well-sm">
                   <div className="row">
-                    <div className="col-sm-6 col-md-4">
-                      <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className="img-rounded img-responsive"/>
-                    </div>
-                    <div className="col-sm-6 col-md-8">
+
+                      <div className="col-md-4">
+                      <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className={cx('profImg')} /></div>
+                      <div className="col-md-4">
                       <h4>
                         Guy Guyerson</h4>
                       <small>
@@ -54,6 +54,7 @@ const UserProfile = props => {
                         </ul>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>

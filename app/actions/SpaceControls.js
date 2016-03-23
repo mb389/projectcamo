@@ -110,7 +110,7 @@ function updateSheetName(name, sheetId) {
 
 export function changeSheetName(sheetId, newName) {
   return (dispatch) => {
-    request.put(`/sheet/${sheetId}`, { name: newName })
+    request.put(`/sheet/${sheetId}/name`, { name: newName })
     .then(() => dispatch(updateSheetName(newName, sheetId)))
   }
 }

@@ -13,8 +13,8 @@ const SpaceList = (props) => {
    const spacesToDisplay =
    spaces.map((el) => {
      const route=`space/${el._id}`;
-      return <div key={el._id}><Glyphicon glyph="glyphicon glyphicon-folder-open" />
-    <Link to={route}>&nbsp;&nbsp;&nbsp;{el.name}</Link></div>
+      return <div key={el._id}><Glyphicon glyph="glyphicon glyphicon-folder-open" />&nbsp;&nbsp;&nbsp;
+    <Link to={route}>{el.name}</Link></div>
 
     });
 

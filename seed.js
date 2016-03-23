@@ -262,19 +262,19 @@ var seedUsers = function () {
     var users = [
         {
             email: 'cody@camo.com',
-            password: '0'
+            password: '123'
         },
         {
             email: 'oscar@camo.com',
-            password: '0'
+            password: '123'
         },
         {
           email: 'mb@camo.com',
-          password: '0'
+          password: '123'
         },
         {
           email: 'assaf@camo.com',
-          password: '0'
+          password: '123'
         }
     ];
     return User.createAsync(users);

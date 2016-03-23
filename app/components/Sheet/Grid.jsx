@@ -13,7 +13,7 @@ const Grid = (props) => {
       return (
       <div className={cx('trow')} key={idx}>
         <div className={cx('rnum')}>{idx + 1}</div>
-        {props.disableAll ? <div className={cx('rnum')}></div>: <RowOpener className={cx('rnum')} row={idx}/>}
+        {props.disableAll ? <div className={cx('rnum')}></div> : <RowOpener className={cx('rnum')} row={idx}/>}
         {generateCells(row, idx)}
       </div>);
     });

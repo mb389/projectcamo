@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { closeHistoryModal, setHistoryTable } from 'actions/sheet';
+import { addSheet } from 'actions/SpaceControls';
 import styles from 'css/components/modal';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
@@ -17,6 +18,7 @@ class HistoryModal extends Component {
 		this.close = this.close.bind(this)
     this.sheets = this.sheets.bind(this)
     this.setHistoryTable = this.setHistoryTable.bind(this)
+    this.restoreSheet = this.restoreSheet.bind(this)
 	}
 
 	close() {
@@ -25,6 +27,11 @@ class HistoryModal extends Component {
 
   setHistoryTable(i){
     this.props.dispatch(setHistoryTable(i))
+  }
+
+  restoreSheet(sheet){
+    this.props.dispatch(addSheet(this.props.space._id,sheet))
+    this.close()
   }
 
   sheets(){
@@ -44,6 +51,7 @@ class HistoryModal extends Component {
               <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
             </h6>
             <Button onClick={self.setHistoryTable.bind(null, i)} ><Glyphicon glyph="eye-open" /> Show past</Button>
+            <Button onClick={self.restoreSheet.bind(null, sheet)} ><Glyphicon glyph="scissors" /> Restore</Button>
           </div>
       )
     })
@@ -72,17 +80,13 @@ class HistoryModal extends Component {
       infinite: false
     }
 
-    const wrapperStyle = {
-      overflow: 'scroll'
-    }
-
     return (
       <Modal show={this.props.showHistoryModal} onHide={this.close} className={cx('modalRow')} dialogClassName={cx('wide-modal')}>
         <Modal.Body>
           <Slider {...settings}>
             {this.sheets()}
           </Slider>
-          <div style={wrapperStyle}>
+          <div>
             {this.historySheet()}
           </div>
         </Modal.Body>
@@ -96,7 +100,8 @@ function mapStateToProps(store) {
   return {
     showHistoryModal: store.sheet.showHistoryModal,
     history: store.sheet.history,
-    historySheet: store.sheet.historySheet
+    historySheet: store.sheet.historySheet,
+    space: store.spacecontrol.space
   };
 }
 

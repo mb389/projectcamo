@@ -177,7 +177,6 @@ export default function sheet(state = {
     }
     case FORMULA_COLUMN:{
       let formulaColumnState = _.cloneDeep(state);
-      formulaColumnState.columnHeaders
 
       let newColumn = {
         id: (100+formulaColumnState.columnHeaders.length).toString(),

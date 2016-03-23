@@ -96,9 +96,9 @@ export function addSheetToView(obj) {
   }
 }
 
-export function addSheet(spaceId) {
+export function addSheet(spaceId, sheet) {
   return (dispatch) => {
-    request.post(`/sheet/${spaceId}`)
+    request.post(`/sheet/${spaceId}`, sheet)
     .then(res => res.data)
     .then(res => dispatch(addSheetToView({
       newSheetId: res._id,

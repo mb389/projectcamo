@@ -22,8 +22,9 @@ class HistoryModal extends Component {
     this.props.dispatch(closeHistoryModal())
   }
 
-  setHistoryTable(){
-
+  setHistoryTable(i){
+    console.log(i)
+    this.props.dispatch(setHistoryTable(i))
   }
 
   sheets(){
@@ -34,14 +35,15 @@ class HistoryModal extends Component {
       margin: '10px',
       textAlign: 'center'
     }
+    let self = this
 
     return this.props.history.map(function (sheet, i) {
       return (
-          <div style={divStyle}>
+          <div style={divStyle} key={i}> 
             <h6>
               <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
             </h6>
-            <Button idx={i} ><Glyphicon glyph="eye-open" /> Show past</Button>
+            <Button onClick={self.setHistoryTable.bind(null, i)} ><Glyphicon glyph="eye-open" /> Show past</Button>
           </div>
       )
     })

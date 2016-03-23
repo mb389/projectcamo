@@ -11,7 +11,8 @@ var schema = new mongoose.Schema({
   },
   history: [{
     columnHeaders: Array,
-    grid: Array
+    grid: Array,
+    saveDate: { type: Date, default: Date.now }
   }],
   name: {
     type: String,

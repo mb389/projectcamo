@@ -8,3 +8,7 @@
 	border-radius: 4px;
 	padding: 10px
 }
+
+.wide-modal {
+	width: 90%;
+}

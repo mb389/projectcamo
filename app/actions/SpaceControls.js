@@ -20,6 +20,7 @@ polyfill();
 
 export function saveSheet(sheetId, sheet){
   console.log("savingSheet")
+  // update sheet history here
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
     .then(res => console.log(res))
@@ -38,7 +39,8 @@ export function loadSpace(obj) {
 export function changeSheet(obj) {
   return {
     type: types.CHANGE_SHEET,
-    sheet: obj.sheetToShow.content
+    sheet: obj.sheetToShow.content,
+    history: obj.sheetToShow.history
   };
 }
 

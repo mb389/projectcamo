@@ -12,16 +12,18 @@ import {
   FORMULA_COLUMN,
   UPDATE_MODAL_CELL,
   CHANGE_SHEET,
-  CLEAR_SHEET
+  CLEAR_SHEET,
+  SHOW_HISTORY_MODAL,
+  CLOSE_HISTORY_MODAL
 } from 'constants/index';
-
-import initialState from './sheetState';
 
 export default function sheet(state = { 
   grid: [], 
-  columnHeaders: [], 
+  columnHeaders: [],
+  history: [], 
   showRowModal: false, 
-  modalRow: {data:null,rowIdx:null} }, action = {}) {
+  modalRow: {data:null,rowIdx:null},
+  showHistoryModal: false }, action = {}) {
   switch (action.type) {
     case CLEAR_SHEET:
       return {}
@@ -29,11 +31,13 @@ export default function sheet(state = {
       return {
         columnHeaders: action.sheet.columnHeaders || [],
         grid: action.sheet.grid || [],
+        history: action.history || [],
         modalRow: {
           data: null,
           rowIdx: null
         },
-        showRowModal: false
+        showRowModal: false,
+        showHistoryModal: false
       }
     case UPDATE_CELL:
       {
@@ -69,6 +73,18 @@ export default function sheet(state = {
         modalCloseState.modalRow.data = null;
         modalCloseState.modalRow.rowIdx = null;
         return modalCloseState
+      }
+    case SHOW_HISTORY_MODAL:
+      {
+        let modalState = _.cloneDeep(state)
+        modalState.showHistoryModal = true;
+        return modalState
+      }
+    case CLOSE_HISTORY_MODAL:
+      {
+        let modalState = _.cloneDeep(state)
+        modalState.showHistoryModal = false;
+        return modalState
       }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);

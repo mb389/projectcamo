@@ -13,10 +13,12 @@ import {
   UPDATE_MODAL_CELL,
   CHANGE_SHEET,
   CLEAR_SHEET,
-  CURRENT_CELL
+  SHOW_HISTORY_MODAL,
+  CLOSE_HISTORY_MODAL,
+  CURRENT_CELL,
+  SET_HISTORY_TABLE,
+  UPDATE_HISTORY
 } from 'constants/index';
-
-import initialState from './sheetState';
 
 export default function sheet(state = {
   grid: [],
@@ -30,11 +32,14 @@ export default function sheet(state = {
       return {
         columnHeaders: action.sheet.columnHeaders || [],
         grid: action.sheet.grid || [],
+        history: action.history || [],
+        historySheet: action.historySheet || null,
         modalRow: {
           data: null,
           rowIdx: null
         },
-        showRowModal: false
+        showRowModal: false,
+        showHistoryModal: false
       }
     case UPDATE_CELL:
       {
@@ -56,13 +61,13 @@ export default function sheet(state = {
       }
     case SHOW_ROW_MODAL:
       {
-        let modalState = _.cloneDeep(state)
-        modalState.showRowModal = true;
-        modalState.modalRow = {
+        let newState = _.cloneDeep(state)
+        newState.showRowModal = true;
+        newState.modalRow = {
           data: state.grid[action.rowIdx],
           rowIdx: action.rowIdx
         }
-        return modalState
+        return newState
       }
     case CLOSE_ROW_MODAL:
       {
@@ -72,6 +77,31 @@ export default function sheet(state = {
         modalCloseState.modalRow.data = null;
         modalCloseState.modalRow.rowIdx = null;
         return modalCloseState
+      }
+    case SHOW_HISTORY_MODAL:
+      {
+        let newState = _.cloneDeep(state)
+        newState.showHistoryModal = true;
+        return newState
+      }
+    case SET_HISTORY_TABLE:
+      {
+        let newState = _.cloneDeep(state);
+        newState.historySheet = newState.history[action.index]
+        return newState
+      }
+    case UPDATE_HISTORY:
+      {
+        let newState = _.cloneDeep(state);
+        newState.history = action.history;
+        return newState
+      }
+    case CLOSE_HISTORY_MODAL:
+      {
+        let newState = _.cloneDeep(state)
+        newState.showHistoryModal = false;
+        newState.historySheet = null
+        return newState
       }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
@@ -87,14 +117,17 @@ export default function sheet(state = {
       return addColumnState;}
     case UPDATE_COLUMN:
       {
-        let updateColumnState = _.cloneDeep(state);
-        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column => {
-          if (column.id === action.data.id) {
-            return action.data
-          } else return column;
+        let updateColumnState =  _.cloneDeep(state);
+        let updatingId = action.data.id;
+        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
+          if (column.id===updatingId) {return action.data}
+          else return column;
         })
-        updateColumnState.grid.forEach(row => {
-          row[action.data.id].type = action.data.type;
+
+        updateColumnState.grid = updateColumnState.grid.map(row=>{
+          row[updatingId].type = action.data.type;
+          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula)
+          return row;
         })
         return updateColumnState;
       }
@@ -117,16 +150,6 @@ export default function sheet(state = {
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
 
       return insertColumnState}
-    case UPDATE_COLUMN:{
-      let updateColumnState =  _.cloneDeep(state);
-      updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
-        if (column.id===action.data.id) {return action.data}
-        else return column;
-      })
-      updateColumnState.grid.forEach(row=>{
-        row[action.data.id].type = action.data.type;
-      })
-      return updateColumnState;}
     case SORT_COLUMN:{
       let sortColumnState = _.cloneDeep(state);
       let colId = action.sortBy.colId;
@@ -155,9 +178,6 @@ export default function sheet(state = {
     }
     case FORMULA_COLUMN:{
       let formulaColumnState = _.cloneDeep(state);
-      formulaColumnState.columnHeaders
-
-
 
       let newColumn = {
         id: (100+formulaColumnState.columnHeaders.length).toString(),
@@ -205,3 +225,29 @@ function insertNewColInRows (state, newColumn){
   });
   return state;
 }
+
+function runCustomFunc (state, row, funcText) {
+  let columnDefs = 'let document = undefined; let window = undefined; ';
+
+  state.columnHeaders.forEach((elem, idx) => { 
+    // TODO remove this column?
+    funcText = funcText.replace(elem.name, 'userCol' + idx);
+    let userData = decorationType(row[elem.id].data);
+    console.log(userData);
+    columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
+    });
+
+
+  return eval(columnDefs+funcText);
+}
+
+function decorationType (type) {
+  if (Array.isArray(type)) return '["' + type.join('","') + '"]';
+  else if (typeof type === 'string') return '"' + type + '"';
+  else return type;
+}
+
+
+
+
+

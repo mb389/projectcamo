@@ -6,6 +6,18 @@ import * as types from 'constants/index';
 
 polyfill();
 
+export function closeHistoryModal() {
+	return {
+    type: types.CLOSE_HISTORY_MODAL
+  };
+}
+
+export function showHistoryModal() {
+	return {
+    type: types.SHOW_HISTORY_MODAL
+  };
+}
+
 export function clearSheet() {
   return {
     type: types.CLEAR_SHEET
@@ -104,4 +116,11 @@ export function currentCell(cell) {
     type: types.CURRENT_CELL,
     cell
   }
+}
+
+export function setHistoryTable(index) {
+	return {
+		type: types.SET_HISTORY_TABLE,
+		index
+	}
 }

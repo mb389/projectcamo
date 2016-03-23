@@ -12,6 +12,11 @@
 }
 
 
+.wide-modal {
+	width: 90%;
+}
+
+
 
 .addBtn {
 
@@ -34,4 +39,13 @@
 
 .shareButton {
 
+}
+
+.slick-container {
+	margin: 0 auto;
+	width: 90%;
+}
+
+.slick-prev:before, .slick-next:before {
+  color: black;
 }

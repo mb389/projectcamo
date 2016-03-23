@@ -5,6 +5,7 @@ import { updateColumn } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
+import ContentEditable from 'react-contenteditable';
 
 const cx = classNames.bind(styles);
 
@@ -12,27 +13,41 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: false};
+		this.state = {colType: this.props.data.type, colName: this.props.data.name };
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
+		this.customFormula = this.customFormula.bind(this);
+		this.handleEditName = this.handleEditName.bind(this);
 	}
 
 	itemSelected(e, ekey) {
-		console.log('itemSelected', ekey);
 		this.setState({colType: ekey});
+	}
+
+	handleEditName(e){
+		this.setState({colName: e.target.value});
+	}
+
+	customFormula(e) {	
+		this.setState({formula: e.target.value});
 	}
 
 	saveTypeChanges() {
 		let newColData = {
 			id: this.props.data.id,
-			type: this.state.colType || this.props.data.type,
-			name: document.getElementById("newColName").innerHTML,
+			type: this.state.colType,
+			name: this.state.colName,
 			idx: this.props.data.idx,
 		}
 
+		if(this.state.formula) newColData.formula = this.state.formula;
+
+		// TODO should do a deep equals
 		if (newColData == this.props.data) console.log('No Change');
+
 		else this.props.dispatch(updateColumn(newColData))
+
 		this.props.exitTypeMenu();
 	}
 
@@ -50,8 +65,8 @@ class MenuEditCol extends Component {
 				), 
 			'Formula': (
 				<div className='col-md-12'>
-					<p className='col-md-12'> Allows you to create custom formulas for manipulating your data: </p>
-					<textarea id="functionDefine" className='col-md-12'> </textarea>
+					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
+					<textarea onChange={this.customFormula} className='col-md-12'>{this.state.userFunction}</textarea>
 				</div>
 				), 
 			'Images': (
@@ -86,10 +101,10 @@ class MenuEditCol extends Component {
 
 		return (
 				<div className={cx('editNameAndType')}>
-					<div className={cx('thead') + ' col-md-12'} id="newColName" contentEditable>{this.props.data.name}</div>
+					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.colName} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.state.colType || this.props.data.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        {this.state.colType} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}

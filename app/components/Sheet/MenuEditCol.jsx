@@ -43,7 +43,8 @@ class MenuEditCol extends Component {
 	formulaUpload() {
 		// let them pick a name to save with
 		console.log('uploadThisFormulaToDatabase', this.state.formulaName, this.state.formula);
-		this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
+		// this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
+		this.props.dispatch(formulaUpload('FormulaName', this.state.formula));
 	}
 
 	saveTypeChanges() {

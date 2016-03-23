@@ -35,6 +35,8 @@ export const UPDATE_MODAL_CELL = 'UPDATE_MODAL_CELL';
 export const CHANGE_SHEET = 'CHANGE_SHEET';
 export const CLEAR_SHEET = 'CLEAR_SHEET';
 export const CURRENT_CELL = 'CURRENT_CELL';
+
+// FormulaStore Constants
 export const FORMULA_UPLOAD = 'FORMULA_UPLOAD';
 
 // NAV CONSTS

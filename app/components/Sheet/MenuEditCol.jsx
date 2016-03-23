@@ -13,12 +13,13 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: this.props.data.type, colName: this.props.data.name, formula: this.props.data.formula };
+		this.state = {colType: (this.props.data.type || 'Text'), colName: this.props.data.name, formula: this.props.data.formula };
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
 		this.customFormula = this.customFormula.bind(this);
 		this.handleEditName = this.handleEditName.bind(this);
+		this.exitTypeMenu = this.exitTypeMenu.bind(this);
 	}
 
 	itemSelected(e, ekey) {
@@ -51,6 +52,11 @@ class MenuEditCol extends Component {
 		this.props.exitTypeMenu();
 	}
 
+	exitTypeMenu() {
+		if(!this.props.data.type) this.saveTypeChanges();
+		this.props.exitTypeMenu();
+	}
+
 	render () {
 		let columnTypes = {
 			'Text': (
@@ -67,6 +73,7 @@ class MenuEditCol extends Component {
 				<div className='col-md-12'>
 					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
 					<textarea onChange={this.customFormula} className='col-md-12' value={this.state.formula} />
+					<button className="btn col-md-5" type="button" onClick={this.saveFormula}>Save this Formula</button>
 				</div>
 				), 
 			'Images': (
@@ -114,7 +121,7 @@ class MenuEditCol extends Component {
 				    
 				    {columnTypes[this.state.colType]}
 				    <div className='col-md-12'>
-					    <button className="btn col-md-5" type="button" onClick={this.props.exitTypeMenu}>Cancel</button>
+					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
 					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>
 					</div>
 				</div>

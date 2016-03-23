@@ -77,11 +77,11 @@ export default function sheet(state = {
       let addColumnState =  _.cloneDeep(state);
       let newColumn = {
         id: (100+addColumnState.columnHeaders.length).toString(),
-        type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
       }
 
+      // TODO need to set this.props.view: 'editNameAndType';
       addColumnState.columnHeaders.push(newColumn);
       addColumnState = insertNewColInRows(addColumnState, newColumn);
       return addColumnState;}
@@ -105,7 +105,6 @@ export default function sheet(state = {
       let insertColumnState = _.cloneDeep(state);
       let newColumn = {
         id: (100+insertColumnState.columnHeaders.length).toString(),
-        type: 'Text',
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
       }
@@ -115,6 +114,7 @@ export default function sheet(state = {
         return column;
       })
 
+      // TODO need to set this.props.view: 'editNameAndType';
       insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
@@ -215,7 +215,7 @@ function runCustomFunc (state, row, funcText) {
 function decorationType (cell) {
   switch (cell.type) {
     case 'Images': return '["' + cell.data.join('","') + '"]';
-    case 'Link': case 'Text': return '"' + cell.data + '"';
+    case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
     default: return cell.data;
   }
 }

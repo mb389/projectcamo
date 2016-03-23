@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import SearchButton from './SearchButton';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
-import SuperBar from './SuperBar';
 import HistoryButton from './HistoryButton';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
@@ -10,17 +9,13 @@ import styles from 'css/components/magic-bar';
 
 const cx = classNames.bind(styles);
 
-const MagicBar = (props) => {
+const SuperBar = (props) => {
   return (
-    <div className={cx('MagicBar')} >
-      <SearchButton />
-      <SuperBar />
-      <SaveButton saveSheet={props.saveSheet}/>
-      <HistoryButton />
-      <ShareButton />
+    <div className={cx('SuperBar')} >
+      <input className={cx('InputToSearch')} placeholder="Magic Bar" />
     </div>
   );
 };
 
 
-export default MagicBar;
+export default SuperBar;

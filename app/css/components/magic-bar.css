@@ -9,6 +9,9 @@
   width: 100%;
 }
 
+
+
+
 .SearchButton, .ShareButton, .HistoryButton, .SaveButton {
   display: inline-block;
   width: 25px;
@@ -30,12 +33,12 @@
   /*background-color: #f1f1f1;*/
 }
 
-.FormulaBar {
+.SuperBar {
   display: inline-block;
   width: 500px;
 }
 
-.FormulaBar span {
+.SuperBar span {
   vertical-align: middle;
 }
 

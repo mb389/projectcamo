@@ -195,21 +195,27 @@ function insertNewColInRows (state, newColumn){
 }
 
 function runCustomFunc (state, row, funcText) {
-  let columnDefs = '';
+  let columnDefs = 'let document = undefined; let window = undefined; ';
 
   state.columnHeaders.forEach((elem, idx) => { 
+    // TODO remove this column?
     funcText = funcText.replace(elem.name, 'userCol' + idx);
-    columnDefs += 'let userCol' + idx + ' = "' + row[elem.id].data + '"; '
+    let userData = decorationType(row[elem.id].data);
+    console.log(userData);
+    columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
     });
 
-  console.log(columnDefs);
-
-  
-  // console.log(this);
-  // // console.log(Names);
 
   return eval(columnDefs+funcText);
-
-
-
 }
+
+function decorationType (type) {
+  if (Array.isArray(type)) return '["' + type.join('","') + '"]';
+  else if (typeof type === 'string') return '"' + type + '"';
+  else return type;
+}
+
+
+
+
+

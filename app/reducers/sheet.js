@@ -93,7 +93,7 @@ export default function sheet(state = {
 
         updateColumnState.grid = updateColumnState.grid.map(row=>{
           row[updatingId].type = action.data.type;
-          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, action.data.formula)
+          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula)
           return row;
         })
         return updateColumnState;
@@ -194,11 +194,22 @@ function insertNewColInRows (state, newColumn){
   return state;
 }
 
-function runCustomFunc (state, funcText) {
-  state.columnHeaders.forEach(elem =>
-    let elem[name] = 
-    )
+function runCustomFunc (state, row, funcText) {
+  let columnDefs = '';
+
+  state.columnHeaders.forEach((elem, idx) => { 
+    funcText = funcText.replace(elem.name, 'userCol' + idx);
+    columnDefs += 'let userCol' + idx + ' = "' + row[elem.id].data + '"; '
+    });
+
+  console.log(columnDefs);
+
+  
+  // console.log(this);
+  // // console.log(Names);
+
+  return eval(columnDefs+funcText);
 
 
-  return eval(funcText);
+
 }

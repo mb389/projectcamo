@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/bottom-bar';
 
 
+
 const cx = classNames.bind(styles);
 
 const BottomBar = (props) => {
@@ -10,6 +11,7 @@ const BottomBar = (props) => {
     <div className={cx('BottomBar')} >
       <div>
         <span className={cx('BottomRowCount')}>{props.rows} rows</span>
+
       </div>
     </div>
   );

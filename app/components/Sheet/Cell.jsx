@@ -13,9 +13,8 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true, html: this.props.cell.data};
+    this.state = {disabled: true};
     // leaving disabled in case we choose to use it later
-    this.openModal = this.openModal.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.setMouseEnter = this.setMouseEnter.bind(this);
 		this.setMouseLeave = this.setMouseLeave.bind(this);
@@ -25,15 +24,8 @@ class Cell extends Component {
     this.handleFocus = this.handleFocus.bind(this);
 	}
 
-	openModal(){
-  	// dispatch show modal
-  	const { dispatch, rowIdx } = this.props;
-  	dispatch(showRowModal(rowIdx))
-	}
-
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx } = this.props;
-	  // this.setState({html: evt.target.value});
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 

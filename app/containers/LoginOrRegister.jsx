@@ -91,10 +91,11 @@ class LoginOrRegister extends Component {
     const { isWaiting, message } = this.props.user;
 
     return (
+      <div  >
       <div className={cx('login', {
         'waiting': isWaiting
       })}>
-        <div className={cx('container')}>
+        <div>
           { this.renderHeader() }
           <img className={cx('loading')} src={hourGlassSvg} />
           <div className={cx('email-container')}>
@@ -122,6 +123,7 @@ class LoginOrRegister extends Component {
           </div>
         </div>
       </div>
+    </div>
     );
   }
 }
@@ -143,4 +145,3 @@ function mapStateToProps(state) {
 // It does not modify the component class passed to it
 // Instead, it returns a new, connected component class, for you to use.
 export default connect(mapStateToProps)(LoginOrRegister);
-

@@ -6,6 +6,7 @@ import AddRow from './AddRow';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 
+
 const cx = classNames.bind(styles);
 
 export default class Table extends Component {
@@ -18,6 +19,7 @@ export default class Table extends Component {
         <Grid grid={this.props.grid} headers={this.props.headers}/>
         <AddRow />
         <RowModal className={cx('row-modal')}/>
+        
       </div>
     );
   }

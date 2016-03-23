@@ -14,16 +14,28 @@ const SuperBar = (props) => {
     return props.updateCell(evt.target.value, props.cell.cellKey, props.cell.rowIdx)
   }
 
-  if (!props.cell || props.cell.cell.type === 'Images') return (
+  // Being used as search
+  if (props.searching && !props.cell) {
+    return (
       <input
-        className={cx('InputToSearch')}
-        placeholder={'Magic Bar'}
+        placeholder={'Search your data'}
         onChange={props.searchSheet}
       />
+    )
+  }
+
+  // If no cell or image then disabled and says Magic Bar
+  if (!props.cell || props.cell.cell.type === 'Images') return (
+      <input
+        placeholder={'Magic Bar'}
+        onChange={props.searchSheet}
+        disabled
+      />
   )
+
+  // standard when cell is selected is populates the magic bar and is linked with the cell
   return (
       <input
-        className={cx('InputToSearch')}
         value={props.cell ? props.cell.cell.data : ''}
         placeholder={props.cell ? props.cell.cell.data : 'Magic Bar'}
         onChange={funcToCall}

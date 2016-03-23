@@ -14,7 +14,7 @@ const MagicBar = (props) => {
   return (
     <div className={cx('MagicBar')} >
       <SearchButton {...props}/>
-      <SuperBar {...props} className={cx('SuperBar')} />
+      <SuperBar className={cx('SuperBar')} {...props} />
       <SaveButton saveSheet={props.saveSheet}/>
       <HistoryButton />
       <ShareButton />

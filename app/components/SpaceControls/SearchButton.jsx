@@ -7,7 +7,6 @@ import styles from 'css/components/magic-bar';
 const cx = classNames.bind(styles);
 
 const SearchButton = (props) => {
-  console.log(props)
   return (
     <div className={cx('SearchButton')}>
       <Button

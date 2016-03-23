@@ -126,3 +126,10 @@ export function closeShareModal() {
 		type: types.CLOSE_SHARE_MODAL
 	}
 }
+
+export function searching(bool=true) {
+  return {
+    type: types.SEARCHING,
+    bool
+  }
+}

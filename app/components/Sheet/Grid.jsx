@@ -21,7 +21,13 @@ const Grid = (props) => {
 
   function generateCells (row, idx) {
     return props.headers.map((head) => {
-      return (<Cell cell={row[head.id]} key={head.id} cellKey={head.id} row={row} rowIdx={idx} cellIdx={head.idx}/> );
+      return (<Cell
+        cell={row[head.id]}
+        key={head.id}
+        cellKey={head.id}
+        row={row}
+        rowIdx={idx}
+        cellIdx={head.idx}/> );
     });
   }
 

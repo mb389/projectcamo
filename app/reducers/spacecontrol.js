@@ -5,7 +5,8 @@ import {
   CHANGE_SPACE_NAME,
   CHANGE_SHEET_NAME,
   SHOW_SHARE_MODAL,
-  CLOSE_SHARE_MODAL
+  CLOSE_SHARE_MODAL,
+  SEARCHING
 } from 'constants/index';
 
 
@@ -49,6 +50,8 @@ export default function spaceControl(state = { showShareModal: false }, action =
         } : sheetInSpace
       )
       return Object.assign({}, state, { sheetNames, sheetToShow });
+    case SEARCHING:
+      return { ...state, searching:action.bool };
     default:
       return state;
   }

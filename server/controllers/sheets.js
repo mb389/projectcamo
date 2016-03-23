@@ -55,7 +55,6 @@ exports.one = function(req, res) {
  * Update/Save a Sheet
  */
 exports.update = function(req, res) {
-  console.log(req.body)
   Sheet.findByIdAndUpdate(req.params.id, { 
     content: req.body, 
     $push: {"history": {columnHeaders: req.body.columnHeaders, grid: req.body.grid }}
@@ -68,10 +67,7 @@ exports.update = function(req, res) {
 };
 
 exports.updateName = function(req, res) {
-  Sheet.findOneAndUpdate({
-    name: req.params.sheetName,
-    workspace: req.params.spaceId
-  }, req.body )
+  Sheet.findByIdAndUpdate(req.params.sheetId, req.body )
   .then(() => res.sendStatus(200))
   .catch(() => res.sendStatus(500));
 }

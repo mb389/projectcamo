@@ -18,6 +18,13 @@ polyfill();
  * @return Promise
  */
 
+export function saveSheet(sheetId, sheet){
+  console.log("savingSheet")
+  return (dispatch) => {
+    request.put(`/sheet/${sheetId}`, sheet)
+    .then(res => console.log(res))
+  }
+}
 
 export function loadSpace(obj) {
   return {

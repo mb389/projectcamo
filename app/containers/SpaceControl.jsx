@@ -31,8 +31,7 @@ class SpaceControl extends Component {
   }
 
   render() {
-    if (!this.props.sheet) return <div>loading ...</div>
-
+    if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>

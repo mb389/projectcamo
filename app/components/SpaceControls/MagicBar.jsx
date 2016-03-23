@@ -17,6 +17,7 @@ const MagicBar = (props) => {
       <SaveButton saveSheet={props.saveSheet}/>
       <HistoryButton />
       <ShareButton />
+
     </div>
   );
 };

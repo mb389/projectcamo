@@ -5,7 +5,7 @@ import RowModal from './RowModal';
 import AddRow from './AddRow';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
-import ShareModal from 'components/SpaceControls/ShareModal';
+
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +19,7 @@ export default class Table extends Component {
         <Grid grid={this.props.grid} headers={this.props.headers}/>
         <AddRow />
         <RowModal className={cx('row-modal')}/>
-        <ShareModal />
+        
       </div>
     );
   }

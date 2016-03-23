@@ -1,3 +1,5 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
 .col-header {
 	font-size: 1.2em
 }
@@ -13,6 +15,25 @@
 
 }
 
-.shareButton {
+.addBtn {
 	
+}
+
+.shareModalHeader {
+	background: primary-color;
+	border-radius: 4px;
+	color: white;
+}
+
+.userImg {
+	width: 30px;
+	height: 30px;
+	border-radius: 60%;
+	border: 1px solid black;
+	background: url("https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png") no-repeat center;
+	background-size: 100%;
+}
+
+.shareButton {
+
 }

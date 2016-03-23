@@ -29,10 +29,8 @@ exports.one = function(req, res) {
     name: 'Sheet Name', 
     workspace: req.params.spaceId, 
     content: { 
-      grid: [], 
-      columnHeaders: [], 
-      showRowModal: false, 
-      modalRow: {data:null,rowIdx:null} 
+        grid: req.body.grid || [], 
+        columnHeaders: req.body.columnHeaders || []
       }
     })
     .then(sheet => res.json(sheet))

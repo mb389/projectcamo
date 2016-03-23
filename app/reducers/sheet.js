@@ -109,14 +109,17 @@ export default function sheet(state = {
       return addColumnState;}
     case UPDATE_COLUMN:
       {
-        let updateColumnState = _.cloneDeep(state);
-        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column => {
-          if (column.id === action.data.id) {
-            return action.data
-          } else return column;
+        let updateColumnState =  _.cloneDeep(state);
+        let updatingId = action.data.id;
+        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
+          if (column.id===updatingId) {return action.data}
+          else return column;
         })
-        updateColumnState.grid.forEach(row => {
-          row[action.data.id].type = action.data.type;
+
+        updateColumnState.grid = updateColumnState.grid.map(row=>{
+          row[updatingId].type = action.data.type;
+          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula)
+          return row;
         })
         return updateColumnState;
       }
@@ -139,16 +142,6 @@ export default function sheet(state = {
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
 
       return insertColumnState}
-    case UPDATE_COLUMN:{
-      let updateColumnState =  _.cloneDeep(state);
-      updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
-        if (column.id===action.data.id) {return action.data}
-        else return column;
-      })
-      updateColumnState.grid.forEach(row=>{
-        row[action.data.id].type = action.data.type;
-      })
-      return updateColumnState;}
     case SORT_COLUMN:{
       let sortColumnState = _.cloneDeep(state);
       let colId = action.sortBy.colId;
@@ -178,8 +171,6 @@ export default function sheet(state = {
     case FORMULA_COLUMN:{
       let formulaColumnState = _.cloneDeep(state);
       formulaColumnState.columnHeaders
-
-
 
       let newColumn = {
         id: (100+formulaColumnState.columnHeaders.length).toString(),
@@ -227,3 +218,29 @@ function insertNewColInRows (state, newColumn){
   });
   return state;
 }
+
+function runCustomFunc (state, row, funcText) {
+  let columnDefs = 'let document = undefined; let window = undefined; ';
+
+  state.columnHeaders.forEach((elem, idx) => { 
+    // TODO remove this column?
+    funcText = funcText.replace(elem.name, 'userCol' + idx);
+    let userData = decorationType(row[elem.id].data);
+    console.log(userData);
+    columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
+    });
+
+
+  return eval(columnDefs+funcText);
+}
+
+function decorationType (type) {
+  if (Array.isArray(type)) return '["' + type.join('","') + '"]';
+  else if (typeof type === 'string') return '"' + type + '"';
+  else return type;
+}
+
+
+
+
+

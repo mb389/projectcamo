@@ -16,7 +16,8 @@ import {
   SHOW_HISTORY_MODAL,
   CLOSE_HISTORY_MODAL,
   CURRENT_CELL,
-  SET_HISTORY_TABLE
+  SET_HISTORY_TABLE,
+  UPDATE_HISTORY
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -86,6 +87,12 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         newState.historySheet = newState.history[action.index]
+        return newState
+      }
+    case UPDATE_HISTORY:
+      {
+        let newState = _.cloneDeep(state);
+        newState.history = action.history;
         return newState
       }
     case CLOSE_HISTORY_MODAL:

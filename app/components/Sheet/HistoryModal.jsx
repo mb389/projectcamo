@@ -56,6 +56,7 @@ class HistoryModal extends Component {
       <Table 
         grid={this.props.historySheet.grid}
         headers={this.props.historySheet.columnHeaders}
+        disableAll={true}
       />
     )
   }
@@ -71,13 +72,19 @@ class HistoryModal extends Component {
       infinite: false
     }
 
+    const wrapperStyle = {
+      overflow: 'scroll'
+    }
+
     return (
       <Modal show={this.props.showHistoryModal} onHide={this.close} className={cx('modalRow')} dialogClassName={cx('wide-modal')}>
         <Modal.Body>
           <Slider {...settings}>
             {this.sheets()}
           </Slider>
-          {this.historySheet()}
+          <div style={wrapperStyle}>
+            {this.historySheet()}
+          </div>
         </Modal.Body>
       </Modal>
     );

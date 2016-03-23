@@ -18,12 +18,17 @@ polyfill();
  * @return Promise
  */
 
+export function updateSheet(history) {
+  return {
+    type: types.UPDATE_HISTORY,
+    history: history
+  }
+}
+
 export function saveSheet(sheetId, sheet){
-  console.log("savingSheet")
-  // update sheet history here
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
-    .then(res => console.log(res))
+    .then(res => dispatch(updateSheet(res.data.history)))
   }
 }
 

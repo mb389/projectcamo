@@ -40,11 +40,10 @@ class ColumnOptions extends Component {
 	}
 
 	duplicate() {
-		console.log('duplicate this column');
 		let dup = function (element) {
 			return element;
 		};
-		this.props.dispatch(formulaColumn('map', dup, this.props.data.id));
+		this.props.dispatch(formulaColumn('map', dup, this.props.data));
 	}
 
 	insertLeft() {

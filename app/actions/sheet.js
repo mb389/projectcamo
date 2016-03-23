@@ -90,10 +90,10 @@ export function insertColumn(colIdx){
 	}
 }
 
-export function formulaColumn(arrMeth, func, colId){
+export function formulaColumn(arrMeth, func, colData){
 	return {
 		type: types.FORMULA_COLUMN,
-		colId,
+		colData,
 		func,
 		arrMeth,
 	}

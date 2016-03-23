@@ -6,6 +6,7 @@ import UserProfile from '../components/Dashboard/UserProfile';
 import SpaceList from '../components/Dashboard/SpaceList';
 import Navigation from 'containers/Navigation';
 import * as Actions from '../actions/dashboard';
+
 /*
  * Note: This is kept as a container-level component,
  *  i.e. We should keep this as the container that does the data-fetching

@@ -23,7 +23,7 @@ class ShareModal extends Component {
       let tooltip = <Tooltip>wow.</Tooltip>;
       let addBtn = <Button className={cx('addBtn')}><Glyphicon glyph='plus' /></Button>;
       return (
-        <div className={cx('shareModal')}>
+        <div >
             <Modal show={this.props.showShareModal} onHide={this.close}>
               <Modal.Header className={cx('shareModalHeader')} classcloseButton>
                 <Modal.Title>Sharing Dashboard</Modal.Title>

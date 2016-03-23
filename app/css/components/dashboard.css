@@ -1,18 +1,26 @@
 .dashboard {
 
+
 }
 
 .profile {
-  margin: auto;
+  margin: 0 auto;
+  width: 500px;
   padding-top: 50px;
   padding-right: 10px;
+  position: relative;
+  height: auto;
+  overflow: auto;
 }
 
 .spaces {
-  height: 162px;
+  margin: 0 auto;
+  width: 500px;
   font-size: 150%;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
   line-height: 200%;
+  height: auto;
+  overflow: auto;
 }
 
 .profImg {

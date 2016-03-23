@@ -62,7 +62,6 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-		console.log('handling cell', this.props);
 		this.props.dispatch(currentCell(this.props))
 	}
 

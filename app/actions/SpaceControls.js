@@ -80,7 +80,6 @@ export function getSheet(sheetId) {
       dispatch(loadSheet({
         sheetToShow: res.data
       }))
-      console.log(res.data)
       return res.data
     }).then(res => dispatch(changeSheet({
         sheetToShow: res

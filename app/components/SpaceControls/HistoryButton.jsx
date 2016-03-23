@@ -19,6 +19,7 @@ class HistoryButton extends Component {
 	}
 
   render(){
+  	if (!this.props.history || !this.props.history.length) return <span></span>
 	  return (
 	    <div className={cx('HistoryButton')}>
 	      <Button onClick={this.showHistoryModal}><Glyphicon glyph="backward" /></Button>
@@ -27,5 +28,11 @@ class HistoryButton extends Component {
  	}
 };
 
-export default connect()(HistoryButton);
+function mapStateToProps(store) {
+	return {
+		history: store.sheet.history
+	}
+}
+
+export default connect(mapStateToProps)(HistoryButton);
 

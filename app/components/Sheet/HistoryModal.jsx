@@ -35,6 +35,7 @@ class HistoryModal extends Component {
   }
 
   sheets(){
+    if (!this.props.history) return <h3>Loading...</h3>
     const divStyle = {
       background: '#00558B',
       color: '#fff',
@@ -70,7 +71,7 @@ class HistoryModal extends Component {
   }
 
   render () {
-    if (!this.props.history) return <span></span>
+    if (!this.props.history || !this.props.history.length) return <span></span>
 
     const settings = {
       dots: true,

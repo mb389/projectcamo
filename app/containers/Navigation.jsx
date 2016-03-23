@@ -29,7 +29,7 @@ class Navigation extends Component {
       <a href="/dashboard"
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></a>
-      <ContentEditable className={cx('item', 'spaceName')}
+    <ContentEditable className={cx('item', 'spaceName')}
           html={!this.props.space ? 'Project CAMO' : this.props.space.name}
             // innerHTML of the editable div
           disabled={this.props.disabled}     // use true to disable edition
@@ -37,7 +37,7 @@ class Navigation extends Component {
         />
   { this.props.user.authenticated ? (
         <div className={cx('item','logInProfile')}>
-        <DropdownButton id='profile' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
+        <DropdownButton id='bg-vertical-dropdown-1' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
             <MenuItem key="1" href='/'>Home</MenuItem>
             <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
             <MenuItem key="4" href='/about'>About CAMO</MenuItem>

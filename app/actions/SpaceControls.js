@@ -18,6 +18,13 @@ polyfill();
  * @return Promise
  */
 
+export function saveSheet(sheetId, sheet){
+  console.log("savingSheet")
+  return (dispatch) => {
+    request.put(`/sheet/${sheetId}`, sheet)
+    .then(res => console.log(res))
+  }
+}
 
 export function loadSpace(obj) {
   return {
@@ -103,7 +110,19 @@ function updateSheetName(name, sheetId) {
 
 export function changeSheetName(sheetId, newName) {
   return (dispatch) => {
-    request.put(`/sheet/${sheetId}`, { name: newName })
+    request.put(`/sheet/${sheetId}/name`, { name: newName })
     .then(() => dispatch(updateSheetName(newName, sheetId)))
   }
+}
+
+export function showShareModal(){
+	return {
+		 type: types.SHOW_SHARE_MODAL
+	}
+}
+
+export function closeShareModal() {
+	return {
+		type: types.CLOSE_SHARE_MODAL
+	}
 }

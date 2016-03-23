@@ -9,21 +9,23 @@
   width: 100%;
 }
 
-.SearchButton, .ShareButton, .HistoryButton {
+
+
+
+.SearchButton, .ShareButton, .HistoryButton, .SaveButton {
   display: inline-block;
   width: 25px;
   margin-left: 15px;
 }
 
-.ShareButton, .HistoryButton {
+.ShareButton, .HistoryButton, .SaveButton {
   display: inline-block;
   width: 25px;
   float: right;
-  margin-left: 10px;
+  margin-right: 20px;
 }
 
-.HistoryButton {
-  margin-right: 20px;
+.HistoryButton .SaveButton {
   margin-left: 20px;
 }
 
@@ -31,12 +33,12 @@
   /*background-color: #f1f1f1;*/
 }
 
-.FormulaBar {
+.SuperBar {
   display: inline-block;
   width: 500px;
 }
 
-.FormulaBar span {
+.SuperBar span {
   vertical-align: middle;
 }
 

@@ -1,12 +1,19 @@
 @value global-radius, font-large, font-medium, font-small from '../settings';
 @value color-athens-gray, color-mercury, color-white, color-dodger-blue, color-crimson, color-bombay from '../common/colors.css';
 
+
+.wrap {
+  width: 70%;
+}
+
 .login {
-  width: 420px;
-  margin: 0 auto;
+  width: 400px;
+  align: center;
+  margin: auto;
   background-color: color-athens-gray;
   border: 2px solid color-mercury;
   border-radius: global-radius;
+  box-sizing: border-box;
 }
 
   .waiting {
@@ -33,7 +40,7 @@
   .loading {
     display: none;
     text-align: center;
-    margin: 24px auto;
+    margin: auto;
   }
 
   .email-container {

@@ -52,17 +52,19 @@ exports.one = function(req, res) {
 // };
 
 /**
- * Update a Sheet
+ * Update/Save a Sheet
  */
 exports.update = function(req, res) {
   console.log(req.body)
-  Sheet.findById(req.params.id)
-  .then((sheet) => {
-    sheet.content = req.body
-    sheet.save()
+  Sheet.findByIdAndUpdate(req.params.id, { 
+    content: req.body, 
+    $push: {"history": {columnHeaders: req.body.columnHeaders, grid: req.body.grid }}
+  }, {new: true})
+  .then((sheet) => res.status(200).json(sheet))
+  .catch((err) => {
+    console.log(err)
+    res.status(500).send('We failed to save to due some reason')
   })
-  .then(() => res.status(200).send('Updated successfully'))
-  .catch(() => res.status(500).send('We failed to save to due some reason'))
 };
 
 exports.updateName = function(req, res) {

@@ -14,16 +14,15 @@ import {
   CHANGE_SHEET,
   CLEAR_SHEET,
   SHOW_HISTORY_MODAL,
-  CLOSE_HISTORY_MODAL
+  CLOSE_HISTORY_MODAL,
+  CURRENT_CELL
 } from 'constants/index';
 
-export default function sheet(state = { 
-  grid: [], 
+export default function sheet(state = {
+  grid: [],
   columnHeaders: [],
-  history: [], 
-  showRowModal: false, 
-  modalRow: {data:null,rowIdx:null},
-  showHistoryModal: false }, action = {}) {
+  showRowModal: false,
+  modalRow: {data:null,rowIdx:null} }, action = {}) {
   switch (action.type) {
     case CLEAR_SHEET:
       return {}
@@ -45,11 +44,13 @@ export default function sheet(state = {
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         return newState
       }
+    case CURRENT_CELL:
+      return Object.assign({}, state, {currentCell : action.cell})
     case UPDATE_MODAL_CELL:
       {
         let modalRowState = _.cloneDeep(state);
-        if (Array.isArray(modalRowState.modalRow.data[action.cell.key].data)) { 
-          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data) 
+        if (Array.isArray(modalRowState.modalRow.data[action.cell.key].data)) {
+          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
         } else {
           modalRowState.modalRow.data[action.cell.key].data = action.cell.data
         }
@@ -93,7 +94,7 @@ export default function sheet(state = {
         type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
-      } 
+      }
 
       addColumnState.columnHeaders.push(newColumn);
       addColumnState = insertNewColInRows(addColumnState, newColumn);
@@ -118,7 +119,7 @@ export default function sheet(state = {
         type: 'Text',
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
-      } 
+      }
 
       insertColumnState.columnHeaders = insertColumnState.columnHeaders.map(column=>{
         if (column.idx >= action.colIdx) {column.idx++}
@@ -176,7 +177,7 @@ export default function sheet(state = {
         id: (100+formulaColumnState.columnHeaders.length).toString(),
         name: 'Column ' + (1+formulaColumnState.columnHeaders.length),
         idx: formulaColumnState.columnHeaders.length,
-      } 
+      }
 
       // console.log('ARRAY METHOD', action.arrMeth);
       formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{

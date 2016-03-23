@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import SheetsBar from 'components/SpaceControls/SheetsBar';
-import MagicBar from 'components/SpaceControls/MagicBar';
+import SheetsBar from 'components/spacecontrols/SheetsBar';
+import MagicBar from 'components/spacecontrols/MagicBar';
 import Table from 'components/Sheet/Table';
 import * as Actions from '../actions/spacecontrols';
 import * as SheetActions from '../actions/sheet';
@@ -18,6 +18,7 @@ const cx = classNames.bind(styles);
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
+    this.runUpdateCell = this.runUpdateCell.bind(this);
   }
 
   componentWillMount() {
@@ -30,6 +31,10 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.clearSheet())
   }
 
+  runUpdateCell(evt, cellKey, rowIdx) {
+    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
@@ -40,7 +45,10 @@ class SpaceControl extends Component {
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
-          <MagicBar />
+        <MagicBar
+          cell={this.props.sheet.currentCell}
+          updateCell={this.runUpdateCell}
+        />
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>

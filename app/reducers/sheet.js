@@ -15,7 +15,8 @@ import {
   CLEAR_SHEET,
   SHOW_HISTORY_MODAL,
   CLOSE_HISTORY_MODAL,
-  CURRENT_CELL
+  CURRENT_CELL,
+  SET_HISTORY_TABLE
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -58,13 +59,13 @@ export default function sheet(state = {
       }
     case SHOW_ROW_MODAL:
       {
-        let modalState = _.cloneDeep(state)
-        modalState.showRowModal = true;
-        modalState.modalRow = {
+        let newState = _.cloneDeep(state)
+        newState.showRowModal = true;
+        newState.modalRow = {
           data: state.grid[action.rowIdx],
           rowIdx: action.rowIdx
         }
-        return modalState
+        return newState
       }
     case CLOSE_ROW_MODAL:
       {
@@ -77,15 +78,22 @@ export default function sheet(state = {
       }
     case SHOW_HISTORY_MODAL:
       {
-        let modalState = _.cloneDeep(state)
-        modalState.showHistoryModal = true;
-        return modalState
+        let newState = _.cloneDeep(state)
+        newState.showHistoryModal = true;
+        return newState
+      }
+    case SET_HISTORY_TABLE:
+      {
+        let newState = _.cloneDeep(state);
+        newState.historySheet = newState.history[action.index]
+        return newState
       }
     case CLOSE_HISTORY_MODAL:
       {
-        let modalState = _.cloneDeep(state)
-        modalState.showHistoryModal = false;
-        return modalState
+        let newState = _.cloneDeep(state)
+        newState.showHistoryModal = false;
+        newState.historySheet = null
+        return newState
       }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);

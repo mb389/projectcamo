@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { closeHistoryModal } from 'actions/sheet';
+import { closeHistoryModal, setHistoryTable } from 'actions/sheet';
 import styles from 'css/components/modal';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import Slider from 'react-slick';
 import Time from 'react-time';
+import Table from 'components/Sheet/Table';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,7 @@ class HistoryModal extends Component {
 		super(props, state)
 		this.close = this.close.bind(this)
     this.sheets = this.sheets.bind(this)
-    this.mapStateToProps = this.setHistoryTable.bind(this)
+    this.setHistoryTable = this.setHistoryTable.bind(this)
 	}
 
 	close() {
@@ -23,7 +24,6 @@ class HistoryModal extends Component {
   }
 
   setHistoryTable(i){
-    console.log(i)
     this.props.dispatch(setHistoryTable(i))
   }
 
@@ -88,7 +88,8 @@ class HistoryModal extends Component {
 function mapStateToProps(store) {
   return {
     showHistoryModal: store.sheet.showHistoryModal,
-    history: store.sheet.history
+    history: store.sheet.history,
+    historySheet: store.sheet.historySheet
   };
 }
 

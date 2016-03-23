@@ -117,3 +117,10 @@ export function currentCell(cell) {
     cell
   }
 }
+
+export function setHistoryTable(index) {
+	return {
+		type: types.SET_HISTORY_TABLE,
+		index
+	}
+}

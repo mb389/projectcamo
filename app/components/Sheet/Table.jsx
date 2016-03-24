@@ -16,10 +16,13 @@ export default class Table extends Component {
     return (
       <div className={cx('table')}>
         <Headers headers={this.props.headers} />
-        <Grid grid={this.props.grid} headers={this.props.headers} disableAll={this.props.disableAll}/>
+        <Grid grid={this.props.grid} headers={this.props.headers}
+          disableAll={this.props.disableAll} searching={this.props.searching}
+          filteredRows={this.props.filteredRows}
+        />
         <AddRow />
         <RowModal className={cx('row-modal')}/>
-        
+
       </div>
     );
   }

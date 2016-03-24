@@ -71,7 +71,7 @@ class Cell extends Component {
 
 	handleCell() {
 		this.props.dispatch(currentCell(this.props));
-		this.props.dispatch(searching(false));
+		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
 
   keyPress (evt) {

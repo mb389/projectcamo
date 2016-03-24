@@ -6,6 +6,7 @@ import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
+import OtherMenuItem from './OtherMenuItem';
 import FormulaMenuItem from './FormulaMenuItem';
 
 const cx = classNames.bind(styles);
@@ -70,17 +71,8 @@ class MenuEditCol extends Component {
 
 	render () {
 		let columnTypes = {
-			// TODO this is getting bloated pull out bigger components
-			'Text': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> A single line of text. </p>
-				</div>
-				),
-			'Number': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> A number feild </p>
-				</div>
-				), 
+			'Text': (<OtherMenuItem description='A single line of text.' />),
+			'Number': (<OtherMenuItem description='A number feild.' />),
 			'Formula': (
 				<FormulaMenuItem
 					handleFormulaNameChange={this.handleFormulaNameChange}

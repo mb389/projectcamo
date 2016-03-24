@@ -245,10 +245,12 @@ function runCustomFunc (state, row, funcText) {
 
   state.columnHeaders.forEach((elem, idx) => { 
     // TODO remove the column that we're adding to to prevent errors?
-    funcText = funcText.replace(elem.name, 'Col' + (idx+1));
+    funcText = funcText.replace(new RegExp(regexEscape(elem.name), 'g'), 'Col' + (idx+1));
     let userData = decorationType(row[elem.id]);
     columnDefs += 'let Col' + (idx+1) + ' = ' + userData + '; ';
     });
+
+  console.log(columnDefs+funcText);
 
   return eval(columnDefs+funcText);
 }
@@ -259,4 +261,8 @@ function decorationType (cell) {
     case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
     default: return cell.data;
   }
+}
+
+function regexEscape(str) {
+    return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
 }

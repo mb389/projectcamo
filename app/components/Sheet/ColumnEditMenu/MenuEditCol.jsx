@@ -48,7 +48,7 @@ class MenuEditCol extends Component {
 	}
 
 	handleFormulaNameChange(e) {
-		this.setState({formulaName: e.target.value});
+		this.setState({formulaName: e.target.value||e.target.innerHTML});
 	}
 
 	formulaUpload() {

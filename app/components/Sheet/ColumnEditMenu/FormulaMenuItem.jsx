@@ -18,9 +18,8 @@ const FormulaMenuItem = (props) => {
 	}
 
 	function functionSelected(e, ekey){
-		console.log("handling", e, "function", ekey);
 		props.handleFormulaCustom(null, ekey);
-		// props.handleFormulaNameChange(e);
+		props.handleFormulaNameChange(e);
 	}
 
 

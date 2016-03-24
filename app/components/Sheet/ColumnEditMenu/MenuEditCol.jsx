@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateColumn} from 'actions/sheet';
+import { fetchFormulaStore } from 'actions/formulaStore'
+// TODO maybe load this earlier to avoid delay
 import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
@@ -27,8 +29,12 @@ class MenuEditCol extends Component {
 		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 	}
 
+	componentWillMount(){
+		// TODO if this is already on the store don't load it again?
+		this.props.dispatch(fetchFormulaStore());
+	}
+
 	itemSelected(e, ekey) {
-		if(ekey==='Formula') /// && formulas are not loaded yet fetch formulas and save them;
 		this.setState({colType: ekey});
 	}
 
@@ -82,6 +88,7 @@ class MenuEditCol extends Component {
 					handleFormulaCustom={this.handleFormulaCustom}
 					formula={this.state.formula}
 					formulaUpload={this.formulaUpload}
+					formulas={this.props.formulas}
 				/>
 				), 
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
@@ -123,4 +130,10 @@ class MenuEditCol extends Component {
 
 // get formulaStore from state and map it to proms if the form is already loaded then don't fetch?
 
-export default connect()(MenuEditCol);
+function mapStateToProps(store) {
+  return {
+    formulas: store.formulaStore.formulas,
+  };
+}
+
+export default connect(mapStateToProps)(MenuEditCol);

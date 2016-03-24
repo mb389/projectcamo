@@ -13,7 +13,7 @@ export default function sheet(state = {formulas: []}, action = {}) {
   	  		return newState;}
   	case FORMULA_FETCH:{
   	  		let newState = _.cloneDeep(state);
-  	  		newState.formulas=action.allFormulas;
+  	  		newState.formulas = action.allFormulas;
   	  		return newState;
   	  	}
     default:

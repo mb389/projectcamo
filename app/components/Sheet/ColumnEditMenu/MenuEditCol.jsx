@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateColumn, formulaUpload } from 'actions/sheet';
+import { updateColumn} from 'actions/sheet';
+import { fetchFormulaStore } from 'actions/formulaStore'
+// TODO maybe load this earlier to avoid delay
+import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -15,7 +18,7 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: (this.props.data.type || 'Text'), colName: this.props.data.name, formula: this.props.data.formula, formulaName: 'DefaultName'};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed'};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -26,20 +29,26 @@ class MenuEditCol extends Component {
 		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 	}
 
+	componentWillMount(){
+		// TODO if this is already on the store don't load it again?
+		this.props.dispatch(fetchFormulaStore());
+	}
+
 	itemSelected(e, ekey) {
-		this.setState({colType: ekey});
+		this.setState({type: ekey});
 	}
 
 	handleEditName(e){
-		this.setState({colName: e.target.value});
+		this.setState({name: e.target.value});
 	}
 
-	handleFormulaCustom(e) {	
-		this.setState({formula: e.target.value});
+	handleFormulaCustom(e, ekey) {
+		if (ekey) this.setState({formula: ekey});
+		else this.setState({formula: e.target.value});
 	}
 
 	handleFormulaNameChange(e) {
-		this.setState({formulaName: e.target.value});
+		this.setState({formulaName: e.target.value||e.target.innerHTML});
 	}
 
 	formulaUpload() {
@@ -47,18 +56,12 @@ class MenuEditCol extends Component {
 	}
 
 	saveTypeChanges() {
-		let newColData = {
-			id: this.props.data.id,
-			type: this.state.colType,
-			name: this.state.colName,
-			idx: this.props.data.idx,
-		}
-
-		if(this.state.formula) newColData.formula = this.state.formula;
+		let newColData = Object.assign({}, this.state);
+		newColData.id = this.props.data.id;
+		newColData.idx = this.props.data.idx;
 
 		// TODO should do a deep equals
 		if (newColData == this.props.data) console.log('No Change');
-
 		else this.props.dispatch(updateColumn(newColData))
 
 		this.props.exitTypeMenu();
@@ -80,6 +83,7 @@ class MenuEditCol extends Component {
 					handleFormulaCustom={this.handleFormulaCustom}
 					formula={this.state.formula}
 					formulaUpload={this.formulaUpload}
+					formulas={this.props.formulas}
 				/>
 				), 
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
@@ -98,10 +102,10 @@ class MenuEditCol extends Component {
 
 		return (
 				<div className={cx('editNameAndType')}>
-					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.colName} />
+					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.name} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.state.colType} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        {this.state.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
@@ -109,7 +113,7 @@ class MenuEditCol extends Component {
 				    </Dropdown>
 
 				    
-				    {columnTypes[this.state.colType]}
+				    {columnTypes[this.state.type]}
 				    <div className='col-md-12'>
 					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
 					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>
@@ -119,4 +123,12 @@ class MenuEditCol extends Component {
 	}
 }
 
-export default connect()(MenuEditCol);
+// get formulaStore from state and map it to proms if the form is already loaded then don't fetch?
+
+function mapStateToProps(store) {
+  return {
+    formulas: store.formulaStore.formulas,
+  };
+}
+
+export default connect(mapStateToProps)(MenuEditCol);

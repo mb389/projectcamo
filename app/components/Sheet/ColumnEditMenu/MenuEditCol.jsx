@@ -11,6 +11,7 @@ import { MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 import OtherMenuItem from './OtherMenuItem';
 import FormulaMenuItem from './FormulaMenuItem';
+import { runCustomFunc } from 'reducers/sheetHelpers.js';
 
 const cx = classNames.bind(styles);
 

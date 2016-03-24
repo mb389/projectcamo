@@ -27,7 +27,15 @@ class Cell extends Component {
 	}
 
 	handleChange(evt){
-	  const { dispatch, cellKey, rowIdx } = this.props;
+	  const { dispatch, cellKey, rowIdx, row } = this.props;
+    for (let cell in row) {
+      if (row[cell].type === 'Formula') {
+        let formulaCellData = row[cell].formula;
+        console.log(row[cell].formula);
+        // eval with the formula function from before;
+        dispatch(updateCell(formulaCellData, cell, rowIdx));
+      }
+    }
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 

@@ -20,6 +20,10 @@ import {
   UPDATE_HISTORY,
   SEARCH_SHEET
 } from 'constants/index';
+import {
+  insertNewColInRows,
+  runCustomFunc
+} from './sheetHelpers.js';
 
 export default function sheet(state = {
   grid: [],
@@ -127,7 +131,10 @@ export default function sheet(state = {
 
         updateColumnState.grid = updateColumnState.grid.map(row=>{
           row[updatingId].type = action.data.type;
-          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula)
+          if(action.data.formula) {
+            row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula);
+            row[updatingId].formula = action.data.formula;
+          }
           return row;
         })
         return updateColumnState;
@@ -230,39 +237,40 @@ export default function sheet(state = {
   }
 }
 
-function insertNewColInRows (state, newColumn){
-  state.grid.forEach(row => {
-    row[newColumn.id] = {
-      type: newColumn.type,
-      data: null,
-    }
-  });
-  return state;
-}
 
-function runCustomFunc (state, row, funcText) {
-  let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
+// TODO should these all be in a helper file?
 
-  state.columnHeaders.forEach((elem, idx) => { 
-    // TODO remove the column that we're adding to to prevent errors?
-    funcText = funcText.replace(new RegExp(regexEscape(elem.name), 'g'), 'Col' + (idx+1));
-    let userData = decorationType(row[elem.id]);
-    columnDefs += 'let Col' + (idx+1) + ' = ' + userData + '; ';
-    });
+// function insertNewColInRows (state, newColumn){
+//   state.grid.forEach(row => {
+//     row[newColumn.id] = {
+//       type: newColumn.type,
+//       data: null,
+//     }
+//   });
+//   return state;
+// }
 
-  console.log(columnDefs+funcText);
+// function runCustomFunc (state, row, funcText) {
+//   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  return eval(columnDefs+funcText);
-}
+//   state.columnHeaders.forEach((elem, idx) => { 
+//     // TODO remove the column that we're adding to to prevent errors?
+//     funcText = funcText.replace(new RegExp(regexEscape(elem.name), 'g'), 'Col' + (idx+1));
+//     let userData = decorationType(row[elem.id]);
+//     columnDefs += 'let Col' + (idx+1) + ' = ' + userData + '; ';
+//     });
 
-function decorationType (cell) {
-  switch (cell.type) {
-    case 'Images': return '["' + cell.data.join('","') + '"]';
-    case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
-    default: return cell.data;
-  }
-}
+//   return eval(columnDefs+funcText);
+// }
 
-function regexEscape(str) {
-    return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
-}
+// function decorationType (cell) {
+//   switch (cell.type) {
+//     case 'Images': return '["' + cell.data.join('","') + '"]';
+//     case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
+//     default: return cell.data;
+//   }
+// }
+
+// function regexEscape(str) {
+//     return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
+// }

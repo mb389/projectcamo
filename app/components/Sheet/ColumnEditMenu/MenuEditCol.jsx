@@ -42,8 +42,9 @@ class MenuEditCol extends Component {
 		this.setState({colName: e.target.value});
 	}
 
-	handleFormulaCustom(e) {	
-		this.setState({formula: e.target.value});
+	handleFormulaCustom(e, ekey) {
+		if (ekey) this.setState({formula: ekey});
+		else this.setState({formula: e.target.value});
 	}
 
 	handleFormulaNameChange(e) {

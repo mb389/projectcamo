@@ -6,6 +6,7 @@ import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
+import FormulaMenuItem from './FormulaMenuItem';
 
 const cx = classNames.bind(styles);
 
@@ -81,13 +82,13 @@ class MenuEditCol extends Component {
 				</div>
 				), 
 			'Formula': (
-				<div className='col-md-12'>
-					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
-					<ContentEditable className='clearfix col-md-12' onChange={this.handleFormulaNameChange} html={this.state.formulaName||'Please Name'} /> <br></br>
-
-					<textarea onChange={this.handleFormulaCustom} className='col-md-12' value={this.state.formula} />
-					<button className="btn col-md-8 col-md-offset-4" type="button" onClick={this.formulaUpload}>Upload Formula</button>
-				</div>
+				<FormulaMenuItem
+					handleFormulaNameChange={this.handleFormulaNameChange}
+					formulaName={this.state.formulaName}
+					handleFormulaCustom={this.handleFormulaCustom}
+					formula={this.state.formula}
+					formulaUpload={this.formulaUpload}
+				/>
 				), 
 			'Images': (
 				<div className='col-md-12'>

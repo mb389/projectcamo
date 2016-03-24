@@ -40,6 +40,7 @@
   margin-left: 20px;
 }
 
-.SearchButton button {
-  /*background-color: #f1f1f1;*/
+.Searching, .Searching:focus, .Searching:active, .Searching:hover {
+  background-color: primary-color;
+  border-color: primary-color;
 }

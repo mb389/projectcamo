@@ -18,7 +18,9 @@ import {
   CURRENT_CELL,
   SET_HISTORY_TABLE,
   UPDATE_HISTORY,
-  SEARCH_SHEET
+  SEARCH_SHEET,
+  CLEAR_SEARCH_GRID,
+  CLEAR_FILTERED_ROWS
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -165,16 +167,22 @@ export default function sheet(state = {
       return sortColumnState;}
     case SEARCH_SHEET:
       let searchState = _.cloneDeep(state);
-      searchState.searchGrid = searchState.grid.filter((row, idx) => {
+      // approach to hide the rows that don't meet search criteria
+      searchState.filteredRows = searchState.grid.reduce((accum, row, idx) => {
         let toSave;
         for(let cell in row) {
-          if (row[cell].data) {
-            row[cell].data.indexOf(action.term) > -1 ? toSave = true : null;
+          if (row[cell].data && typeof row[cell].data === 'string') {
+            row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
           }
         }
-        return toSave
-      })
+        if (!toSave) accum.push(idx);
+        return accum;
+      }, [])
       return searchState;
+    case CLEAR_FILTERED_ROWS:
+      let clearedFilteredState = _.cloneDeep(state);
+      clearedFilteredState.filteredRows = [];
+      return clearedFilteredState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;
@@ -202,7 +210,7 @@ export default function sheet(state = {
         let newData = action.func(row[action.colData.id].data);
 
         // TODO should this corralate to the type of the new cell?
-        // if (!newColumn.type) newColumn.type = 'Text'; 
+        // if (!newColumn.type) newColumn.type = 'Text';
 
         row[newColumn.id] = {
           data: newData,
@@ -243,7 +251,7 @@ function insertNewColInRows (state, newColumn){
 function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     // TODO remove the column that we're adding to to prevent errors?
     funcText = funcText.replace(elem.name, 'Col' + idx);
     let userData = decorationType(row[elem.id]);

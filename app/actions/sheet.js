@@ -146,3 +146,9 @@ export function setHistoryTable(index) {
 		index
 	}
 }
+
+export function clearFilteredRows() {
+	return {
+		type: types.CLEAR_FILTERED_ROWS
+	}
+}

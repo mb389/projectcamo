@@ -168,8 +168,8 @@ export default function sheet(state = {
       searchState.searchGrid = searchState.grid.filter((row, idx) => {
         let toSave;
         for(let cell in row) {
-          if (row[cell].data) {
-            row[cell].data.indexOf(action.term) > -1 ? toSave = true : null;
+          if (row[cell].data && typeof row[cell].data === 'string') {
+            row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
           }
         }
         return toSave
@@ -202,7 +202,7 @@ export default function sheet(state = {
         let newData = action.func(row[action.colData.id].data);
 
         // TODO should this corralate to the type of the new cell?
-        // if (!newColumn.type) newColumn.type = 'Text'; 
+        // if (!newColumn.type) newColumn.type = 'Text';
 
         row[newColumn.id] = {
           data: newData,
@@ -243,7 +243,7 @@ function insertNewColInRows (state, newColumn){
 function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     // TODO remove the column that we're adding to to prevent errors?
     funcText = funcText.replace(elem.name, 'Col' + idx);
     let userData = decorationType(row[elem.id]);

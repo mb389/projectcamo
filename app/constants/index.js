@@ -44,6 +44,7 @@ export const CURRENT_CELL = 'CURRENT_CELL';
 
 // FormulaStore Constants
 export const FORMULA_UPLOAD = 'FORMULA_UPLOAD';
+export const FORMULA_FETCH = 'FORMULA_FETCH';
 
 // NAV CONSTS
 export const CHANGE_SPACE_NAME = 'CHANGE_SPACE_NAME';

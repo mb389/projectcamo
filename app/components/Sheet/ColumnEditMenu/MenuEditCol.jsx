@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateColumn, formulaUpload } from 'actions/sheet';
+import { updateColumn} from 'actions/sheet';
+import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -27,6 +28,7 @@ class MenuEditCol extends Component {
 	}
 
 	itemSelected(e, ekey) {
+		if(ekey==='Formula') /// && formulas are not loaded yet fetch formulas and save them;
 		this.setState({colType: ekey});
 	}
 
@@ -118,5 +120,7 @@ class MenuEditCol extends Component {
 				)
 	}
 }
+
+// get formulaStore from state and map it to proms if the form is already loaded then don't fetch?
 
 export default connect()(MenuEditCol);

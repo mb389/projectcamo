@@ -118,20 +118,6 @@ export function formulaColumn(arrMeth, func, colData){
 	}
 }
 
-export function formulaUpload(name, functionStr) {
-	return (dispatch) => {
-		request.post('/formulaStore', {name, functionStr})
-		.then(res => res.data)
-		.then(res => dispatch(formulaAddOneToList(res)))
-	}
-}
-
-function formulaAddOneToList(addedFormula) {
-	return {
-		type: types.FORMULA_UPLOAD,
-		addedFormula,
-	}
-}
 
 export function searchSheet(term) {
   return {

@@ -107,6 +107,12 @@
     height: 34px;
 }
 
+.trowHidden {
+    width: 100%;
+    display: none;
+    height: 34px;
+}
+
 .cell {
     width: 200px;
     max-height: 40px;

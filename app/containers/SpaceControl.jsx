@@ -93,6 +93,7 @@ class SpaceControl extends Component {
                 grid={this.props.searching && this.props.searchGrid ? this.props.searchGrid : this.props.sheet.grid}
                 headers={this.props.sheet.columnHeaders}
                 searching={this.props.searching}
+                filteredRows={this.props.filteredRows}
               />
             </div>
           </div>
@@ -111,7 +112,8 @@ function mapStateToProps(store) {
     sheet: store.sheet,
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    searchGrid: store.sheet.searchGrid
+    searchGrid: store.sheet.searchGrid,
+    filteredRows: store.sheet.filteredRows
   };
 }
 

@@ -8,16 +8,15 @@ const cx = classNames.bind(styles);
 
 const Grid = (props) => {
 
-  function generateRows(grid) {
+  function generateRows(grid, filtered) {
     return grid.map( (row, idx) => {
-      
-      return (
-      <div className={cx('trow')} key={idx}>
-        <div className={cx('rnum')}>{idx + 1}</div>
-        {props.disableAll ? <div className={cx('rnum')}></div> : <RowOpener className={cx('rnum')} row={idx}/>}
-        {generateCells(row, idx)}
-      </div>);
-    });
+        return (
+          <div className={filtered.indexOf(idx) === -1 ? cx('trow') : cx('trowHidden')} key={idx}>
+            <div className={cx('rnum')}>{idx + 1}</div>
+            {props.disableAll ? <div className={cx('rnum')}></div> : <RowOpener className={cx('rnum')} row={idx}/>}
+            {generateCells(row, idx)}
+          </div>);
+        });
   }
 
   function generateCells (row, idx) {
@@ -37,7 +36,7 @@ const Grid = (props) => {
 
   return (
     <div className={cx('trows')}>
-      {generateRows(props.grid ? props.grid : [])}
+      {generateRows(props.grid ? props.grid : [], props.filteredRows ? props.filteredRows : [])}
     </div>
   );
 }

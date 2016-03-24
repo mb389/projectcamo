@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: (this.props.data.type || 'Text'), colName: this.props.data.name, formula: this.props.data.formula };
+		this.state = {colType: (this.props.data.type || 'Text'), colName: this.props.data.name, formula: this.props.data.formula, formulaName: 'DefaultName'};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -41,10 +41,7 @@ class MenuEditCol extends Component {
 	}
 
 	formulaUpload() {
-		// let them pick a name to save with
-		console.log('uploadThisFormulaToDatabase', this.state.formulaName, this.state.formula);
-		// this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
-		this.props.dispatch(formulaUpload('FormulaName', this.state.formula));
+		this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
 	}
 
 	saveTypeChanges() {

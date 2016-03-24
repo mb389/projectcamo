@@ -5,7 +5,7 @@ import { sortColumn, removeColumn, insertColumn, formulaColumn } from 'actions/s
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
-import MenuEditCol from './MenuEditCol';
+import MenuEditCol from './ColumnEditMenu/MenuEditCol';
 
 const cx = classNames.bind(styles);
 

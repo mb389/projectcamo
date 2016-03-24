@@ -3,6 +3,7 @@ import {
   FORMULA_UPLOAD,
 } from 'constants/index';
 
+// TODO get all formulas on sheet load.
 export default function sheet(state = {formulas: []}, action = {}) {
   switch (action.type) {
   	case FORMULA_UPLOAD:

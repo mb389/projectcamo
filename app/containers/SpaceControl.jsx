@@ -21,8 +21,9 @@ class SpaceControl extends Component {
     super(props, context);
     this.state = {searching: false};
     this.runUpdateCell = this.runUpdateCell.bind(this);
-    this.clearMagicBar = this.clearMagicBar.bind(this);
-    this.searchSheet = this.searchSheet.bind(this)
+    this.toggleMagicBar = this.toggleMagicBar.bind(this);
+    this.searchSheet = this.searchSheet.bind(this);
+    this.stopSearching = this.stopSearching.bind(this);
   }
 
   componentWillMount() {
@@ -39,14 +40,30 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
   }
 
-  clearMagicBar() {
+  toggleMagicBar() {
+    console.log(this.props.searching)
     this.props.dispatch(SheetActions.currentCell())
-    this.props.dispatch(Actions.searching())
+    if (!!this.props.searching) {
+        this.props.dispatch(Actions.searching(false));
+        this.props.dispatch(SheetActions.clearSearchGrid());
+      } else {
+        this.props.dispatch(Actions.searching())
+      }
   }
 
   searchSheet(e) {
+    console.log(e.target)
     // filters the rows for cells that match the current search criteria
     this.props.dispatch(SheetActions.searchSheet(e.target.value))
+    if (e.target) {
+      !e.target.value ?
+        null :
+        null;
+    }
+  }
+
+  stopSearching() {
+    this.props.dispatch(Actions.searching(false))
   }
 
   render() {
@@ -62,17 +79,20 @@ class SpaceControl extends Component {
         <MagicBar
           cell={this.props.sheet.currentCell}
           updateCell={this.runUpdateCell}
-          clearMagicBar={this.clearMagicBar}
+          toggleMagicBar={this.toggleMagicBar}
           searchSheet={this.searchSheet}
           searching={this.props.searching}
+          stopSearching={this.props.stopSearching}
         />
         <ShareModal />
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
-              <Table grid={this.props.searchGrid || this.props.sheet.grid}
+              <Table
+                grid={this.props.searching ? this.props.searchGrid : this.props.sheet.grid}
                 headers={this.props.sheet.columnHeaders}
+                searching={this.props.searching}
               />
             </div>
           </div>

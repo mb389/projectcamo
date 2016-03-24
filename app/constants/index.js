@@ -41,6 +41,7 @@ export const CLOSE_HISTORY_MODAL = 'CLOSE_HISTORY_MODAL';
 export const SET_HISTORY_TABLE = 'SET_HISTORY_TABLE';
 export const UPDATE_HISTORY = 'UPDATE_HISTORY';
 export const CURRENT_CELL = 'CURRENT_CELL';
+export const CLEAR_SEARCH_GRID = 'CLEAR_SEARCH_GRID';
 
 // FormulaStore Constants
 export const FORMULA_UPLOAD = 'FORMULA_UPLOAD';

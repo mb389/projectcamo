@@ -10,7 +10,7 @@ const SearchButton = (props) => {
   return (
     <div className={cx('SearchButton')}>
       <Button
-        onClick={props.clearMagicBar}
+        onClick={props.toggleMagicBar}
         className={props.searching ? cx('Searching') : cx('')}
       >
         <Glyphicon glyph="search" />

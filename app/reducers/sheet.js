@@ -18,7 +18,8 @@ import {
   CURRENT_CELL,
   SET_HISTORY_TABLE,
   UPDATE_HISTORY,
-  SEARCH_SHEET
+  SEARCH_SHEET,
+  CLEAR_SEARCH_GRID
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -175,6 +176,11 @@ export default function sheet(state = {
         return toSave
       })
       return searchState;
+    case CLEAR_SEARCH_GRID:
+      // when search is toggled off, this clears the search grid so that there isn't an old search showing
+      let clearedSearchState = _.cloneDeep(state);
+      clearedSearchState.searchGrid = [];
+      return clearedSearchState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;

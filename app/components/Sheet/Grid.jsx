@@ -29,13 +29,14 @@ const Grid = (props) => {
         rowIdx={idx}
         cellIdx={head.idx}
         disableAll={props.disableAll}
+        searching={props.searching}
       /> );
     });
   }
 
   return (
     <div className={cx('trows')}>
-      {generateRows(props.grid)}
+      {generateRows(props.grid ? props.grid : [])}
     </div>
   );
 }

@@ -146,3 +146,9 @@ export function setHistoryTable(index) {
 		index
 	}
 }
+
+export function clearSearchGrid() {
+	return {
+		type: types.CLEAR_SEARCH_GRID
+	}
+}

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showRowModal, currentCell } from 'actions/sheet';
+import { updateCell, showRowModal, currentCell, updateFormulaCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
@@ -28,15 +28,13 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
+    console.log(dispatch(updateCell(evt.target.value, cellKey, rowIdx)))
+
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
-        let formulaCellData = row[cell].formula;
-        console.log(row[cell].formula);
-        // eval with the formula function from before;
-        dispatch(updateCell(formulaCellData, cell, rowIdx));
+        dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
       }
     }
-	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 
   editable (evt) {

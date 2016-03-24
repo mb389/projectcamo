@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {
+  UPDATE_FORMULA_CELL,
   UPDATE_CELL,
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
@@ -50,6 +51,13 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+        return newState
+      }
+    case UPDATE_FORMULA_CELL:
+      {
+        let newState = _.cloneDeep(state);
+        let data = runCustomFunc(newState, action.row, action.formula);
+        newState.grid[action.cell.idx][action.cell.key].data = data;
         return newState
       }
     case CURRENT_CELL:
@@ -236,41 +244,3 @@ export default function sheet(state = {
       return state;
   }
 }
-
-
-// TODO should these all be in a helper file?
-
-// function insertNewColInRows (state, newColumn){
-//   state.grid.forEach(row => {
-//     row[newColumn.id] = {
-//       type: newColumn.type,
-//       data: null,
-//     }
-//   });
-//   return state;
-// }
-
-// function runCustomFunc (state, row, funcText) {
-//   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
-
-//   state.columnHeaders.forEach((elem, idx) => { 
-//     // TODO remove the column that we're adding to to prevent errors?
-//     funcText = funcText.replace(new RegExp(regexEscape(elem.name), 'g'), 'Col' + (idx+1));
-//     let userData = decorationType(row[elem.id]);
-//     columnDefs += 'let Col' + (idx+1) + ' = ' + userData + '; ';
-//     });
-
-//   return eval(columnDefs+funcText);
-// }
-
-// function decorationType (cell) {
-//   switch (cell.type) {
-//     case 'Images': return '["' + cell.data.join('","') + '"]';
-//     case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
-//     default: return cell.data;
-//   }
-// }
-
-// function regexEscape(str) {
-//     return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
-// }

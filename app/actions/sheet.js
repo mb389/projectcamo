@@ -35,6 +35,18 @@ export function updateCell(data, key, idx) {
   };
 }
 
+export function updateFormulaCell(key, idx, formula, row){
+	return {
+		type: types.UPDATE_FORMULA_CELL,
+		formula,
+		row,
+		cell: {
+			key,
+			idx,
+		}
+	};
+}
+
 export function showRowModal(rowIdx){
 	return {
 		 type: types.SHOW_ROW_MODAL,

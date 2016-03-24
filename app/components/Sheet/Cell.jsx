@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateCell, showRowModal, currentCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon } from 'react-bootstrap';
+import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
 
 
@@ -44,7 +45,7 @@ class Cell extends Component {
       return (<ContentEditable
 				className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled}       // use true to disable edition
+        disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
         onDoubleClick={this.editable} // allow for cell editing after focus
         onMouseEnter={this.setMouseEnter} // handle innerHTML change
@@ -62,8 +63,8 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-    console.log(this.props);
-		this.props.dispatch(currentCell(this.props))
+		this.props.dispatch(currentCell(this.props));
+		this.props.dispatch(searching(false));
 	}
 
   keyPress (evt) {

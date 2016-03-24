@@ -9,7 +9,18 @@
   width: 100%;
 }
 
-
+.MagicBar input {
+  display: inline-block;
+  width: 500px;
+  border: 1px solid #cfcfcf;
+  border-radius: 5px;
+  margin-left: 30px;
+  margin-right: 20px;
+  padding-left: 10px;
+  padding-right: 20px;
+  width: 500px;
+  height: 35px;
+}
 
 
 .SearchButton, .ShareButton, .HistoryButton, .SaveButton {
@@ -31,24 +42,4 @@
 
 .SearchButton button {
   /*background-color: #f1f1f1;*/
-}
-
-.SuperBar {
-  display: inline-block;
-  width: 500px;
-}
-
-.SuperBar span {
-  vertical-align: middle;
-}
-
-.InputToSearch {
-  border: 1px solid #cfcfcf;
-  border-radius: 5px;
-  margin-left: 30px;
-  margin-right: 20px;
-  padding-left: 10px;
-  padding-right: 20px;
-  width: 500px;
-  height: 35px;
 }

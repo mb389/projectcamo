@@ -18,11 +18,17 @@ polyfill();
  * @return Promise
  */
 
+export function updateSheet(history) {
+  return {
+    type: types.UPDATE_HISTORY,
+    history: history
+  }
+}
+
 export function saveSheet(sheetId, sheet){
-  console.log("savingSheet")
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
-    .then(res => console.log(res))
+    .then(res => dispatch(updateSheet(res.data.history)))
   }
 }
 
@@ -38,7 +44,8 @@ export function loadSpace(obj) {
 export function changeSheet(obj) {
   return {
     type: types.CHANGE_SHEET,
-    sheet: obj.sheetToShow.content
+    sheet: obj.sheetToShow.content,
+    history: obj.sheetToShow.history
   };
 }
 
@@ -73,7 +80,6 @@ export function getSheet(sheetId) {
       dispatch(loadSheet({
         sheetToShow: res.data
       }))
-      console.log(res.data)
       return res.data
     }).then(res => dispatch(changeSheet({
         sheetToShow: res
@@ -89,9 +95,9 @@ export function addSheetToView(obj) {
   }
 }
 
-export function addSheet(spaceId) {
+export function addSheet(spaceId, sheet) {
   return (dispatch) => {
-    request.post(`/sheet/${spaceId}`)
+    request.post(`/sheet/${spaceId}`, sheet)
     .then(res => res.data)
     .then(res => dispatch(addSheetToView({
       newSheetId: res._id,
@@ -125,4 +131,11 @@ export function closeShareModal() {
 	return {
 		type: types.CLOSE_SHARE_MODAL
 	}
+}
+
+export function searching(bool=true) {
+  return {
+    type: types.SEARCHING,
+    bool
+  }
 }

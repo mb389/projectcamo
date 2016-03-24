@@ -5,10 +5,14 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-  content: Object,
-  history: [{
+  content: {
     columnHeaders: Array,
     grid: Array
+  },
+  history: [{
+    columnHeaders: Array,
+    grid: Array,
+    saveDate: { type: Date, default: Date.now }
   }],
   name: {
     type: String,

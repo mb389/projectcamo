@@ -16,7 +16,7 @@ export default class Table extends Component {
     return (
       <div className={cx('table')}>
         <Headers headers={this.props.headers} />
-        <Grid grid={this.props.grid} headers={this.props.headers}/>
+        <Grid grid={this.props.grid} headers={this.props.headers} disableAll={this.props.disableAll}/>
         <AddRow />
         <RowModal className={cx('row-modal')}/>
         

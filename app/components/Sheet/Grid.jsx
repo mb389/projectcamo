@@ -10,6 +10,7 @@ const Grid = (props) => {
 
   function generateRows(grid) {
     return grid.map( (row, idx) => {
+      
       return (
       <div className={cx('trow')} key={idx}>
         <div className={cx('rnum')}>{idx + 1}</div>

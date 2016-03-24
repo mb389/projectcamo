@@ -90,7 +90,7 @@ class SpaceControl extends Component {
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
               <Table
-                grid={this.props.searching ? this.props.searchGrid : this.props.sheet.grid}
+                grid={this.props.searching && this.props.searchGrid ? this.props.searchGrid : this.props.sheet.grid}
                 headers={this.props.sheet.columnHeaders}
                 searching={this.props.searching}
               />

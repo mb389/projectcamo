@@ -40,7 +40,7 @@
   margin-left: 20px;
 }
 
-.Searching, .Searching:focus, .Searching:active {
-  color: primary-color;
+.Searching, .Searching:focus, .Searching:active, .Searching:hover {
+  background-color: primary-color;
   border-color: primary-color;
 }

@@ -18,9 +18,10 @@ const SuperBar = (props) => {
   if (props.searching && !props.cell) {
     return (
       <input
-        placeholder={'Search your data'}
+        placeholder={'Search your sheet'}
         onChange={props.searchSheet}
         onBlur={props.stopSearching}
+        value = {props.clearedValue}
       />
     )
   }
@@ -37,7 +38,7 @@ const SuperBar = (props) => {
   // standard when cell is selected is populates the magic bar and is linked with the cell
   return (
       <input
-        value={props.cell ? props.cell.cell.data : ''}
+        value={props.cell ? props.cell.cell.data : 'Magic Bar'}
         placeholder={props.cell ? props.cell.cell.data : 'Magic Bar'}
         onChange={funcToCall}
       />

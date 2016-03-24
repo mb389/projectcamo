@@ -179,7 +179,7 @@ export default function sheet(state = {
     case CLEAR_SEARCH_GRID:
       // when search is toggled off, this clears the search grid so that there isn't an old search showing
       let clearedSearchState = _.cloneDeep(state);
-      clearedSearchState.searchGrid = [];
+      clearedSearchState.searchGrid = clearedSearchState.grid;
       return clearedSearchState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);

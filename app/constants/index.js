@@ -19,6 +19,7 @@ export const ADD_SHEET_VIEW = 'ADD_SHEET_VIEW';
 export const LOAD_USER_SPACES = 'LOAD_USER_SPACES';
 export const SHOW_SHARE_MODAL = 'SHOW_SHARE_MODAL';
 export const CLOSE_SHARE_MODAL = 'CLOSE_SHARE_MODAL';
+export const DRAG_TABLE_ROW = 'DRAG_TABLE_ROW';
 export const SEARCHING = 'SEARCHING';
 export const SEARCH_SHEET = 'SEARCH_SHEET';
 

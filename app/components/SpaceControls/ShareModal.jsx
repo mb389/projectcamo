@@ -19,11 +19,11 @@ class ShareModal extends Component {
   }
 
     render(){
-      let popover = <Popover title="popover">very popover. such engagement</Popover>;
-      let tooltip = <Tooltip>wow.</Tooltip>;
+      let popover = <Popover title="popover" id={1}>very popover. such engagement</Popover>;
+      let tooltip = <Tooltip id={2}>wow.</Tooltip>;
       let addBtn = <Button className={cx('addBtn')}><Glyphicon glyph='plus' /></Button>;
       return (
-        <div className={cx('shareModal')}>
+        <div >
             <Modal show={this.props.showShareModal} onHide={this.close}>
               <Modal.Header className={cx('shareModalHeader')} classcloseButton>
                 <Modal.Title>Sharing Dashboard</Modal.Title>

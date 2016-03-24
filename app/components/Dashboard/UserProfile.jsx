@@ -9,13 +9,11 @@ const UserProfile = props => {
    console.log(user)
     return (
           <div className={cx('profile')}>
-              <div className="col-md-6">
                 <div className="well well-sm">
                   <div className="row">
-
-                      <div className="col-md-4">
+                      <div className="col-md-5">
                       <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className={cx('profImg')} /></div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                       <h4>
                         Guy Guyerson</h4>
                       <small>
@@ -58,7 +56,6 @@ const UserProfile = props => {
                   </div>
                 </div>
               </div>
-            </div>
     );
   }
 

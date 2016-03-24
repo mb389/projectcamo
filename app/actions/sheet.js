@@ -146,3 +146,10 @@ export function setHistoryTable(index) {
 		index
 	}
 }
+
+export function rowDrag(panes) {
+	return {
+		type: types.DRAG_TABLE_ROW,
+		panes
+	}
+}

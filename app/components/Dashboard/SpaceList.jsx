@@ -19,13 +19,11 @@ const SpaceList = (props) => {
     });
 
     return (
-        <div className="col-md-6">
-          <div className="well well-sm">
       <div className={cx('spaces')}>
+          <div className="well well-sm">
         <strong>Spaces</strong>
         {spacesToDisplay}
       </div>
-  </div>
   </div>
     );
   }

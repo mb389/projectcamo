@@ -6,6 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import createRoutes from 'routes.jsx';
 import configureStore from 'store/configureStore';
 
+
 // Grab the state from a global injected into
 // server-generated HTML
 const initialState = window.__INITIAL_STATE__;
@@ -21,4 +22,5 @@ render(
     <Router history={history}>
       {routes}
     </Router>
+
   </Provider>, document.getElementById('app'));

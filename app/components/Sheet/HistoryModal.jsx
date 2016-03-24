@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { closeHistoryModal, setHistoryTable } from 'actions/sheet';
-import { addSheet } from 'actions/SpaceControls';
+import { addSheet } from 'actions/spacecontrols';
 import styles from 'css/components/modal';
 import { Button, Glyphicon, ButtonGroup } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
@@ -47,7 +47,7 @@ class HistoryModal extends Component {
 
     return this.props.history.map(function (sheet, i) {
       return (
-          <div style={divStyle} key={i}> 
+          <div style={divStyle} key={i}>
             <h6>
               <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
             </h6>
@@ -64,7 +64,7 @@ class HistoryModal extends Component {
     if (!this.props.historySheet) return <h3>Pick a date...</h3>
 
     return (
-      <Table 
+      <Table
         grid={this.props.historySheet.grid}
         headers={this.props.historySheet.columnHeaders}
         disableAll={true}
@@ -115,4 +115,3 @@ function mapStateToProps(store) {
 }
 
 export default connect(mapStateToProps)(HistoryModal);
-

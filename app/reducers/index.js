@@ -4,7 +4,6 @@ import message from 'reducers/message';
 import sheet from 'reducers/sheet';
 import spacecontrol from 'reducers/spacecontrol';
 import dashboard from 'reducers/dashboard';
-import dragtable from 'reducers/dragtable';
 import { routerReducer as routing } from 'react-router-redux';
 
 // Combine reducers with routeReducer which keeps track of
@@ -15,8 +14,7 @@ const rootReducer = combineReducers({
   sheet,
   routing,
   spacecontrol,
-  dashboard,
-  dragtable
+  dashboard
 });
 
 export default rootReducer;

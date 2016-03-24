@@ -27,15 +27,3 @@ body {
 .fp__container {
 	z-index: 1100 !important;
 }
-
-table {
-	margin: 100px auto 0 auto;
-
-	th, td {
-		padding: 30px;
-		border-bottom: 1px solid #a3a3a3;
-		border-top: 1px solid #a3a3a3;
-		text-align: center;
-	}
-
-}

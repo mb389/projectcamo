@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SortablePane, Pane } from 'react-sortable-pane';
 
-const style = {
+const paneStyle = {
   fontSize: "40px",
   textAlign:"center",
   paddingTop:"60px",
@@ -17,27 +17,27 @@ export default class Example extends Component{
       <SortablePane
           direction="horizontal"
           margin={10}
-          onResize={(id, dir, size, rect) => console.log(id,dir,size,rect)}
+          onResize={(id, dir, size, rect) => null}
           onOrderChange={(panes) => console.log(panes)}
       >
         <Pane
            width={200}
            height={500}
-           style={style}
+           style={paneStyle}
         >
           A
         </Pane>
         <Pane
            width={300}
            height={400}
-           style={style}
+          style={paneStyle}
          >
           B
         </Pane>
         <Pane
            width={100}
            height={250}
-           style={style}
+           style={paneStyle}
          >
           C
         </Pane>

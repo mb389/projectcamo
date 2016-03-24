@@ -17,7 +17,8 @@ import {
   CLOSE_HISTORY_MODAL,
   CURRENT_CELL,
   SET_HISTORY_TABLE,
-  UPDATE_HISTORY
+  UPDATE_HISTORY,
+  DRAG_TABLE_ROW
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -211,6 +212,17 @@ export default function sheet(state = {
         addRowState.grid.push(newRow)
         return addRowState
       }
+    case DRAG_TABLE_ROW:
+    {
+      let newState=_.cloneDeep(state);
+
+      let newGrid=action.panes.sort((a,b)=> a - b ).map(el => {
+        console.log(el.id)
+        return newState.grid[el.id];
+      });
+      newState.grid=newGrid;
+      return newState;
+    }
     default:
       return state;
   }
@@ -229,7 +241,7 @@ function insertNewColInRows (state, newColumn){
 function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined; let window = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     // TODO remove this column?
     funcText = funcText.replace(elem.name, 'userCol' + idx);
     let userData = decorationType(row[elem.id].data);
@@ -246,8 +258,3 @@ function decorationType (type) {
   else if (typeof type === 'string') return '"' + type + '"';
   else return type;
 }
-
-
-
-
-

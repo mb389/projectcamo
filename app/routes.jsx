@@ -7,7 +7,6 @@ import LoginOrRegister from 'containers/LoginOrRegister';
 import Dashboard from 'containers/Dashboard';
 import { logOut } from 'actions/users';
 import Logout from 'containers/Logout';
-import DragTable from 'containers/DragTable';
 
 /*
  * @param {Redux Store}
@@ -44,7 +43,6 @@ export default (store) => {
           component={Logout} onEnter={redirectAuth} />
       <Route path="dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
-      <Route path="dragtable" component={DragTable} />
       <Route path="space/:spaceId" component={SpaceControl} />
     </Route>
   );

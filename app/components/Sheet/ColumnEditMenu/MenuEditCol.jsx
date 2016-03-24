@@ -82,26 +82,10 @@ class MenuEditCol extends Component {
 					formulaUpload={this.formulaUpload}
 				/>
 				), 
-			'Images': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Upload custom images </p>
-				</div>
-				), 
-			'Checkbox': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Creates checkboxes </p>
-				</div>
-				), 
-			'Select': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Select a single predefined option from a dropdown </p>
-				</div>
-				), 
-			'Link': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Create a link to an external site </p>
-				</div>
-				), 
+			'Images': (<OtherMenuItem description='Upload custom images.' />),
+			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
+			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
+			'Link': (<OtherMenuItem description='Create a link to an external site ' />),
 		}
 
 		function generateTypes () {

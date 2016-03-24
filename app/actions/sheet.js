@@ -118,6 +118,14 @@ export function currentCell(cell) {
   }
 }
 
+
+export function searchSheet(term) {
+  return {
+    type: types.SEARCH_SHEET,
+    term
+  }
+}
+
 export function setHistoryTable(index) {
 	return {
 		type: types.SET_HISTORY_TABLE,

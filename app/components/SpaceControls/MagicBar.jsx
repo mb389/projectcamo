@@ -14,8 +14,8 @@ const cx = classNames.bind(styles);
 const MagicBar = (props) => {
   return (
     <div className={cx('MagicBar')} >
-      <SearchButton />
-      <SuperBar {...props} />
+      <SearchButton {...props}/>
+      <SuperBar className={cx('SuperBar')} {...props} />
       <SaveButton saveSheet={props.saveSheet}/>
       <HistoryButton />
       <ShareButton />

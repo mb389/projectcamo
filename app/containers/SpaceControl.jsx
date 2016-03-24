@@ -18,7 +18,10 @@ const cx = classNames.bind(styles);
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {searching: false};
     this.runUpdateCell = this.runUpdateCell.bind(this);
+    this.clearMagicBar = this.clearMagicBar.bind(this);
+    this.searchSheet = this.searchSheet.bind(this)
   }
 
   componentWillMount() {
@@ -35,6 +38,16 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
   }
 
+  clearMagicBar() {
+    this.props.dispatch(SheetActions.currentCell())
+    this.props.dispatch(Actions.searching())
+  }
+
+  searchSheet(e) {
+    // filters the rows for cells that match the current search criteria
+    this.props.dispatch(SheetActions.searchSheet(e.target.value))
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
@@ -48,13 +61,16 @@ class SpaceControl extends Component {
         <MagicBar
           cell={this.props.sheet.currentCell}
           updateCell={this.runUpdateCell}
+          clearMagicBar={this.clearMagicBar}
+          searchSheet={this.searchSheet}
+          searching={this.props.searching}
         />
         <ShareModal />
       </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
-              <Table grid={this.props.sheet.grid}
+              <Table grid={this.props.searchGrid || this.props.sheet.grid}
                 headers={this.props.sheet.columnHeaders}
               />
             </div>
@@ -72,7 +88,9 @@ function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,
     sheet: store.sheet,
-    sheetNames: store.spacecontrol.sheetNames
+    sheetNames: store.spacecontrol.sheetNames,
+    searching: store.spacecontrol.searching,
+    searchGrid: store.sheet.searchGrid
   };
 }
 

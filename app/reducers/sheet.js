@@ -18,7 +18,9 @@ import {
   CURRENT_CELL,
   SET_HISTORY_TABLE,
   UPDATE_HISTORY,
-  DRAG_TABLE_ROW
+  DRAG_TABLE_ROW,
+  SEARCH_SHEET
+
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -163,6 +165,18 @@ export default function sheet(state = {
       };
       sortColumnState.grid = sortColumnState.grid.sort(sortFn);
       return sortColumnState;}
+    case SEARCH_SHEET:
+      let searchState = _.cloneDeep(state);
+      searchState.searchGrid = searchState.grid.filter((row, idx) => {
+        let toSave;
+        for(let cell in row) {
+          if (row[cell].data) {
+            row[cell].data.indexOf(action.term) > -1 ? toSave = true : null;
+          }
+        }
+        return toSave
+      })
+      return searchState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;

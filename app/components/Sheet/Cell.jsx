@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { updateCell, showRowModal, currentCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon } from 'react-bootstrap';
+import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
 
 
@@ -62,7 +63,8 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-		this.props.dispatch(currentCell(this.props))
+		this.props.dispatch(currentCell(this.props));
+		this.props.dispatch(searching(false));
 	}
 
   keyPress (evt) {

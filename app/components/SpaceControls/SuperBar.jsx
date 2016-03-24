@@ -20,8 +20,6 @@ const SuperBar = (props) => {
       <input
         placeholder={'Search your sheet'}
         onChange={props.searchSheet}
-        onBlur={props.stopSearching}
-        value = {props.clearedValue}
       />
     )
   }

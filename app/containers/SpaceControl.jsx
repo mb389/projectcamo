@@ -23,7 +23,6 @@ class SpaceControl extends Component {
     this.runUpdateCell = this.runUpdateCell.bind(this);
     this.toggleMagicBar = this.toggleMagicBar.bind(this);
     this.searchSheet = this.searchSheet.bind(this);
-    this.stopSearching = this.stopSearching.bind(this);
   }
 
   componentWillMount() {
@@ -34,6 +33,7 @@ class SpaceControl extends Component {
 
   componentWillUnmount(){
     this.props.dispatch(SheetActions.clearSheet())
+    this.props.dispatch(SheetActions.clearFilteredRows())
   }
 
   runUpdateCell(evt, cellKey, rowIdx) {
@@ -52,15 +52,6 @@ class SpaceControl extends Component {
 
   searchSheet(e) {
     this.props.dispatch(SheetActions.searchSheet(e.target.value))
-    if (e.target) {
-      !e.target.value ?
-        null :
-        null;
-    }
-  }
-
-  stopSearching() {
-    this.props.dispatch(Actions.searching(false))
   }
 
   render() {
@@ -79,7 +70,6 @@ class SpaceControl extends Component {
           toggleMagicBar={this.toggleMagicBar}
           searchSheet={this.searchSheet}
           searching={this.props.searching}
-          stopSearching={this.props.stopSearching}
         />
         <ShareModal />
       </div>

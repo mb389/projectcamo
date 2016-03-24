@@ -46,6 +46,7 @@ class SpaceControl extends Component {
     if (!!this.props.searching) {
         this.props.dispatch(Actions.searching(false));
         this.props.dispatch(SheetActions.clearSearchGrid());
+        this.props.dispatch(SheetActions.clearFilteredRows())
       } else {
         this.props.dispatch(Actions.searching())
       }

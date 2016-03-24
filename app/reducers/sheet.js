@@ -19,7 +19,8 @@ import {
   SET_HISTORY_TABLE,
   UPDATE_HISTORY,
   SEARCH_SHEET,
-  CLEAR_SEARCH_GRID
+  CLEAR_SEARCH_GRID,
+  CLEAR_FILTERED_ROWS
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -194,6 +195,10 @@ export default function sheet(state = {
       let clearedSearchState = _.cloneDeep(state);
       clearedSearchState.searchGrid = clearedSearchState.grid;
       return clearedSearchState;
+    case CLEAR_FILTERED_ROWS:
+      let clearedFilteredState = _.cloneDeep(state);
+      clearedFilteredState.filteredRows = [];
+      return clearedFilteredState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
       let colId = action.colId;

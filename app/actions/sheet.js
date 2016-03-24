@@ -152,3 +152,9 @@ export function clearSearchGrid() {
 		type: types.CLEAR_SEARCH_GRID
 	}
 }
+
+export function clearFilteredRows() {
+	return {
+		type: types.CLEAR_FILTERED_ROWS
+	}
+}

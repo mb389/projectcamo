@@ -12,6 +12,7 @@ var Sheet = mongoose.model('Sheet');
 var sheets = require('../controllers/sheets');
 var Workspace = mongoose.model('Workspace');
 var workspaces = require('../controllers/workspaces');
+var formulaStore = require('../controllers/formulaStore');
 var path = require('path');
 var compiled_app_module_path = path.resolve(__dirname, '../../', 'public', 'assets', 'server.js');
 var App = require(compiled_app_module_path);
@@ -95,6 +96,13 @@ module.exports = function(app, passport) {
 
   app.delete('/workspace/:id', function(req, res) {
     workspaces.remove(req, res);
+  });
+
+// formulaStore routes
+  app.get('/formulaStore', formulaStore.all);
+
+  app.post('/formulaStore', function(req, res) {
+    formulaStore.addFormula(req, res);
   });
 
 

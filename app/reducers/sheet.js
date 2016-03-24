@@ -108,11 +108,11 @@ export default function sheet(state = {
       let addColumnState =  _.cloneDeep(state);
       let newColumn = {
         id: (100+addColumnState.columnHeaders.length).toString(),
-        type: 'Text',
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
       }
 
+      // TODO need to set this.props.view: 'editNameAndType';
       addColumnState.columnHeaders.push(newColumn);
       addColumnState = insertNewColInRows(addColumnState, newColumn);
       return addColumnState;}
@@ -136,7 +136,6 @@ export default function sheet(state = {
       let insertColumnState = _.cloneDeep(state);
       let newColumn = {
         id: (100+insertColumnState.columnHeaders.length).toString(),
-        type: 'Text',
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
       }
@@ -146,6 +145,7 @@ export default function sheet(state = {
         return column;
       })
 
+      // TODO need to set this.props.view: 'editNameAndType';
       insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
       insertColumnState = insertNewColInRows(insertColumnState, newColumn);
@@ -192,17 +192,18 @@ export default function sheet(state = {
     case FORMULA_COLUMN:{
       let formulaColumnState = _.cloneDeep(state);
 
-      let newColumn = {
-        id: (100+formulaColumnState.columnHeaders.length).toString(),
-        name: 'Column ' + (1+formulaColumnState.columnHeaders.length),
-        idx: formulaColumnState.columnHeaders.length,
-      }
+      let newColumn = Object.assign({}, action.colData);
+      newColumn.id = (100+formulaColumnState.columnHeaders.length).toString();
+      newColumn.name = 'Column ' + (1+formulaColumnState.columnHeaders.length);
+      newColumn.idx = formulaColumnState.columnHeaders.length;
 
-      // console.log('ARRAY METHOD', action.arrMeth);
+      // action.arrMeth usually = 'map' or 'reduce';
       formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{
-        console.log(row, action.colId);
-        let newData = action.func(row[action.colId].data);
-        if (!newColumn.type) newColumn.type = 'Text'; // this should corralate to the Typeof newData
+        let newData = action.func(row[action.colData.id].data);
+
+        // TODO should this corralate to the type of the new cell?
+        // if (!newColumn.type) newColumn.type = 'Text'; 
+
         row[newColumn.id] = {
           data: newData,
           type: newColumn.type,
@@ -240,22 +241,22 @@ function insertNewColInRows (state, newColumn){
 }
 
 function runCustomFunc (state, row, funcText) {
-  let columnDefs = 'let document = undefined; let window = undefined; ';
+  let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => {
-    // TODO remove this column?
-    funcText = funcText.replace(elem.name, 'userCol' + idx);
-    let userData = decorationType(row[elem.id].data);
-    console.log(userData);
-    columnDefs += 'let userCol' + idx + ' = ' + userData + '; ';
+  state.columnHeaders.forEach((elem, idx) => { 
+    // TODO remove the column that we're adding to to prevent errors?
+    funcText = funcText.replace(elem.name, 'Col' + idx);
+    let userData = decorationType(row[elem.id]);
+    columnDefs += 'let Col' + idx + ' = ' + userData + '; ';
     });
-
 
   return eval(columnDefs+funcText);
 }
 
-function decorationType (type) {
-  if (Array.isArray(type)) return '["' + type.join('","') + '"]';
-  else if (typeof type === 'string') return '"' + type + '"';
-  else return type;
+function decorationType (cell) {
+  switch (cell.type) {
+    case 'Images': return '["' + cell.data.join('","') + '"]';
+    case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
+    default: return cell.data;
+  }
 }

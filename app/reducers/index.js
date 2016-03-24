@@ -3,6 +3,7 @@ import user from 'reducers/user';
 import message from 'reducers/message';
 import sheet from 'reducers/sheet';
 import spacecontrol from 'reducers/spacecontrol';
+import formulaStore from 'reducers/formulaStore';
 import dashboard from 'reducers/dashboard';
 import { routerReducer as routing } from 'react-router-redux';
 
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   sheet,
   routing,
   spacecontrol,
-  dashboard
+  dashboard,
+  formulaStore,
 });
 
 export default rootReducer;

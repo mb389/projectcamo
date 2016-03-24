@@ -5,15 +5,14 @@ import { sortColumn, removeColumn, insertColumn, formulaColumn } from 'actions/s
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
-import MenuEditCol from './MenuEditCol';
+import MenuEditCol from './ColumnEditMenu/MenuEditCol';
 
 const cx = classNames.bind(styles);
 
 class ColumnOptions extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {view: 'dropdown'};
-
+		this.state = {view: (this.props.data.type ? 'dropdown' : 'editNameAndType')};
 		this.handleSelection = this.handleSelection.bind(this);
 		this.changeType = this.changeType.bind(this);
 		this.duplicate = this.duplicate.bind(this);
@@ -40,11 +39,10 @@ class ColumnOptions extends Component {
 	}
 
 	duplicate() {
-		console.log('duplicate this column');
-		let dup = function (element) {
+		let dupFn = function (element) {
 			return element;
 		};
-		this.props.dispatch(formulaColumn('map', dup, this.props.data.id));
+		this.props.dispatch(formulaColumn('map', dupFn, this.props.data));
 	}
 
 	insertLeft() {

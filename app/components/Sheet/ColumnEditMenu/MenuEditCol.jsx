@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateColumn } from 'actions/sheet';
+import { updateColumn, formulaUpload } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
+import OtherMenuItem from './OtherMenuItem';
+import FormulaMenuItem from './FormulaMenuItem';
 
 const cx = classNames.bind(styles);
 
@@ -13,12 +15,15 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {colType: this.props.data.type, colName: this.props.data.name };
+		this.state = {colType: (this.props.data.type || 'Text'), colName: this.props.data.name, formula: this.props.data.formula, formulaName: 'DefaultName'};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
-		this.customFormula = this.customFormula.bind(this);
+		this.handleFormulaCustom = this.handleFormulaCustom.bind(this);
 		this.handleEditName = this.handleEditName.bind(this);
+		this.exitTypeMenu = this.exitTypeMenu.bind(this);
+		this.formulaUpload = this.formulaUpload.bind(this);
+		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 	}
 
 	itemSelected(e, ekey) {
@@ -29,8 +34,16 @@ class MenuEditCol extends Component {
 		this.setState({colName: e.target.value});
 	}
 
-	customFormula(e) {	
+	handleFormulaCustom(e) {	
 		this.setState({formula: e.target.value});
+	}
+
+	handleFormulaNameChange(e) {
+		this.setState({formulaName: e.target.value});
+	}
+
+	formulaUpload() {
+		this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
 	}
 
 	saveTypeChanges() {
@@ -51,44 +64,28 @@ class MenuEditCol extends Component {
 		this.props.exitTypeMenu();
 	}
 
+	exitTypeMenu() {
+		if(!this.props.data.type) this.saveTypeChanges();
+		this.props.exitTypeMenu();
+	}
+
 	render () {
 		let columnTypes = {
-			'Text': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> A single line of text. </p>
-				</div>
-				),
-			'Number': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> A number feild </p>
-				</div>
-				), 
+			'Text': (<OtherMenuItem description='A single line of text.' />),
+			'Number': (<OtherMenuItem description='A number feild.' />),
 			'Formula': (
-				<div className='col-md-12'>
-					<p className='col-md-12'>Allows you to create custom formulas for manipulating your data.</p>
-					<textarea onChange={this.customFormula} className='col-md-12'>{this.state.userFunction}</textarea>
-				</div>
+				<FormulaMenuItem
+					handleFormulaNameChange={this.handleFormulaNameChange}
+					formulaName={this.state.formulaName}
+					handleFormulaCustom={this.handleFormulaCustom}
+					formula={this.state.formula}
+					formulaUpload={this.formulaUpload}
+				/>
 				), 
-			'Images': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Upload custom images </p>
-				</div>
-				), 
-			'Checkbox': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Creates checkboxes </p>
-				</div>
-				), 
-			'Select': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Select a single predefined option from a dropdown </p>
-				</div>
-				), 
-			'Link': (
-				<div className='col-md-12'>
-					<p className='col-md-12'> Create a link to an external site </p>
-				</div>
-				), 
+			'Images': (<OtherMenuItem description='Upload custom images.' />),
+			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
+			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
+			'Link': (<OtherMenuItem description='Create a link to an external site ' />),
 		}
 
 		function generateTypes () {
@@ -114,7 +111,7 @@ class MenuEditCol extends Component {
 				    
 				    {columnTypes[this.state.colType]}
 				    <div className='col-md-12'>
-					    <button className="btn col-md-5" type="button" onClick={this.props.exitTypeMenu}>Cancel</button>
+					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
 					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>
 					</div>
 				</div>

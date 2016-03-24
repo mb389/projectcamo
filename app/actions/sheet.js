@@ -102,15 +102,6 @@ export function insertColumn(colIdx){
 	}
 }
 
-export function formulaColumn(arrMeth, func, colId){
-	return {
-		type: types.FORMULA_COLUMN,
-		colId,
-		func,
-		arrMeth,
-	}
-}
-
 export function currentCell(cell) {
   return {
     type: types.CURRENT_CELL,
@@ -118,6 +109,29 @@ export function currentCell(cell) {
   }
 }
 
+export function formulaColumn(arrMeth, func, colData){
+	return {
+		type: types.FORMULA_COLUMN,
+		colData,
+		func,
+		arrMeth,
+	}
+}
+
+export function formulaUpload(name, functionStr) {
+	return (dispatch) => {
+		request.post('/formulaStore', {name, functionStr})
+		.then(res => res.data)
+		.then(res => dispatch(formulaAddOneToList(res)))
+	}
+}
+
+function formulaAddOneToList(addedFormula) {
+	return {
+		type: types.FORMULA_UPLOAD,
+		addedFormula,
+	}
+}
 
 export function searchSheet(term) {
   return {

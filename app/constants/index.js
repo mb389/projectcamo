@@ -42,5 +42,8 @@ export const SET_HISTORY_TABLE = 'SET_HISTORY_TABLE';
 export const UPDATE_HISTORY = 'UPDATE_HISTORY';
 export const CURRENT_CELL = 'CURRENT_CELL';
 
+// FormulaStore Constants
+export const FORMULA_UPLOAD = 'FORMULA_UPLOAD';
+
 // NAV CONSTS
 export const CHANGE_SPACE_NAME = 'CHANGE_SPACE_NAME';

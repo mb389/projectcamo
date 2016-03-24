@@ -167,17 +167,6 @@ export default function sheet(state = {
       return sortColumnState;}
     case SEARCH_SHEET:
       let searchState = _.cloneDeep(state);
-      // aproach to create a new grid to show during search
-      // searchState.searchGrid = searchState.grid.filter((row, idx) => {
-      //   let toSave;
-      //   for(let cell in row) {
-      //     if (row[cell].data && typeof row[cell].data === 'string') {
-      //       row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
-      //     }
-      //   }
-      //   return toSave
-      // })
-      // return searchState;
       // approach to hide the rows that don't meet search criteria
       searchState.filteredRows = searchState.grid.reduce((accum, row, idx) => {
         let toSave;
@@ -190,11 +179,6 @@ export default function sheet(state = {
         return accum;
       }, [])
       return searchState;
-    case CLEAR_SEARCH_GRID:
-      // when search is toggled off, this clears the search grid so that there isn't an old search showing
-      let clearedSearchState = _.cloneDeep(state);
-      clearedSearchState.searchGrid = clearedSearchState.grid;
-      return clearedSearchState;
     case CLEAR_FILTERED_ROWS:
       let clearedFilteredState = _.cloneDeep(state);
       clearedFilteredState.filteredRows = [];

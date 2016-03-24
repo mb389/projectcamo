@@ -41,11 +41,9 @@ class SpaceControl extends Component {
   }
 
   toggleMagicBar() {
-    console.log(this.props.searching)
     this.props.dispatch(SheetActions.currentCell())
     if (!!this.props.searching) {
         this.props.dispatch(Actions.searching(false));
-        this.props.dispatch(SheetActions.clearSearchGrid());
         this.props.dispatch(SheetActions.clearFilteredRows())
       } else {
         this.props.dispatch(Actions.searching())
@@ -53,8 +51,6 @@ class SpaceControl extends Component {
   }
 
   searchSheet(e) {
-    console.log(e.target)
-    // filters the rows for cells that match the current search criteria
     this.props.dispatch(SheetActions.searchSheet(e.target.value))
     if (e.target) {
       !e.target.value ?
@@ -91,7 +87,7 @@ class SpaceControl extends Component {
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
               <Table
-                grid={this.props.searching && this.props.searchGrid ? this.props.searchGrid : this.props.sheet.grid}
+                grid={this.props.sheet.grid}
                 headers={this.props.sheet.columnHeaders}
                 searching={this.props.searching}
                 filteredRows={this.props.filteredRows}
@@ -113,7 +109,6 @@ function mapStateToProps(store) {
     sheet: store.sheet,
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    searchGrid: store.sheet.searchGrid,
     filteredRows: store.sheet.filteredRows
   };
 }

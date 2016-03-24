@@ -35,6 +35,18 @@ export function updateCell(data, key, idx) {
   };
 }
 
+export function showLookupModal(){
+	return {
+		 type: types.SHOW_LOOKUP_MODAL
+	}
+}
+
+export function closeLookupModal(){
+	return {
+		type: types.CLOSE_LOOKUP_MODAL
+	}
+}
+
 export function showRowModal(rowIdx){
 	return {
 		 type: types.SHOW_ROW_MODAL,

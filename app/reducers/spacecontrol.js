@@ -17,7 +17,8 @@ export default function spaceControl(state = { showShareModal: false }, action =
       return Object.assign({}, state, {
         space: action.space,
         sheetToShow: action.sheetToShow,
-        sheetNames: action.sheetNames
+        sheetNames: action.sheetNames,
+        sheets: action.sheets
       });
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });

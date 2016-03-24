@@ -30,7 +30,7 @@ exports.one = function(req, res) {
     workspace: req.params.spaceId, 
     content: { 
         grid: req.body.grid || [], 
-        columnHeaders: req.body.columnHeaders || []
+        columnHeaders: req.body.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }]
       }
     })
     .then(sheet => res.json(sheet))

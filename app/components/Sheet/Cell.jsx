@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
@@ -23,7 +24,6 @@ class Cell extends Component {
     this.cell = this.cell.bind(this);
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.showLookupModal = this.showLookupModal.bind(this);
 	}
 
@@ -70,6 +70,7 @@ class Cell extends Component {
       case 'Number':  
       default: 
         return (<ContentEditable
+        ref = "focusArea"
         className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
@@ -95,21 +96,15 @@ class Cell extends Component {
 	}
 
  keyPress (evt) {
-    // const col=Number(this.props.currentCell.key);
-    // const row=Number(this.props.currentCell.idx);
       if (evt.keyCode >= 37 && evt.keyCode <= 40) {
           evt.preventDefault();
-          // this.props.dispatch(moveToCell(col, row, evt.keyCode))
           this.props.dispatch(moveToCell(evt.keyCode))
       } else {
           this.editable(evt);
       }
   }
 
-  handleFocus (selId) {
-    // if(document.getElementById(selId)) document.getElementById(selId).focus();
-  }
-
+ 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
 

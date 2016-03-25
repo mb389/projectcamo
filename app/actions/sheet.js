@@ -155,14 +155,9 @@ export function formulaColumn(arrMeth, func, colData){
 	}
 }
 
-// export function moveToCell(colI, rowI, keyCode) {
 export function moveToCell(keyCode) {
-    // grid[rowI][colI].data, grid[rowI][colI].type
-    // return changeCurrentCell(rowI, colI.toString(), )
     return {
         type: types.MOVE_TO_CELL,
-        // colId: colI.toString(),
-        // rowIdx: rowI,
         keyCode
     }
 }

@@ -26,6 +26,7 @@ export function updateSheet(history) {
 }
 
 export function saveSheet(sheetId, sheet){
+  console.log("save sheet",sheetId, sheet)
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
     .then(res => {
@@ -37,11 +38,13 @@ export function saveSheet(sheetId, sheet){
 }
 
 // maybe a new reducer to update that array
-function updateSheetsArray(sheetId, sheet) {
+function updateSheetsArray(sheetId, sheetContent, dbSheet) {
+  console.log("updating sheets array", sheetContent, dbSheet)
   return {
     type: types.UPDATE_SHEETS,
     sheetId: sheetId,
-    sheet:  sheet
+    sheetContent: sheetContent,
+    dbSheet: dbSheet
   };
 }
 
@@ -56,7 +59,6 @@ export function loadSpace(obj) {
 }
 
 export function changeSheet(obj) {
-  console.log(obj.sheets)
   if (obj.sheets) {
     let refCols = obj.sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
     if (refCols.length) {
@@ -71,7 +73,6 @@ export function changeSheet(obj) {
                 refSheet[0].content.grid.forEach((orow) => {
                   for (let key in orow) {
                     if (orow[key].id === item.rowId.id) { 
-                      console.log("Here")
                       item.data = orow[key].data 
                     };
                   }
@@ -118,6 +119,7 @@ export function loadSheet(obj) {
 }
 
 export function getSheet(sheetId, sheets) {
+  console.log("get sheet",sheetId, sheets)
   return (dispatch) => {
     request(`/sheet/${sheetId}`)
     .then((res) => {
@@ -144,10 +146,16 @@ export function addSheet(spaceId, sheet) {
   return (dispatch) => {
     request.post(`/sheet/${spaceId}`, sheet)
     .then(res => res.data)
-    .then(res => dispatch(addSheetToView({
-      newSheetId: res._id,
-      sheetName: res.name
-    })))
+    .then(res => {
+      dispatch(addSheetToView({
+        newSheetId: res._id,
+        sheetName: res.name
+      }))
+      return res
+    })
+    .then(sheet => {
+      dispatch(updateSheetsArray(sheet._id, sheet.content, sheet))
+    })
   }
 }
 

@@ -24,13 +24,17 @@ export default function spaceControl(state = { showShareModal: false }, action =
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
     case UPDATE_SHEETS:
+      console.log("updating sheets space reducer")
       {
         let newState = _.cloneDeep(state);
         let found = false;
         newState.sheets.forEach((sheet, i) => {
-          (sheet._id === action.sheetId) ? newState.sheets[i].content = action.sheet : null;
+          if (sheet._id === action.sheetId) {
+            newState.sheets[i].content = action.sheetContent; 
+            found = true;
+          }
         })
-        !found ? newState.sheets.push(action.sheet) : null;
+        !found ? newState.sheets.push(action.dbSheet) : null;
         return newState
       }
     case SHOW_SHARE_MODAL:

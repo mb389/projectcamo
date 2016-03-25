@@ -20,7 +20,11 @@ class SheetsTab extends Component {
   }
 
   showSheet() {
-    this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets));
+    // check if clicking on the same sheet
+    if (!this.active) {
+      this.props.dispatch(Actions.saveSheet(this.props.sheetToShow._id, this.props.sheetData));
+      this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets));
+    }
   }
 
   editSheetName(e) {
@@ -56,7 +60,8 @@ function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,
     sheetToShow: store.spacecontrol.sheetToShow,
-    sheets: store.spacecontrol.sheets
+    sheets: store.spacecontrol.sheets,
+    sheetData: store.sheet
   };
 }
 

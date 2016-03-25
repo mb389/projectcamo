@@ -25,14 +25,9 @@ export function updateSheet(history) {
   }
 }
 
-export const saveThenFetch = (currSheetId, currSheet, newSheet, allSheets) => dispatch => {
-  dispatch(updateLocalCriteria(criteria))
-  dispatch(fetchApiResults(criteria))
-}
-
-export function saveSheet(sheetId, sheet){
+export function saveSheet(sheetId, sheet, commit){
   return (dispatch) => {
-    request.put(`/sheet/${sheetId}`, sheet)
+    request.put(`/sheet/${sheetId}`, {sheet, commit})
     .then(res => {
       dispatch(updateSheet(res.data.history))
       return null

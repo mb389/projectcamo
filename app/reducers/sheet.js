@@ -80,7 +80,7 @@ export default function sheet(state = {
       console.log('newCoord', newCoord);
 
       newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
-      newState.currentCell.cellIdx = newCoord.newRowIdx;
+      newState.currentCell.rowIdx = newCoord.newRowIdx;
       newState.currentCell.cellKey = newCoord.newColId;
       return newState
     case UPDATE_FORMULA_CELL:

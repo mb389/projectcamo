@@ -24,14 +24,15 @@ export function clearSheet() {
   };
 }
 
-export function updateCell(data, key, idx) {
+export function updateCell(data, key, idx, fromSuper) {
   return {
     type: types.UPDATE_CELL,
     cell: {
-    	data: data,
-    	key: key,
-    	idx: idx
-    }
+    	data,
+    	key,
+    	idx,
+    },
+    fromSuper,
   };
 }
 
@@ -155,6 +156,12 @@ export function formulaColumn(arrMeth, func, colData){
 	}
 }
 
+export function moveToCell(keyCode) {
+    return {
+        type: types.MOVE_TO_CELL,
+        keyCode
+    }
+}
 
 export function searchSheet(term) {
   return {

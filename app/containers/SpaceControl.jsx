@@ -38,7 +38,7 @@ class SpaceControl extends Component {
   }
 
   runUpdateCell(evt, cellKey, rowIdx) {
-    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx))
+    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx, true))
   }
 
   toggleMagicBar() {

@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showLookupModal, currentCell, updateFormulaCell } from 'actions/sheet';
+import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
@@ -23,12 +24,13 @@ class Cell extends Component {
     this.cell = this.cell.bind(this);
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
-    this.handleFocus = this.handleFocus.bind(this);
     this.showLookupModal = this.showLookupModal.bind(this);
 	}
 
+
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
+    // console.log('handleChangeRunning', evt);
 
     row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
 
@@ -45,9 +47,11 @@ class Cell extends Component {
 
   editable (evt) {
     this.setState({disabled: false});
+    evt.target.children[0].focus();
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
+    // type of cells are defined in MenuEditCol Component
     switch (cell.type) {
       case 'Images':
         cell.data = cell.data || [];
@@ -62,16 +66,21 @@ class Cell extends Component {
             {labels}
           </div>
         )
+      case 'Checkbox':
+          return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
+      case 'Select':
+      case 'Link':
+      case 'Number':  
       default: 
-        return (<ContentEditable
-        className={cx('cellContent')}
-        html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
-        onChange={this.handleChange} // handle innerHTML change
-        onDoubleClick={this.editable} // allow for cell editing after focus
-        onMouseEnter={this.setMouseEnter} // handle innerHTML change
-        onMouseLeave={this.setMouseLeave} // handle innerHTML change
-      />)
+          return (<ContentEditable
+          className={cx('cellContent')}
+          html={cell.data} // innerHTML of the editable div
+          disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
+          onChange={this.handleChange} // handle innerHTML change
+          onDoubleClick={this.editable} // allow for cell editing after focus
+          onMouseEnter={this.setMouseEnter} // handle innerHTML change
+          onMouseLeave={this.setMouseLeave} // handle innerHTML change
+        />)
     }
   }
 
@@ -84,40 +93,19 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-		this.props.dispatch(currentCell(this.props));
+    if(!this.props.cell.focused) this.props.dispatch(currentCell(this.props));
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
 
-  keyPress (evt) {
-    let col = Number(evt.target.id.substr(0,3));
-    let row = Number(evt.target.id.substr(3));
-    switch (evt.keyCode) {
-      case 37:{
-							evt.preventDefault();
-              this.handleFocus(""+(col-1)+row);
-              break;}
-      case 38:{
-							evt.preventDefault();
-              this.handleFocus(""+col+(row-1));
-              break;}
-      case 39:{
-							evt.preventDefault();
-              this.handleFocus(""+(col+1)+row);
-              break;}
-      case 40 || 13:{
-							evt.preventDefault();
-              this.handleFocus(""+col+(row+1));
-              break;}
-      default:
-        this.editable(evt);
-        break;
-    }
+ keyPress (evt) {
+      if (evt.keyCode >= 37 && evt.keyCode <= 40) {
+          evt.preventDefault();
+          this.props.dispatch(moveToCell(evt.keyCode))
+      } else {
+          this.editable(evt);
+      }
   }
-
-  handleFocus (selId) {
-    // if(document.getElementById(selId)) document.getElementById(selId).focus();
-  }
-
+ 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
 
@@ -128,12 +116,18 @@ class Cell extends Component {
         onDoubleClick={this.editable} // allow for cell editing after focus
 				onFocus={this.handleCell}
 				onKeyDown={this.keyPress} // for key navigation
+        ref={(c) => {
+          if(this.props.cell.focused && c) c.focus();
+        }}
+        // IF this focused = true we are still running onFocus?
         >
         {this.cell(cell,cellKey,row,rowIdx)}
       </div>
       );
   }
+
 }
+
 
 Cell.propTypes = {
   dispatch: PropTypes.func

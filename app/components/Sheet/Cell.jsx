@@ -28,6 +28,8 @@ class Cell extends Component {
 	}
 
 	handleChange(evt){
+    console.log("Handle Change", evt.target.value);
+
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
 
     row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
@@ -48,6 +50,7 @@ class Cell extends Component {
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
+    // type of cells are defined in MenuEditCol Component
     switch (cell.type) {
       case 'Images':
         cell.data = cell.data || [];
@@ -62,6 +65,11 @@ class Cell extends Component {
             {labels}
           </div>
         )
+      case 'Checkbox':
+          return (<input type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
+      case 'Select':
+      case 'Link':
+      case 'Number':  
       default: 
         return (<ContentEditable
         className={cx('cellContent')}

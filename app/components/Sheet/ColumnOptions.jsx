@@ -77,8 +77,10 @@ class ColumnOptions extends Component {
 					<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
 					<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
 					<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
-					<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>
 					];
+
+				if(this.props.data.id !== "100") items.push(<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>);
+
 				return items;
 			}
 
@@ -89,7 +91,7 @@ class ColumnOptions extends Component {
 							<Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 			      </Dropdown.Toggle>
 			      <Dropdown.Menu className={cx('columnWidth')}>
-			      	{generateMenuItems()}
+			      	{generateMenuItems.call(this)}
 			      </Dropdown.Menu>
 			    </Dropdown>)
 

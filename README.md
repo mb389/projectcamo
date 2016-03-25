@@ -9,8 +9,8 @@ Now you can organize of your information, including videos, images, lists, check
 ## Features
 
 	Interacts with over a dozen data types
-	Handles over a million input cells
-	Quickly viewable revision history
+	Quickly write javascript functions to manipulate your data
+	Interactive revision history
 	Collaborate with unlimited team members
 
 ## Technologies

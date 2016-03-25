@@ -66,7 +66,7 @@ class Cell extends Component {
           </div>
         )
       case 'Checkbox':
-          return (<input type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
+          return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
       case 'Select':
       case 'Link':
       case 'Number':  

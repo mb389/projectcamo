@@ -36,6 +36,13 @@ export function saveSheet(sheetId, sheet, commit){
   }
 }
 
+export function updateRefSheet(targetSheet,data) {
+  console.log(targetSheet,data)
+  return {
+    type:types.UPDATE_SHEETS
+  }
+}
+
 // maybe a new reducer to update that array
 function updateSheetsArray(sheetId, sheetContent, dbSheet) {
   return {
@@ -77,7 +84,6 @@ function fetchUpdatesFromOtherSheets(sheets, sheetToShow) {
     grid.forEach((row)=>{
         for (let key in row) {
           if (row[key].type === 'Reference' && row[key].data && row[key].data.length){
-            // look up reference to table 
             updateCellData(row[key])
           }
         }

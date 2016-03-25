@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { sortColumn, removeColumn, insertColumn, formulaColumn } from 'actions/sheet';
+import { sortColumn, removeColumn, insertColumn, formulaColumn, showMap } from 'actions/sheet';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
@@ -22,6 +22,7 @@ class ColumnOptions extends Component {
 		this.removeCol = this.removeCol.bind(this);
 		this.insertLeft = this.insertLeft.bind(this);
 		this.insertRight = this.insertRight.bind(this);
+		this.showMap = this.showMap.bind(this);
 	}
 
 	handleSelection(evt, evtKey){
@@ -65,6 +66,10 @@ class ColumnOptions extends Component {
 		this.props.dispatch(sortColumn(this.props.data.id, -1));
 	}
 
+	showMap() {
+		this.props.dispatch(showMap());
+	}
+
 	render () {
 		let viewing;
 		if (!this.state || this.state.view === 'dropdown') {
@@ -77,6 +82,7 @@ class ColumnOptions extends Component {
 					<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
 					<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
 					<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
+					<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
 					];
 
 				if(this.props.data.id !== "100") items.push(<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>);

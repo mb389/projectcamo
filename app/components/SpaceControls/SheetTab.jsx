@@ -23,7 +23,7 @@ class SheetsTab extends Component {
     // check if clicking on the same sheet
     if (!this.active) {
       this.props.dispatch(Actions.saveSheet(this.props.sheetToShow._id, this.props.sheetData));
-      this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets));
+      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 100);
     }
   }
 

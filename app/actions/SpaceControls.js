@@ -25,8 +25,12 @@ export function updateSheet(history) {
   }
 }
 
+export const saveThenFetch = (currSheetId, currSheet, newSheet, allSheets) => dispatch => {
+  dispatch(updateLocalCriteria(criteria))
+  dispatch(fetchApiResults(criteria))
+}
+
 export function saveSheet(sheetId, sheet){
-  console.log("save sheet",sheetId, sheet)
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
     .then(res => {
@@ -39,7 +43,6 @@ export function saveSheet(sheetId, sheet){
 
 // maybe a new reducer to update that array
 function updateSheetsArray(sheetId, sheetContent, dbSheet) {
-  console.log("updating sheets array", sheetContent, dbSheet)
   return {
     type: types.UPDATE_SHEETS,
     sheetId: sheetId,
@@ -59,6 +62,7 @@ export function loadSpace(obj) {
 }
 
 export function changeSheet(obj) {
+  console.log("CHANGING SHEET NOW")
   if (obj.sheets) {
     let refCols = obj.sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
     if (refCols.length) {
@@ -119,7 +123,6 @@ export function loadSheet(obj) {
 }
 
 export function getSheet(sheetId, sheets) {
-  console.log("get sheet",sheetId, sheets)
   return (dispatch) => {
     request(`/sheet/${sheetId}`)
     .then((res) => {

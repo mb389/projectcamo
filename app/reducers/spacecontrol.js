@@ -24,7 +24,6 @@ export default function spaceControl(state = { showShareModal: false }, action =
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
     case UPDATE_SHEETS:
-      console.log("updating sheets space reducer")
       {
         let newState = _.cloneDeep(state);
         let found = false;

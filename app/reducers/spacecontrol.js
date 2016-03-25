@@ -45,7 +45,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
         newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
         .forEach((sheet)=>{
           let newColumn = {
-            id: "101",
+            id: "" + (100 + sheet.content.columnHeaders.length),
             idx: sheet.content.columnHeaders.length,
             name: action.currSheet.name,
             type: "Reference"
@@ -55,7 +55,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
           console.log(action.data)
           sheet.content.grid.forEach((row)=>{
             if (row['100'].data === action.data.data) {
-              row['101'].data = [{
+              row[newColumn.id].data = [{
                 data: action.currRow["100"].data,
                 id: action.currRow["100"].id,
                 type: "ID"

@@ -36,14 +36,16 @@ export function saveSheet(sheetId, sheet, commit){
   }
 }
 
-export function updateRefSheet(targetSheet,data) {
-  console.log(targetSheet,data)
+export function updateRefSheet(targetSheet,data,currSheet,currRow) {
   return {
-    type:types.UPDATE_SHEETS
-  }
+    type: types.UPDATE_REF_SHEET,
+    targetSheet,
+    data,
+    currSheet,
+    currRow
+  };
 }
 
-// maybe a new reducer to update that array
 function updateSheetsArray(sheetId, sheetContent, dbSheet) {
   return {
     type: types.UPDATE_SHEETS,

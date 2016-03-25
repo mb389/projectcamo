@@ -7,8 +7,10 @@ import {
   SHOW_SHARE_MODAL,
   CLOSE_SHARE_MODAL,
   SEARCHING,
-  UPDATE_SHEETS
+  UPDATE_SHEETS,
+  UPDATE_REF_SHEET
 } from 'constants/index';
+import { insertNewColInRows } from './sheetHelpers.js';
 
 
 export default function spaceControl(state = { showShareModal: false }, action = {}) {
@@ -34,6 +36,33 @@ export default function spaceControl(state = { showShareModal: false }, action =
           }
         })
         !found ? newState.sheets.push(action.dbSheet) : null;
+        return newState
+      }
+    case UPDATE_REF_SHEET:
+      {
+        let newState = _.cloneDeep(state);
+        // find matching sheet and add reference to it
+        newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
+        .forEach((sheet)=>{
+          let newColumn = {
+            id: "101",
+            idx: sheet.content.columnHeaders.length,
+            name: action.currSheet.name,
+            type: "Reference"
+          }
+          sheet.content.columnHeaders.push(newColumn)
+          sheet.content = insertNewColInRows(sheet.content,newColumn)
+          console.log(action.data)
+          sheet.content.grid.forEach((row)=>{
+            if (row['100'].data === action.data.data) {
+              row['101'].data = [{
+                data: action.currRow["100"].data,
+                id: action.currRow["100"].id,
+                type: "ID"
+              }]
+            }
+          })
+        })
         return newState
       }
     case SHOW_SHARE_MODAL:

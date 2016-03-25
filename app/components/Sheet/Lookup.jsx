@@ -47,7 +47,7 @@ class Lookup extends Component {
     let data = {data: rowId.data, rowId: rowId, sheet: this.state.sheet._id}
     cellData ? cellData.push(data) : cellData = [data]
     this.props.dispatch(updateCellById(cellData,this.props.lookup.cell.id))
-    this.props.dispatch(updateRefSheet(this.state.sheet,data))
+    this.props.dispatch(updateRefSheet(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.row))
     this.close()
   }
 

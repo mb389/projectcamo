@@ -16,7 +16,7 @@ class SaveButton extends Component {
 
 	saveSheet(){
 		const {dispatch,sheetToShow,sheet} = this.props
-		dispatch(saveSheet(sheetToShow._id,sheet))
+		dispatch(saveSheet(sheetToShow._id,sheet,true))
 	}
 
   render(){

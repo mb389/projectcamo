@@ -58,6 +58,7 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+        newState.currentCell.cell.data = action.cell.data
         return newState
       }
     case UPDATE_CELL_BY_ID:

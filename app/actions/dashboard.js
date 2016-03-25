@@ -40,7 +40,6 @@ export function createSpace(spaceCount) {
 }
 
 export function spaceToStore(space) {
-  console.log(space);
   return {
     type: types.ADD_USER_SPACE,
     id: space._id,

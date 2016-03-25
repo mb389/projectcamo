@@ -34,7 +34,7 @@ exports.one = function(req, res) {
  */
  // TODO NEEDS A USER ATTACHED
 exports.add = function(req, res) {
-  Workspace.create({name: `NewSpace${req.body.spaceCount}`})
+  Workspace.create({name: `NewSpace${req.body.spaceCount}`, user:req.user._id})
   .then((space) => res.json(space))
   .catch(err => res.status(400).send(err))
 };

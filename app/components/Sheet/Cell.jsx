@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showLookupModal, currentCell, updateFormulaCell } from 'actions/sheet';
+import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
@@ -28,8 +28,6 @@ class Cell extends Component {
 	}
 
 	handleChange(evt){
-    console.log("Handle Change", evt.target.value);
-
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
 
     row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
@@ -96,30 +94,16 @@ class Cell extends Component {
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
 
-  keyPress (evt) {
-    let col = Number(evt.target.id.substr(0,3));
-    let row = Number(evt.target.id.substr(3));
-    switch (evt.keyCode) {
-      case 37:{
-							evt.preventDefault();
-              this.handleFocus(""+(col-1)+row);
-              break;}
-      case 38:{
-							evt.preventDefault();
-              this.handleFocus(""+col+(row-1));
-              break;}
-      case 39:{
-							evt.preventDefault();
-              this.handleFocus(""+(col+1)+row);
-              break;}
-      case 40 || 13:{
-							evt.preventDefault();
-              this.handleFocus(""+col+(row+1));
-              break;}
-      default:
-        this.editable(evt);
-        break;
-    }
+ keyPress (evt) {
+    // const col=Number(this.props.currentCell.key);
+    // const row=Number(this.props.currentCell.idx);
+      if (evt.keyCode >= 37 && evt.keyCode <= 40) {
+          evt.preventDefault();
+          // this.props.dispatch(moveToCell(col, row, evt.keyCode))
+          this.props.dispatch(moveToCell(evt.keyCode))
+      } else {
+          this.editable(evt);
+      }
   }
 
   handleFocus (selId) {

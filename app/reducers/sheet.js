@@ -24,11 +24,13 @@ import {
   CLEAR_FILTERED_ROWS,
   SHOW_LOOKUP_MODAL,
   CLOSE_LOOKUP_MODAL,
-  UPDATE_CELL_BY_ID
+  UPDATE_CELL_BY_ID,
+  MOVE_TO_CELL
 } from 'constants/index';
 import {
   insertNewColInRows,
-  runCustomFunc
+  runCustomFunc,
+  navToNewCell
 } from './sheetHelpers.js';
 
 export default function sheet(state = {
@@ -71,6 +73,16 @@ export default function sheet(state = {
         })
         return newState
       }
+    case MOVE_TO_CELL:
+      let newState = _.cloneDeep(state);
+      console.log('newState', newState);
+      let newCoord = navToNewCell(action.keyCode, newState)
+      console.log('newCoord', newCoord);
+
+      newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
+      newState.currentCell.cellIdx = newCoord.newRowIdx;
+      newState.currentCell.cellKey = newCoord.newColId;
+      return newState
     case UPDATE_FORMULA_CELL:
       {
         let newState = _.cloneDeep(state);

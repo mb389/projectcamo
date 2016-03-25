@@ -58,7 +58,8 @@ export function closeLookupModal(){
 	return {
 		type: types.CLOSE_LOOKUP_MODAL
 	}
-	
+}
+
 export function updateFormulaCell(key, idx, formula, row){
 	return {
 		type: types.UPDATE_FORMULA_CELL,

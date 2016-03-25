@@ -43,28 +43,30 @@ export function loadSpace(obj) {
 }
 
 export function changeSheet(obj) {
-  let refCols = obj.sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
-  if (refCols.length) {
-    obj.sheetToShow.content.grid.forEach((row)=>{
-      for (let key in row) {
-        if (row[key].type === 'Reference' && row[key].data && row[key].data.length){
-          // look up reference to table 
-          // dispatch action to update each cell? or batch?
-          row[key].data.map((item)=>{
-            let refSheet = obj.sheets.filter((sheet)=> sheet._id === item.sheet)
-            if (refSheet.length){
-              refSheet[0].content.grid.forEach((orow) => {
-                for (let key in orow) {
-                  if (orow[key].id === item.rowId.id) { item.data = orow[key].data };
-                }
-              })
-            }
-            return item
-          })
+  if (obj.sheets) {
+    let refCols = obj.sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
+    if (refCols.length) {
+      obj.sheetToShow.content.grid.forEach((row)=>{
+        for (let key in row) {
+          if (row[key].type === 'Reference' && row[key].data && row[key].data.length){
+            // look up reference to table 
+            // dispatch action to update each cell? or batch?
+            row[key].data.map((item)=>{
+              let refSheet = obj.sheets.filter((sheet)=> sheet._id === item.sheet)
+              if (refSheet.length){
+                refSheet[0].content.grid.forEach((orow) => {
+                  for (let key in orow) {
+                    if (orow[key].id === item.rowId.id) { item.data = orow[key].data };
+                  }
+                })
+              }
+              return item
+            })
+          }
         }
-      }
-    })
-  } 
+      })
+    } 
+  }
   return {
     type: types.CHANGE_SHEET,
     sheet: obj.sheetToShow.content,

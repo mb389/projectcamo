@@ -285,29 +285,6 @@ export default function sheet(state = {
   }
 }
 
-function insertNewColInRows (state, newColumn){
-  state.grid.forEach(row => {
-    row[newColumn.id] = {
-      type: newColumn.type,
-      data: null,
-      id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
-    }
-  });
-  return state;
-}
-
-function runCustomFunc (state, row, funcText) {
-  let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
-
-  state.columnHeaders.forEach((elem, idx) => {
-    // TODO remove the column that we're adding to to prevent errors?
-    funcText = funcText.replace(elem.name, 'Col' + idx);
-    let userData = decorationType(row[elem.id]);
-    columnDefs += 'let Col' + idx + ' = ' + userData + '; ';
-    });
-
-  return eval(columnDefs+funcText);
-}
 
 function decorationType (cell) {
   switch (cell.type) {

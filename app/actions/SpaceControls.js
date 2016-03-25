@@ -28,8 +28,21 @@ export function updateSheet(history) {
 export function saveSheet(sheetId, sheet){
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, sheet)
-    .then(res => dispatch(updateSheet(res.data.history)))
+    .then(res => {
+      dispatch(updateSheet(res.data.history))
+      return null
+    })
+    .then(() => dispatch(updateSheetsArray(sheetId, sheet)))
   }
+}
+
+// maybe a new reducer to update that array
+function updateSheetsArray(sheetId, sheet) {
+  return {
+    type: types.UPDATE_SHEETS,
+    sheetId: sheetId,
+    sheet:  sheet
+  };
 }
 
 export function loadSpace(obj) {
@@ -43,6 +56,7 @@ export function loadSpace(obj) {
 }
 
 export function changeSheet(obj) {
+  console.log(obj.sheets)
   if (obj.sheets) {
     let refCols = obj.sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
     if (refCols.length) {
@@ -56,7 +70,10 @@ export function changeSheet(obj) {
               if (refSheet.length){
                 refSheet[0].content.grid.forEach((orow) => {
                   for (let key in orow) {
-                    if (orow[key].id === item.rowId.id) { item.data = orow[key].data };
+                    if (orow[key].id === item.rowId.id) { 
+                      console.log("Here")
+                      item.data = orow[key].data 
+                    };
                   }
                 })
               }
@@ -100,7 +117,7 @@ export function loadSheet(obj) {
   };
 }
 
-export function getSheet(sheetId) {
+export function getSheet(sheetId, sheets) {
   return (dispatch) => {
     request(`/sheet/${sheetId}`)
     .then((res) => {
@@ -109,7 +126,8 @@ export function getSheet(sheetId) {
       }))
       return res.data
     }).then(res => dispatch(changeSheet({
-        sheetToShow: res
+        sheetToShow: res,
+        sheets: sheets
       })));
   };
 }

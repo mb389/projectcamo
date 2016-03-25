@@ -69,6 +69,7 @@ export default function sheet(state = {
             }
           }
         })
+        return newState
       }
     case UPDATE_FORMULA_CELL:
       {

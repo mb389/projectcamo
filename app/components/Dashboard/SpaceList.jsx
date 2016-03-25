@@ -1,6 +1,7 @@
 import React, {PropTypes, Component} from 'react';
 import styles from 'css/components/dashboard';
 import classNames from 'classnames/bind';
+import AddSpace from './AddSpace'
 import {Link} from 'react-router';
 import {Glyphicon} from 'react-bootstrap';
 
@@ -25,6 +26,7 @@ const SpaceList = (props) => {
         <strong>Spaces</strong>
         {spacesToDisplay}
       </div>
+      <AddSpace createSpace={props.createSpace}/>
   </div>
   </div>
     );

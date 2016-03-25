@@ -17,21 +17,26 @@ const cx = classNames.bind(styles);
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
+    this.createSpace = this.createSpace.bind(this)
   }
 
   componentWillMount() {
     if (!this.props.spaces) {
       this.props.dispatch(Actions.getSpaces());
     }
-
   }
+
+  createSpace() {
+    this.props.dispatch(Actions.createSpaces());
+  }
+
   render() {
     return (
       <div>
         <Navigation disabled={true} />
         <div className={cx('dashboard')}>
           <UserProfile user={this.props.user} />
-          <SpaceList spaces={this.props.spaces} />
+          <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
       </div>
     </div>
     )

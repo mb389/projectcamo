@@ -8,7 +8,8 @@ var schema = new mongoose.Schema({
   name: {
     type: String,
     required: true
-  }
+  },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 // Compiles the schema into a model, opening (or creating, if

@@ -23,7 +23,8 @@ exports.one = function(req, res) {
     const sheetNames = promiseArr[2].map(sheet => {
       return { name: sheet.name, id: sheet.id }
     });
-    res.json({ space: promiseArr[0], sheet: promiseArr[1], sheetNames });
+
+    res.json({ space: promiseArr[0], sheet: promiseArr[1], sheetNames, sheets: promiseArr[2] });
   })
   .catch(err => res.status(400).send(err));
 };

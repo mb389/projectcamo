@@ -20,7 +20,7 @@ class SheetsTab extends Component {
   }
 
   showSheet() {
-    this.props.dispatch(Actions.getSheet(this.props.sheetId));
+    this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets));
   }
 
   editSheetName(e) {
@@ -55,7 +55,8 @@ class SheetsTab extends Component {
 function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,
-    sheetToShow: store.spacecontrol.sheetToShow
+    sheetToShow: store.spacecontrol.sheetToShow,
+    sheets: store.spacecontrol.sheets
   };
 }
 

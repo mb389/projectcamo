@@ -21,7 +21,10 @@ import {
   UPDATE_HISTORY,
   SEARCH_SHEET,
   CLEAR_SEARCH_GRID,
-  CLEAR_FILTERED_ROWS
+  CLEAR_FILTERED_ROWS,
+  SHOW_LOOKUP_MODAL,
+  CLOSE_LOOKUP_MODAL,
+  UPDATE_CELL_BY_ID
 } from 'constants/index';
 import {
   insertNewColInRows,
@@ -38,7 +41,7 @@ export default function sheet(state = {
       return {}
     case CHANGE_SHEET:
       return {
-        columnHeaders: action.sheet.columnHeaders || [],
+        columnHeaders: action.sheet.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }],
         grid: action.sheet.grid || [],
         history: action.history || [],
         historySheet: action.historySheet || null,
@@ -53,6 +56,19 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+        return newState
+      }
+    case UPDATE_CELL_BY_ID:
+      {
+        let newState = _.cloneDeep(state);
+        newState.grid.forEach(function(row){
+          for (let key in row) {
+            if (row[key].id == action.cell.id) {
+              row[key].data = action.cell.data;
+              break;
+            }
+          }
+        })
         return newState
       }
     case UPDATE_FORMULA_CELL:
@@ -73,6 +89,23 @@ export default function sheet(state = {
           modalRowState.modalRow.data[action.cell.key].data = action.cell.data
         }
         return modalRowState
+      }
+    case SHOW_LOOKUP_MODAL:
+      {
+        let newState = _.cloneDeep(state)
+        newState.showLookupModal = true;
+        newState.lookup = {
+          row: action.row,
+          cell: action.cell,
+          rowIdx: action.rowIdx
+        }
+        return newState
+      }
+    case CLOSE_LOOKUP_MODAL:
+      {
+        let modalCloseState = _.cloneDeep(state)
+        modalCloseState.showLookupModal = false;
+        return modalCloseState
       }
     case SHOW_ROW_MODAL:
       {
@@ -243,12 +276,21 @@ export default function sheet(state = {
         let addRowState = _.cloneDeep(state);
         let newRow = {}
         addRowState.columnHeaders.forEach(function(col) {
-          newRow[col.id] = { data: null, type: col.type }
+          newRow[col.id] = { data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
         })
         addRowState.grid.push(newRow)
         return addRowState
       }
     default:
       return state;
+  }
+}
+
+
+function decorationType (cell) {
+  switch (cell.type) {
+    case 'Images': return '["' + cell.data.join('","') + '"]';
+    case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
+    default: return cell.data;
   }
 }

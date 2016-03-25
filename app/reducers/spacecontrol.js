@@ -6,7 +6,8 @@ import {
   CHANGE_SHEET_NAME,
   SHOW_SHARE_MODAL,
   CLOSE_SHARE_MODAL,
-  SEARCHING
+  SEARCHING,
+  UPDATE_SHEETS
 } from 'constants/index';
 
 
@@ -15,12 +16,23 @@ export default function spaceControl(state = { showShareModal: false }, action =
   switch (action.type) {
     case LOAD_SPACE:
       return Object.assign({}, state, {
-        space: action.space,
-        sheetToShow: action.sheetToShow,
-        sheetNames: action.sheetNames
+        space: action.space || state.space,
+        sheetToShow: action.sheetToShow || state.sheetToShow,
+        sheetNames: action.sheetNames || state.sheetNames,
+        sheets: action.sheets || state.sheets
       });
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
+    case UPDATE_SHEETS:
+      {
+        let newState = _.cloneDeep(state);
+        let found = false;
+        newState.sheets.forEach((sheet, i) => {
+          (sheet._id === action.sheetId) ? newState.sheets[i].content = action.sheet : null;
+        })
+        !found ? newState.sheets.push(action.sheet) : null;
+        return newState
+      }
     case SHOW_SHARE_MODAL:
       {
           return Object.assign({},state,{ showShareModal: true});

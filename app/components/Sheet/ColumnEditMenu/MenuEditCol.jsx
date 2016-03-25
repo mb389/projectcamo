@@ -90,6 +90,7 @@ class MenuEditCol extends Component {
 			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
 			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
 			'Link': (<OtherMenuItem description='Create a link to an external site ' />),
+			'Reference': (<OtherMenuItem description='Link to another sheet'/>)
 		}
 
 		function generateTypes () {

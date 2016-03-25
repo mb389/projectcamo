@@ -19,6 +19,7 @@ export function runCustomFunc (state, row, funcText) {
     let cellUsed = decorationType(row[elem.id]);
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
+  console.log(columnDefs,funcText)
 
   return eval(columnDefs+funcText);
 }
@@ -26,7 +27,8 @@ export function runCustomFunc (state, row, funcText) {
 function decorationType (cell) {
   switch (cell.type) {
     case 'Images': return `["${cell.data.join('","')}"]`;
-    case 'Formula': case 'Link': case 'Text': return `"${cell.data}"`;
+    case 'Formula': case 'Link': case 'Text': case 'ID': return `"${cell.data}"`;
+    case 'Reference': return null;
     default: return cell.data;
   }
 }

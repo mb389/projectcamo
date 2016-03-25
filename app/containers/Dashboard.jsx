@@ -27,10 +27,11 @@ class Dashboard extends Component {
   }
 
   createSpace() {
-    this.props.dispatch(Actions.createSpaces());
+    this.props.dispatch(Actions.createSpace(this.props.spaces.length+1));
   }
 
   render() {
+    console.log('rendered')
     return (
       <div>
         <Navigation disabled={true} />

@@ -28,3 +28,22 @@ export function getSpaces() {
     .then(() => dispatch(clearSheet()))
   }
 }
+
+
+export function createSpace(spaceCount) {
+  return (dispatch) => {
+    request.post('/workspace', { spaceCount })
+    .then(res => {
+      dispatch(spaceToStore(res.data))
+    })
+  }
+}
+
+export function spaceToStore(space) {
+  console.log(space);
+  return {
+    type: types.ADD_USER_SPACE,
+    id: space._id,
+    name: space.name
+  }
+}

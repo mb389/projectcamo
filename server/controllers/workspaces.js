@@ -32,15 +32,17 @@ exports.one = function(req, res) {
 /**
  * Add a Workspace
  */
+ // TODO NEEDS A USER ATTACHED
 exports.add = function(req, res) {
-  Workspace.create(req.body)
-  .then(() => res.status(200).send('OK'))
+  Workspace.create({name: `NewSpace${req.body.spaceCount}`})
+  .then((space) => res.json(space))
   .catch(err => res.status(400).send(err))
 };
 
 /**
  * Update a Workspace
  */
+
 exports.update = function(req, res) {
     Workspace.findByIdAndUpdate(req.params.id, req.body, {new: true})
     .then((space) => res.status(200).json(space))

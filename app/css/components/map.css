@@ -1,0 +1,5 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
+
+.Map {
+  background-color: primary-color;
+}

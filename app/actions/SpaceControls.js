@@ -25,6 +25,15 @@ export function updateSheet(history) {
   }
 }
 
+export function saveAllSheets(sheets, currSheet) {
+  sheets.forEach((sheet)=>{
+    if (sheet._id !== currSheet._id) request.put(`/sheet/${sheet._id}`, {sheet: sheet.content})
+  })
+  return {
+    type: "none"
+  }
+}
+
 export function saveSheet(sheetId, sheet, commit){
   return (dispatch) => {
     request.put(`/sheet/${sheetId}`, {sheet, commit})

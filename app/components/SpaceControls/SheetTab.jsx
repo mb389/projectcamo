@@ -22,6 +22,7 @@ class SheetsTab extends Component {
   showSheet() {
     // check if clicking on the same sheet
     if (!this.active) {
+      this.props.dispatch(Actions.saveAllSheets(this.props.sheets,this.props.sheetToShow))
       this.props.dispatch(Actions.saveSheet(this.props.sheetToShow._id, this.props.sheetData));
       // might not be a stable solution. But need to wait for new sheet props.
       setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 300);

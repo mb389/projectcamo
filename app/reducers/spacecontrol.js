@@ -46,6 +46,12 @@ export default function spaceControl(state = { showShareModal: false }, action =
         .forEach((sheet)=>{
           let columnHeaders = sheet.content.columnHeaders;
           let existingCol;
+          let newRefLabel = {
+                    data: action.currRow["100"].data,
+                    rowId: action.currRow["100"],
+                    sheet: action.currSheet._id
+                  }
+
           for (var i = 0; i < columnHeaders.length; i++){
             if (columnHeaders[i].name == action.currSheet.name) {
               existingCol = columnHeaders[i]
@@ -53,13 +59,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
             }
           }
           if (existingCol) {
-            console.log(sheet)
-            let newRefLabel = {
-                    data: action.currRow["100"].data,
-                    id: action.currRow["100"].id,
-                    type: "ID"
-                  }
-            sheet.content.grid.forEach((row)=>{
+              sheet.content.grid.forEach((row)=>{
               if (row['100'].data === action.data.data) {
                 row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel]
               }
@@ -75,11 +75,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
             sheet.content = insertNewColInRows(sheet.content,newColumn)
             sheet.content.grid.forEach((row)=>{
               if (row['100'].data === action.data.data) {
-                row[newColumn.id].data = [{
-                  data: action.currRow["100"].data,
-                  id: action.currRow["100"].id,
-                  type: "ID"
-                }]
+                row[newColumn.id].data = [newRefLabel]
               }
             })
           }

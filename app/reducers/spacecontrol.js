@@ -44,24 +44,45 @@ export default function spaceControl(state = { showShareModal: false }, action =
         // find matching sheet and add reference to it
         newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
         .forEach((sheet)=>{
-          let newColumn = {
-            id: "" + (100 + sheet.content.columnHeaders.length),
-            idx: sheet.content.columnHeaders.length,
-            name: action.currSheet.name,
-            type: "Reference"
-          }
-          sheet.content.columnHeaders.push(newColumn)
-          sheet.content = insertNewColInRows(sheet.content,newColumn)
-          console.log(action.data)
-          sheet.content.grid.forEach((row)=>{
-            if (row['100'].data === action.data.data) {
-              row[newColumn.id].data = [{
-                data: action.currRow["100"].data,
-                id: action.currRow["100"].id,
-                type: "ID"
-              }]
+          let columnHeaders = sheet.content.columnHeaders;
+          let existingCol;
+          for (var i = 0; i < columnHeaders.length; i++){
+            if (columnHeaders[i].name == action.currSheet.name) {
+              existingCol = columnHeaders[i]
+              break;
             }
-          })
+          }
+          if (existingCol) {
+            console.log(sheet)
+            let newRefLabel = {
+                    data: action.currRow["100"].data,
+                    id: action.currRow["100"].id,
+                    type: "ID"
+                  }
+            sheet.content.grid.forEach((row)=>{
+              if (row['100'].data === action.data.data) {
+                row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel]
+              }
+            })
+          } else {
+            let newColumn = {
+              id: "" + (100 + sheet.content.columnHeaders.length),
+              idx: sheet.content.columnHeaders.length,
+              name: action.currSheet.name,
+              type: "Reference"
+            }
+            sheet.content.columnHeaders.push(newColumn)
+            sheet.content = insertNewColInRows(sheet.content,newColumn)
+            sheet.content.grid.forEach((row)=>{
+              if (row['100'].data === action.data.data) {
+                row[newColumn.id].data = [{
+                  data: action.currRow["100"].data,
+                  id: action.currRow["100"].id,
+                  type: "ID"
+                }]
+              }
+            })
+          }
         })
         return newState
       }

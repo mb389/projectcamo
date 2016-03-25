@@ -24,6 +24,7 @@ export const SEARCH_SHEET = 'SEARCH_SHEET';
 
 // SHEET CONSTS
 export const UPDATE_CELL = 'UPDATE_CELL';
+export const UPDATE_CELL_BY_ID = 'UPDATE_CELL_BY_ID';
 export const SHOW_ROW_MODAL = 'SHOW_ROW_MODAL';
 export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
@@ -45,7 +46,7 @@ export const CLEAR_SEARCH_GRID = 'CLEAR_SEARCH_GRID';
 export const CLEAR_FILTERED_ROWS = 'CLEAR_FILTERED_ROWS';
 
 // LOOKUP CONSTS 
-export const OPEN_LOOKUP_MODAL = 'OPEN_LOOKUP_MODAL';
+export const SHOW_LOOKUP_MODAL = 'SHOW_LOOKUP_MODAL';
 export const CLOSE_LOOKUP_MODAL = 'CLOSE_LOOKUP_MODAL';
 
 // FormulaStore Constants

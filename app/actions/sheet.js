@@ -35,9 +35,22 @@ export function updateCell(data, key, idx) {
   };
 }
 
-export function showLookupModal(){
+export function updateCellById(data, id) {
+  return {
+    type: types.UPDATE_CELL_BY_ID,
+    cell: {
+    	data: data,
+    	id: id
+    }
+  };
+}
+
+export function showLookupModal(row,rowIdx,cell){
 	return {
-		 type: types.SHOW_LOOKUP_MODAL
+		 type: types.SHOW_LOOKUP_MODAL,
+		 row,
+		 cell,
+		 rowIdx
 	}
 }
 

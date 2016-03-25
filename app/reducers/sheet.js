@@ -21,8 +21,9 @@ import {
   SEARCH_SHEET,
   CLEAR_SEARCH_GRID,
   CLEAR_FILTERED_ROWS,
-  OPEN_LOOKUP_MODAL,
-  CLOSE_LOOKUP_MODAL
+  SHOW_LOOKUP_MODAL,
+  CLOSE_LOOKUP_MODAL,
+  UPDATE_CELL_BY_ID
 } from 'constants/index';
 
 export default function sheet(state = {
@@ -52,6 +53,19 @@ export default function sheet(state = {
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         return newState
       }
+    case UPDATE_CELL_BY_ID:
+      {
+        let newState = _.cloneDeep(state);
+        newState.grid.forEach(function(row){
+          for (let key in row) {
+            if (row[key].id == action.cell.id) {
+              row[key].data = action.cell.data;
+              break;
+            }
+          }
+        })
+        return newState
+      }
     case CURRENT_CELL:
       return Object.assign({}, state, {currentCell : action.cell})
     case UPDATE_MODAL_CELL:
@@ -64,10 +78,15 @@ export default function sheet(state = {
         }
         return modalRowState
       }
-    case OPEN_LOOKUP_MODAL:
+    case SHOW_LOOKUP_MODAL:
       {
         let newState = _.cloneDeep(state)
         newState.showLookupModal = true;
+        newState.lookup = {
+          row: action.row,
+          cell: action.cell,
+          rowIdx: action.rowIdx
+        }
         return newState
       }
     case CLOSE_LOOKUP_MODAL:
@@ -242,7 +261,7 @@ export default function sheet(state = {
         let addRowState = _.cloneDeep(state);
         let newRow = {}
         addRowState.columnHeaders.forEach(function(col) {
-          newRow[col.id] = { data: null, type: col.type, id: col.id + Math.floor((Math.random() * (999999 - 111111) + 111111)) }
+          newRow[col.id] = { data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
         })
         addRowState.grid.push(newRow)
         return addRowState
@@ -257,6 +276,7 @@ function insertNewColInRows (state, newColumn){
     row[newColumn.id] = {
       type: newColumn.type,
       data: null,
+      id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
     }
   });
   return state;

@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showRowModal, currentCell } from 'actions/sheet';
+import { updateCell, showLookupModal, currentCell } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal, Glyphicon } from 'react-bootstrap';
+import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
 
@@ -24,6 +24,7 @@ class Cell extends Component {
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.showLookupModal = this.showLookupModal.bind(this);
 	}
 
 	handleChange(evt){
@@ -31,19 +32,32 @@ class Cell extends Component {
 	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
 	}
 
+  showLookupModal(row,rowIdx,cell){
+    this.props.dispatch(showLookupModal(row,rowIdx,cell))
+  }
+
   editable (evt) {
     this.setState({disabled: false});
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
-    if (cell.type === 'Images' ) {
-      cell.data = cell.data || [];
-      return (cell.data.map(function (img, i) {
-        return (<img src={img} key={i} className={cx('img-thumb')}/>)
-      }))
-    } else {
-      return (<ContentEditable
-				className={cx('cellContent')}
+    switch (cell.type) {
+      case 'Images':
+        cell.data = cell.data || [];
+        return (cell.data.map(function (img, i) {
+          return (<img src={img} key={i} className={cx('img-thumb')}/>)
+        }))
+      case 'Reference':
+        const labels = cell.data ? cell.data.map((label, i)=><Label bsStyle="info" key={i}>{label.data}</Label> ) : <span></span>
+        return  (
+          <div>
+            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell)}><Glyphicon glyph="plus" /></Button>
+            {labels}
+          </div>
+        )
+      default: 
+        return (<ContentEditable
+        className={cx('cellContent')}
         html={cell.data} // innerHTML of the editable div
         disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
         onChange={this.handleChange} // handle innerHTML change
@@ -99,24 +113,6 @@ class Cell extends Component {
 
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
-    // if (this.props.cellIdx === 0) {
-    //     return (
-    //       <div tabIndex='-1' className={cx('cell')} key={this.props.key}
-    //         id={''+this.props.cellKey+this.props.rowIdx}
-    //         onDoubleClick={this.editable} // allow for cell editing after focus
-    //         onKeyDown={this.keyPress} // for key navigation
-    //         >
-    //         <ContentEditable className={cx('first-cell')}
-    //           html={cell.data} // innerHTML of the editable div
-    //           disabled={this.state.disabled}       // use true to disable edition
-    //           onChange={this.handleChange} // handle innerHTML change
-    //           onDoubleClick={this.editable} // allow for cell editing after focus
-    //           onMouseEnter={this.setMouseEnter}
-    //           onMouseLeave={this.setMouseLeave}
-    //         />
-    //       </div>
-    //     );
-    // }
 
     return (
       <div tabIndex='-1'

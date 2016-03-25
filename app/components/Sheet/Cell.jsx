@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { updateCell, showLookupModal, currentCell } from 'actions/sheet';
+import { updateCell, showLookupModal, currentCell, updateFormulaCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
@@ -28,8 +28,15 @@ class Cell extends Component {
 	}
 
 	handleChange(evt){
-	  const { dispatch, cellKey, rowIdx } = this.props;
-	  dispatch(updateCell(evt.target.value, cellKey, rowIdx))
+	  const { dispatch, cellKey, rowIdx, row } = this.props;
+
+    row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
+
+    for (let cell in row) {
+      if (row[cell].type === 'Formula') {
+        dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
+      }
+    }
 	}
 
   showLookupModal(row,rowIdx,cell){

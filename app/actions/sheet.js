@@ -58,6 +58,17 @@ export function closeLookupModal(){
 	return {
 		type: types.CLOSE_LOOKUP_MODAL
 	}
+	
+export function updateFormulaCell(key, idx, formula, row){
+	return {
+		type: types.UPDATE_FORMULA_CELL,
+		formula,
+		row,
+		cell: {
+			key,
+			idx,
+		}
+	};
 }
 
 export function showRowModal(rowIdx){
@@ -143,20 +154,6 @@ export function formulaColumn(arrMeth, func, colData){
 	}
 }
 
-export function formulaUpload(name, functionStr) {
-	return (dispatch) => {
-		request.post('/formulaStore', {name, functionStr})
-		.then(res => res.data)
-		.then(res => dispatch(formulaAddOneToList(res)))
-	}
-}
-
-function formulaAddOneToList(addedFormula) {
-	return {
-		type: types.FORMULA_UPLOAD,
-		addedFormula,
-	}
-}
 
 export function searchSheet(term) {
   return {

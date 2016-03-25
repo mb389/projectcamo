@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {
+  UPDATE_FORMULA_CELL,
   UPDATE_CELL,
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
@@ -25,6 +26,10 @@ import {
   CLOSE_LOOKUP_MODAL,
   UPDATE_CELL_BY_ID
 } from 'constants/index';
+import {
+  insertNewColInRows,
+  runCustomFunc
+} from './sheetHelpers.js';
 
 export default function sheet(state = {
   grid: [],
@@ -64,6 +69,12 @@ export default function sheet(state = {
             }
           }
         })
+      }
+    case UPDATE_FORMULA_CELL:
+      {
+        let newState = _.cloneDeep(state);
+        let data = runCustomFunc(newState, action.row, action.formula);
+        newState.grid[action.cell.idx][action.cell.key].data = data;
         return newState
       }
     case CURRENT_CELL:
@@ -162,7 +173,10 @@ export default function sheet(state = {
 
         updateColumnState.grid = updateColumnState.grid.map(row=>{
           row[updatingId].type = action.data.type;
-          if(action.data.formula) row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula)
+          if(action.data.formula) {
+            row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula);
+            row[updatingId].formula = action.data.formula;
+          }
           return row;
         })
         return updateColumnState;

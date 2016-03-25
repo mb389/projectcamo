@@ -24,7 +24,9 @@ import {
   CLEAR_FILTERED_ROWS,
   SHOW_LOOKUP_MODAL,
   CLOSE_LOOKUP_MODAL,
-  UPDATE_CELL_BY_ID
+  UPDATE_CELL_BY_ID,
+  SHOW_MAP,
+  HIDE_MAP
 } from 'constants/index';
 import {
   insertNewColInRows,
@@ -281,6 +283,14 @@ export default function sheet(state = {
         addRowState.grid.push(newRow)
         return addRowState
       }
+    case SHOW_MAP:
+      let showMapState = _.cloneDeep(state);
+      showMapState.showMap = true;
+      return showMapState;
+    case HIDE_MAP:
+        let hideMapState = _.cloneDeep(state);
+        hideMapState.showMap = false;
+        return hideMapState;
     default:
       return state;
   }

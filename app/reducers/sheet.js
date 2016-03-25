@@ -25,12 +25,14 @@ import {
   SHOW_LOOKUP_MODAL,
   CLOSE_LOOKUP_MODAL,
   UPDATE_CELL_BY_ID,
+  MOVE_TO_CELL,
   SHOW_MAP,
   HIDE_MAP
 } from 'constants/index';
 import {
   insertNewColInRows,
-  runCustomFunc
+  runCustomFunc,
+  navToNewCell
 } from './sheetHelpers.js';
 
 export default function sheet(state = {
@@ -57,10 +59,14 @@ export default function sheet(state = {
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
+        if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+        newState.currentCell.cell.data = action.cell.data
+        // TODO find the dependent function cells and use this already cloned State.
         return newState
       }
     case UPDATE_CELL_BY_ID:
+      console.log(action.cell.data)
       {
         let newState = _.cloneDeep(state);
         newState.grid.forEach(function(row){
@@ -73,6 +79,15 @@ export default function sheet(state = {
         })
         return newState
       }
+    case MOVE_TO_CELL:{
+          let newState = _.cloneDeep(state);
+          let newCoord = navToNewCell(action.keyCode, newState)
+          newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+          newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
+          newState.currentCell.rowIdx = newCoord.newRowIdx;
+          newState.currentCell.cellKey = newCoord.newColId;
+          newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
+          return newState}
     case UPDATE_FORMULA_CELL:
       {
         let newState = _.cloneDeep(state);
@@ -80,8 +95,13 @@ export default function sheet(state = {
         newState.grid[action.cell.idx][action.cell.key].data = data;
         return newState
       }
-    case CURRENT_CELL:
-      return Object.assign({}, state, {currentCell : action.cell})
+    case CURRENT_CELL:{
+          let newState = _.cloneDeep(state);
+          if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+          newState.currentCell = action.cell;
+          newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
+          // find cell and give it focus
+          return newState}
     case UPDATE_MODAL_CELL:
       {
         let modalRowState = _.cloneDeep(state);

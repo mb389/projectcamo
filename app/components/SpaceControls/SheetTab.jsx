@@ -20,7 +20,13 @@ class SheetsTab extends Component {
   }
 
   showSheet() {
-    this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets));
+    // check if clicking on the same sheet
+    if (!this.active) {
+      this.props.dispatch(Actions.saveAllSheets(this.props.sheets,this.props.sheetToShow))
+      this.props.dispatch(Actions.saveSheet(this.props.sheetToShow._id, this.props.sheetData));
+      // might not be a stable solution. But need to wait for new sheet props.
+      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 300);
+    }
   }
 
   editSheetName(e) {
@@ -56,7 +62,8 @@ function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,
     sheetToShow: store.spacecontrol.sheetToShow,
-    sheets: store.spacecontrol.sheets
+    sheets: store.spacecontrol.sheets,
+    sheetData: store.sheet
   };
 }
 

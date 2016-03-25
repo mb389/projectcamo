@@ -7,8 +7,10 @@ import {
   SHOW_SHARE_MODAL,
   CLOSE_SHARE_MODAL,
   SEARCHING,
-  UPDATE_SHEETS
+  UPDATE_SHEETS,
+  UPDATE_REF_SHEET
 } from 'constants/index';
+import { insertNewColInRows } from './sheetHelpers.js';
 
 
 export default function spaceControl(state = { showShareModal: false }, action = {}) {
@@ -28,9 +30,56 @@ export default function spaceControl(state = { showShareModal: false }, action =
         let newState = _.cloneDeep(state);
         let found = false;
         newState.sheets.forEach((sheet, i) => {
-          (sheet._id === action.sheetId) ? newState.sheets[i].content = action.sheet : null;
+          if (sheet._id === action.sheetId) {
+            newState.sheets[i].content = action.sheetContent; 
+            found = true;
+          }
         })
-        !found ? newState.sheets.push(action.sheet) : null;
+        !found ? newState.sheets.push(action.dbSheet) : null;
+        return newState
+      }
+    case UPDATE_REF_SHEET:
+      {
+        let newState = _.cloneDeep(state);
+        // find matching sheet and add reference to it
+        newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
+        .forEach((sheet)=>{
+          let columnHeaders = sheet.content.columnHeaders;
+          let existingCol;
+          let newRefLabel = {
+                    data: action.currRow["100"].data,
+                    rowId: action.currRow["100"],
+                    sheet: action.currSheet._id
+                  }
+
+          for (var i = 0; i < columnHeaders.length; i++){
+            if (columnHeaders[i].name == action.currSheet.name) {
+              existingCol = columnHeaders[i]
+              break;
+            }
+          }
+          if (existingCol) {
+              sheet.content.grid.forEach((row)=>{
+              if (row['100'].data === action.data.data) {
+                row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel]
+              }
+            })
+          } else {
+            let newColumn = {
+              id: "" + (100 + sheet.content.columnHeaders.length),
+              idx: sheet.content.columnHeaders.length,
+              name: action.currSheet.name,
+              type: "Reference"
+            }
+            sheet.content.columnHeaders.push(newColumn)
+            sheet.content = insertNewColInRows(sheet.content,newColumn)
+            sheet.content.grid.forEach((row)=>{
+              if (row['100'].data === action.data.data) {
+                row[newColumn.id].data = [newRefLabel]
+              }
+            })
+          }
+        })
         return newState
       }
     case SHOW_SHARE_MODAL:

@@ -151,6 +151,12 @@
     width: 200px;
 }
 
+.cellCheckBox {
+  margin-left: 50px;
+  width: 100%;
+}
+
+
 .first-cell {
     width: 160px;
     padding: 0px;

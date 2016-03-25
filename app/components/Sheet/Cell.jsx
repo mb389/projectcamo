@@ -29,6 +29,7 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
+    // console.log('handleChangeRunning', evt);
 
     row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
 
@@ -45,6 +46,8 @@ class Cell extends Component {
 
   editable (evt) {
     this.setState({disabled: false});
+    // console.log('focusing on', evt.target.children[0]);
+    evt.target.children[0].focus();
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -69,16 +72,15 @@ class Cell extends Component {
       case 'Link':
       case 'Number':  
       default: 
-        return (<ContentEditable
-        ref = "focusArea"
-        className={cx('cellContent')}
-        html={cell.data} // innerHTML of the editable div
-        disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
-        onChange={this.handleChange} // handle innerHTML change
-        onDoubleClick={this.editable} // allow for cell editing after focus
-        onMouseEnter={this.setMouseEnter} // handle innerHTML change
-        onMouseLeave={this.setMouseLeave} // handle innerHTML change
-      />)
+          return (<ContentEditable
+          className={cx('cellContent')}
+          html={cell.data} // innerHTML of the editable div
+          disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
+          onChange={this.handleChange} // handle innerHTML change
+          onDoubleClick={this.editable} // allow for cell editing after focus
+          onMouseEnter={this.setMouseEnter} // handle innerHTML change
+          onMouseLeave={this.setMouseLeave} // handle innerHTML change
+        />)
     }
   }
 
@@ -91,7 +93,7 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-		this.props.dispatch(currentCell(this.props));
+    if(!this.props.cell.focused) this.props.dispatch(currentCell(this.props));
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
 
@@ -103,7 +105,6 @@ class Cell extends Component {
           this.editable(evt);
       }
   }
-
  
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
@@ -115,12 +116,18 @@ class Cell extends Component {
         onDoubleClick={this.editable} // allow for cell editing after focus
 				onFocus={this.handleCell}
 				onKeyDown={this.keyPress} // for key navigation
+        ref={(c) => {
+          if(this.props.cell.focused && c) c.focus();
+        }}
+        // IF this focused = true we are still running onFocus?
         >
         {this.cell(cell,cellKey,row,rowIdx)}
       </div>
       );
   }
+
 }
+
 
 Cell.propTypes = {
   dispatch: PropTypes.func

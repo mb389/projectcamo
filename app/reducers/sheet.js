@@ -25,7 +25,7 @@ import {
   SHOW_LOOKUP_MODAL,
   CLOSE_LOOKUP_MODAL,
   UPDATE_CELL_BY_ID,
-  MOVE_TO_CELL
+  MOVE_TO_CELL,
   SHOW_MAP,
   HIDE_MAP
 } from 'constants/index';
@@ -78,15 +78,12 @@ export default function sheet(state = {
       }
     case MOVE_TO_CELL:{
           let newState = _.cloneDeep(state);
-          console.log('newState', newState);
           let newCoord = navToNewCell(action.keyCode, newState)
-          console.log('newCoord', newCoord);
           newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
           newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
           newState.currentCell.rowIdx = newCoord.newRowIdx;
           newState.currentCell.cellKey = newCoord.newColId;
           newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
-          document.getElementById(''+newCoord.newColId+newCoord.newRowIdx).focus();
           return newState}
     case UPDATE_FORMULA_CELL:
       {

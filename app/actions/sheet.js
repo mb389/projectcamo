@@ -24,14 +24,15 @@ export function clearSheet() {
   };
 }
 
-export function updateCell(data, key, idx) {
+export function updateCell(data, key, idx, fromSuper) {
   return {
     type: types.UPDATE_CELL,
     cell: {
-    	data: data,
-    	key: key,
-    	idx: idx
-    }
+    	data,
+    	key,
+    	idx,
+    },
+    fromSuper,
   };
 }
 

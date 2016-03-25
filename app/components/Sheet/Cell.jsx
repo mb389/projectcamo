@@ -27,6 +27,7 @@ class Cell extends Component {
     this.showLookupModal = this.showLookupModal.bind(this);
 	}
 
+
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     // console.log('handleChangeRunning', evt);
@@ -46,7 +47,6 @@ class Cell extends Component {
 
   editable (evt) {
     this.setState({disabled: false});
-    // console.log('focusing on', evt.target.children[0]);
     evt.target.children[0].focus();
   }
 

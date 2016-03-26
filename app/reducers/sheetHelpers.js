@@ -17,6 +17,7 @@ export function runCustomFunc (state, row, funcText) {
   state.columnHeaders.forEach((elem, idx) => { 
     funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
     let cellUsed = decorationType(row[elem.id]);
+    if(/^\s*$/.test(cellUsed)) cellUsed = "null";
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
   console.log(columnDefs,funcText)

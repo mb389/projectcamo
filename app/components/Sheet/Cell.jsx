@@ -47,7 +47,8 @@ class Cell extends Component {
 
   editable (evt) {
     this.setState({disabled: false});
-    evt.target.children[0].focus();
+    if(evt.target.children[0]) evt.target.children[0].focus();
+    else evt.target.focus();
     // document.execCommand('selectAll',false,null);
   }
 

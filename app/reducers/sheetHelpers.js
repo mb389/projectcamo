@@ -34,7 +34,7 @@ function decorationType (cell) {
 }
 
 function regexEscape(str) {
-    return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
+    return str.replace(/[-\\^$?.()|[\]{}]/g, '\\$&')
 }
 
 export function navToNewCell(keyCode, newSheet) {
@@ -50,7 +50,7 @@ export function navToNewCell(keyCode, newSheet) {
           newRowIdx,
           newColId: colId
         }
-      case 40:
+      case 13: case 40:
         if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
         return {
           newRowIdx,

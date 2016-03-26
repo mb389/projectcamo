@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export default class BottomReducers extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {selectedReducer: 'Sum'};
+		this.state = {selectedReducer: 'Sum', reducerReturn: this.reductionFunctionSwitch('Sum')};
 
 		this.generateMenuItems = this.generateMenuItems.bind(this);
 		this.handleReduction = this.handleReduction.bind(this);
@@ -17,7 +17,7 @@ export default class BottomReducers extends Component {
 	}
 
 	generateMenuItems () {
-		return ['Sum','Average','Median','Min','Max'].map((reducer, idx) => {
+		return ['Count', 'Sum','Average','Median','Min','Max'].map((reducer, idx) => {
 			return (<MenuItem key={idx} eventKey={reducer}>{reducer}</MenuItem>);
 			// reducer : {output of reducer}
 		})
@@ -29,12 +29,14 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func) {
+		console.log(this.props.columnData);
 		switch (func) {
-			case 'Average': return this.props.columnData.reduce(((a, b) => a + b))/this.props.columnData.length;
+			case 'Count': return this.props.columnData.length;
+			case 'Average': return this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length;
 			case 'Median': 
-			case 'Min': return Math.max.apply(null, this.props.columnData);
+			case 'Min': return Math.min.apply(null, this.props.columnData);
 			case 'Max': return Math.max.apply(null, this.props.columnData);
-			default: return Number(this.props.columnData.reduce(((a, b) => a + b)));
+			default: return this.props.columnData.reduce(((a, b) => Number(a) + Number(b)));
 		}
 	}
 

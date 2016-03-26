@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export default class BottomReducers extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {};
+		this.state = {selectedReducer: 'Sum', reducerReturn: null};
 
 		this.generateMenuItems = this.generateMenuItems.bind(this);
 		this.handleReduction = this.handleReduction.bind(this);
@@ -23,15 +23,18 @@ export default class BottomReducers extends Component {
 	}
 
 	handleReduction (e, ekey) {
+		this.setState({selectedReducer: ekey});
 		console.log('handleReduction', e, ekey);
 		// this.setState({type: ekey});
 	}
+
+	// this.props.columnData
 
 	render () {
 		return (
 			<Dropdown id="dropdown-custom-1" dropup onSelect={this.handleReduction} className={cx('BottomReducers')}>
 			  <Dropdown.Toggle noCaret className={cx('DropdownHead')}>
-			    {this.props.column.name}
+			    {this.state.selectedReducer} {": " + this.state.reducerReturn}
 						<Glyphicon className={cx('DropdownCarrat')} glyph="menu-down" />
 			  </Dropdown.Toggle>
 			  <Dropdown.Menu className={cx('MenuItem')}>
@@ -56,24 +59,3 @@ export default class BottomReducers extends Component {
 // 	}
 
 // 		<div className={cx('BottomReducers')} key={props.column.id}>{props.column.name}</div>
-
-// <Dropdown id="dropdown-custom-1" onSelect={this.handleReduction} className={cx('BottomReducers')}>
-//   <Dropdown.Toggle noCaret className={cx('DropdownHead')}>
-//     {props.column.name}
-// 			<Glyphicon className={cx('DropdownCarrat')} glyph="menu-down" />
-//   </Dropdown.Toggle>
-//   <Dropdown.Menu className={cx('MenuItem')}>
-//   	{generateMenuItems()}
-//   </Dropdown.Menu>
-// </Dropdown>)
-
-// const Headers = (props) => {
-//   return (
-//       <div className={cx('theaders')}>
-//         <div className={cx('topCorner')} />
-//         <div className={cx('topCorner')}></div>
-//         {generateColumnOptions(props.headers)}
-//         <AddColumn />
-//       </div>
-//     );
-// }

@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 function generateColumnReducers (columns) {
   return columns.map((column) => {
       return (
-          <span data={column} key={column.id}>{column.name}</span>
+          <BottomReducers column={column} key={column.id}/>
           // component of dropdown for reducers;
       )
   })
@@ -19,16 +19,23 @@ const BottomBar = (props) => {
 	console.log('props', props);
   return (
     <div className={cx('BottomBar')} >
-      <div>
-        <span className={cx('BottomRowCount')}>{props.rows} rows</span>
-        {generateColumnReducers(props.columns)}
+      <div className={cx('BottomRowCount')}>
+        <span >{props.rows} rows</span>
       </div>
+        {generateColumnReducers(props.columns)}
     </div>
   );
 };
 
 
 export default BottomBar;
+
+
+const BottomReducers = (props) => {
+	return (
+		<div className={cx('BottomReducers')} key={props.column.id}>{props.column.name}</div>
+		)
+}
 
 
 

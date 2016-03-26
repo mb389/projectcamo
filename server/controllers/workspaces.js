@@ -4,15 +4,24 @@ var Workspace = mongoose.model('Workspace');
 var Sheet = mongoose.model('Sheet');
 
 
+
+
 /**
  * List
  */
 exports.all = function(req, res) {
+  var spacesToSend;
   Promise.all([
     Workspace.find({user: req.user._id}),
     Workspace.find({collabs: req.user._id})
   ])
-  .then(spaces => res.json({spaces: spaces[0], collabSpaces: spaces[1]}))
+  .then(spaces => {
+    spacesToSend = spaces;
+    Sheet.create({
+      name: 'Sheet1'
+    })
+  })
+  .then(sheet => res.json({spaces: spacesToSend[0], collabSpaces: spacesToSend[1]}))
   .catch((err) => console.log('Error in first query'));
 };
 

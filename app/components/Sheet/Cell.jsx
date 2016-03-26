@@ -47,7 +47,7 @@ class Cell extends Component {
 
   editable (evt) {
     this.setState({disabled: false});
-    evt.target.children[0].focus();
+    if(evt.target.children[0]) evt.target.children[0].focus();
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -70,8 +70,8 @@ class Cell extends Component {
           return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
       case 'Select':
       case 'Link':
-      case 'Number':  
-      default: 
+      case 'Number':
+      default:
           return (<ContentEditable
           className={cx('cellContent')}
           html={cell.data} // innerHTML of the editable div
@@ -105,7 +105,7 @@ class Cell extends Component {
           this.editable(evt);
       }
   }
- 
+
 	render () {
     const { cellKey, rowIdx, grid, cell, row } = this.props;
 

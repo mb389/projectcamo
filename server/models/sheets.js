@@ -4,10 +4,11 @@
  */
 var mongoose = require('mongoose');
 
+
 var schema = new mongoose.Schema({
   content: {
-    columnHeaders: Array,
-    grid: Array
+    columnHeaders: {type: Array, default: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }]},
+    grid: {type: Array, default: []}
   },
   history: [{
     columnHeaders: Array,
@@ -23,3 +24,16 @@ var schema = new mongoose.Schema({
 });
 
 Sheet = mongoose.model('Sheet', schema);
+
+
+const columnHeaders = [
+      { id: '100', type: 'ID', name: 'Record Name', idx: 0 },
+    ]
+
+const grid = []
+const sheetState = {
+  grid: grid,
+  columnHeaders: columnHeaders,
+  showRowModal: false,
+  modalRow: { data:null, rowIdx: null}
+}

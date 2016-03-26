@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export default class BottomReducers extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {selectedReducer: 'Sum', reducerReturn: null};
+		this.state = {selectedReducer: 'Sum'};
 
 		this.generateMenuItems = this.generateMenuItems.bind(this);
 		this.handleReduction = this.handleReduction.bind(this);
@@ -42,7 +42,7 @@ export default class BottomReducers extends Component {
 		return (
 			<Dropdown id="dropdown-custom-1" dropup onSelect={this.handleReduction} className={cx('BottomReducers')}>
 			  <Dropdown.Toggle noCaret className={cx('DropdownHead')}>
-			    {this.state.selectedReducer} {": " + this.state.reducerReturn}
+			    {this.state.selectedReducer}: {this.state.reducerReturn || " "}
 						<Glyphicon className={cx('DropdownCarrat')} glyph="menu-down" />
 			  </Dropdown.Toggle>
 			  <Dropdown.Menu className={cx('MenuItem')}>

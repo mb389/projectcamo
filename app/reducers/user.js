@@ -30,7 +30,8 @@ export default function user(state={
       return Object.assign({}, state, {
         isWaiting: false,
         authenticated: true,
-        message: ''
+        message: '',
+        details: action.details
       });
     case LOGIN_ERROR_USER:
       return Object.assign({}, state, {

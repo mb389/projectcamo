@@ -18,7 +18,8 @@ exports.postLogin = function(req, res, next) {
       if(err) return res.status(401).json({message: err});
       return res.status(200).json(
         {
-          message: 'You have been successfully logged in.'
+          message: 'You have been successfully logged in.',
+          user
         });
     });
   })(req, res, next);

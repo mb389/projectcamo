@@ -17,7 +17,7 @@ const UserProfile = props => {
                       <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className={cx('profImg')} /></div>
                       <div className="col-md-4">
                       <h4>
-                        Guy Guyerson</h4>
+                        {props.user.details.email}</h4>
                       <small>
                         <cite title="San Francisco, USA">San Francisco, USA
                           <i className="glyphicon glyphicon-map-marker"></i>

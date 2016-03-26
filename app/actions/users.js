@@ -30,10 +30,11 @@ function beginLogin() {
   return { type: types.MANUAL_LOGIN_USER };
 }
 
-function loginSuccess(message) {
+function loginSuccess(message,data) {
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message: message
+    message: message,
+    details: data
   };
 }
 
@@ -87,7 +88,7 @@ export function manualLogin(data) {
     return makeUserRequest('post', data, '/login')
       .then(response => {
         if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message));
+          dispatch(loginSuccess(response.data.message,data));
           dispatch(push('/'));
         } else {
           dispatch(loginError('Oops! Something went wrong!'));
@@ -132,4 +133,3 @@ export function logOut() {
       });
   };
 }
-

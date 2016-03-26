@@ -9,6 +9,7 @@ const AddSpace = props => {
     return (
             <Button
               className={cx('addSpace')}
+              bsStyle="primary"
               onClick={props.createSpace}
             >
               Add Space

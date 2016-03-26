@@ -13,6 +13,7 @@ export default class BottomReducers extends Component {
 
 		this.generateMenuItems = this.generateMenuItems.bind(this);
 		this.handleReduction = this.handleReduction.bind(this);
+		this.reductionFunctionSwitch = this.reductionFunctionSwitch.bind(this);
 	}
 
 	generateMenuItems () {
@@ -24,11 +25,18 @@ export default class BottomReducers extends Component {
 
 	handleReduction (e, ekey) {
 		this.setState({selectedReducer: ekey});
-		console.log('handleReduction', e, ekey);
-		// this.setState({type: ekey});
+		this.setState({reducerReturn: this.reductionFunctionSwitch(ekey)})
 	}
 
-	// this.props.columnData
+	reductionFunctionSwitch (func) {
+		switch (func) {
+			case 'Average': return this.props.columnData.reduce(((a, b) => a + b))/this.props.columnData.length;
+			case 'Median': 
+			case 'Min': return Math.max.apply(null, this.props.columnData);
+			case 'Max': return Math.max.apply(null, this.props.columnData);
+			default: return Number(this.props.columnData.reduce(((a, b) => a + b)));
+		}
+	}
 
 	render () {
 		return (
@@ -44,18 +52,3 @@ export default class BottomReducers extends Component {
 			)
 	}
 }
-
-// Sum: 
-// Average:
-// Median:
-// Min:
-// Max:
-
-// sum() { Array.reduce(function(a, b) { return a + b; });
-// 		let dupFn = function (a, b) {
-// 			return a+b;
-// 		};
-// 		this.props.dispatch(formulaColumn('reduce', dupFn, this.props.column));
-// 	}
-
-// 		<div className={cx('BottomReducers')} key={props.column.id}>{props.column.name}</div>

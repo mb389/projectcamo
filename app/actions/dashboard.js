@@ -9,7 +9,8 @@ polyfill();
 function loadSpaces(spaces) {
   return {
     type: types.LOAD_USER_SPACES,
-    spaces: spaces
+    spaces: spaces.spaces,
+    collabSpaces: spaces.collabSpaces
   }
 }
 

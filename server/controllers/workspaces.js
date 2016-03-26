@@ -8,10 +8,20 @@ var Sheet = mongoose.model('Sheet');
  * List
  */
 exports.all = function(req, res) {
-  Workspace.find({})
-  .then(spaces => res.json(spaces))
+  Promise.all([
+    Workspace.find({user: req.user._id}),
+    Workspace.find({collabs: req.user._id})
+  ])
+  .then(spaces => res.json({spaces: spaces[0], collabSpaces: spaces[1]}))
   .catch((err) => console.log('Error in first query'));
 };
+
+
+exports.findCollab = function(req, res) {
+  Workspace.find({collabs:req.user._id})
+  .then((spaces) => res.json(spaces))
+  .catch(err => res.status(400).send(err))
+}
 
 exports.one = function(req, res) {
   Promise.all([

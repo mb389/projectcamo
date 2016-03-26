@@ -84,6 +84,8 @@ module.exports = function(app, passport) {
   // workspace routes
   app.get('/workspace', workspaces.all);
 
+  app.get('workspace/collab', workspaces.findCollab);
+
   app.get('/workspace/:id', workspaces.one);
 
   app.post('/workspace', function(req, res) {

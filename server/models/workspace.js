@@ -9,7 +9,8 @@ var schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  collabs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 });
 
 // Compiles the schema into a model, opening (or creating, if

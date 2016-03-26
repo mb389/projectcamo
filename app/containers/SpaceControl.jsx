@@ -87,7 +87,7 @@ class SpaceControl extends Component {
             </div>
           </div>
         </div>
-        <BottomBar rows={this.props.sheet.grid.length}/>
+        <BottomBar rows={this.props.sheet.grid.length} columns={this.props.sheet.columnHeaders}/>
       </div>
     );
   }

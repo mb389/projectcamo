@@ -7,7 +7,7 @@ import styles from 'css/components/table';
 const cx = classNames.bind(styles);
 
 function generateColumnOptions (headers) {
-  return headers.map((header, key) => {
+  return headers.map((header) => {
       return (
           <ColumnOptions data={header} key={header.id}/>
       )

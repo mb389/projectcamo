@@ -9,7 +9,8 @@ polyfill();
 function loadSpaces(spaces) {
   return {
     type: types.LOAD_USER_SPACES,
-    spaces: spaces
+    spaces: spaces.spaces,
+    collabSpaces: spaces.collabSpaces
   }
 }
 
@@ -26,5 +27,24 @@ export function getSpaces() {
       dispatch(loadSpaces(res.data))
     })
     .then(() => dispatch(clearSheet()))
+  }
+}
+
+
+export function createSpace(spaceCount) {
+  return (dispatch) => {
+    request.post('/workspace', { spaceCount })
+    .then(res => {
+      dispatch(spaceToStore(res.data))
+    })
+  }
+}
+
+export function spaceToStore(res) {
+  return {
+    type: types.ADD_USER_SPACE,
+    id: res.space._id,
+    name: res.space.name,
+    sheet: res.sheet
   }
 }

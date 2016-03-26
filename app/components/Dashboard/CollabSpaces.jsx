@@ -7,14 +7,14 @@ import {Glyphicon} from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
-const SpaceList = (props) => {
+const CollabSpaces = (props) => {
 
-   const spaces = !props.spaces ? [] : props.spaces;
+   const collabSpaces = !props.collabSpaces ? [] : props.collabSpaces;
 
-   const spacesToDisplay =
-   spaces.map((el) => {
+   const collabSpacesToDisplay =
+   collabSpaces.map((el) => {
      const route=`space/${el._id}`;
-      return <div key={el._id}><Glyphicon glyph="glyphicon glyphicon-folder-open" />&nbsp;&nbsp;&nbsp;
+      return <div key={el._id}><Glyphicon glyph="th-list" />&nbsp;&nbsp;&nbsp;
     <Link to={route}>{el.name}</Link></div>
 
     });
@@ -22,14 +22,13 @@ const SpaceList = (props) => {
     return (
         <div className="col-md-6">
           <div className="well well-sm">
-      <div className={cx('spaces')}>
-        <strong>Spaces</strong>
-        {spacesToDisplay}
+      <div className={cx('collabSpaces')}>
+        <strong>Spaces Shared With You</strong>
+        {collabSpacesToDisplay}
       </div>
-      <AddSpace createSpace={props.createSpace}/>
   </div>
   </div>
     );
   }
 
-export default SpaceList;
+export default CollabSpaces;

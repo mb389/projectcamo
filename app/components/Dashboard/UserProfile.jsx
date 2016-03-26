@@ -6,7 +6,6 @@ const cx = classNames.bind(styles);
 const UserProfile = props => {
 
    const user = !props.user ? {} : props.user;
-   console.log(user)
     return (
           <div className={cx('profile')}>
               <div className="col-md-6">

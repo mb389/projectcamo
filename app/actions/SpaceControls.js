@@ -81,8 +81,8 @@ function fetchUpdatesFromOtherSheets(sheets, sheetToShow) {
       if (refSheet.length){
         refSheet[0].content.grid.forEach((orow) => {
           for (let key in orow) {
-            if (orow[key].id === item.rowId.id) { 
-              item.data = orow[key].data 
+            if (orow[key].id === item.rowId.id) {
+              item.data = orow[key].data
             };
           }
         })
@@ -104,7 +104,7 @@ function fetchUpdatesFromOtherSheets(sheets, sheetToShow) {
   let refCols = sheetToShow.content.columnHeaders.filter((col)=> col.type === 'Reference')
   if (refCols.length) {
     findRefs(sheetToShow.content.grid)
-  } 
+  }
 }
 
 export function changeSheet(obj) {

@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export default class BottomReducers extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {selectedReducer: 'Sum', reducerReturn: this.reductionFunctionSwitch('Sum')};
+		this.state = {selectedReducer: 'Count', reducerReturn: this.reductionFunctionSwitch('Count')};
 
 		this.generateMenuItems = this.generateMenuItems.bind(this);
 		this.handleReduction = this.handleReduction.bind(this);
@@ -32,11 +32,12 @@ export default class BottomReducers extends Component {
 		console.log(this.props.columnData);
 		switch (func) {
 			case 'Count': return this.props.columnData.length;
-			case 'Average': return this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length;
+			case 'Average': return (this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length).toFixed(2);
 			case 'Median': 
 			case 'Min': return Math.min.apply(null, this.props.columnData);
 			case 'Max': return Math.max.apply(null, this.props.columnData);
-			default: return this.props.columnData.reduce(((a, b) => Number(a) + Number(b)));
+			default: return this.props.columnData.reduce(((a, b) => Number(a) + Number(b))).toFixed(2);
+			// TODO toFixed is a bad way of rounding...
 		}
 	}
 

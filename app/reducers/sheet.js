@@ -44,6 +44,11 @@ export default function sheet(state = {
     case CLEAR_SHEET:
       return {}
     case CHANGE_SHEET:
+      action.sheet.grid.forEach(row => {
+        for (let cell in row){
+          row[cell].focused = false;
+        }
+      })
       return {
         columnHeaders: action.sheet.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }],
         grid: action.sheet.grid || [],

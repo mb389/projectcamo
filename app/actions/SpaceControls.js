@@ -108,7 +108,6 @@ function fetchUpdatesFromOtherSheets(sheets, sheetToShow) {
 }
 
 export function changeSheet(obj) {
-  console.log('change sheet', obj.sheets)
   if (obj.sheets) {
     fetchUpdatesFromOtherSheets(obj.sheets, obj.sheetToShow)
   }

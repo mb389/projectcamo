@@ -99,7 +99,7 @@ export default function sheet(state = {
           let newState = _.cloneDeep(state);
           if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
           newState.currentCell = action.cell;
-          newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
+          if(action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
           // find cell and give it focus
           return newState}
     case UPDATE_MODAL_CELL:

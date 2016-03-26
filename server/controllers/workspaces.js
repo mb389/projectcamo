@@ -53,7 +53,7 @@ exports.add = function(req, res) {
     spaceToSend = space;
     return Sheet.create({
       name: 'Sheet1',
-      spaces[0]._id
+      workspace: space._id
     })
   })
   .then(sheet => {

@@ -6,7 +6,7 @@ import Table from 'components/Sheet/Table';
 import * as Actions from '../actions/spacecontrols';
 import * as SheetActions from '../actions/sheet';
 import Navigation from 'containers/Navigation';
-import BottomBar from 'components/BottomBar';
+import BottomBar from 'components/BottomBar/BottomBar';
 import ShareModal from 'components/SpaceControls/ShareModal';
 import Lookup from 'components/Sheet/Lookup';
 import classNames from 'classnames/bind';

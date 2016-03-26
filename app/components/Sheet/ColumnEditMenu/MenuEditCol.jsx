@@ -99,7 +99,7 @@ class MenuEditCol extends Component {
 				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={feildType}>{feildType}</MenuItem>);
 			}
 			return MenuItems;
-			}
+		}
 
 		return (
 				<div className={cx('editNameAndType')}>

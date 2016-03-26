@@ -24,6 +24,26 @@
   border-right: 1px solid #dde1e3;
   border-left: 1px solid #dde1e3;
   width: 198px;
+  margin-top: -10px;
+  max-height: 20px;
+}
+
+.DropdownHead:focus, .DropdownHead:hover {
+  background-color: inherit !important;
+}
+
+.DropdownHead {
+    width: 198px;
+    display: inline-block;
+    background-color: inherit;
+}
+
+.DropdownCarrat {
+    float: right;
+}
+
+.MenuItem {
+    width: 190px;
 }
 
 

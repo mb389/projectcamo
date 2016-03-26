@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/bottom-bar';
-
-
+import BottomReducers from './BottomReducers';
 
 const cx = classNames.bind(styles);
 
@@ -29,24 +28,3 @@ const BottomBar = (props) => {
 
 
 export default BottomBar;
-
-
-const BottomReducers = (props) => {
-	return (
-		<div className={cx('BottomReducers')} key={props.column.id}>{props.column.name}</div>
-		)
-}
-
-
-
-
-// const Headers = (props) => {
-//   return (
-//       <div className={cx('theaders')}>
-//         <div className={cx('topCorner')} />
-//         <div className={cx('topCorner')}></div>
-//         {generateColumnOptions(props.headers)}
-//         <AddColumn />
-//       </div>
-//     );
-// }

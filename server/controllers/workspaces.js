@@ -10,18 +10,11 @@ var Sheet = mongoose.model('Sheet');
  * List
  */
 exports.all = function(req, res) {
-  var spacesToSend;
   Promise.all([
     Workspace.find({user: req.user._id}),
     Workspace.find({collabs: req.user._id})
   ])
-  .then(spaces => {
-    spacesToSend = spaces;
-    Sheet.create({
-      name: 'Sheet1'
-    })
-  })
-  .then(sheet => res.json({spaces: spacesToSend[0], collabSpaces: spacesToSend[1]}))
+  .then(spaces => res.json({spaces: spaces[0], collabSpaces: spaces[1]}))
   .catch((err) => console.log('Error in first query'));
 };
 
@@ -48,13 +41,27 @@ exports.one = function(req, res) {
   .catch(err => res.status(400).send(err));
 };
 
+
 /**
  * Add a Workspace
  */
  // TODO NEEDS A USER ATTACHED
 exports.add = function(req, res) {
+  var spaceToSend;
   Workspace.create({name: `NewSpace${req.body.spaceCount}`, user:req.user._id})
-  .then((space) => res.json(space))
+  .then((space) => {
+    spaceToSend = space;
+    return Sheet.create({
+      name: 'Sheet1',
+      spaces[0]._id
+    })
+  })
+  .then(sheet => {
+    res.json({
+      space: spaceToSend,
+      sheet
+    })
+  })
   .catch(err => res.status(400).send(err))
 };
 

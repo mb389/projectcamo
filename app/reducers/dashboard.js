@@ -10,7 +10,8 @@ export default function dashboard(state = {}, action = {}) {
     case LOAD_USER_SPACES:
       return Object.assign({}, state, {
         spaces: action.spaces,
-        collabSpaces: action.collabSpaces
+        collabSpaces: action.collabSpaces,
+        sheet: action.sheet
       });
     case ADD_USER_SPACE:
       let newSpaces = state.spaces.concat({_id:action.id, name:action.name})

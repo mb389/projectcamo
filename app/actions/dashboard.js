@@ -40,10 +40,11 @@ export function createSpace(spaceCount) {
   }
 }
 
-export function spaceToStore(space) {
+export function spaceToStore(res) {
   return {
     type: types.ADD_USER_SPACE,
-    id: space._id,
-    name: space.name
+    id: res.space._id,
+    name: res.space.name,
+    sheet: res.sheet
   }
 }

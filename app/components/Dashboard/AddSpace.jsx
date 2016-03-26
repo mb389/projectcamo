@@ -5,7 +5,6 @@ import { Button } from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 const AddSpace = props => {
-
     return (
             <Button
               className={cx('addSpace')}

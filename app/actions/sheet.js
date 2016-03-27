@@ -182,3 +182,15 @@ export function clearFilteredRows() {
 		type: types.CLEAR_FILTERED_ROWS
 	}
 }
+
+export function showMap() {
+	return {
+		type: types.SHOW_MAP
+	}
+}
+
+export function closeMap() {
+	return {
+		type: types.HIDE_MAP
+	}
+}

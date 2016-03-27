@@ -47,18 +47,6 @@ export function updateCellById(data, id) {
   };
 }
 
-// export function updateFormulaCell(key, idx, formula, row){
-// 	return {
-// 		type: types.UPDATE_FORMULA_CELL,
-// 		formula,
-// 		row,
-// 		cell: {
-// 			key,
-// 			idx,
-// 		}
-// 	};
-// }
-
 export function showLookupModal(row,rowIdx,cell){
 	return {
 		 type: types.SHOW_LOOKUP_MODAL,

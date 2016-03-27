@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { manualLogin, signUp, toggleLoginMode } from 'actions/users';
 import {LoginOrRegister} from './LoginOrRegister';
 import styles from 'css/components/login';
-import { logOut } from 'actions/users';
+import * as UserActions from 'actions/users';
 
 class Logout extends Component {
   /*
@@ -18,7 +18,7 @@ class Logout extends Component {
   }
 
   componentWillMount() {
-      logOut();
+      this.props.dispatch(UserActions.logOut());
     }
 
   render() {
@@ -32,7 +32,7 @@ class Logout extends Component {
 
 
 function mapStateToProps(state) {
-  return {user: null, spaces: null};
+  return {user: state.user};
 }
 
 export default connect(mapStateToProps)(Logout);

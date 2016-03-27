@@ -1,32 +1,39 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .BottomBar {
-  border-top: 1px solid dark-primary-color;
+  border: 0px solid transparent;
   height: 30px;
-  display: block;
+  display: inline-flex;
   background-color: light-primary-color;
   width: 100%;
   position: fixed;
   bottom: 0px;
   opacity: 0.8;
-  padding-left: 10px;
+  padding-left: 5px;
   vertical-align: middle;
   padding-top: 4px;
+  overflow-x: auto;
 }
 
 .BottomRowCount {
-  display: inline-block;
-  width: 50px;
+  display: block;
+}
+
+.BottomRowCountSpan {
+  display: block;
+  width: 49px;
 }
 
 .BottomReducers {
   display: inline-block;
-  border-right: 1px solid #dde1e3;
-  border-left: 1px solid #dde1e3;
-  width: 198px;
-  margin-top: -10px;
+  /*border-right: 1px solid #dde1e3;
+  border-left: 1px solid #dde1e3;*/
+  border:none;
+  width: 200px;
+  margin-top: -5px;
   max-height: 20px;
 }
+
 
 .DropdownHead:focus, .DropdownHead:hover {
   background-color: inherit !important;
@@ -36,6 +43,11 @@
     width: 198px;
     display: inline-block;
     background-color: inherit;
+    border: none;
+}
+
+.DropdownHead span {
+  color: #797979 !important;
 }
 
 .DropdownCarrat {
@@ -45,5 +57,3 @@
 .MenuItem {
     width: 190px;
 }
-
-

@@ -14,6 +14,13 @@ function loadSpaces(spaces) {
   }
 }
 
+function loadUserInfo(user) {
+  return {
+    type: types.LOAD_USER_INFO,
+    user: user
+  }
+}
+
 export function clearSheet() {
   return {
     type: types.CLEAR_SHEET
@@ -23,6 +30,16 @@ export function clearSheet() {
 export function getSpaces() {
   return (dispatch) => {
     request(`/workspace`)
+    .then(res => {
+      dispatch(loadSpaces(res.data))
+    })
+    .then(() => dispatch(clearSheet()))
+  }
+}
+
+export function getUserInfo() {
+  return (dispatch) => {
+    request(`/user`)
     .then(res => {
       dispatch(loadSpaces(res.data))
     })

@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { logOut } from 'actions/users';
 import { Button, Glyphicon, DropdownButton, Dropdown, MenuItem } from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import ColumnOptions from '../components/Sheet/ColumnOptions'
 import * as Actions from '../actions/navigation';
 // import TagName from '../components/SpaceControls/SpaceSheetName';
@@ -26,9 +27,9 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <a href="/dashboard"
+      <Link to="/dashboard"
       className={cx('item', 'main')}
-      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></a>
+      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
     <ContentEditable className={cx('item', 'spaceName')}
           html={!this.props.space ? 'Project CAMO' : this.props.space.name}
             // innerHTML of the editable div
@@ -39,10 +40,10 @@ class Navigation extends Component {
         <div className={cx('item','logInProfile')}>
         <DropdownButton id='bg-vertical-dropdown-1' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
             <MenuItem key="1" href='/'>Home</MenuItem>
-            <MenuItem key="2" href='/dashboard'>Dashboard</MenuItem>
+            <MenuItem key="2" href="/dashboard">Dashboard</MenuItem>
             <MenuItem key="4" href='/about'>About CAMO</MenuItem>
               <MenuItem divider />
-            <MenuItem key="5" href='/logout'>Log Out</MenuItem>
+            <MenuItem onSelect={()=> this.props.dispatch(logOut())} key="5">Logout</MenuItem>
           </DropdownButton>
         </div>
       ) : (

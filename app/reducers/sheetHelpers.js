@@ -14,7 +14,7 @@ export function insertNewColInRows (state, newColumn){
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
     let cellUsed = decorationType(row[elem.id]);
     if(/^\s*$/.test(cellUsed)) cellUsed = "null";
@@ -57,7 +57,7 @@ export function navToNewCell(keyCode, newSheet) {
           newRowIdx,
           newColId: colId
         }
-      case 39:
+      case 39: case 9:
         colIdx = findColumnIdxFromId(colId, newSheet);
         if(newSheet.columnHeaders[colIdx+1]) newColId = newSheet.columnHeaders[colIdx+1].id;
         else newColId = colId

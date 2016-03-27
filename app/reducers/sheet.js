@@ -68,15 +68,19 @@ export default function sheet(state = {
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data
         // TODO find the dependent function cells and use this already cloned State.
+        action.formulaCells.forEach(cell =>{
+          let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+          newState.grid[action.cell.idx][cell.col].data = data;
+        })
         return newState
       }
-    case UPDATE_FORMULA_CELL:
-      {
-        let newState = _.cloneDeep(state);
-        let data = runCustomFunc(newState, action.row, action.formula);
-        newState.grid[action.cell.idx][action.cell.key].data = data;
-        return newState
-      }
+    // case UPDATE_FORMULA_CELL:
+    //   {
+    //     let newState = _.cloneDeep(state);
+    //     let data = runCustomFunc(newState, action.row, action.formula);
+    //     newState.grid[action.cell.idx][action.cell.key].data = data;
+    //     return newState
+    //   }
     case UPDATE_CELL_BY_ID:
       console.log(action.cell.data)
       {

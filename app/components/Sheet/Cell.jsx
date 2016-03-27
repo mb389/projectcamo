@@ -35,6 +35,7 @@ class Cell extends Component {
     let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
+        row[cell].col = cell;
         recalculateCells.push(row[cell]);
         // dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
       }

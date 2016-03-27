@@ -29,12 +29,11 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func) {
-		console.log(this.props.columnData);
 		if(!this.props.columnData) return null;
 		switch (func) {
 			case 'Count': return this.props.columnData.length;
 			case 'Average': return (this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length).toFixed(2);
-			case 'Median':
+			case 'Median': return (this.props.columnData.sort((a, b) => Number(a) - Number(b))[Math.floor(this.props.columnData.length/2)]);
 			case 'Min': return Math.min.apply(null, this.props.columnData);
 			case 'Max': return Math.max.apply(null, this.props.columnData);
 			default: return this.props.columnData.reduce(((a, b) => Number(a) + Number(b))).toFixed(2);

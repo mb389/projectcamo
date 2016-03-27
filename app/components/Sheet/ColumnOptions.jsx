@@ -12,7 +12,9 @@ const cx = classNames.bind(styles);
 class ColumnOptions extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {view: (this.props.data.type ? 'dropdown' : 'editNameAndType')};
+		this.state = {
+			view: (this.props.data.type ? 'dropdown' : 'editNameAndType')
+		};
 		this.handleSelection = this.handleSelection.bind(this);
 		this.changeType = this.changeType.bind(this);
 		this.duplicate = this.duplicate.bind(this);
@@ -23,6 +25,7 @@ class ColumnOptions extends Component {
 		this.insertLeft = this.insertLeft.bind(this);
 		this.insertRight = this.insertRight.bind(this);
 		this.showMap = this.showMap.bind(this);
+		this.dataType = this.dataType.bind(this);
 	}
 
 	handleSelection(evt, evtKey){
@@ -68,6 +71,32 @@ class ColumnOptions extends Component {
 		this.props.dispatch(showMap());
 	}
 
+	dataType() {
+		if(!this.props.data) return ''
+		switch (this.props.data.type) {
+			case 'Text':
+				return 'font';
+			case 'Number':
+				return 'plus';
+			case 'Checkbox':
+				return 'check';
+			case 'Reference':
+				return 'retweet';
+			case 'ID':
+				return 'cog';
+			case 'Formula':
+				return 'console';
+			case 'Images':
+				return 'camera';
+			case 'Link':
+				return 'link';
+			case 'Select':
+				return 'menu-hamburger';
+			default:
+				return 'cog';
+		}
+	}
+
 	render () {
 		let viewing;
 		if (!this.state || this.state.view === 'dropdown') {
@@ -91,7 +120,8 @@ class ColumnOptions extends Component {
 			viewing = (
 				<Dropdown id="dropdown-custom-1" onSelect={this.handleSelection} className={cx('columnWidth')}>
 			      <Dropdown.Toggle noCaret className={cx('thead')}>
-			        {this.props.data.name}
+							<Glyphicon className={cx('columnType')} glyph={this.dataType()} />
+							{this.props.data.name}
 							<Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 			      </Dropdown.Toggle>
 			      <Dropdown.Menu className={cx('columnWidth')}>

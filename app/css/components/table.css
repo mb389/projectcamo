@@ -47,6 +47,10 @@
     float: right;
 }
 
+.columnType {
+  float: left
+}
+
 .columnWidth {
   width: columnWidth;
 }

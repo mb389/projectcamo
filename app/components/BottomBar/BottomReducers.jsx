@@ -29,7 +29,6 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func) {
-		console.log(this.props.columnData);
 		if(!this.props.columnData) return null;
 		switch (func) {
 			case 'Count': return this.props.columnData.length;

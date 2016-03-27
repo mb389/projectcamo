@@ -98,7 +98,6 @@ class ColumnOptions extends Component {
 	}
 
 	render () {
-		console.log('data', this.props.data)
 		let viewing;
 		if (!this.state || this.state.view === 'dropdown') {
 			function generateMenuItems () {

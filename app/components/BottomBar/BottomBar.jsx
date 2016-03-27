@@ -25,7 +25,7 @@ const BottomBar = (props) => {
 return (
     <div className={cx('BottomBar')} >
       <div className={cx('BottomRowCount')}>
-        <span >{props.grid.length} rows</span>
+        <text className={cx('BottomRowCountSpan')}>{props.grid.length} rows</text>
       </div>
         {generateColumnReducers(props.columns)}
     </div>

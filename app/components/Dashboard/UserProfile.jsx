@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 const UserProfile = props => {
 
-   const user = !props.user ? {} : props.user;
+   const user = !props.user ? {details: {name: "",email: ".@."}} : props.user;
     return (
           <div className={cx('profile')}>
               <div className="col-md-6">
@@ -16,14 +16,14 @@ const UserProfile = props => {
                       <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className={cx('profImg')} /></div>
                       <div className="col-md-4">
                       <h4>
-                        {props.user.details.email}</h4>
+                        {props.user.details.name}</h4>
                       <small>
                         <cite title="San Francisco, USA">San Francisco, USA
                           <i className="glyphicon glyphicon-map-marker"></i>
                         </cite>
                       </small>
                       <p>
-                        <i className="glyphicon glyphicon-envelope"></i>&nbsp;email@example.com
+                        <i className="glyphicon glyphicon-envelope"></i>&nbsp;{props.user.details.email}
                         <br/>
                         <i className="glyphicon glyphicon-globe"></i>
                         <a href="/">&nbsp;www.website.com</a>

@@ -32,10 +32,6 @@ function renderFullPage(renderedContent, initialState, head={
     <html lang="">
 
     <head>
-        ${head.title}
-
-        ${head.meta}
-
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
         ${head.link}

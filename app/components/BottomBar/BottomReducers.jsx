@@ -29,15 +29,18 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func) {
+		function rounder (number, places){
+			let tens = Math.pow(10, places);
+			return Math.round(number*tens)/tens;
+		}
 		if(!this.props.columnData) return null;
 		switch (func) {
 			case 'Count': return this.props.columnData.length;
-			case 'Average': return (this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length).toFixed(2);
+			case 'Average': return rounder((this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length), 2);
 			case 'Median': return (this.props.columnData.sort((a, b) => Number(a) - Number(b))[Math.floor(this.props.columnData.length/2)]);
 			case 'Min': return Math.min.apply(null, this.props.columnData);
 			case 'Max': return Math.max.apply(null, this.props.columnData);
-			default: return this.props.columnData.reduce(((a, b) => Number(a) + Number(b))).toFixed(2);
-			// TODO toFixed is a bad way of rounding...
+			default: return rounder(this.props.columnData.reduce(((a, b) => Number(a) + Number(b))), 2);
 		}
 	}
 

@@ -30,12 +30,10 @@ class ColumnOptions extends Component {
 	}
 
 	exitTypeMenu() {
-		console.log('ColOpt exitTypeMenu');
 		this.setState({view: 'dropdown'});
 	}
 
 	changeType() {
-		console.log('changeTypeorName');
 		this.setState({view: 'editNameAndType'});
 	}
 

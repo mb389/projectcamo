@@ -17,6 +17,7 @@ export function runCustomFunc (state, row, funcText) {
   state.columnHeaders.forEach((elem, idx) => { 
     funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
     let cellUsed = decorationType(row[elem.id]);
+    if(/^\s*$/.test(cellUsed)) cellUsed = "null";
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
   console.log(columnDefs,funcText)
@@ -34,7 +35,7 @@ function decorationType (cell) {
 }
 
 function regexEscape(str) {
-    return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
+    return str.replace(/[-\\^$?.()|[\]{}]/g, '\\$&')
 }
 
 export function navToNewCell(keyCode, newSheet) {
@@ -50,7 +51,7 @@ export function navToNewCell(keyCode, newSheet) {
           newRowIdx,
           newColId: colId
         }
-      case 40:
+      case 13: case 40:
         if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
         return {
           newRowIdx,

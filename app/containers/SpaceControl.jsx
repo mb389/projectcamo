@@ -84,10 +84,10 @@ class SpaceControl extends Component {
                 searching={this.props.searching}
                 filteredRows={this.props.filteredRows}
               />
-              <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders}/>
             </div>
           </div>
         </div>
+        <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders}/>
       </div>
     );
   }

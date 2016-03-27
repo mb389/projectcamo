@@ -24,7 +24,7 @@ export function clearSheet() {
   };
 }
 
-export function updateCell(data, key, idx, fromSuper) {
+export function updateCell(data, key, idx, fromSuper, formulaCells) {
   return {
     type: types.UPDATE_CELL,
     cell: {
@@ -33,6 +33,7 @@ export function updateCell(data, key, idx, fromSuper) {
     	idx,
     },
     fromSuper,
+    formulaCells,
   };
 }
 
@@ -45,6 +46,18 @@ export function updateCellById(data, id) {
     }
   };
 }
+
+// export function updateFormulaCell(key, idx, formula, row){
+// 	return {
+// 		type: types.UPDATE_FORMULA_CELL,
+// 		formula,
+// 		row,
+// 		cell: {
+// 			key,
+// 			idx,
+// 		}
+// 	};
+// }
 
 export function showLookupModal(row,rowIdx,cell){
 	return {
@@ -59,18 +72,6 @@ export function closeLookupModal(){
 	return {
 		type: types.CLOSE_LOOKUP_MODAL
 	}
-}
-
-export function updateFormulaCell(key, idx, formula, row){
-	return {
-		type: types.UPDATE_FORMULA_CELL,
-		formula,
-		row,
-		cell: {
-			key,
-			idx,
-		}
-	};
 }
 
 export function showRowModal(rowIdx){

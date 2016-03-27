@@ -32,13 +32,16 @@ class Cell extends Component {
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     // console.log('handleChangeRunning', evt);
 
-    row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
-
+    let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
-        dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
+        recalculateCells.push(row[cell]);
+        // dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
       }
     }
+
+    dispatch(updateCell(evt.target.value, cellKey, rowIdx, null, recalculateCells));
+
 	}
 
   showLookupModal(row,rowIdx,cell){

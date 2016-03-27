@@ -1,5 +1,17 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .Map {
+  /*background-color: primary-color;*/
+
+}
+
+.mapHeader {
   background-color: primary-color;
+	border-radius: 4px;
+	color: white;
+}
+
+.mapPlugIn {
+  margin-left: auto;
+  margin-right: auto;
 }

@@ -1,14 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { closeMap } from '../actions/sheet';
-import { Modal } from 'react-bootstrap';
-import Map from 'components/Sheet/Map';
+import MapModal from 'components/Sheet/MapModal';
 import classNames from 'classnames/bind';
-import styles from 'css/components/space-control';
-
-
-const cx = classNames.bind(styles);
-
 
 
 class MapContainer extends Component {
@@ -24,7 +18,7 @@ class MapContainer extends Component {
   render() {
     console.log('map container props', this.props)
     return (
-        <Map showMap={this.props.showMap} close={this.close}/>
+        <MapModal showMap={this.props.showMap} close={this.close}/>
     );
   }
 }

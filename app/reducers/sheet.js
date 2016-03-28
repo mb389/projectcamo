@@ -67,7 +67,7 @@ export default function sheet(state = {
         if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data;
-        if (action.formulaCells) 
+        if (action.formulaCells)
         {
           action.formulaCells.forEach(cell =>{
             let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
@@ -316,6 +316,7 @@ export default function sheet(state = {
       },[])
       showMapState.showMap = true;
       showMapState.addressData = addressData;
+      showMapState.mapMarkersData = null;
       showMapState.mapColumn = showMapState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
       return showMapState;
     case SEND_LAT_LONGS:

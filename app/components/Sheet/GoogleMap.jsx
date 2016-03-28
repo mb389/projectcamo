@@ -5,57 +5,44 @@ import { getLatLongs } from 'actions/sheet';
 import { Button } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from 'css/components/map';
-// import GMaps from 'gmaps';
 
 const cx = classNames.bind(styles);
-
-
-// let coordSet = [{
-//             lat: 40.705189,
-//             lng: -74.009209
-//             },
-//             {
-//               lat: 40.735975,
-//               lng: -73.990394
-//             },
-//             {
-//               lat: 40.745975,
-//               lng: -73.970394
-//             }]
-
-// const createMarkers = (markers) => coordSet.map((coord,i) => {
-//       return (
-//         <Marker
-//           key={i}
-//           lat={coord.lat}
-//           lng={coord.lng}
-//           label={String(i+1)}
-//           title={'Title'}
-//         />
-//       )
-// })
 
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
     this.state = {markersCreated: false, markers: []}
+    this.createMarkers = this.createMarkers.bind(this);
   }
 
+  createMarkers(markers) {
+    let markersToAdd = markers.map((mrk,i) => {
+      return (
+        <Marker
+          key={i}
+          lat={mrk.loc.lat}
+          lng={mrk.loc.lng}
+          label={String(i+1)}
+          title={mrk.name}
+          />
+      )
+    })
+    this.setState({markersCreated: true, markers: markersToAdd})
+  }
+
+
   componentWillMount() {
-    // if (this.props.markers) {
-      let markersToAdd = this.props.markers.map((mrk,i) => {
-        return (
-          <Marker
-            key={i}
-            lat={mrk.loc.lat}
-            lng={mrk.loc.lng}
-            label={String(i+1)}
-            title={mrk.name}
-            />
-        )
-      })
-      this.setState({markersCreated: true, markers: markersToAdd})
-    // }
+      if(!this.props.markers) return;
+      this.createMarkers(this.props.markers);
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.markers && nextProps.markers !== this.props.markers) {
+      console.log('next', nextProps.markers)
+      console.log('this', this.props.markers)
+      this.createMarkers(nextProps.markers);
+    }
   }
 
   render() {

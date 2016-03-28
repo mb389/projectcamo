@@ -32,8 +32,6 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
-    // console.log('handleChangeRunning', evt);
-    console.log(evt.target.value)
     let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
@@ -41,9 +39,7 @@ class Cell extends Component {
         recalculateCells.push(row[cell]);
       }
     }
-
     dispatch(updateCell(evt.target.value, cellKey, rowIdx, null, recalculateCells));
-
 	}
 
   showLookupModal(row,rowIdx,cell,cellKey){

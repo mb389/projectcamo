@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 export default class TagName extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.emitChange = this.emitChange.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.editingName = this.editingName.bind(this);
@@ -41,7 +40,6 @@ export default class TagName extends Component {
   }
 
   toggleEdit() {
-    console.log('toggled')
     this.props.disabled = !this.props.disabled
   }
 

@@ -29,7 +29,6 @@ function addCollab(spaces) {
 }
 
 export function addCollabRoute(email,id) {
-  console.log("!!")
   return (dispatch) => {
     request.post(`/workspace/${id}/add`,{email})
     .then(res => {

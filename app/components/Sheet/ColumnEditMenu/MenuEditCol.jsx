@@ -60,7 +60,7 @@ class MenuEditCol extends Component {
 		newColData.id = this.props.data.id;
 		newColData.idx = this.props.data.idx;
 		// TODO should do a deep equals
-		if (newColData == this.props.data) console.log('No Change');
+		if (newColData == this.props.data) 
 		else this.props.dispatch(updateColumn(newColData))
 
 		this.props.exitTypeMenu();

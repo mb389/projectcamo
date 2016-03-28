@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { saveSheet } from 'actions/spacecontrols.js';
+import { saveSheet } from 'actions/SpaceControls';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 

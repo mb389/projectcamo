@@ -3,7 +3,7 @@ import { Button, Glyphicon } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 import ShareModal from './ShareModal';
-import { showShareModal } from 'actions/spacecontrols';
+import { showShareModal } from 'actions/SpaceControls';
 import {connect} from 'react-redux';
 
 

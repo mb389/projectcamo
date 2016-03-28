@@ -19,15 +19,12 @@ class MapContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     // check if props are a column - send a message that says its a column
-    if(nextProps.addressData && !nextProps.mapMarkersData) {
-      // if(!this.props.addressData || this.props.addressData.filter(item => item ? true : false).length !== nextProps.addressData.filter(item => item ? true : false).length)
-      this.props.dispatch(getLatLongs(nextProps.addressData));
-    }
+    if(nextProps.addressData && !nextProps.mapMarkersData) this.props.dispatch(getLatLongs(nextProps.addressData));
+    // if(this.props.addressData && this.props.addressData.filter(item => item ? true : false).length !== nextProps.addressData.filter(item => item ? true : false).length) console.log('run'); this.props.dispatch(getLatLongs(nextProps.addressData));
   }
 
 
   render() {
-    console.log('map container props', this.props)
     return (
         <MapModal markers={this.props.mapMarkersData} mapName={this.props.mapName} showMap={this.props.showMap} close={this.close}/>
     );

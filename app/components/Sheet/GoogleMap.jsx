@@ -12,24 +12,37 @@ class GoogleMap extends Component {
   constructor(props) {
     super(props);
     this.state = {markersCreated: false, markers: []}
+    this.createMarkers = this.createMarkers.bind(this);
   }
+
+  createMarkers() {
+    let markersToAdd = this.props.markers.map((mrk,i) => {
+      return (
+        <Marker
+          key={i}
+          lat={mrk.loc.lat}
+          lng={mrk.loc.lng}
+          label={String(i+1)}
+          title={mrk.name}
+          />
+      )
+    })
+    this.setState({markersCreated: true, markers: markersToAdd})
+  }
+
 
   componentWillMount() {
-      let markersToAdd = this.props.markers.map((mrk,i) => {
-        return (
-          <Marker
-            key={i}
-            lat={mrk.loc.lat}
-            lng={mrk.loc.lng}
-            label={String(i+1)}
-            title={mrk.name}
-            />
-        )
-      })
-      this.setState({markersCreated: true, markers: markersToAdd})
+      if(!this.props.markers) return;
+      this.createMarkers();
+
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.markers !== this.props.markers) this.createMarkers();
+}
+
   render() {
+    console.log('render called');
     if(this.state.markersCreated) {
       return (
         <Gmaps width={'750px'}

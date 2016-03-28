@@ -4,6 +4,13 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var User = mongoose.model('User');
 
+
+exports.getById = function(req,res,next) {
+  User.findById(req.params.id)
+  .then(user => res.json(user))
+  .catch(err => console.log(err))
+}
+
 /**
  * POST /login
  */

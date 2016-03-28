@@ -28,7 +28,6 @@ exports.findCollab = function(req, res) {
 exports.addCollab = function(req, res) {
   User.findOne({email: req.body.email })
   .then(user => {
-    console.log(req.params)
     return Workspace.findByIdAndUpdate(req.params.id, {$push: {collabs: user._id}}, {safe: true, upsert: true, new: true})
   })
   .then((space) => {

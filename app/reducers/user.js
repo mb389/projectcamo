@@ -8,7 +8,8 @@ import {
   SIGNUP_ERROR_USER,
   LOGOUT_USER,
   LOGOUT_SUCCESS_USER,
-  LOGOUT_ERROR_USER } from 'constants/index';
+  LOGOUT_ERROR_USER,
+  GET_USER_INFO } from 'constants/index';
 
 export default function user(state={
   isLogin: true,
@@ -23,6 +24,11 @@ export default function user(state={
         isLogin: !state.isLogin,
         message: ''
       });
+      case GET_USER_INFO: {
+        return Object.assign({}, state, {
+          user: action.user
+        });
+      }
     case MANUAL_LOGIN_USER:
       return Object.assign({}, state, {
         isWaiting: true,

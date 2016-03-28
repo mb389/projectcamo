@@ -5,6 +5,7 @@ import styles from 'css/components/modal';
 import { Modal, Glyphicon, Input, Popover, Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
 import { closeShareModal } from 'actions/spacecontrols';
 import * as DashActions from 'actions/dashboard';
+import ShareModalCollabs from './ShareModalCollabs';
 
 const cx = classNames.bind(styles);
 
@@ -40,29 +41,22 @@ class ShareModal extends Component {
               <Modal.Title>Sharing Dashboard</Modal.Title>
             </Modal.Header>
             <Modal.Body>
+              <div className={cx('collabs')} >
               <h4>Collaborators</h4>
-              <div className='col-sm-3'>
+              <div>
               <div className={cx('userImg')}></div>
-              <p>{this.props.user.profile.email}</p></div>
-              <div className='col-sm-3'>
-              <div className={cx('userImg')}></div>
-              <p>User B</p></div>
-              <div className='col-sm-3'>
-              <div className={cx('userImg')}></div>
-              <p>User C</p></div>
-              <div className='col-sm-3'>
-              <div className={cx('userImg')}></div>
-              <p>User D</p></div>
-              <hr/>
-              <div>Share This Space</div>
-              <form>
-                <Input type='text' placeholder="Enter User's E-mail" ref="input" buttonAfter={addBtn} onChange={this.handleChange} />
-              </form>
+              <p>{this.props.space.user} (Owner)</p></div>
+              <ShareModalCollabs collabs={this.props.space.collabs} />
+                <hr/>
+                  <div>Share This Space</div>
+                  <form>
+                    <Input type='text' placeholder="Enter User's E-mail" ref="input" buttonAfter={addBtn} onChange={this.handleChange} />
+                  </form>
+                  <hr />
+                  <h4>Other Info</h4>
+                  <p></p>
 
-              <hr />
-              <h4>Link Sharing</h4>
-              <p></p>
-              <hr/>
+                </div>
             </Modal.Body>
             <Modal.Footer>
               <Button onClick={this.close}>Close</Button>

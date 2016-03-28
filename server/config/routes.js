@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
   app.post('/login', users.postLogin);
   app.post('/signup', users.postSignUp);
   app.post('/logout', users.postLogout);
-  // app.get('/users/',users.getByEmail);
+  app.get('/user/:id',users.getById);
 
   // google auth
   // Redirect the user to Google for authentication. When complete, Google

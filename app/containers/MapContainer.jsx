@@ -18,6 +18,7 @@ class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
     // check if props are a column - send a message that says its a column
     if(nextProps.addressData && !nextProps.mapMarkersData) {
+      if(!this.props.addressData || this.props.addressData.filter(item => item ? true : false).length !== nextProps.addressData.filter(item => item ? true : false).length)
       console.log('nextProps!', nextProps);
       this.props.dispatch(getLatLongs(nextProps.addressData));
     }
@@ -27,7 +28,7 @@ class MapContainer extends Component {
   render() {
     console.log('map container props', this.props)
     return (
-        <MapModal markers={this.props.mapMarkersData} showMap={this.props.showMap} close={this.close}/>
+        <MapModal markers={this.props.mapMarkersData} mapName={this.props.mapName} showMap={this.props.showMap} close={this.close}/>
     );
   }
 }
@@ -38,7 +39,8 @@ function mapStateToProps(store) {
   return {
     showMap: store.sheet.showMap,
     addressData: store.sheet.addressData,
-    mapMarkersData: store.sheet.mapMarkersData
+    mapMarkersData: store.sheet.mapMarkersData,
+    mapName: store.sheet.mapColumn
   };
 }
 

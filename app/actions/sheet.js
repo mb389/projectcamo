@@ -200,16 +200,17 @@ export function closeMap() {
 export function getLatLongs(addressArray) {
 	console.log('getlatlongs run');
 	return (dispatch) => {
-		let addresses = addressArray.filter(item => item ? true : false)
+		let addresses = addressArray.filter(item => item.data ? true : false)
 		let addressUrls = addresses.map(add => {
-			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`);
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`);
 		})
 		Promise.all(addressUrls)
 		.then(resArray => {
+			console.log('addresses', addresses);
 			console.log("resArray", resArray)
-			let geoCoded = resArray.map(result => {
+			let geoCoded = resArray.map((result,i) => {
 				if(result.data.status === 'OK') {
-					return result.data.results[0].geometry.location;
+					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
 				}
 			})
 			console.log('geoCoded', geoCoded)

@@ -8,13 +8,14 @@ const cx = classNames.bind(styles);
 
 
 const MapModal = (props) => {
+  console.log('mapModalprops', props)
   return (
       <Modal className={cx('Map')} show={props.showMap} onHide={props.close} bsSize="lg">
         <Modal.Header className={cx('mapHeader')} classcloseButton>
-          <Modal.Title>Map View</Modal.Title>
+          <Modal.Title>{props.mapName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <GoogleMap markers={props.markers} />
+          <GoogleMap {...props} />
         </Modal.Body>
       </Modal>
 

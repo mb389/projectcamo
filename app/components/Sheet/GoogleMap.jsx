@@ -39,42 +39,33 @@ class GoogleMap extends Component {
   constructor(props) {
     super(props);
     this.state = {markersCreated: false, markers: []}
-    this.onMapCreated = this.onMapCreated.bind(this);
   }
 
   componentWillMount() {
-    let markersToAdd = this.props.markers.map((coord,i) => {
-      return (
-        <Marker
-          key={i}
-          lat={coord.lat}
-          lng={coord.lng}
-          label={String(i+1)}
-          title={'Title'}
-        />
-      )
-    })
-    this.setState({markersCreated: true, markers: markersToAdd})
+    // if (this.props.markers) {
+      let markersToAdd = this.props.markers.map((mrk,i) => {
+        return (
+          <Marker
+            key={i}
+            lat={mrk.loc.lat}
+            lng={mrk.loc.lng}
+            label={String(i+1)}
+            title={mrk.name}
+            />
+        )
+      })
+      this.setState({markersCreated: true, markers: markersToAdd})
+    // }
   }
-
-  onMapCreated(map) {
-    console.dir('map created', map)
-  }
-
-  // componentWillReceiveProps() {
-  //   createMarkers(this.props.markers)
-  // }
-
 
   render() {
-    console.log(this.props.markers);
     if(this.state.markersCreated) {
       return (
-        <Gmaps width={'650px'}
-          height={'500px'}
-          lat={this.props.markers[0].lat}
-          lng={this.props.markers[0].lng}
-          zoom={12}
+        <Gmaps width={'750px'}
+          height={'600px'}
+          lat={this.props.markers[0].loc.lat}
+          lng={this.props.markers[0].loc.lng}
+          zoom={11}
           loadingMessage={'Your map is loading'}
           params={{v: '3.exp'}}
           onMapCreated={this.onMapCreated}

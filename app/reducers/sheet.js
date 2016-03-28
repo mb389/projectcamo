@@ -313,11 +313,12 @@ export default function sheet(state = {
       let showMapState = _.cloneDeep(state);
       let colId = action.colId
       let addressData = showMapState.grid.reduce((accum, row) => {
-        if(row[colId]) accum.push(row[colId].data)
+        if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
         return accum
       },[])
       showMapState.showMap = true;
       showMapState.addressData = addressData;
+      showMapState.mapColumn = showMapState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
       return showMapState;
     case SEND_LAT_LONGS:
       let newMapState = _.cloneDeep(state);

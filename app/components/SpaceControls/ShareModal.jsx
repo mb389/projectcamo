@@ -3,7 +3,7 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import styles from 'css/components/modal';
 import { Modal, Glyphicon, Input, Popover, Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
-import { closeShareModal } from 'actions/spacecontrols';
+import { closeShareModal } from 'actions/SpaceControls';
 import * as DashActions from 'actions/dashboard';
 import ShareModalCollabs from './ShareModalCollabs';
 

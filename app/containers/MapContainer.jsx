@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import * as Actions from '../actions/SpaceControls';
+import { Modal } from 'react-bootstrap';
 import { closeMap, getLatLongs } from 'actions/sheet';
 import MapModal from 'components/Sheet/MapModal';
 import classNames from 'classnames/bind';

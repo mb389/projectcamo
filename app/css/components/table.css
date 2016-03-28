@@ -47,6 +47,10 @@
     float: right;
 }
 
+.columnType {
+  float: left
+}
+
 .columnWidth {
   width: columnWidth;
 }
@@ -154,6 +158,7 @@
 .cellCheckBox {
   margin-left: 50px;
   width: 100%;
+  height: 25px;
 }
 
 

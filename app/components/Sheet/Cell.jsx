@@ -32,13 +32,16 @@ class Cell extends Component {
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     // console.log('handleChangeRunning', evt);
 
-    row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
-
+    let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
-        dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
+        row[cell].col = cell;
+        recalculateCells.push(row[cell]);
       }
     }
+
+    dispatch(updateCell(evt.target.value, cellKey, rowIdx, null, recalculateCells));
+
 	}
 
   showLookupModal(row,rowIdx,cell){
@@ -48,6 +51,8 @@ class Cell extends Component {
   editable (evt) {
     this.setState({disabled: false});
     if(evt.target.children[0]) evt.target.children[0].focus();
+    else evt.target.focus();
+    // document.execCommand('selectAll',false,null);
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -98,7 +103,7 @@ class Cell extends Component {
 	}
 
  keyPress (evt) {
-      if (evt.keyCode >= 37 && evt.keyCode <= 40) {
+      if (evt.keyCode >= 37 && evt.keyCode <= 40 || evt.keyCode === 13) {
           evt.preventDefault();
           this.props.dispatch(moveToCell(evt.keyCode))
       } else {

@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import {
-  UPDATE_FORMULA_CELL,
   UPDATE_CELL,
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
@@ -44,6 +43,11 @@ export default function sheet(state = {
     case CLEAR_SHEET:
       return {}
     case CHANGE_SHEET:
+      action.sheet.grid.forEach(row => {
+        for (let cell in row){
+          row[cell].focused = false;
+        }
+      })
       return {
         columnHeaders: action.sheet.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }],
         grid: action.sheet.grid || [],
@@ -61,8 +65,11 @@ export default function sheet(state = {
         let newState = _.cloneDeep(state);
         if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
-        newState.currentCell.cell.data = action.cell.data
-        // TODO find the dependent function cells and use this already cloned State.
+        newState.currentCell.cell.data = action.cell.data;
+        action.formulaCells.forEach(cell =>{
+          let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+          newState.grid[action.cell.idx][cell.col].data = data;
+        })
         return newState
       }
     case UPDATE_CELL_BY_ID:
@@ -88,13 +95,6 @@ export default function sheet(state = {
           newState.currentCell.cellKey = newCoord.newColId;
           newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
           return newState}
-    case UPDATE_FORMULA_CELL:
-      {
-        let newState = _.cloneDeep(state);
-        let data = runCustomFunc(newState, action.row, action.formula);
-        newState.grid[action.cell.idx][action.cell.key].data = data;
-        return newState
-      }
     case CURRENT_CELL:{
           let newState = _.cloneDeep(state);
           if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;

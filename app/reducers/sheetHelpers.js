@@ -14,9 +14,10 @@ export function insertNewColInRows (state, newColumn){
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => { 
+  state.columnHeaders.forEach((elem, idx) => {
     funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
     let cellUsed = decorationType(row[elem.id]);
+    if(/^\s*$/.test(cellUsed)) cellUsed = "null";
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
   console.log(columnDefs,funcText)
@@ -34,7 +35,7 @@ function decorationType (cell) {
 }
 
 function regexEscape(str) {
-    return str.replace(/[-\/\\^$?.()|[\]{}]/g, '\\$&')
+    return str.replace(/[-\\^$?.()|[\]{}]/g, '\\$&')
 }
 
 export function navToNewCell(keyCode, newSheet) {
@@ -50,13 +51,13 @@ export function navToNewCell(keyCode, newSheet) {
           newRowIdx,
           newColId: colId
         }
-      case 40:
+      case 13: case 40:
         if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
         return {
           newRowIdx,
           newColId: colId
         }
-      case 39:
+      case 39: case 9:
         colIdx = findColumnIdxFromId(colId, newSheet);
         if(newSheet.columnHeaders[colIdx+1]) newColId = newSheet.columnHeaders[colIdx+1].id;
         else newColId = colId

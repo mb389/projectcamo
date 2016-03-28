@@ -47,12 +47,13 @@ export function updateCellById(data, id) {
   };
 }
 
-export function showLookupModal(row,rowIdx,cell){
+export function showLookupModal(row,rowIdx,cell,cellKey){
 	return {
 		 type: types.SHOW_LOOKUP_MODAL,
 		 row,
 		 cell,
-		 rowIdx
+		 rowIdx,
+		 cellKey
 	}
 }
 

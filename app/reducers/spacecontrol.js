@@ -72,6 +72,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
               id: "" + (100 + sheet.content.columnHeaders.length),
               idx: sheet.content.columnHeaders.length,
               name: action.currSheet.name,
+              linkedSheet: action.currSheet._id,
               type: "Reference"
             }
             sheet.content.columnHeaders.push(newColumn)
@@ -89,10 +90,8 @@ export default function spaceControl(state = { showShareModal: false }, action =
       }
     case REMOVE_REF:
       function removeRef(cell,ref) {
-        console.log(cell.data,ref)
         for (var i = 0; i < cell.data.length; i++) {
           if (cell.data[i].data === ref) {
-            console.log("splicing")
             cell.data.splice(i,1)
             break;
           }
@@ -129,7 +128,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
       }
     case SHOW_SHARE_MODAL:
       {
-          return Object.assign({},state,{ showShareModal: true});
+        return Object.assign({},state,{ showShareModal: true});
       }
     case CLOSE_SHARE_MODAL:
       {

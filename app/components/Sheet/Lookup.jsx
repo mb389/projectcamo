@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
-import { closeLookupModal, updateCellById } from 'actions/sheet';
+import { closeLookupModal, updateCellById, updateColumn } from 'actions/sheet';
 import { updateRefSheet, removeRef } from 'actions/spacecontrols';
 import styles from 'css/components/modal';
 import { Modal, Button, ButtonGroup, Panel } from 'react-bootstrap';
@@ -19,6 +19,7 @@ class Lookup extends Component {
     this.linkRow = this.linkRow.bind(this)
     this.unlinkRow = this.unlinkRow.bind(this)
     this.whichButton = this.whichButton.bind(this)
+    this.findColHeader = this.findColHeader.bind(this)
 	}
 
 	close() {
@@ -26,20 +27,39 @@ class Lookup extends Component {
     this.setState({sheet: null})
   }
 
-  setSheet(sheet){
-    this.setState({ sheet })
+  // componentDidMount(){
+  //   const { lookup, columnHeaders, cell } = this.props;
+  //   if (this.findColHeader()) {
+  //     let theSheet = sheets.filter((sheet)=>sheet._id === lookup.cell.data[0].sheet)[0]
+  //     this.setState({ sheet:  theSheet })
+  //   }
+  // }
+
+  findColHeader(){
+    const { lookup, columnHeaders } = this.props;
+    return columnHeaders.filter((col)=> col.id === lookup.colId)[0]
+  }
+
+  setSheet(sheet, column){
+    let newCol = Object.assign({}, column)
+    newCol.linkedSheet = sheet._id
+    newCol.name = sheet.name
+    console.log(newCol)
+    this.props.dispatch(updateColumn(newCol))
   }
 
   sheets(){
-    if (this.props.lookup.cell.data && this.props.lookup.cell.data.length && !this.state.sheet) {
-      console.log(this.props.lookup.cell.data)
-      let theSheet = this.props.sheets.filter((sheet)=>sheet._id === this.props.lookup.cell.data[0].sheet)
-      this.setState({ sheet:  theSheet[0] })
+    // look up column headers for existing reference to sheet
+    const { lookup, columnHeaders, cell } = this.props;
+    let colInfo = this.findColHeader()
+    if (colInfo.linkedSheet && !this.state.sheet) {
+      let theSheet = this.props.sheets.filter((sheet)=>sheet._id === colInfo.linkedSheet)[0]
+      this.setState({ sheet:  theSheet })
       return <h3>Sheet already Picked</h3>
-    } else if (!this.state.sheet) {
+    } else if (!this.state.sheet){
       return this.props.sheets.filter((sheet)=>sheet._id !== this.props.sheetToShow._id)
       .map((sheet,i) => (
-          <Button bsStyle="info" onClick={this.setSheet.bind(null, sheet)}>{sheet.name}</Button>
+          <Button bsStyle="info" onClick={this.setSheet.bind(null, sheet, colInfo)}>{sheet.name}</Button>
         )
       )
     }
@@ -85,8 +105,6 @@ class Lookup extends Component {
   sheetRowPanels(){
     if (!this.state.sheet) return <h3>Pick a sheet...</h3>
 
-    
-
     return (
       this.state.sheet.content.grid.map((row) => {
           return (
@@ -129,7 +147,8 @@ function mapStateToProps(store) {
     sheets: store.spacecontrol.sheets,
     sheetToShow: store.spacecontrol.sheetToShow,
     showLookupModal: store.sheet.showLookupModal,
-    lookup: store.sheet.lookup
+    lookup: store.sheet.lookup,
+    columnHeaders: store.sheet.columnHeaders
   };
 }
 

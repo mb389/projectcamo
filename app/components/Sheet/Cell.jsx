@@ -45,8 +45,8 @@ class Cell extends Component {
 
 	}
 
-  showLookupModal(row,rowIdx,cell){
-    this.props.dispatch(showLookupModal(row,rowIdx,cell))
+  showLookupModal(row,rowIdx,cell,cellKey){
+    this.props.dispatch(showLookupModal(row,rowIdx,cell,cellKey))
   }
 
   editable (evt) {
@@ -68,7 +68,7 @@ class Cell extends Component {
         const labels = cell.data ? cell.data.map((label, i)=> <LinkLabel data={label.data} key={i} />) : <span key='0'></span>
         return  (
           <div>
-            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell)}><Glyphicon glyph="plus" /></Button>
+            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell,cellKey)}><Glyphicon glyph="plus" /></Button>
             {labels}
           </div>
         )

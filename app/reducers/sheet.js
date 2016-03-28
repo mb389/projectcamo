@@ -119,7 +119,8 @@ export default function sheet(state = {
         newState.lookup = {
           row: action.row,
           cell: action.cell,
-          rowIdx: action.rowIdx
+          rowIdx: action.rowIdx,
+          colId: action.cellKey
         }
         return newState
       }

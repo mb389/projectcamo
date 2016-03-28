@@ -8,7 +8,8 @@ import {
   CLOSE_SHARE_MODAL,
   SEARCHING,
   UPDATE_SHEETS,
-  UPDATE_REF_SHEET
+  UPDATE_REF_SHEET,
+  REMOVE_REF
 } from 'constants/index';
 import { insertNewColInRows } from './sheetHelpers.js';
 
@@ -51,9 +52,9 @@ export default function spaceControl(state = { showShareModal: false }, action =
                     rowId: action.currRow["100"],
                     sheet: action.currSheet._id
                   }
-
+          // check for an existing column reference
           for (var i = 0; i < columnHeaders.length; i++){
-            if (columnHeaders[i].name == action.currSheet.name) {
+            if (columnHeaders[i].linkedSheet == action.currSheet._id) {
               existingCol = columnHeaders[i]
               break;
             }
@@ -64,32 +65,75 @@ export default function spaceControl(state = { showShareModal: false }, action =
                 row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel]
               }
             })
-          } else {
+          }
+          // if no column ref make a new one 
+          else {
             let newColumn = {
               id: "" + (100 + sheet.content.columnHeaders.length),
               idx: sheet.content.columnHeaders.length,
               name: action.currSheet.name,
+              linkedSheet: action.currSheet._id,
               type: "Reference"
             }
             sheet.content.columnHeaders.push(newColumn)
             sheet.content = insertNewColInRows(sheet.content,newColumn)
-            sheet.content.grid.forEach((row)=>{
-              if (row['100'].data === action.data.data) {
-                row[newColumn.id].data = [newRefLabel]
+            // search and add
+            for (var i = 0; i < sheet.content.grid.length; i++) {
+              if (sheet.content.grid[i]['100'].data === action.data.data) {
+                sheet.content.grid[i][newColumn.id].data = [newRefLabel]
+                break;
               }
-            })
+            }
+          }
+        })
+        return newState
+      }
+    case REMOVE_REF:
+      function removeRef(cell,ref) {
+        for (var i = 0; i < cell.data.length; i++) {
+          if (cell.data[i].data === ref) {
+            cell.data.splice(i,1)
+            break;
+          }
+        }
+      }
+
+      {
+       let newState = _.cloneDeep(state); 
+       //refactor to helper formula
+       newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
+        .forEach((sheet)=>{
+          let columnHeaders = sheet.content.columnHeaders;
+          let existingCol;
+          let newRefLabel = {
+                    data: action.currRow["100"].data,
+                    rowId: action.currRow["100"],
+                    sheet: action.currSheet._id
+                  }
+          // find existing column reference
+          for (var i = 0; i < columnHeaders.length; i++){
+            if (columnHeaders[i].linkedSheet == action.currSheet._id) {
+              existingCol = columnHeaders[i]
+              break;
+            }
+          }
+          for (var i = 0; i < sheet.content.grid.length; i++) {
+            if (sheet.content.grid[i]['100'].data === action.data.data) {
+              removeRef(sheet.content.grid[i][existingCol.id],action.currRow['100'].data)
+              break;
+            }
           }
         })
         return newState
       }
     case SHOW_SHARE_MODAL:
       {
-          return Object.assign({},state,{ showShareModal: true});
+        return Object.assign({},state,{ showShareModal: true});
       }
-      case CLOSE_SHARE_MODAL:
-        {
-          return Object.assign({},state,{ showShareModal: false});
-        }
+    case CLOSE_SHARE_MODAL:
+      {
+        return Object.assign({},state,{ showShareModal: false});
+      }
     case ADD_SHEET_VIEW:
       const sheetNamesToShow = state.sheetNames.concat({
         name: action.sheetName,

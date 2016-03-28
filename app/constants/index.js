@@ -24,6 +24,7 @@ export const SEARCHING = 'SEARCHING';
 export const SEARCH_SHEET = 'SEARCH_SHEET';
 export const UPDATE_SHEETS = 'UPDATE_SHEETS';
 export const UPDATE_REF_SHEET = 'UPDATE_REF_SHEET';
+export const REMOVE_REF = 'REMOVE_REF';
 export const ADD_USER_COLLAB = 'ADD_USER_COLLAB';
 export const GET_USER_INFO = 'GET_USER_INFO';
 

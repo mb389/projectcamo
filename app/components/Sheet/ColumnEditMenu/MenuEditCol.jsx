@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed'};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -59,7 +59,6 @@ class MenuEditCol extends Component {
 		let newColData = Object.assign({}, this.state);
 		newColData.id = this.props.data.id;
 		newColData.idx = this.props.data.idx;
-
 		// TODO should do a deep equals
 		if (newColData == this.props.data) console.log('No Change');
 		else this.props.dispatch(updateColumn(newColData))

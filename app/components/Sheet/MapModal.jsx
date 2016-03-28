@@ -16,9 +16,6 @@ const MapModal = (props) => {
         <Modal.Body>
           <GoogleMap />
         </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.close}>Close</Button>
-        </Modal.Footer>
       </Modal>
 
   );
@@ -26,3 +23,8 @@ const MapModal = (props) => {
 
 
 export default MapModal;
+
+
+//<Modal.Footer>
+//  <Button onClick={props.close}>Close</Button>
+// </Modal.Footer>

@@ -68,7 +68,7 @@ class ColumnOptions extends Component {
 	}
 
 	showMap() {
-		this.props.dispatch(showMap());
+		this.props.dispatch(showMap(this.props.data.id));
 	}
 
 	dataType() {
@@ -92,6 +92,8 @@ class ColumnOptions extends Component {
 				return 'link';
 			case 'Select':
 				return 'menu-hamburger';
+			case 'Address':
+				return 'map-marker';
 			default:
 				return 'cog';
 		}

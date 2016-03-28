@@ -310,7 +310,14 @@ export default function sheet(state = {
       }
     case SHOW_MAP:
       let showMapState = _.cloneDeep(state);
+      let colId = action.colId
+      let addressData = showMapState.grid.reduce((accum, row) => {
+        if(row[colId]) accum.push(row[colId].data)
+        return accum
+      },[])
       showMapState.showMap = true;
+      showMapState.addressData = addressData;
+      console.log(addressData);
       return showMapState;
     case HIDE_MAP:
         let hideMapState = _.cloneDeep(state);

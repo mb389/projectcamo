@@ -1,5 +1,6 @@
-/*eslint consistent-return: 0, no-else-return: 0*/
+
 import { polyfill } from 'es6-promise';
+import Bluebird from 'bluebird'
 import request from 'axios';
 import md5 from 'spark-md5';
 import * as types from 'constants/index';
@@ -183,14 +184,33 @@ export function clearFilteredRows() {
 	}
 }
 
-export function showMap() {
+export function showMap(colId) {
 	return {
-		type: types.SHOW_MAP
+		type: types.SHOW_MAP,
+		colId
 	}
 }
 
 export function closeMap() {
 	return {
 		type: types.HIDE_MAP
+	}
+}
+
+export function getLatLongs(addressArray) {
+	console.log('getlatlongs run');
+	return (dispatch) => {
+		let addresses = addressArray.filter(item => item ? true : false)
+		let addressUrls = addresses.map(add => {
+			return `https://maps.googleapis.com/maps/api/geocode/json?address=${add}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`
+		})
+		console.log("addresses to run", addressesUrls);
+		// Bluebird.map(address)
+    // request(`https://maps.googleapis.com/maps/api/geocode/json?address=10001&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`)
+    // .then(res => {
+		// 	if(res.status === 'OK') {
+		// 		let locObj = res.results[0].geometry.location;
+		// 	}
+		// })
 	}
 }

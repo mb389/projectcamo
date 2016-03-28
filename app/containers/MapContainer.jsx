@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { closeMap } from '../actions/sheet';
+import { closeMap, getLatLongs } from 'actions/sheet';
 import MapModal from 'components/Sheet/MapModal';
 import classNames from 'classnames/bind';
 
@@ -15,6 +15,13 @@ class MapContainer extends Component {
     this.props.dispatch(closeMap())
   }
 
+  componentWillReceiveProps(nextProps) {
+    // check if props are a column - send a message that says its a column
+    console.log('nextProps!', nextProps)
+    this.props.dispatch(getLatLongs(nextProps.addressData))
+  }
+
+
   render() {
     console.log('map container props', this.props)
     return (
@@ -27,7 +34,8 @@ class MapContainer extends Component {
 
 function mapStateToProps(store) {
   return {
-    showMap: store.sheet.showMap
+    showMap: store.sheet.showMap,
+    addressData: store.sheet.addressData
   };
 }
 

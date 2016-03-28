@@ -1,8 +1,8 @@
 /* Initializing passport.js */
-var User = require('../models/user');
+var mongoose = require('mongoose');
 var local = require('./passport/local');
 var google = require('./passport/google');
-
+var User = mongoose.model('User');
 /*
  * Expose
  */

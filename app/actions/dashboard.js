@@ -17,9 +17,27 @@ function loadSpaces(spaces) {
 function loadUserInfo(user) {
   return {
     type: types.LOAD_USER_INFO,
-    user: user
+    user
   }
 }
+
+function addCollab(spaces) {
+  return {
+    type: types.ADD_USER_COLLAB,
+    collabSpaces: spaces.collabSpaces
+  }
+}
+
+export function addCollabRoute(email,id) {
+  console.log("!!")
+  return (dispatch) => {
+    request.post(`/workspace/${id}/add`,{email})
+    .then(res => {
+      dispatch(addCollab(res.data))
+    })
+  }
+}
+
 
 export function clearSheet() {
   return {
@@ -30,16 +48,6 @@ export function clearSheet() {
 export function getSpaces() {
   return (dispatch) => {
     request(`/workspace`)
-    .then(res => {
-      dispatch(loadSpaces(res.data))
-    })
-    .then(() => dispatch(clearSheet()))
-  }
-}
-
-export function getUserInfo() {
-  return (dispatch) => {
-    request(`/user`)
     .then(res => {
       dispatch(loadSpaces(res.data))
     })

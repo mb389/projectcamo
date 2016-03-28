@@ -40,7 +40,7 @@ export default (store) => {
       <Route path="/dashboard"
         component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
-      <Route path="space/:spaceId" component={SpaceControl} />
+      <Route path="space/:spaceId" component={SpaceControl} onEnter={requireAuth} />
     </Route>
   );
 };

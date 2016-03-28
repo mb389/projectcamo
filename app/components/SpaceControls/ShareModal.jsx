@@ -45,8 +45,8 @@ class ShareModal extends Component {
               <h4>Collaborators</h4>
               <div>
               <div className={cx('userImg')}></div>
-              <p>{this.props.space.user} (Owner)</p></div>
-              <ShareModalCollabs collabs={this.props.space.collabs} />
+              <p>{this.props.space ? this.props.space.user : ''} (Owner)</p></div>
+              <ShareModalCollabs collabs={this.props.space ? this.props.space.collabs : []} />
                 <hr/>
                   <div>Share This Space</div>
                   <form>

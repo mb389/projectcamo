@@ -68,6 +68,8 @@ export default function sheet(state = {
         if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data
+        delete newState.mapMarkersData;
+        console.log(newState);
         // TODO find the dependent function cells and use this already cloned State.
         return newState
       }

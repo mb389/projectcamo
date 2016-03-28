@@ -17,7 +17,6 @@ const MapModal = (props) => {
           <GoogleMap {...props} />
         </Modal.Body>
       </Modal>
-
   );
 };
 

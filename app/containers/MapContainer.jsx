@@ -18,8 +18,7 @@ class MapContainer extends Component {
   componentWillReceiveProps(nextProps) {
     // check if props are a column - send a message that says its a column
     if(nextProps.addressData && !nextProps.mapMarkersData) {
-      if(!this.props.addressData || this.props.addressData.filter(item => item ? true : false).length !== nextProps.addressData.filter(item => item ? true : false).length)
-      console.log('nextProps!', nextProps);
+      // if(!this.props.addressData || this.props.addressData.filter(item => item ? true : false).length !== nextProps.addressData.filter(item => item ? true : false).length)
       this.props.dispatch(getLatLongs(nextProps.addressData));
     }
   }

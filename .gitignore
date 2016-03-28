@@ -4,4 +4,3 @@ npm-debug.log
 .idea
 public
 .swp
-server/config/secrets.js

@@ -26,7 +26,9 @@ import {
   UPDATE_CELL_BY_ID,
   MOVE_TO_CELL,
   SHOW_MAP,
-  HIDE_MAP
+  HIDE_MAP,
+  DRAG_TABLE_COL,
+  RESIZE_TABLE_COL
 } from 'constants/index';
 import {
   insertNewColInRows,
@@ -42,24 +44,28 @@ export default function sheet(state = {
   switch (action.type) {
     case CLEAR_SHEET:
       return {}
-    case CHANGE_SHEET:
+    case CHANGE_SHEET: {
+
+      let newState=_.cloneDeep(state);
+
       action.sheet.grid.forEach(row => {
         for (let cell in row){
           row[cell].focused = false;
         }
       })
-      return {
-        columnHeaders: action.sheet.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }],
-        grid: action.sheet.grid || [],
-        history: action.history || [],
-        historySheet: action.historySheet || null,
-        modalRow: {
+        newState.columnHeaders= action.sheet.columnHeaders || [];
+        newState.grid= action.sheet.grid || [];
+        newState.history= action.history || [];
+        newState.historySheet= action.historySheet || null;
+        newState.modalRow= {
           data: null,
           rowIdx: null
-        },
-        showRowModal: false,
-        showHistoryModal: false
-      }
+        };
+        newState.showRowModal= false;
+        newState.showHistoryModal= false;
+
+      return newState;
+    }
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
@@ -179,6 +185,7 @@ export default function sheet(state = {
         id: (100+addColumnState.columnHeaders.length).toString(),
         name: 'Column ' + (1+addColumnState.columnHeaders.length),
         idx: addColumnState.columnHeaders.length,
+        width: 200
       }
 
       // TODO need to set this.props.view: 'editNameAndType';
@@ -210,6 +217,7 @@ export default function sheet(state = {
         id: (100+insertColumnState.columnHeaders.length).toString(),
         name: 'Column ' + (1+action.colIdx),
         idx: action.colIdx,
+        width: 200
       }
 
       insertColumnState.columnHeaders = insertColumnState.columnHeaders.map(column=>{
@@ -298,10 +306,28 @@ export default function sheet(state = {
         let addRowState = _.cloneDeep(state);
         let newRow = {}
         addRowState.columnHeaders.forEach(function(col) {
-          newRow[col.id] = { data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
+          newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
         })
         addRowState.grid.push(newRow)
         return addRowState
+      }
+      case RESIZE_TABLE_COL: {
+
+        let newState=_.cloneDeep(state);
+        // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
+
+        newState.columnHeaders.forEach(ch => {
+          if (ch.id === action.size.id) ch.width=action.size.rect.width;
+        })
+
+        newState.grid.forEach(row => {
+          row[action.size.id].width=action.size.rect.width;
+        })
+
+        return newState;
+      }
+      case DRAG_TABLE_COL: {
+        break;
       }
     case SHOW_MAP:
       let showMapState = _.cloneDeep(state);

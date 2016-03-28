@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed'};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', width: this.props.data.width};
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -85,7 +85,7 @@ class MenuEditCol extends Component {
 					formulaUpload={this.formulaUpload}
 					formulas={this.props.formulas}
 				/>
-				), 
+				),
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
 			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
 			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
@@ -113,7 +113,7 @@ class MenuEditCol extends Component {
 				      </Dropdown.Menu>
 				    </Dropdown>
 
-				    
+
 				    {columnTypes[this.state.type]}
 				    <div className='col-md-12'>
 					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>

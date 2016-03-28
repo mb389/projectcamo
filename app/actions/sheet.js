@@ -171,3 +171,19 @@ export function clearFilteredRows() {
 		type: types.CLEAR_FILTERED_ROWS
 	}
 }
+
+
+export function dragCol(panes) {
+	return {
+		type: types.DRAG_TABLE_COL,
+		panes
+	}
+}
+
+
+export function resizeCol(size) {
+	return {
+		type: types.RESIZE_TABLE_COL,
+		size
+	}
+}

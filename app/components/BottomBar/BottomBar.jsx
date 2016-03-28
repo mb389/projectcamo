@@ -17,7 +17,7 @@ const BottomBar = (props) => {
   function generateColumnReducers (columns) {
 	  return columns.map((column) => {
 	      return (
-	          <BottomReducers columnData={columnData[column.id]} key={column.id}/>
+	          <BottomReducers columnData={columnData[column.id]} key={column.id} width={column.width}/>
 	          // component of dropdown for reducers column has id, idx, name, type;
 	      )
 	  })

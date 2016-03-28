@@ -111,6 +111,7 @@ export function changeSheet(obj) {
   if (obj.sheets) {
     fetchUpdatesFromOtherSheets(obj.sheets, obj.sheetToShow)
   }
+
   return {
     type: types.CHANGE_SHEET,
     sheet: obj.sheetToShow.content,

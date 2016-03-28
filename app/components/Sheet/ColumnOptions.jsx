@@ -9,6 +9,7 @@ import MenuEditCol from './ColumnEditMenu/MenuEditCol';
 
 const cx = classNames.bind(styles);
 
+
 class ColumnOptions extends Component {
 	constructor(props,state){
 		super(props, state);
@@ -118,7 +119,7 @@ class ColumnOptions extends Component {
 			}
 
 			viewing = (
-				<Dropdown id="dropdown-custom-1" onSelect={this.handleSelection} className={cx('columnWidth')}>
+				<Dropdown id="dropdown-custom-1" onSelect={this.handleSelection} className={cx('columnWidth')} style={{width:this.props.data.width}}>
 			      <Dropdown.Toggle noCaret className={cx('thead')}>
 							<Glyphicon className={cx('columnType')} glyph={this.dataType()} />
 							{this.props.data.name}

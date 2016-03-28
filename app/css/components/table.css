@@ -5,9 +5,10 @@
     display: block;
     /*position: relative;*/
     width: 100%;
+    min-width: 1000px;
+    min-height: 500px;
     height: inherit;
     overflow-y: scroll;
-    min-height: 300px
 }
 
 .typeDropdown {
@@ -52,11 +53,12 @@
 }
 
 .columnWidth {
-  width: columnWidth;
+  min-width: 50px;
+  width: 100%;
 }
 
 .addColumn {
-  width: 50px;
+  width: 53px;
   display: inline-block;
   background: #fff;
   /*border-right: 1px solid #dde1e3;
@@ -67,12 +69,12 @@
 }
 
 .addRow {
-  width: 54px;
-  display: inline-block;
+  width: 53px;
+  display: block;
   background: #fff;
   border: 1px solid #dde1e3;
   border-radius: 0;
-  height: 30px;
+  height: 34px;
   margin-bottom: 40px;
 }
 
@@ -84,13 +86,16 @@
     background: #fff;
     border-bottom: 1px solid #d1d1d1;
     border-top: 1px solid #d1d1d1;
+
     /*position: fixed;
     overflow: scroll;*/
+
 }
 
 .thead {
-    min-width: columnWidth;
-    display: inline-block;
+    min-width: 120px;
+    width: 100%;
+    display: inline;
     background: #fff;
     border-right: 1px solid #dde1e3;
     border-bottom: 1px solid #d1d1d1;
@@ -107,7 +112,7 @@
 }
 
 .trow {
-    width: 100%;
+
     display: flex;
     height: 34px;
 }

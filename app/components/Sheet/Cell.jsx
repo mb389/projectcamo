@@ -117,6 +117,7 @@ class Cell extends Component {
     return (
       <div tabIndex='-1'
 				className={cx('cell')}
+				style={{width: this.props.cell.width}}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
 				onFocus={this.handleCell}

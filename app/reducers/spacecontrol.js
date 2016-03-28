@@ -112,7 +112,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
                   }
           // find existing column reference
           for (var i = 0; i < columnHeaders.length; i++){
-            if (columnHeaders[i].name == action.currSheet.name) {
+            if (columnHeaders[i].linkedSheet == action.currSheet._id) {
               existingCol = columnHeaders[i]
               break;
             }

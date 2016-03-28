@@ -24,6 +24,20 @@ function makeUserRequest(method, data, api='/login') {
   });
 }
 
+function getUser(user) {
+  return {
+    type: types.GET_USER_INFO,
+    user
+  }
+}
+
+export function retrieveUserInfo(id) {
+  return (dispatch) => {
+    request(`/user/${id}`)
+    .then(res => dispatch(updateSheet(res.data.history)))
+  }
+}
+
 
 // Log In Action Creators
 function beginLogin() {
@@ -31,6 +45,7 @@ function beginLogin() {
 }
 
 function loginSuccess(message,data) {
+
   return {
     type: types.LOGIN_SUCCESS_USER,
     message: message,

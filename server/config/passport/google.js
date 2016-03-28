@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../../models/user');
+var User = mongoose.model('User');
 var secrets = require('../secrets');
 
 /*
@@ -17,7 +17,7 @@ var secrets = require('../secrets');
  *       - If there is, return an error message.
  *       - Else create a new account.
  *
- * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens. 
+ * The Google OAuth 2.0 authentication strategy authenticates users using a Google account and OAuth 2.0 tokens.
  * The strategy requires a verify callback, which accepts these credentials and calls done providing a user, as well
  * as options specifying a client ID, client secret, and callback URL.
  */

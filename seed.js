@@ -49,10 +49,11 @@ var seedSheet = function (workspaceId) {
   return Sheet.createAsync(sheet);
 }
 
-var seedWorkspace = function () {
+var seedWorkspace = function (user) {
   var workspace = [
     {
-      name: 'Seedspace'
+      name: 'Seedspace',
+      user: user
     }
   ]
   return Workspace.createAsync(workspace);
@@ -63,7 +64,7 @@ var seedWorkspace = function () {
   .then(() => Workspace.remove({}))
   .then(() => Sheet.remove({}))
   .then(() => seedUsers())
-  .then(() => seedWorkspace())
+  .then((users) => seedWorkspace(users[0]._id))
   .then((spaces) => seedSheet(spaces[0]._id))
   .then(() => {
     console.log(chalk.green('Seed successful!'));

@@ -66,4 +66,4 @@ UserSchema.statics = {}
 
 
 
-module.exports = mongoose.model('User', UserSchema);
+User = mongoose.model('User', UserSchema);

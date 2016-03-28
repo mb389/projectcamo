@@ -72,7 +72,7 @@ class SpaceControl extends Component {
           searchSheet={this.searchSheet}
           searching={this.props.searching}
         />
-        <ShareModal />
+      <ShareModal space={this.props.space} />
         <Lookup />
       </div>
         <div className={cx('masterControl')}>

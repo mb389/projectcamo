@@ -1,6 +1,15 @@
 var _ = require('lodash');
-var User = require('../models/user');
+var mongoose = require('mongoose');
+// var User = require('../models/user');
 var passport = require('passport');
+var User = mongoose.model('User');
+
+
+exports.getById = function(req,res,next) {
+  User.findById(req.params.id)
+  .then(user => res.json(user))
+  .catch(err => console.log(err))
+}
 
 /**
  * POST /login

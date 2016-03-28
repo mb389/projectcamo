@@ -8,21 +8,27 @@ import {
   SIGNUP_ERROR_USER,
   LOGOUT_USER,
   LOGOUT_SUCCESS_USER,
-  LOGOUT_ERROR_USER } from 'constants/index';
+  LOGOUT_ERROR_USER,
+  GET_USER_INFO } from 'constants/index';
 
 export default function user(state={
   isLogin: true,
   message: '',
   isWaiting: false,
   authenticated: false,
-  details: { name: "Guy Guyerson",
-    email: "guy@guyerson.com", password: null } }, action={}) {
+  profile: { name: '', gender: '', location: '', website: '', picture: '',
+    email: '', password: null } }, action={}) {
   switch (action.type) {
     case TOGGLE_LOGIN_MODE:
       return Object.assign({}, state, {
         isLogin: !state.isLogin,
         message: ''
       });
+      case GET_USER_INFO: {
+        return Object.assign({}, state, {
+          user: action.user
+        });
+      }
     case MANUAL_LOGIN_USER:
       return Object.assign({}, state, {
         isWaiting: true,
@@ -33,7 +39,7 @@ export default function user(state={
         isWaiting: false,
         authenticated: true,
         message: '',
-        details: action.details
+        profile: action.details
       });
     case LOGIN_ERROR_USER:
       return Object.assign({}, state, {

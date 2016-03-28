@@ -4,9 +4,10 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
+import { Modal, Glyphicon, Button } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
+import LinkLabel from './CellTypes/LinkLabel';
 
 
 const cx = classNames.bind(styles);
@@ -32,17 +33,20 @@ class Cell extends Component {
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     // console.log('handleChangeRunning', evt);
 
-    row[cellKey].data = dispatch(updateCell(evt.target.value, cellKey, rowIdx)).cell.data;
-
+    let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
-        dispatch(updateFormulaCell(cell, rowIdx, row[cell].formula, row));
+        row[cell].col = cell;
+        recalculateCells.push(row[cell]);
       }
     }
+
+    dispatch(updateCell(evt.target.value, cellKey, rowIdx, null, recalculateCells));
+
 	}
 
-  showLookupModal(row,rowIdx,cell){
-    this.props.dispatch(showLookupModal(row,rowIdx,cell))
+  showLookupModal(row,rowIdx,cell,cellKey){
+    this.props.dispatch(showLookupModal(row,rowIdx,cell,cellKey))
   }
 
   editable (evt) {
@@ -61,10 +65,10 @@ class Cell extends Component {
           return (<img src={img} key={i} className={cx('img-thumb')}/>)
         }))
       case 'Reference':
-        const labels = cell.data ? cell.data.map((label, i)=><Label bsStyle="info" key={i}>{label.data}</Label> ) : <span></span>
+        const labels = cell.data ? cell.data.map((label, i)=> <LinkLabel data={label.data} key={i} />) : <span key='0'></span>
         return  (
           <div>
-            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell)}><Glyphicon glyph="plus" /></Button>
+            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell,cellKey)}><Glyphicon glyph="plus" /></Button>
             {labels}
           </div>
         )

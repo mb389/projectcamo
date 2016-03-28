@@ -34,12 +34,13 @@ export default (store) => {
   };
   return (
     <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} />
+      <IndexRoute component={Dashboard} onEnter={requireAuth} />
       <Route path="/login"
         component={LoginOrRegister} onEnter={redirectAuth} />
-        <Route path="/dashboard" component={Dashboard} />
+      <Route path="/dashboard"
+        component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
-      <Route path="space/:spaceId" component={SpaceControl} />
+      <Route path="space/:spaceId" component={SpaceControl}  />
     </Route>
   );
 };

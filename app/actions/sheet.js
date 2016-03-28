@@ -1,6 +1,4 @@
-
 import { polyfill } from 'es6-promise';
-import Bluebird from 'bluebird'
 import request from 'axios';
 import md5 from 'spark-md5';
 import * as types from 'constants/index';

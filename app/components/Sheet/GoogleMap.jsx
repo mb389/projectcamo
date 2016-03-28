@@ -5,35 +5,8 @@ import { getLatLongs } from 'actions/sheet';
 import { Button } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from 'css/components/map';
-// import GMaps from 'gmaps';
 
 const cx = classNames.bind(styles);
-
-
-// let coordSet = [{
-//             lat: 40.705189,
-//             lng: -74.009209
-//             },
-//             {
-//               lat: 40.735975,
-//               lng: -73.990394
-//             },
-//             {
-//               lat: 40.745975,
-//               lng: -73.970394
-//             }]
-
-// const createMarkers = (markers) => coordSet.map((coord,i) => {
-//       return (
-//         <Marker
-//           key={i}
-//           lat={coord.lat}
-//           lng={coord.lng}
-//           label={String(i+1)}
-//           title={'Title'}
-//         />
-//       )
-// })
 
 class GoogleMap extends Component {
   constructor(props) {
@@ -42,7 +15,6 @@ class GoogleMap extends Component {
   }
 
   componentWillMount() {
-    // if (this.props.markers) {
       let markersToAdd = this.props.markers.map((mrk,i) => {
         return (
           <Marker
@@ -55,7 +27,6 @@ class GoogleMap extends Component {
         )
       })
       this.setState({markersCreated: true, markers: markersToAdd})
-    // }
   }
 
   render() {

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateColumn} from 'actions/sheet';
-import { fetchFormulaStore } from 'actions/formulaStore'
+import { fetchFormulaStore } from 'actions/formulaStore';
 // TODO maybe load this earlier to avoid delay
 import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
@@ -60,7 +60,7 @@ class MenuEditCol extends Component {
 		newColData.id = this.props.data.id;
 		newColData.idx = this.props.data.idx;
 		// TODO should do a deep equals
-		if (newColData == this.props.data) 
+		if (newColData == this.props.data) {}
 		else this.props.dispatch(updateColumn(newColData))
 
 		this.props.exitTypeMenu();

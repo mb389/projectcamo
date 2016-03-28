@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import * as Actions from '../actions/spacecontrols';
+import * as Actions from '../actions/SpaceControls';
 import { Modal } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';

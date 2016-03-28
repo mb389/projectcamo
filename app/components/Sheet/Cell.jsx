@@ -4,10 +4,11 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal, Glyphicon, Button } from 'react-bootstrap';
+import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
 import LinkLabel from './CellTypes/LinkLabel';
+import Checkbox from './CellTypes/Checkbox';
 
 
 const cx = classNames.bind(styles);
@@ -32,7 +33,7 @@ class Cell extends Component {
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     // console.log('handleChangeRunning', evt);
-
+    console.log(evt.target.value)
     let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
@@ -73,7 +74,7 @@ class Cell extends Component {
           </div>
         )
       case 'Checkbox':
-          return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
+          return <Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
       case 'Select':
       case 'Link':
       case 'Number':

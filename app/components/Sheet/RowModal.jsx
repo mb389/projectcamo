@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import TextModal from './ModalTypes/Text';
 import ImageList from './ModalTypes/ImageList';
+import ModalCheckBox from './ModalTypes/ModalCheckBox';
 import { connect } from 'react-redux';
 import { closeRowModal } from 'actions/sheet';
 import styles from 'css/components/modal';
-import { Modal, Glyphicon, Button } from 'react-bootstrap';
-import LinkLabel from './CellTypes/LinkLabel'
+import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
+import LinkLabel from './CellTypes/LinkLabel';
 
 const cx = classNames.bind(styles);
 
@@ -33,7 +34,7 @@ class RowModal extends Component {
           </div>
         )
       case 'Checkbox':
-          return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' value={cell.data==='true'} />)
+          return <ModalCheckBox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
       case 'Select':
       case 'Link':
       case 'Number':

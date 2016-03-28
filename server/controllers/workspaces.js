@@ -9,6 +9,7 @@ var User = mongoose.model('User');
  * List
  */
 exports.all = function(req, res) {
+  console.log(req.user);
   if (req.user) {
   Promise.all([
     Workspace.find({user: req.user._id}),

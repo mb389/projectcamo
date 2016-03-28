@@ -1,5 +1,6 @@
-/*eslint consistent-return: 0, no-else-return: 0*/
+
 import { polyfill } from 'es6-promise';
+import Bluebird from 'bluebird'
 import request from 'axios';
 import md5 from 'spark-md5';
 import * as types from 'constants/index';
@@ -170,5 +171,43 @@ export function setHistoryTable(index) {
 export function clearFilteredRows() {
 	return {
 		type: types.CLEAR_FILTERED_ROWS
+	}
+}
+
+export function showMap(colId) {
+	return {
+		type: types.SHOW_MAP,
+		colId
+	}
+}
+
+export function closeMap() {
+	return {
+		type: types.HIDE_MAP
+	}
+}
+
+export function getLatLongs(addressArray) {
+	return (dispatch) => {
+		let addresses = addressArray.filter(item => item.data ? true : false)
+		let addressUrls = addresses.map(add => {
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`);
+		})
+		Promise.all(addressUrls)
+		.then(resArray => {
+			let geoCoded = resArray.map((result,i) => {
+				if(result.data.status === 'OK') {
+					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
+				}
+			})
+			dispatch(sendLatLongs(geoCoded))
+		})
+	}
+}
+
+export function sendLatLongs(geoResults) {
+	return {
+		type: types.SEND_LAT_LONGS,
+		geoResults
 	}
 }

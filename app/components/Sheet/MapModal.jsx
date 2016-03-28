@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 
 
 const MapModal = (props) => {
-  console.log('mapModalprops', props)
   return (
       <Modal className={cx('Map')} show={props.showMap} onHide={props.close} bsSize="lg">
         <Modal.Header className={cx('mapHeader')} classcloseButton>
@@ -24,8 +23,3 @@ const MapModal = (props) => {
 
 
 export default MapModal;
-
-
-//<Modal.Footer>
-//  <Button onClick={props.close}>Close</Button>
-// </Modal.Footer>

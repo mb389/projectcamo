@@ -198,7 +198,6 @@ export function closeMap() {
 }
 
 export function getLatLongs(addressArray) {
-	console.log('getlatlongs run');
 	return (dispatch) => {
 		let addresses = addressArray.filter(item => item.data ? true : false)
 		let addressUrls = addresses.map(add => {
@@ -206,14 +205,11 @@ export function getLatLongs(addressArray) {
 		})
 		Promise.all(addressUrls)
 		.then(resArray => {
-			console.log('addresses', addresses);
-			console.log("resArray", resArray)
 			let geoCoded = resArray.map((result,i) => {
 				if(result.data.status === 'OK') {
 					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
 				}
 			})
-			console.log('geoCoded', geoCoded)
 			dispatch(sendLatLongs(geoCoded))
 		})
 	}

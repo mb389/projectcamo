@@ -14,7 +14,7 @@ const MapModal = (props) => {
           <Modal.Title>Map View</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <GoogleMap />
+          <GoogleMap markers={props.markers} />
         </Modal.Body>
       </Modal>
 

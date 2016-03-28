@@ -51,6 +51,7 @@ export const CLEAR_SEARCH_GRID = 'CLEAR_SEARCH_GRID';
 export const CLEAR_FILTERED_ROWS = 'CLEAR_FILTERED_ROWS';
 export const SHOW_MAP = 'SHOW_MAP';
 export const HIDE_MAP = 'HIDE_MAP';
+export const SEND_LAT_LONGS = 'SEND_LAT_LONGS';
 
 // LOOKUP CONSTS
 export const SHOW_LOOKUP_MODAL = 'SHOW_LOOKUP_MODAL';

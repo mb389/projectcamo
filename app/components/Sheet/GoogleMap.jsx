@@ -10,20 +10,40 @@ import styles from 'css/components/map';
 const cx = classNames.bind(styles);
 
 
-let coordSet = [{
-            lat: 40.705189,
-            lng: -74.009209
-            },
-            {
-              lat: 40.735975,
-              lng: -73.990394
-            },
-            {
-              lat: 40.745975,
-              lng: -73.970394
-            }]
+// let coordSet = [{
+//             lat: 40.705189,
+//             lng: -74.009209
+//             },
+//             {
+//               lat: 40.735975,
+//               lng: -73.990394
+//             },
+//             {
+//               lat: 40.745975,
+//               lng: -73.970394
+//             }]
 
-const markers = coordSet.map((coord,i) => {
+// const createMarkers = (markers) => coordSet.map((coord,i) => {
+//       return (
+//         <Marker
+//           key={i}
+//           lat={coord.lat}
+//           lng={coord.lng}
+//           label={String(i+1)}
+//           title={'Title'}
+//         />
+//       )
+// })
+
+class GoogleMap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {markersCreated: false, markers: []}
+    this.onMapCreated = this.onMapCreated.bind(this);
+  }
+
+  componentWillMount() {
+    let markersToAdd = this.props.markers.map((coord,i) => {
       return (
         <Marker
           key={i}
@@ -33,54 +53,39 @@ const markers = coordSet.map((coord,i) => {
           title={'Title'}
         />
       )
-})
-
-class GoogleMap extends Component {
-  constructor(props) {
-    super(props);
-    this.onMapCreated = this.onMapCreated.bind(this);
+    })
+    this.setState({markersCreated: true, markers: markersToAdd})
   }
-
-
-
 
   onMapCreated(map) {
-    console.dir(map)
-  //   GMaps.geocode({
-  //   address: 'Westport, CT',
-  //   callback: function(results, status) {
-  //     if (status == 'OK') {
-  //       console.log('results', results)
-  //       let latlng = results[0].geometry.location;
-  //       // map.setCenter(latlng.lat(), latlng.lng());
-  //       markers.push(
-  //         <Marker
-  //           lat={latlng.lat()}
-  //           lng={latlng.lng()}
-  //         />
-  //       )
-  //     }
-  //   }
-  // });
+    console.dir('map created', map)
   }
+
+  // componentWillReceiveProps() {
+  //   createMarkers(this.props.markers)
+  // }
 
 
   render() {
-    console.log(markers);
-    return (
-      <Gmaps width={'650px'}
-        height={'500px'}
-        lat={coordSet[0].lat}
-        lng={coordSet[0].lng}
-        zoom={12}
-        loadingMessage={'Your map is loading'}
-        params={{v: '3.exp'}}
-        onMapCreated={this.onMapCreated}
-        className={cx('mapPlugIn')}
-      >
-      {markers}
-    </Gmaps>
-    );
+    console.log(this.props.markers);
+    if(this.state.markersCreated) {
+      return (
+        <Gmaps width={'650px'}
+          height={'500px'}
+          lat={this.props.markers[0].lat}
+          lng={this.props.markers[0].lng}
+          zoom={12}
+          loadingMessage={'Your map is loading'}
+          params={{v: '3.exp'}}
+          onMapCreated={this.onMapCreated}
+          className={cx('mapPlugIn')}
+        >
+        {this.state.markers}
+      </Gmaps>
+    )
+    } else {
+      return <div>Map Loading</div>
+    }
   }
 }
 

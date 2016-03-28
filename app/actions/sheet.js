@@ -202,15 +202,25 @@ export function getLatLongs(addressArray) {
 	return (dispatch) => {
 		let addresses = addressArray.filter(item => item ? true : false)
 		let addressUrls = addresses.map(add => {
-			return `https://maps.googleapis.com/maps/api/geocode/json?address=${add}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`);
 		})
-		console.log("addresses to run", addressesUrls);
-		// Bluebird.map(address)
-    // request(`https://maps.googleapis.com/maps/api/geocode/json?address=10001&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`)
-    // .then(res => {
-		// 	if(res.status === 'OK') {
-		// 		let locObj = res.results[0].geometry.location;
-		// 	}
-		// })
+		Promise.all(addressUrls)
+		.then(resArray => {
+			console.log("resArray", resArray)
+			let geoCoded = resArray.map(result => {
+				if(result.data.status === 'OK') {
+					return result.data.results[0].geometry.location;
+				}
+			})
+			console.log('geoCoded', geoCoded)
+			dispatch(sendLatLongs(geoCoded))
+		})
+	}
+}
+
+export function sendLatLongs(geoResults) {
+	return {
+		type: types.SEND_LAT_LONGS,
+		geoResults
 	}
 }

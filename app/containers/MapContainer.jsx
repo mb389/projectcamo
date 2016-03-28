@@ -17,15 +17,17 @@ class MapContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     // check if props are a column - send a message that says its a column
-    console.log('nextProps!', nextProps)
-    this.props.dispatch(getLatLongs(nextProps.addressData))
+    if(nextProps.addressData && !nextProps.mapMarkersData) {
+      console.log('nextProps!', nextProps);
+      this.props.dispatch(getLatLongs(nextProps.addressData));
+    }
   }
 
 
   render() {
     console.log('map container props', this.props)
     return (
-        <MapModal showMap={this.props.showMap} close={this.close}/>
+        <MapModal markers={this.props.mapMarkersData} showMap={this.props.showMap} close={this.close}/>
     );
   }
 }
@@ -35,7 +37,8 @@ class MapContainer extends Component {
 function mapStateToProps(store) {
   return {
     showMap: store.sheet.showMap,
-    addressData: store.sheet.addressData
+    addressData: store.sheet.addressData,
+    mapMarkersData: store.sheet.mapMarkersData
   };
 }
 

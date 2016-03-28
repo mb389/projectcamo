@@ -27,7 +27,8 @@ import {
   UPDATE_CELL_BY_ID,
   MOVE_TO_CELL,
   SHOW_MAP,
-  HIDE_MAP
+  HIDE_MAP,
+  SEND_LAT_LONGS
 } from 'constants/index';
 import {
   insertNewColInRows,
@@ -317,8 +318,11 @@ export default function sheet(state = {
       },[])
       showMapState.showMap = true;
       showMapState.addressData = addressData;
-      console.log(addressData);
       return showMapState;
+    case SEND_LAT_LONGS:
+      let newMapState = _.cloneDeep(state);
+      newMapState.mapMarkersData = action.geoResults;
+      return newMapState;
     case HIDE_MAP:
         let hideMapState = _.cloneDeep(state);
         hideMapState.showMap = false;

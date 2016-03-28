@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { closeLookupModal, updateCellById, updateColumn } from 'actions/sheet';
-import { updateRefSheet, removeRef } from 'actions/spacecontrols';
+import { updateRefSheet, removeRef } from 'actions/SpaceControls';
 import styles from 'css/components/modal';
 import { Modal, Button, ButtonGroup, Panel } from 'react-bootstrap';
 

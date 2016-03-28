@@ -27,14 +27,6 @@ class Lookup extends Component {
     this.setState({sheet: null})
   }
 
-  // componentDidMount(){
-  //   const { lookup, columnHeaders, cell } = this.props;
-  //   if (this.findColHeader()) {
-  //     let theSheet = sheets.filter((sheet)=>sheet._id === lookup.cell.data[0].sheet)[0]
-  //     this.setState({ sheet:  theSheet })
-  //   }
-  // }
-
   findColHeader(){
     const { lookup, columnHeaders } = this.props;
     return columnHeaders.filter((col)=> col.id === lookup.colId)[0]

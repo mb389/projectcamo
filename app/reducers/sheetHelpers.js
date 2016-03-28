@@ -20,7 +20,6 @@ export function runCustomFunc (state, row, funcText) {
     if(/^\s*$/.test(cellUsed)) cellUsed = "null";
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
-  console.log(columnDefs,funcText)
 
   return eval(columnDefs+funcText);
 }

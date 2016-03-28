@@ -77,7 +77,6 @@ export default function sheet(state = {
         return newState
       }
     case UPDATE_CELL_BY_ID:
-      console.log(action.cell.data)
       {
         let newState = _.cloneDeep(state);
         newState.grid.forEach(function(row){

@@ -27,7 +27,6 @@ class MapContainer extends Component {
 
 
   render() {
-    console.log('map container props', this.props)
     return (
         <MapModal markers={this.props.mapMarkersData} mapName={this.props.mapName} showMap={this.props.showMap} close={this.close}/>
     );

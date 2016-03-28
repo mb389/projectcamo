@@ -66,10 +66,13 @@ export default function sheet(state = {
         if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data;
-        action.formulaCells.forEach(cell =>{
-          let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
-          newState.grid[action.cell.idx][cell.col].data = data;
-        })
+        if (action.formulaCells) 
+        {
+          action.formulaCells.forEach(cell =>{
+            let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+            newState.grid[action.cell.idx][cell.col].data = data;
+          })
+        }
         return newState
       }
     case UPDATE_CELL_BY_ID:

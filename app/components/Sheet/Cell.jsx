@@ -119,7 +119,7 @@ class Cell extends Component {
 				className={cx('cell')}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
-				onFocus={this.handleCell}
+				onClick={this.handleCell}
 				onKeyDown={this.keyPress} // for key navigation
         ref={(c) => {
           if(this.props.cell.focused && c) c.focus();

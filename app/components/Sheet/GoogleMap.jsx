@@ -15,8 +15,8 @@ class GoogleMap extends Component {
     this.createMarkers = this.createMarkers.bind(this);
   }
 
-  createMarkers() {
-    let markersToAdd = this.props.markers.map((mrk,i) => {
+  createMarkers(markers) {
+    let markersToAdd = markers.map((mrk,i) => {
       return (
         <Marker
           key={i}
@@ -33,15 +33,17 @@ class GoogleMap extends Component {
 
   componentWillMount() {
       if(!this.props.markers) return;
-      this.createMarkers();
+      this.createMarkers(this.props.markers);
 
   }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.markers && nextProps.markers !== this.props.markers) {
-      this.createMarkers();
+      console.log('next', nextProps.markers)
+      console.log('this', this.props.markers)
+      this.createMarkers(nextProps.markers);
     }
-}
+  }
 
   render() {
     if(this.state.markersCreated) {

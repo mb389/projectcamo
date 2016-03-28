@@ -74,7 +74,6 @@ export default function sheet(state = {
             newState.grid[action.cell.idx][cell.col].data = data;
           })
         }
-        
         return newState
       }
     case UPDATE_CELL_BY_ID:
@@ -318,6 +317,7 @@ export default function sheet(state = {
       },[])
       showMapState.showMap = true;
       showMapState.addressData = addressData;
+      showMapState.mapMarkersData = null;
       showMapState.mapColumn = showMapState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
       return showMapState;
     case SEND_LAT_LONGS:

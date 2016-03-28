@@ -115,12 +115,12 @@ class ColumnOptions extends Component {
 						<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
 						<MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
 						<MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
-						<MenuItem key="7" eventKey="insertLeft"> Insert Left </MenuItem>,
-						<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
-						<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
-						<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
-						<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>,
-						<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>
+						<MenuItem key="7" eventKey="insertLeft"> Insert Col Left </MenuItem>,
+						<MenuItem key="8" eventKey="insertRight"> Insert Col Right </MenuItem>,
+						<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>,
+						<MenuItem key="4" eventKey="sortAsc">Sort A -> Z (ASC)</MenuItem>,
+						<MenuItem key="5" eventKey="sortDec">Sort Z -> A (DESC)</MenuItem>,
+						<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
 					];
 				}
 

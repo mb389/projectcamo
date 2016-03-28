@@ -38,11 +38,12 @@ class GoogleMap extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.markers !== this.props.markers) this.createMarkers();
+    if(nextProps.markers && nextProps.markers !== this.props.markers) {
+      this.createMarkers();
+    }
 }
 
   render() {
-    console.log('render called');
     if(this.state.markersCreated) {
       return (
         <Gmaps width={'750px'}

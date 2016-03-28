@@ -2,27 +2,40 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 var Workspace = mongoose.model('Workspace');
 var Sheet = mongoose.model('Sheet');
-
-
+var User = mongoose.model('User');
 
 
 /**
  * List
  */
 exports.all = function(req, res) {
+  if (req.user) {
   Promise.all([
     Workspace.find({user: req.user._id}),
     Workspace.find({collabs: req.user._id})
   ])
   .then(spaces => res.json({spaces: spaces[0], collabSpaces: spaces[1]}))
   .catch((err) => console.log('Error in first query'));
+}
 };
-
 
 exports.findCollab = function(req, res) {
   Workspace.find({collabs:req.user._id})
   .then((spaces) => res.json(spaces))
   .catch(err => res.status(400).send(err))
+}
+
+exports.addCollab = function(req, res) {
+  User.findOne({email: req.body.email })
+  .then(user => {
+    console.log(req.params)
+    return Workspace.findByIdAndUpdate(req.params.id, {$push: {collabs: user._id}}, {safe: true, upsert: true, new: true})
+  })
+  .then((space) => {
+    console.log(space)
+    res.status(200).json(space)
+  })
+  .catch(err => res.status(500).send('We failed to save to due some reason'))
 }
 
 exports.one = function(req, res) {

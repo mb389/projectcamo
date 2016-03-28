@@ -22,6 +22,7 @@ module.exports = function(app, passport) {
   app.post('/login', users.postLogin);
   app.post('/signup', users.postSignUp);
   app.post('/logout', users.postLogout);
+  // app.get('/users/',users.getByEmail);
 
   // google auth
   // Redirect the user to Google for authentication. When complete, Google
@@ -87,6 +88,8 @@ module.exports = function(app, passport) {
   app.get('workspace/collab', workspaces.findCollab);
 
   app.get('/workspace/:id', workspaces.one);
+
+  app.post('/workspace/:id/add', workspaces.addCollab);
 
   app.post('/workspace', function(req, res) {
     workspaces.add(req, res);

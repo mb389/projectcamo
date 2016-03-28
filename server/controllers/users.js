@@ -1,6 +1,8 @@
 var _ = require('lodash');
-var User = require('../models/user');
+var mongoose = require('mongoose');
+// var User = require('../models/user');
 var passport = require('passport');
+var User = mongoose.model('User');
 
 /**
  * POST /login

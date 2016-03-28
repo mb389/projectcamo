@@ -69,7 +69,11 @@ export default function render(req, res) {
         authenticated: authenticated,
         isWaiting: false,
         message: '',
-        isLogin: true
+        isLogin: true,
+        profile: {
+          name: '',
+          email: ''
+        }
       }
     }, history);
 

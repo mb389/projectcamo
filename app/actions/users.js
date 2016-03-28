@@ -31,6 +31,7 @@ function beginLogin() {
 }
 
 function loginSuccess(message,data) {
+
   return {
     type: types.LOGIN_SUCCESS_USER,
     message: message,

@@ -89,7 +89,7 @@ class Lookup extends Component {
       if (links[i].data === rowId.data) return <Button bsStyle="warning" onClick={this.unlinkRow.bind(this, rowId)} >Unlink</Button>
     }
 
-    return <Button bsStyle="success" onClick={this.linkRow.bind(this, rowId)} >{rowId.data}</Button>
+    return <Button bsStyle="success" onClick={this.linkRow.bind(this, rowId)} >Link</Button>
 
   }
 

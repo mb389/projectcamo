@@ -1,20 +1,22 @@
-# Project CAMO
+# SpaceBook
 
-Project CAMO aims to recreate the the spreadsheet with today's media rich world in mind. 
+![SpaceBook](https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs)
+
+SpaceBook aims to recreate spreadsheet with today's media rich world in mind. 
 
 ## Summary
 
-Now you can organize of your information, including videos, images, lists, checkbox, map locations, and more, in one simple place. CAMO also allows users to collaborate in real time on projects and quickly scroll through any revisions that they have. 
+Now you can organize all of your information, including videos, images, lists, checkbox, map locations, and more, in one simple place. SpaceBook also allows users to collaborate while viewing and manipulating their data in a variety of ways. 
 
 ## Features
 
-	Interacts with over a dozen data types
-	Quickly write javascript functions to manipulate your data
-	Interactive revision history
-	Collaborate with unlimited team members
+	Interacts with a number of different data types
+	Quickly write custom Javascript functions to manipulate your data and upload for other users to utilize
+	Collaborate with team members
+	View complete edit history and revert to any historical state
 
 ## Technologies
 
-CAMO leverages ReactJS to quickly render all of your information, and the functionality of Redux to give users complete access to their data's history. 
+SpaceBook leverages React and Redux to quickly render all of your information. 
 
 The backend is supported by NodeJs, ExpressJS, and MongoDB. 

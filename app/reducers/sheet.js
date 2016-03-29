@@ -263,7 +263,7 @@ export default function sheet(state = {
       return clearedFilteredState;
     case REMOVE_COLUMN:{
       let removeColumnState = _.cloneDeep(state);
-      let colId = action.colId;
+      let colId = action.colId ? action.colId : removeColumnState.columnHeaders[removeColumnState.columnHeaders.length-1].id ;
       removeColumnState.columnHeaders = removeColumnState.columnHeaders.filter(col => {
         return colId !== col.id;
       })

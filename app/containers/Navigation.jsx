@@ -31,7 +31,7 @@ class Navigation extends Component {
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
     <ContentEditable className={cx('item', 'spaceName')}
-          html={!this.props.space ? 'Project CAMO' : this.props.space.name}
+          html={!this.props.space ? 'SpaceBook' : this.props.space.name}
             // innerHTML of the editable div
           disabled={this.props.disabled}     // use true to disable edition
           onChange={this.editSpaceName} // handle innerHTML change
@@ -41,7 +41,7 @@ class Navigation extends Component {
         <DropdownButton id='bg-vertical-dropdown-1' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
             <MenuItem key="1" href='/'>Home</MenuItem>
             <MenuItem key="2" href="/dashboard">Dashboard</MenuItem>
-            <MenuItem key="4" href='/about'>About CAMO</MenuItem>
+            <MenuItem key="4" href='/about'>About SpaceBook</MenuItem>
               <MenuItem divider />
             <MenuItem onSelect={()=> this.props.dispatch(logOut())} key="5">Logout</MenuItem>
           </DropdownButton>

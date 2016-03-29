@@ -27,6 +27,32 @@
 
 }
 
+.referenceHead {
+  background-color: primary-color;
+	border-radius: 4px;
+	color: white;
+}
+
+.referenceBody {
+	width: 600px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.refTabs {
+	width: 120px;
+	display: inline-block;
+	margin: 10px;
+}
+
+.rowButton {
+	width: 600px;
+}
+
+.modal-content {
+	width: 600px;
+}
+
 .shareModalHeader {
 	background: primary-color;
 	border-radius: 4px;

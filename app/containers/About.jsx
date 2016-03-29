@@ -15,13 +15,12 @@ const About = props => {
     <div>
     <Navigation disabled={true} />
     <div className={cx('about')}>
-      <h1 className={cx('header')}>About CAMO</h1>
       <div className={cx('description')}>
-        <p>SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!SHEETS!
-        </p>
+        <h1></h1>
+        <img width="700px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

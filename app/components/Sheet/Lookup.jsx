@@ -36,7 +36,6 @@ class Lookup extends Component {
     let newCol = Object.assign({}, column)
     newCol.linkedSheet = sheet._id
     newCol.name = sheet.name
-    console.log(newCol)
     this.props.dispatch(updateColumn(newCol))
   }
 
@@ -90,7 +89,7 @@ class Lookup extends Component {
       if (links[i].data === rowId.data) return <Button bsStyle="warning" onClick={this.unlinkRow.bind(this, rowId)} >Unlink</Button>
     }
 
-    return <Button bsStyle="success" onClick={this.linkRow.bind(this, rowId)} >Link</Button>
+    return <Button bsStyle="success" onClick={this.linkRow.bind(this, rowId)} >{rowId.data}</Button>
 
   }
 
@@ -101,7 +100,7 @@ class Lookup extends Component {
       this.state.sheet.content.grid.map((row) => {
           return (
             <div>
-              <Panel header={row['100'].data}>
+              <Panel header="Link">
                 {this.whichButton(row['100'])}
               </Panel>
             </div>

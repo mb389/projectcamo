@@ -115,10 +115,10 @@ class Lookup extends Component {
     if (!this.props.sheets || !this.props.showLookupModal) return <span></span>
     return (
       <Modal show={this.props.showLookupModal} onHide={this.close} >
-				<Modal.Header className={cx('mapHeader')} classcloseButton>
+				<Modal.Header className={cx('referenceHead')} classcloseButton>
           <Modal.Title>Reference</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={cx('referenceBody')}>
           <div classNames="row">
             <ButtonGroup>
               {this.sheets()}

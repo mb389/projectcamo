@@ -17,7 +17,7 @@ class ModalCheckBox extends Component {
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     let val;
-    (this.props.cell.data === 'on') ? val = 'off' : val = 'on'
+    (this.props.cell.data === 'checked') ? val = 'unchecked' : val = 'checked'
     dispatch(updateModalCell(val, cellKey, rowIdx));
 	}
 
@@ -26,7 +26,7 @@ class ModalCheckBox extends Component {
     return (<Input 
       className={cx('cellCheckBox')} 
       type="checkbox" label=" " 
-      checked={this.props.cell.data === 'on'} 
+      checked={this.props.cell.data === 'checked'} 
       onClick={this.handleChange}/>
     )
   }

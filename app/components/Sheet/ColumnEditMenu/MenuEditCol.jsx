@@ -45,7 +45,7 @@ class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
 
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width};
 
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);

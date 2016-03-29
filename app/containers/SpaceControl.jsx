@@ -15,8 +15,6 @@ import styles from 'css/components/space-control';
 
 const cx = classNames.bind(styles);
 
-
-
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
@@ -24,6 +22,8 @@ class SpaceControl extends Component {
     this.runUpdateCell = this.runUpdateCell.bind(this);
     this.toggleMagicBar = this.toggleMagicBar.bind(this);
     this.searchSheet = this.searchSheet.bind(this);
+    this.resizeCol = this.resizeCol.bind(this);
+    this.dragCol = this.dragCol.bind(this);
   }
 
   componentWillMount() {
@@ -49,6 +49,14 @@ class SpaceControl extends Component {
       } else {
         this.props.dispatch(Actions.searching())
       }
+  }
+
+  resizeCol(e) {
+    this.props.dispatch(SheetActions.resizeCol(e))
+  }
+
+  dragCol(e) {
+    this.props.dispatch(SheetActions.dragCol(e))
   }
 
   searchSheet(e) {
@@ -83,6 +91,8 @@ class SpaceControl extends Component {
                 headers={this.props.sheet.columnHeaders}
                 searching={this.props.searching}
                 filteredRows={this.props.filteredRows}
+                resizeCol={this.resizeCol}
+                dragCol={this.dragCol}
               />
             </div>
           </div>

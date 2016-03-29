@@ -40,7 +40,7 @@ exports.addCollab = function(req, res) {
 
 exports.one = function(req, res) {
   Promise.all([
-    Workspace.findById(req.params.id),
+    Workspace.findById(req.params.id).populate('user'),
     Sheet.findOne({ workspace: req.params.id }),
     Sheet.find({ workspace: req.params.id })
   ])
@@ -54,11 +54,10 @@ exports.one = function(req, res) {
   .catch(err => res.status(400).send(err));
 };
 
-
 /**
  * Add a Workspace
  */
- // TODO NEEDS A USER ATTACHED
+
 exports.add = function(req, res) {
   var spaceToSend;
   Workspace.create({name: `NewSpace${req.body.spaceCount}`, user:req.user._id})
@@ -72,7 +71,8 @@ exports.add = function(req, res) {
   .then(sheet => {
     res.json({
       space: spaceToSend,
-      sheet
+      sheet,
+      email: req.user.email
     })
   })
   .catch(err => res.status(400).send(err))

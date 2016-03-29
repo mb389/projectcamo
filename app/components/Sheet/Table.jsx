@@ -10,13 +10,17 @@ import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
+
 export default class Table extends Component {
+
 
   render () {
     if(!this.props.headers) return <div>Loading...</div>
     return (
       <div className={cx('table')}>
-        <Headers headers={this.props.headers} />
+        <Headers headers={this.props.headers}
+          resizeCol={this.props.resizeCol}
+          dragCol={this.props.dragCol} />
         <Grid grid={this.props.grid} headers={this.props.headers}
           disableAll={this.props.disableAll} searching={this.props.searching}
           filteredRows={this.props.filteredRows}

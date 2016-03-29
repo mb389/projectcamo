@@ -26,11 +26,11 @@ exports.one = function(req, res) {
   */
  exports.addSheetToSpace = function(req, res) {
    Sheet.create({
-    name: 'Sheet Name', 
-    workspace: req.params.spaceId, 
-    content: { 
-        grid: req.body.grid || [], 
-        columnHeaders: req.body.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }]
+    name: 'Sheet Name',
+    workspace: req.params.spaceId,
+    content: {
+        grid: req.body.grid || [],
+        columnHeaders: req.body.columnHeaders || [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }]
       }
     })
     .then(sheet => res.json(sheet))
@@ -53,8 +53,8 @@ exports.one = function(req, res) {
  * Update/Save a Sheet
  */
 exports.update = function(req, res) {
-  var data = { 
-    content: req.body.sheet, 
+  var data = {
+    content: req.body.sheet,
   }
   if (req.body.commit) data['$push'] = {"history": {columnHeaders: req.body.sheet.columnHeaders, grid: req.body.sheet.grid }}
   Sheet.findByIdAndUpdate(req.params.id, data, {new: true})

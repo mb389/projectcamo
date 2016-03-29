@@ -7,7 +7,7 @@ var Workspace = Promise.promisifyAll(mongoose.model('Workspace'));
 var Sheet = Promise.promisifyAll(mongoose.model('Sheet'));
 
 const columnHeaders = [
-      { id: '100', type: 'ID', name: 'Record Name', idx: 0 },
+      { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
     ]
 
 const grid = []
@@ -49,11 +49,12 @@ var seedSheet = function (workspaceId) {
   return Sheet.createAsync(sheet);
 }
 
-var seedWorkspace = function (user) {
+var seedWorkspace = function (userId) {
   var workspace = [
     {
       name: 'Seedspace',
-      user: user
+      user: userId,
+      collabs: [userId]
     }
   ]
   return Workspace.createAsync(workspace);

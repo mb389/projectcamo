@@ -7,8 +7,7 @@ const UserProfile = props => {
 
    const user = !props.user ? {profile: {name: "",email: ".@."}} : props.user;
     return (
-          <div className={cx('profile')}>
-              <div className="col-md-6">
+        <div className={cx('profile')}>
                 <div className="well well-sm">
                   <div className="row">
                       <div className="col-md-4">
@@ -17,7 +16,7 @@ const UserProfile = props => {
                       <h4>
                         {props.user.profile.name}</h4>
                       <small>
-                        <cite title="San Francisco, USA">San Francisco, USA
+                        <cite >New York, NY
                           <i className="glyphicon glyphicon-map-marker"></i>
                         </cite>
                       </small>
@@ -55,8 +54,9 @@ const UserProfile = props => {
 
                   </div>
                 </div>
+
               </div>
-            </div>
+
     );
   }
 

@@ -44,7 +44,9 @@ function glyphFromType (type) {
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
+
 		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet};
+
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -110,7 +112,7 @@ class MenuEditCol extends Component {
 					formulaUpload={this.formulaUpload}
 					formulas={this.props.formulas}
 				/>
-				), 
+				),
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
 			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
 			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
@@ -133,14 +135,15 @@ class MenuEditCol extends Component {
 					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.name} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)}/> 
-				        {this.state.type} 
+				        <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)}/>
+				        {this.state.type}
 				        <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
 				      </Dropdown.Menu>
 				    </Dropdown>
+
 
 				    {columnTypes[this.state.type]}
 				    <div className='col-md-12'>

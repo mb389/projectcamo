@@ -172,6 +172,23 @@ export function clearFilteredRows() {
 	}
 }
 
+
+
+export function dragCol(panes) {
+	return {
+		type: types.DRAG_TABLE_COL,
+		panes
+	}
+}
+
+
+export function resizeCol(size) {
+	return {
+		type: types.RESIZE_TABLE_COL,
+		size
+}
+}
+
 export function showMap(colId) {
 	return {
 		type: types.SHOW_MAP,

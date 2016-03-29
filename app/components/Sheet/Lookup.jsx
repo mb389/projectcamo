@@ -77,7 +77,7 @@ class Lookup extends Component {
       }
     }
     let data = {data: rowId.data, rowId: rowId, sheet: this.state.sheet._id}
-    this.props.dispatch(removeRef(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.row)) 
+    this.props.dispatch(removeRef(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.row))
   }
 
 
@@ -100,7 +100,7 @@ class Lookup extends Component {
     return (
       this.state.sheet.content.grid.map((row) => {
           return (
-            <div>
+            <div className={cx('refTabs')}>
               <Panel header={row['100'].data}>
                 {this.whichButton(row['100'])}
               </Panel>
@@ -115,7 +115,10 @@ class Lookup extends Component {
     if (!this.props.sheets || !this.props.showLookupModal) return <span></span>
     return (
       <Modal show={this.props.showLookupModal} onHide={this.close} >
-        <Modal.Body>
+				<Modal.Header className={cx('referenceHead')} classcloseButton>
+          <Modal.Title>Reference</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className={cx('referenceBody')}>
           <div classNames="row">
             <ButtonGroup>
               {this.sheets()}
@@ -123,7 +126,7 @@ class Lookup extends Component {
           </div>
           <br/>
           <div classNames="row">
-            <ButtonGroup>
+            <ButtonGroup className={cx('rowButton')}>
               {this.sheetRowPanels()}
             </ButtonGroup>
           </div>
@@ -145,4 +148,3 @@ function mapStateToProps(store) {
 }
 
 export default connect(mapStateToProps)(Lookup);
-

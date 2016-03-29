@@ -109,7 +109,8 @@ class ColumnOptions extends Component {
 						<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
 						<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
 						<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
-						<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>
+						<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
+						<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
 					];
 				} else {
 					var items = [

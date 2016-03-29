@@ -34,7 +34,8 @@ import {
 import {
   insertNewColInRows,
   runCustomFunc,
-  navToNewCell
+  navToNewCell,
+  newColInfo
 } from './sheetHelpers.js';
 
 export default function sheet(state = {
@@ -185,12 +186,8 @@ export default function sheet(state = {
       }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
-      let newColumn = {
-        id: (100+addColumnState.columnHeaders.length).toString(),
-        name: 'Column ' + (1+addColumnState.columnHeaders.length),
-        idx: addColumnState.columnHeaders.length,
-        width: 200
-      }
+
+      let newColumn = newColInfo(addColumnState.columnHeaders)
 
       // // TODO need to set this.props.view: 'editNameAndType';
       addColumnState.columnHeaders.push(newColumn);
@@ -217,12 +214,11 @@ export default function sheet(state = {
       }
     case INSERT_COLUMN:{
       let insertColumnState = _.cloneDeep(state);
-      let newColumn = {
-        id: (100+insertColumnState.columnHeaders.length).toString(),
-        name: 'Column ' + (1+action.colIdx),
-        idx: action.colIdx,
-        width: 200
-      }
+
+
+      let newColumn = newColInfo(insertColumnState.columnHeaders)
+      newColumn.name = 'Column ' + (1+action.colIdx);
+      newColumn.idx = action.colIdx;
 
       insertColumnState.columnHeaders = insertColumnState.columnHeaders.map(column=>{
         if (column.idx >= action.colIdx) {column.idx++}
@@ -356,14 +352,5 @@ export default function sheet(state = {
         return hideMapState;
     default:
       return state;
-  }
-}
-
-
-function decorationType (cell) {
-  switch (cell.type) {
-    case 'Images': return '["' + cell.data.join('","') + '"]';
-    case 'Formula': case 'Link': case 'Text': return '"' + cell.data + '"';
-    default: return cell.data;
   }
 }

@@ -162,8 +162,14 @@
 }
 
 .cellCheckBox {
+  position: absolute;
   margin-left: 50px;
   width: 100%;
+  height: 15px;
+}
+
+.checkboxCheck {
+  margin-top: 0px !important;
 }
 
 .cell-expand {

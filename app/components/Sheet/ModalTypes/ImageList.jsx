@@ -23,12 +23,14 @@ class ImageList extends Component {
   }
 
   render () {
+    // return this if we want to delte images
+    //<div key={i}> 
+      //<img src={img} /> 
+      //<Button bsStyle="danger" onClick={this.removeImage.bind(null,i)}><Glyphicon glyph="trash"/></Button>
+    //</div>  
     const images = this.props.cell.data.map((img, i) => {
       return (
-        <div key={i}>  
-          <img src={img} />
-          <Button bsStyle="danger" onClick={this.removeImage.bind(null,i)}><Glyphicon glyph="trash"/></Button>
-        </div>  
+        <img src={img} />
       )
     })
     const settings = {

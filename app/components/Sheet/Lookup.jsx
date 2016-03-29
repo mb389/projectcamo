@@ -36,7 +36,6 @@ class Lookup extends Component {
     let newCol = Object.assign({}, column)
     newCol.linkedSheet = sheet._id
     newCol.name = sheet.name
-    console.log(newCol)
     this.props.dispatch(updateColumn(newCol))
   }
 

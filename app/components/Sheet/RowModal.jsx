@@ -17,7 +17,12 @@ class RowModal extends Component {
 		this.close = this.close.bind(this)
     this.cell = this.cell.bind(this)
     this.deleteRow = this.deleteRow.bind(this)
+    this.rowName = this.rowName.bind(this)
 	}
+
+  rowName(){
+    if (this.props.modalRow) return this.props.modalRow['100'].data
+  }
 
 	close(dontSave) {
     this.props.dispatch(closeRowModal(dontSave))
@@ -67,12 +72,17 @@ class RowModal extends Component {
   render () {
     return (
       <Modal show={this.props.showRowModal} onHide={this.close} className={cx('modalRow')}>
-        <Modal.Header classcloseButton>
-          <Modal.Title><Button bsStyle="danger" onClick={this.deleteRow}>Delete Row</Button></Modal.Title>
+        <Modal.Header  className={cx('shareModalHeader')} >
+          <Modal.Title>
+            <h3>{this.rowName()}</h3>
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className={cx('darkModal')}>
           {this.rowCells()}
         </Modal.Body>
+        <Modal.Footer>
+          <Button bsStyle="danger" onClick={this.deleteRow}>Delete Row</Button>
+        </Modal.Footer>
       </Modal>
     );
 	}

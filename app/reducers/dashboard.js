@@ -21,7 +21,6 @@ export default function dashboard(state = {}, action = {}) {
       });
     }
     case ADD_USER_SPACE: {
-      console.log(action)
       let newSpaces = state.spaces.concat({_id:action.id, name:action.name, user: action.email})
       return { ...state, spaces: newSpaces }
     }

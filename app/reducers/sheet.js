@@ -4,6 +4,7 @@ import {
   SHOW_ROW_MODAL,
   CLOSE_ROW_MODAL,
   ADD_ROW,
+  DELETE_ROW,
   ADD_COLUMN,
   UPDATE_COLUMN,
   SORT_COLUMN,
@@ -154,7 +155,9 @@ export default function sheet(state = {
       {
         let modalCloseState = _.cloneDeep(state)
         modalCloseState.showRowModal = false;
-        modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+        if (!action.dontSave) {
+          modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+        }
         modalCloseState.modalRow.data = null;
         modalCloseState.modalRow.rowIdx = null;
         return modalCloseState
@@ -301,7 +304,7 @@ export default function sheet(state = {
       formulaColumnState.columnHeaders.push(newColumn);
 
       return formulaColumnState;
-    }
+      }
     case ADD_ROW:
       {
         let addRowState = _.cloneDeep(state);
@@ -312,7 +315,21 @@ export default function sheet(state = {
         addRowState.grid.push(newRow)
         return addRowState
       }
-      case RESIZE_TABLE_COL: {
+    case DELETE_ROW:
+      {
+        let newState = _.cloneDeep(state);
+        let newGrid = []
+        newState.grid.forEach((row,i)=>{
+          if (i !== action.rowIdx) {
+            console.log('pushing', i)
+            newGrid.push(row)
+          }
+        })
+        newState.grid = newGrid
+        console.log(newState.grid)
+        return newState
+      }
+    case RESIZE_TABLE_COL: {
 
         let newState=_.cloneDeep(state);
         // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;

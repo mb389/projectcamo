@@ -1,5 +1,3 @@
-# SpaceBook
-
 ![SpaceBook](https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs)
 
 SpaceBook aims to recreate spreadsheet with today's media rich world in mind. 

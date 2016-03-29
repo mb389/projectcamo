@@ -143,7 +143,6 @@ class ColumnOptions extends Component {
 		} else if (this.state.view === 'editNameAndType') {
 			viewing = (<MenuEditCol data={this.props.data} exitTypeMenu={this.exitTypeMenu}/>)
 		}
-
 		return (
 			<div className={cx('thead')}>
 				{viewing}

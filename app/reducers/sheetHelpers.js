@@ -4,6 +4,7 @@ export function insertNewColInRows (state, newColumn){
     row[newColumn.id] = {
       type: newColumn.type,
       data: null,
+      width: newColumn.width,
       id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
     }
   });

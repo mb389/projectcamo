@@ -297,6 +297,7 @@ export default function sheet(state = {
         row[newColumn.id] = {
           data: newData,
           type: newColumn.type,
+          width: newColumn.width,
         }
         return row;
       })

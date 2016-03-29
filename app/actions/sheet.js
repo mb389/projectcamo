@@ -82,9 +82,9 @@ export function updateModalCell(data, key, idx, push) {
 		cell: {
     	data: data,
     	key: key,
-    	idx: idx,
-    	push
-    }
+    	idx: idx
+    },
+    push
 	}
 }
 

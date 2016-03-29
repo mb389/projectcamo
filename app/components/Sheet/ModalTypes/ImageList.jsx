@@ -17,8 +17,9 @@ class ImageList extends Component {
 
   removeImage(i){
     const { dispatch, cellKey, rowIdx } = this.props;
-    let newData = this.props.cell.data.splice()
+    let newData = this.props.cell.data.slice()
     newData.splice(i,1)
+    console.log(newData, i)
     dispatch(updateModalCell(newData, cellKey, rowIdx))
   }
 

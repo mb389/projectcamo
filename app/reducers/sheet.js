@@ -116,7 +116,7 @@ export default function sheet(state = {
     case UPDATE_MODAL_CELL:
       {
         let modalRowState = _.cloneDeep(state);
-        if (Array.isArray(modalRowState.modalRow.data[action.cell.key].data)) {
+        if (action.push) {
           modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
         } else {
           modalRowState.modalRow.data[action.cell.key].data = action.cell.data

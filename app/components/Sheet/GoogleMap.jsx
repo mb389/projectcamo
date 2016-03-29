@@ -8,6 +8,11 @@ import styles from 'css/components/map';
 
 const cx = classNames.bind(styles);
 
+const coords = {
+  lat: 51.5258541,
+  lng: -0.08040660000006028
+};
+
 class GoogleMap extends Component {
   constructor(props) {
     super(props);

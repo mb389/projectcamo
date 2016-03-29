@@ -27,6 +27,22 @@
 
 }
 
+.mapHeader {
+  background-color: primary-color;
+	border-radius: 4px;
+	color: white;
+}
+
+.refTabs {
+	width: 100px;
+	display: inline-block;
+	margin: 10px;
+}
+
+.rowButton {
+	width: 500px;
+}
+
 .shareModalHeader {
 	background: primary-color;
 	border-radius: 4px;

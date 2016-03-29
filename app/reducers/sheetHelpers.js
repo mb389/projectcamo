@@ -75,6 +75,7 @@ export function navToNewCell(keyCode, newSheet) {
         }
   }
 }
+
 function findColumnIdxFromId(colId, newSheet){
   let colIdx;
   newSheet.columnHeaders.forEach((col,i) => {
@@ -83,4 +84,19 @@ function findColumnIdxFromId(colId, newSheet){
     }
   });
   return colIdx;
+}
+
+export function newColInfo (columns) {
+  let colIdIdx = columns.reduce((accum,col) => {
+    if(col.id>accum[0]) accum[0]=col.id;
+    if(col.idx>accum[1]) accum[1]=col.idx;
+    return accum;
+  },[0,0])
+
+  return {
+    id: (1+Number(colIdIdx[0])).toString(),
+    name: 'Column ' + (1+columns.length),
+    idx: (1+Number(colIdIdx[1])),
+    width: 200
+  }
 }

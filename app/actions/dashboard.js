@@ -21,10 +21,13 @@ function loadUserInfo(user) {
   }
 }
 
-function addCollab(spaces) {
+function addCollab(data, email) {
+    // console.log('addCollab', data)
   return {
     type: types.ADD_USER_COLLAB,
-    collabSpaces: spaces.collabSpaces
+    collabSpaces: data.collabs,
+    email,
+
   }
 }
 
@@ -32,7 +35,7 @@ export function addCollabRoute(email,id) {
   return (dispatch) => {
     request.post(`/workspace/${id}/add`,{email})
     .then(res => {
-      dispatch(addCollab(res.data))
+      dispatch(addCollab(res.data, email))
     })
   }
 }

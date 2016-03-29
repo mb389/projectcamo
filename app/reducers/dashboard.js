@@ -4,7 +4,6 @@ import {
   LOAD_USER_SPACES,
   ADD_USER_SPACE,
   LOAD_USER_INFO,
-  ADD_USER_COLLAB
 } from 'constants/index';
 
 export default function dashboard(state = {}, action = {}) {
@@ -20,11 +19,6 @@ export default function dashboard(state = {}, action = {}) {
         collabSpaces: action.collabSpaces,
         sheet: action.sheet
       });
-    }
-    case ADD_USER_COLLAB: {
-      return Object.assign({},state, {
-        collabSpaces: action.collabSpaces
-      })
     }
     case ADD_USER_SPACE: {
       let newSpaces = state.spaces.concat({_id:action.id, name:action.name})

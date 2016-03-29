@@ -70,7 +70,11 @@ class Cell extends Component {
           </div>
         )
       case 'Checkbox':
-          return <Checkbox className={cx('checkboxCheck')} dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
+          return (
+						<div className={cx('checkboxCheck')}>
+							<Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
+						</div>
+					)
       case 'Select':
       case 'Link':
       case 'Number':

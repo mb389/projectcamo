@@ -23,6 +23,7 @@ class ShareModal extends Component {
 
   newCollab () {
     this.props.dispatch(DashActions.addCollabRoute(this.state.value,this.props.space._id));
+    // after this completes we want to add the email to the list;
   }
 
   handleChange() {

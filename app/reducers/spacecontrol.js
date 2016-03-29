@@ -9,7 +9,8 @@ import {
   SEARCHING,
   UPDATE_SHEETS,
   UPDATE_REF_SHEET,
-  REMOVE_REF
+  REMOVE_REF,
+  ADD_USER_COLLAB,
 } from 'constants/index';
 import { insertNewColInRows } from './sheetHelpers.js';
 
@@ -17,6 +18,15 @@ import { insertNewColInRows } from './sheetHelpers.js';
 export default function spaceControl(state = { showShareModal: false }, action = {}) {
 
   switch (action.type) {
+    case ADD_USER_COLLAB: {
+      console.log(action);
+
+      let newCollabSpace = Object.assign({},state, {
+      })
+
+      newCollabSpace.space.collabs = action.collabSpaces;
+      return newCollabSpace;
+    }
     case LOAD_SPACE:
       return Object.assign({}, state, {
         space: action.space || state.space,

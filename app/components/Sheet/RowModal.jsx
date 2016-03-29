@@ -4,7 +4,7 @@ import TextModal from './ModalTypes/Text';
 import ImageList from './ModalTypes/ImageList';
 import ModalCheckBox from './ModalTypes/ModalCheckBox';
 import { connect } from 'react-redux';
-import { closeRowModal } from 'actions/sheet';
+import { closeRowModal, deleteRow } from 'actions/sheet';
 import styles from 'css/components/modal';
 import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
 import LinkLabel from './CellTypes/LinkLabel';
@@ -16,10 +16,11 @@ class RowModal extends Component {
 		super(props, state)
 		this.close = this.close.bind(this)
     this.cell = this.cell.bind(this)
+    this.deleteRow = this.deleteRow.bind(this)
 	}
 
-	close() {
-    this.props.dispatch(closeRowModal())
+	close(dontSave) {
+    this.props.dispatch(closeRowModal(dontSave))
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -43,25 +44,32 @@ class RowModal extends Component {
     }
   }
 
+  deleteRow(){
+    this.props.dispatch(deleteRow(this.props.modalRowIdx))
+    this.close(true);
+  }
+
   rowCells(){
     const { modalRow, modalRowIdx, columnHeaders } = this.props;
-    const cells = [];
-    for (let key in modalRow) {
-      cells.push(
-        <div key={key}>
-          <div className={cx('col-header')}>{columnHeaders[cells.length].name}</div>
+    if (!modalRow) return
+    return columnHeaders.map((head, i) => {
+      return (
+        <div key={i}>
+          <div className={cx('col-header')}>{head.name}</div>
           <div className={cx('wrapper')}>
-            {this.cell(modalRow[key],key,modalRow,modalRowIdx,cells.length)}
+            {this.cell(modalRow[head['id']],head['id'],modalRow,modalRowIdx,i)}
           </div>
         </div>
       );
-    }
-    return cells    
+    })   
   }
 
   render () {
     return (
       <Modal show={this.props.showRowModal} onHide={this.close} className={cx('modalRow')}>
+        <Modal.Header classcloseButton>
+          <Modal.Title><Button bsStyle="danger" onClick={this.deleteRow}>Delete Row</Button></Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           {this.rowCells()}
         </Modal.Body>

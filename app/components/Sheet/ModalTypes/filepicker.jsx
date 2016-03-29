@@ -32,7 +32,7 @@ class FilepickerInput extends React.Component {
   }
 
   handleChangeFileUrl(evt) {
-    this.props.dispatch(updateModalCell(evt.target.value, this.props.cellKey, this.props.rowIdx))
+    this.props.dispatch(updateModalCell(evt.target.value, this.props.cellKey, this.props.rowIdx, true))
   }
 
 }

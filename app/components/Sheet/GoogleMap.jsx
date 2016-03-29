@@ -11,8 +11,9 @@ const cx = classNames.bind(styles);
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
-    this.state = {markersCreated: false, markers: []}
+    this.state = {markersCreated: false, markers: [], zoom: 12, midPoint:[]}
     this.createMarkers = this.createMarkers.bind(this);
+    this.onMapCreated = this.onMapCreated.bind(this);
   }
 
   createMarkers(markers) {
@@ -27,9 +28,26 @@ class GoogleMap extends Component {
           />
       )
     })
-    this.setState({markersCreated: true, markers: markersToAdd})
+
+    let ranges = markers.reduce((accum, mrk) => {
+      if (accum.length === 0) accum = [mrk.loc.lat, mrk.loc.lat, mrk.loc.lng, mrk.loc.lng]
+      if (mrk.loc.lat > accum[0]) accum[0] = mrk.loc.lat;
+      if (mrk.loc.lat < accum[1]) accum[1] = mrk.loc.lat;
+      if (mrk.loc.lng > accum[2]) accum[2] = mrk.loc.lng;
+      if (mrk.loc.lng < accum[3]) accum[3] = mrk.loc.lng;
+      return accum;
+    },[])
+    let midPoint = [(ranges[0]+ranges[1])/2,(ranges[2]+ranges[3])/2];
+    ranges = [ranges[0]-ranges[1],ranges[2]-ranges[3]];
+    let zoom = 21-Math.ceil(Math.log(Math.max(...ranges)/.0005)/Math.log(2))
+    if(zoom > 13) zoom--;
+
+    this.setState({markersCreated: true, markers: markersToAdd, midPoint, zoom})
   }
 
+  onMapCreated(map) {
+
+  }
 
   componentWillMount() {
       if(!this.props.markers) return;
@@ -39,8 +57,6 @@ class GoogleMap extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.markers && nextProps.markers !== this.props.markers) {
-      console.log('next', nextProps.markers)
-      console.log('this', this.props.markers)
       this.createMarkers(nextProps.markers);
     }
   }
@@ -50,9 +66,9 @@ class GoogleMap extends Component {
       return (
         <Gmaps width={'750px'}
           height={'600px'}
-          lat={this.props.markers[0].loc.lat}
-          lng={this.props.markers[0].loc.lng}
-          zoom={11}
+          lat={this.state.midPoint[0]}
+          lng={this.state.midPoint[1]}
+          zoom={this.state.zoom}
           loadingMessage={'Your map is loading'}
           params={{v: '3.exp'}}
           onMapCreated={this.onMapCreated}

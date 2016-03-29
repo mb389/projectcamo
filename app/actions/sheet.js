@@ -23,6 +23,13 @@ export function clearSheet() {
   };
 }
 
+export function deleteRow(rowIdx) {
+  return {
+    type: types.DELETE_ROW,
+    rowIdx
+  };
+}
+
 export function updateCell(data, key, idx, fromSuper, formulaCells) {
   return {
     type: types.UPDATE_CELL,
@@ -80,9 +87,10 @@ export function updateModalCell(data, key, idx) {
 	}
 }
 
-export function closeRowModal() {
+export function closeRowModal(dontSave) {
 	return {
-		type: types.CLOSE_ROW_MODAL
+		type: types.CLOSE_ROW_MODAL,
+		dontSave
 	}
 }
 

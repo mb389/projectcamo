@@ -34,6 +34,7 @@ export const UPDATE_CELL_BY_ID = 'UPDATE_CELL_BY_ID';
 export const SHOW_ROW_MODAL = 'SHOW_ROW_MODAL';
 export const CLOSE_ROW_MODAL = 'CLOSE_ROW_MODAL';
 export const ADD_ROW = 'ADD_ROW';
+export const DELETE_ROW = 'DELETE_ROW';
 export const ADD_COLUMN = 'ADD_COLUMN';
 export const UPDATE_COLUMN = 'UPDATE_COLUMN';
 export const SORT_COLUMN = 'SORT_COLUMN';

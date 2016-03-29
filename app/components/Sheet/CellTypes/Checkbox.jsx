@@ -17,7 +17,7 @@ class CheckBox extends Component {
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     let val;
-    (this.props.cell.data === 'on') ? val = 'off' : val = 'on'
+    (this.props.cell.data === 'checked') ? val = 'unchecked' : val = 'checked'
     dispatch(updateCell(val, cellKey, rowIdx, null, []));
 	}
 
@@ -26,7 +26,7 @@ class CheckBox extends Component {
     return (<Input 
       className={cx('cellCheckBox')} 
       type="checkbox" label=" " 
-      checked={this.props.cell.data === 'on'} 
+      checked={this.props.cell.data === 'checked'} 
       onClick={this.handleChange}/>
     )
   }

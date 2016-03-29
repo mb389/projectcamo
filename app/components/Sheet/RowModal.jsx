@@ -51,18 +51,17 @@ class RowModal extends Component {
 
   rowCells(){
     const { modalRow, modalRowIdx, columnHeaders } = this.props;
-    const cells = [];
-    for (let key in modalRow) {
-      cells.push(
-        <div key={key}>
-          <div className={cx('col-header')}>{columnHeaders[cells.length].name}</div>
+    if (!modalRow) return
+    return columnHeaders.map((head, i) => {
+      return (
+        <div key={i}>
+          <div className={cx('col-header')}>{head.name}</div>
           <div className={cx('wrapper')}>
-            {this.cell(modalRow[key],key,modalRow,modalRowIdx,cells.length)}
+            {this.cell(modalRow[head['id']],head['id'],modalRow,modalRowIdx,i)}
           </div>
         </div>
       );
-    }
-    return cells    
+    })   
   }
 
   render () {

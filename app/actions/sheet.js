@@ -76,14 +76,15 @@ export function showRowModal(rowIdx){
 	}
 }
 
-export function updateModalCell(data, key, idx) {
+export function updateModalCell(data, key, idx, push) {
 	return {
 		type: types.UPDATE_MODAL_CELL,
 		cell: {
     	data: data,
     	key: key,
     	idx: idx
-    }
+    },
+    push
 	}
 }
 

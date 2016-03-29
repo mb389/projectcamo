@@ -27,3 +27,8 @@ body {
 .fp__container {
 	z-index: 1100 !important;
 }
+
+
+.slick-prev:before, .slick-next:before {
+  color: black;
+}

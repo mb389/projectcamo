@@ -60,10 +60,11 @@
 .addColumn {
   width: 53px;
   display: inline-block;
+  float: right;
   background: #fff;
   /*border-right: 1px solid #dde1e3;
   border-bottom: 1px solid #d1d1d1;*/
-  border: 1px solid #d1d1d1;
+  /*border: 1px solid #d1d1d1;*/
   border-radius: 0;
   height: 34px;
 }

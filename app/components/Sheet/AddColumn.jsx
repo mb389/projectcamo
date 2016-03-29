@@ -18,7 +18,7 @@ class AddColumn extends Component {
 
   render () {
     return (
-      <button className={cx('addColumn') } onClick={this.addColumn}> + </button>
+      <button className={cx('addColumn') } style={{marginLeft: this.props.margin}} onClick={this.addColumn}> + </button>
     );
 	}
 }

@@ -14,15 +14,13 @@ function generateColumnOptions (headers) {
         className={cx('thead')}
         id={header.id}
         key={header.id}
-        width={header.width}
+        width={header.width||200}
         height={34}>
         <ColumnOptions data={header} key={header.id}/>
         </Pane>
       )
   })
 }
-
-//
 
 const Headers = (props) => {
   console.log("rendered!")
@@ -35,7 +33,6 @@ const Headers = (props) => {
                direction="horizontal"
                margin={0}
                disableEffect={true}
-
                onResize={(id, dir, size, rect) => props.resizeCol(id)}
                onOrderChange={(oldPanes,newPanes) => {
                 //  let bounced=_.debounce(() => props.dragCol(newPanes),500);

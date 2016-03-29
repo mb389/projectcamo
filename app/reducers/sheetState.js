@@ -1,7 +1,7 @@
 const columnHeaders = [
-      { id: '100', type: 'Text', name: 'Names', idx: 0 },
-      { id: '101', type: 'Link', name: 'Github URL', idx: 1 },
-      { id: '102', type: 'Images', name: 'Pictures', idx: 2 },
+      { id: '100', type: 'Text', name: 'Names', idx: 0, width: 200 },
+      { id: '101', type: 'Link', name: 'Github URL', idx: 1, width: 200 },
+      { id: '102', type: 'Images', name: 'Pictures', idx: 2, width: 200 },
     ]
 
 const row = {

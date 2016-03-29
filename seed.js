@@ -49,11 +49,12 @@ var seedSheet = function (workspaceId) {
   return Sheet.createAsync(sheet);
 }
 
-var seedWorkspace = function (user) {
+var seedWorkspace = function (userId) {
   var workspace = [
     {
       name: 'Seedspace',
-      user: user
+      user: userId,
+      collabs: [userId]
     }
   ]
   return Workspace.createAsync(workspace);

@@ -21,19 +21,27 @@ export default function spaceControl(state = { showShareModal: false }, action =
     case ADD_USER_COLLAB: {
       console.log(action);
 
-      let newCollabSpace = Object.assign({},state, {
-      })
-
-      newCollabSpace.space.collabs = action.collabSpaces;
+      let newCollabSpace=_.cloneDeep(state);
+      newCollabSpace.space.collabs.push(action.email);
       return newCollabSpace;
     }
     case LOAD_SPACE:
-      return Object.assign({}, state, {
-        space: action.space || state.space,
-        sheetToShow: action.sheetToShow || state.sheetToShow,
-        sheetNames: action.sheetNames || state.sheetNames,
-        sheets: action.sheets || state.sheets
-      });
+
+    let newState=_.cloneDeep(state)
+
+        newState.space=action.space;
+        newState.space.email=action.email;
+        newState.sheetToShow=action.sheetToShow;
+        newState.sheetNames=action.sheetNames;
+        newState.sheets=action.sheets;
+        return newState;
+      //
+      // return Object.assign({}, state, {
+      //   space: action.space || state.space,
+      //   sheetToShow: action.sheetToShow || state.sheetToShow,
+      //   sheetNames: action.sheetNames || state.sheetNames,
+      //   sheets: action.sheets || state.sheets
+      // });
     case LOAD_SHEET:
       return Object.assign({}, state, { sheetToShow: action.sheetToShow });
     case UPDATE_SHEETS:
@@ -42,7 +50,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
         let found = false;
         newState.sheets.forEach((sheet, i) => {
           if (sheet._id === action.sheetId) {
-            newState.sheets[i].content = action.sheetContent; 
+            newState.sheets[i].content = action.sheetContent;
             found = true;
           }
         })
@@ -76,7 +84,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
               }
             })
           }
-          // if no column ref make a new one 
+          // if no column ref make a new one
           else {
             let newColumn = {
               id: "" + (100 + sheet.content.columnHeaders.length),
@@ -109,7 +117,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
       }
 
       {
-       let newState = _.cloneDeep(state); 
+       let newState = _.cloneDeep(state);
        //refactor to helper formula
        newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
         .forEach((sheet)=>{

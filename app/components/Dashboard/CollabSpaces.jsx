@@ -20,9 +20,9 @@ const CollabSpaces = (props) => {
     });
 
     return (
-        <div className="col-md-6">
+        <div className="col-md-3">
           <div className="well well-sm">
-      <div className={cx('collabSpaces')}>
+      <div className={cx('spaces')}>
         <strong>Spaces Shared With You</strong>
         {collabSpacesToDisplay}
       </div>

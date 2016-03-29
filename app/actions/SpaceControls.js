@@ -80,7 +80,8 @@ export function loadSpace(obj) {
     space: obj.space,
     sheetToShow: obj.sheetToShow,
     sheetNames: obj.sheetNames,
-    sheets: obj.sheets
+    sheets: obj.sheets,
+    email: obj.email
   };
 }
 
@@ -138,7 +139,8 @@ export function getSpace(spaceId) {
         space: res.space,
         sheetToShow: res.sheet,
         sheetNames: res.sheetNames,
-        sheets: res.sheets
+        sheets: res.sheets,
+        email: res.email
       }))
       return res
     }).then(res => dispatch(changeSheet({

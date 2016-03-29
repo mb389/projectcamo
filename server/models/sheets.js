@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
   content: {
-    columnHeaders: {type: Array, default: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0 }]},
+    columnHeaders: {type: Array, default: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }]},
     grid: {type: Array, default: []}
   },
   history: [{
@@ -27,7 +27,7 @@ Sheet = mongoose.model('Sheet', schema);
 
 
 const columnHeaders = [
-      { id: '100', type: 'ID', name: 'Record Name', idx: 0 },
+      { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
     ]
 
 const grid = []

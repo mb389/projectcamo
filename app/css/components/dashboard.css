@@ -1,5 +1,5 @@
 .dashboard {
-
+  
 }
 
 .profile {
@@ -9,8 +9,7 @@
 }
 
 .spaces {
-  min-height: 162px;
-  font-size: 150%;
+  font-size: 120%;
   margin-left: 10px;
   line-height: 200%;
 }

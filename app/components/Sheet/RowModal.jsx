@@ -45,7 +45,6 @@ class RowModal extends Component {
   }
 
   deleteRow(){
-    console.log("delete me", this.props.modalRowIdx)
     this.props.dispatch(deleteRow(this.props.modalRowIdx))
     this.close(true);
   }

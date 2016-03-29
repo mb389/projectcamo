@@ -13,7 +13,6 @@ class AddColumn extends Component {
 	}
 
   addColumn(){
-    console.log("column add");
     this.props.dispatch(addColumn());
   }
 

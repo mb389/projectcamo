@@ -24,6 +24,7 @@ export const SEARCHING = 'SEARCHING';
 export const SEARCH_SHEET = 'SEARCH_SHEET';
 export const UPDATE_SHEETS = 'UPDATE_SHEETS';
 export const UPDATE_REF_SHEET = 'UPDATE_REF_SHEET';
+export const REMOVE_REF = 'REMOVE_REF';
 export const ADD_USER_COLLAB = 'ADD_USER_COLLAB';
 export const GET_USER_INFO = 'GET_USER_INFO';
 
@@ -52,6 +53,9 @@ export const CLEAR_SEARCH_GRID = 'CLEAR_SEARCH_GRID';
 export const CLEAR_FILTERED_ROWS = 'CLEAR_FILTERED_ROWS';
 export const DRAG_TABLE_COL = 'DRAG_TABLE_COL';
 export const RESIZE_TABLE_COL = 'RESIZE_TABLE_COL';
+export const SHOW_MAP = 'SHOW_MAP';
+export const HIDE_MAP = 'HIDE_MAP';
+export const SEND_LAT_LONGS = 'SEND_LAT_LONGS';
 
 // LOOKUP CONSTS
 export const SHOW_LOOKUP_MODAL = 'SHOW_LOOKUP_MODAL';

@@ -1,4 +1,3 @@
-/*eslint consistent-return: 0, no-else-return: 0*/
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import md5 from 'spark-md5';
@@ -47,12 +46,13 @@ export function updateCellById(data, id) {
   };
 }
 
-export function showLookupModal(row,rowIdx,cell){
+export function showLookupModal(row,rowIdx,cell,cellKey){
 	return {
 		 type: types.SHOW_LOOKUP_MODAL,
 		 row,
 		 cell,
-		 rowIdx
+		 rowIdx,
+		 cellKey
 	}
 }
 
@@ -173,6 +173,7 @@ export function clearFilteredRows() {
 }
 
 
+
 export function dragCol(panes) {
 	return {
 		type: types.DRAG_TABLE_COL,
@@ -185,5 +186,43 @@ export function resizeCol(size) {
 	return {
 		type: types.RESIZE_TABLE_COL,
 		size
+}
+}
+
+export function showMap(colId) {
+	return {
+		type: types.SHOW_MAP,
+		colId
+	}
+}
+
+export function closeMap() {
+	return {
+		type: types.HIDE_MAP
+	}
+}
+
+export function getLatLongs(addressArray) {
+	return (dispatch) => {
+		let addresses = addressArray.filter(item => item.data ? true : false)
+		let addressUrls = addresses.map(add => {
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY`);
+		})
+		Promise.all(addressUrls)
+		.then(resArray => {
+			let geoCoded = resArray.map((result,i) => {
+				if(result.data.status === 'OK') {
+					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
+				}
+			})
+			dispatch(sendLatLongs(geoCoded))
+		})
+	}
+}
+
+export function sendLatLongs(geoResults) {
+	return {
+		type: types.SEND_LAT_LONGS,
+		geoResults
 	}
 }

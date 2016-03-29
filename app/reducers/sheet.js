@@ -28,7 +28,8 @@ import {
   SHOW_MAP,
   HIDE_MAP,
   DRAG_TABLE_COL,
-  RESIZE_TABLE_COL
+  RESIZE_TABLE_COL,
+  SEND_LAT_LONGS
 } from 'constants/index';
 import {
   insertNewColInRows,
@@ -72,14 +73,16 @@ export default function sheet(state = {
         if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data;
-        action.formulaCells.forEach(cell =>{
-          let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
-          newState.grid[action.cell.idx][cell.col].data = data;
-        })
+        if (action.formulaCells)
+        {
+          action.formulaCells.forEach(cell =>{
+            let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+            newState.grid[action.cell.idx][cell.col].data = data;
+          })
+        }
         return newState
       }
     case UPDATE_CELL_BY_ID:
-      console.log(action.cell.data)
       {
         let newState = _.cloneDeep(state);
         newState.grid.forEach(function(row){
@@ -125,7 +128,8 @@ export default function sheet(state = {
         newState.lookup = {
           row: action.row,
           cell: action.cell,
-          rowIdx: action.rowIdx
+          rowIdx: action.rowIdx,
+          colId: action.cellKey
         }
         return newState
       }
@@ -331,8 +335,20 @@ export default function sheet(state = {
       }
     case SHOW_MAP:
       let showMapState = _.cloneDeep(state);
+      let colId = action.colId
+      let addressData = showMapState.grid.reduce((accum, row) => {
+        if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
+        return accum
+      },[])
       showMapState.showMap = true;
+      showMapState.addressData = addressData;
+      showMapState.mapMarkersData = null;
+      showMapState.mapColumn = showMapState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
       return showMapState;
+    case SEND_LAT_LONGS:
+      let newMapState = _.cloneDeep(state);
+      newMapState.mapMarkersData = action.geoResults;
+      return newMapState;
     case HIDE_MAP:
         let hideMapState = _.cloneDeep(state);
         hideMapState.showMap = false;

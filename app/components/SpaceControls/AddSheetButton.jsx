@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
-import * as Actions from '../../actions/spacecontrols';
+import * as Actions from '../../actions/SpaceControls';
 
 
 const cx = classNames.bind(styles);

@@ -9,6 +9,7 @@ var User = mongoose.model('User');
  * List
  */
 exports.all = function(req, res) {
+  console.log(req.user);
   if (req.user) {
   Promise.all([
     Workspace.find({user: req.user._id}),
@@ -26,7 +27,7 @@ exports.findCollab = function(req, res) {
 }
 
 exports.addCollab = function(req, res) {
-  User.findOne({email: req.body.email })
+  User.findOne({ email: req.body.email })
   .then(user => {
     return Workspace.findByIdAndUpdate(req.params.id, {$push: {collabs: user._id}}, {safe: true, upsert: true, new: true})
   })
@@ -34,7 +35,7 @@ exports.addCollab = function(req, res) {
     console.log(space)
     res.status(200).json(space)
   })
-  .catch(err => res.status(500).send('We failed to save to due some reason'))
+  .catch(err => res.status(500).send('We failed to save due some reason'))
 }
 
 exports.one = function(req, res) {

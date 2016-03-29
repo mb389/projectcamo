@@ -3,6 +3,7 @@ import request from 'axios';
 import { push } from 'react-router-redux';
 
 import * as types from 'constants';
+import { getSpaces } from '../actions/dashboard';
 
 polyfill();
 
@@ -104,6 +105,7 @@ export function manualLogin(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.message,data));
+          dispatch(getSpaces());
           dispatch(push('/'));
         } else {
           dispatch(loginError('Oops! Something went wrong!'));
@@ -145,6 +147,6 @@ export function logOut() {
         } else {
           dispatch(logoutError());
         }
-      });
+      }).then( () => dispatch(push('/login')));
   };
 }

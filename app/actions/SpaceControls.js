@@ -55,6 +55,16 @@ export function updateRefSheet(targetSheet,data,currSheet,currRow) {
   };
 }
 
+export function removeRef(targetSheet,data,currSheet,currRow) {
+  return {
+    type: types.REMOVE_REF,
+    targetSheet,
+    data,
+    currSheet,
+    currRow
+  };
+}
+
 function updateSheetsArray(sheetId, sheetContent, dbSheet) {
   return {
     type: types.UPDATE_SHEETS,

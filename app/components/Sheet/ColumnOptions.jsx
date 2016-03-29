@@ -69,7 +69,7 @@ class ColumnOptions extends Component {
 	}
 
 	showMap() {
-		this.props.dispatch(showMap());
+		this.props.dispatch(showMap(this.props.data.id));
 	}
 
 	dataType() {
@@ -93,6 +93,8 @@ class ColumnOptions extends Component {
 				return 'link';
 			case 'Select':
 				return 'menu-hamburger';
+			case 'Address':
+				return 'map-marker';
 			default:
 				return 'cog';
 		}
@@ -102,18 +104,26 @@ class ColumnOptions extends Component {
 		let viewing;
 		if (!this.state || this.state.view === 'dropdown') {
 			function generateMenuItems () {
-				var items = [
-					<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
-					<MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
-					<MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
-					<MenuItem key="7" eventKey="insertLeft"> Insert Left </MenuItem>,
-					<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
-					<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
-					<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
-					<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
+				if(this.props.data.id === "100") {
+					var items = [
+						<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
+						<MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
+						<MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
+						<MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>
 					];
-
-				if(this.props.data.id !== "100") items.push(<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>);
+				} else {
+					var items = [
+						<MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
+						<MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
+						<MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
+						<MenuItem key="7" eventKey="insertLeft"> Insert Col Left </MenuItem>,
+						<MenuItem key="8" eventKey="insertRight"> Insert Col Right </MenuItem>,
+						<MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>,
+						<MenuItem key="4" eventKey="sortAsc">Sort A -> Z (ASC)</MenuItem>,
+						<MenuItem key="5" eventKey="sortDec">Sort Z -> A (DESC)</MenuItem>,
+						<MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
+					];
+				}
 
 				return items;
 			}

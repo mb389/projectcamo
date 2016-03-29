@@ -14,11 +14,39 @@ import FormulaMenuItem from './FormulaMenuItem';
 
 const cx = classNames.bind(styles);
 
+function glyphFromType (type) {
+	switch (type) {
+		case 'Text':
+			return 'font';
+		case 'Number':
+			return 'plus';
+		case 'Checkbox':
+			return 'check';
+		case 'Reference':
+			return 'retweet';
+		case 'ID':
+			return 'cog';
+		case 'Formula':
+			return 'console';
+		case 'Images':
+			return 'camera';
+		case 'Link':
+			return 'link';
+		case 'Select':
+			return 'menu-hamburger';
+		case 'Address':
+			return 'map-marker';
+		default:
+			return 'cog';
+	}
+}
 
 class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', width: this.props.data.width};
+
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet};
+
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
 		this.itemSelected = this.itemSelected.bind(this);
@@ -59,7 +87,6 @@ class MenuEditCol extends Component {
 		let newColData = Object.assign({}, this.state);
 		newColData.id = this.props.data.id;
 		newColData.idx = this.props.data.idx;
-
 		// TODO should do a deep equals
 		if (newColData == this.props.data) console.log('No Change');
 		else this.props.dispatch(updateColumn(newColData))
@@ -94,9 +121,11 @@ class MenuEditCol extends Component {
 		}
 
 		function generateTypes () {
-			var MenuItems = [];
+			let MenuItems = [];
 			for (let fieldType in columnTypes) {
-				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={fieldType}>{fieldType}</MenuItem>);
+				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={fieldType}>
+									<Glyphicon className={cx('columnTypeMenuItem')} glyph={glyphFromType(fieldType)}/> {fieldType}
+								</MenuItem>);
 			}
 			return MenuItems;
 		}
@@ -106,7 +135,9 @@ class MenuEditCol extends Component {
 					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.name} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.state.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)}/>
+				        {this.state.type}
+				        <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
@@ -123,6 +154,8 @@ class MenuEditCol extends Component {
 				)
 	}
 }
+
+
 
 // get formulaStore from state and map it to proms if the form is already loaded then don't fetch?
 

@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import TextModal from './ModalTypes/Text';
 import ImageList from './ModalTypes/ImageList';
+import ModalCheckBox from './ModalTypes/ModalCheckBox';
 import { connect } from 'react-redux';
 import { closeRowModal } from 'actions/sheet';
 import styles from 'css/components/modal';
-import { Modal } from 'react-bootstrap';
+import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
+import LinkLabel from './CellTypes/LinkLabel';
 
 const cx = classNames.bind(styles);
 
@@ -21,8 +23,24 @@ class RowModal extends Component {
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
-    if (cell.type === 'Images') return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
-    else return <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
+    switch (cell.type) {
+      case 'Images':
+        return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
+      case 'Reference':
+        const labels = cell.data ? cell.data.map((label, i)=> <LinkLabel data={label.data} key={i} />) : <span key='0'></span>
+        return  (
+          <div>
+            {labels}
+          </div>
+        )
+      case 'Checkbox':
+          return <ModalCheckBox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
+      case 'Select':
+      case 'Link':
+      case 'Number':
+      default:
+          return <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx}/>
+    }
   }
 
   rowCells(){

@@ -4,9 +4,11 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateCell, showLookupModal, currentCell, updateFormulaCell, moveToCell } from 'actions/sheet';
 import styles from 'css/components/table';
-import { Modal, Glyphicon, Button, Label } from 'react-bootstrap';
+import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
 import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
+import LinkLabel from './CellTypes/LinkLabel';
+import Checkbox from './CellTypes/Checkbox';
 
 
 const cx = classNames.bind(styles);
@@ -30,8 +32,6 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
-    // console.log('handleChangeRunning', evt);
-
     let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
@@ -39,13 +39,11 @@ class Cell extends Component {
         recalculateCells.push(row[cell]);
       }
     }
-
     dispatch(updateCell(evt.target.value, cellKey, rowIdx, null, recalculateCells));
-
 	}
 
-  showLookupModal(row,rowIdx,cell){
-    this.props.dispatch(showLookupModal(row,rowIdx,cell))
+  showLookupModal(row,rowIdx,cell,cellKey){
+    this.props.dispatch(showLookupModal(row,rowIdx,cell,cellKey))
   }
 
   editable (evt) {
@@ -64,15 +62,15 @@ class Cell extends Component {
           return (<img src={img} key={i} className={cx('img-thumb')}/>)
         }))
       case 'Reference':
-        const labels = cell.data ? cell.data.map((label, i)=><Label bsStyle="info" key={i}>{label.data}</Label> ) : <span></span>
+        const labels = cell.data ? cell.data.map((label, i)=> <LinkLabel data={label.data} key={i} />) : <span key='0'></span>
         return  (
           <div>
-            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell)}><Glyphicon glyph="plus" /></Button>
+            <Button bsSize="small" onClick={this.showLookupModal.bind(this,row,rowIdx,cell,cellKey)}><Glyphicon glyph="plus" /></Button>
             {labels}
           </div>
         )
       case 'Checkbox':
-          return (<input className={cx('cellCheckBox')+ " checkbox"} type='checkbox' onClick={this.handleChange} value={cell.data!=='true'} />)
+          return <Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
       case 'Select':
       case 'Link':
       case 'Number':
@@ -120,7 +118,7 @@ class Cell extends Component {
 				style={{width: this.props.cell.width}}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
-				onFocus={this.handleCell}
+				onClick={this.handleCell}
 				onKeyDown={this.keyPress} // for key navigation
         ref={(c) => {
           if(this.props.cell.focused && c) c.focus();

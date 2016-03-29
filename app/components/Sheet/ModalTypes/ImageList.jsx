@@ -19,7 +19,10 @@ class ImageList extends Component {
       return (<img src={img} key={i}/>)
     })
     const settings = {
-      dots: true
+      dots: true,
+      slidesToShow: 1,
+      infinite: false,
+      arrows: true
     }
     const fileStyle = {
       'z-index': '1100 !important'

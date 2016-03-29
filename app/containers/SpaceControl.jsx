@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import SheetsBar from 'components/spacecontrols/SheetsBar';
-import MagicBar from 'components/spacecontrols/MagicBar';
+import SheetsBar from 'components/SpaceControls/SheetsBar';
+import MagicBar from 'components/SpaceControls/MagicBar';
 import Table from 'components/Sheet/Table';
-import * as Actions from '../actions/spacecontrols';
+import * as Actions from '../actions/SpaceControls';
 import * as SheetActions from '../actions/sheet';
 import Navigation from 'containers/Navigation';
 import BottomBar from 'components/BottomBar/BottomBar';

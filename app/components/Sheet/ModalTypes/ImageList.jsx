@@ -19,24 +19,24 @@ class ImageList extends Component {
     const { dispatch, cellKey, rowIdx } = this.props;
     let newData = this.props.cell.data.slice()
     newData.splice(i,1)
-    console.log(newData, i)
     dispatch(updateModalCell(newData, cellKey, rowIdx))
   }
 
   render () {
     const images = this.props.cell.data.map((img, i) => {
       return (
-        <div>
-          <img src={img} key={i}/>
+        <div key={i}>  
+          <img src={img} />
           <Button bsStyle="danger" onClick={this.removeImage.bind(null,i)}><Glyphicon glyph="trash"/></Button>
-        </div>
+        </div>  
       )
     })
     const settings = {
       dots: true,
       slidesToShow: 1,
       infinite: false,
-      arrows: true
+      arrows: true,
+      initialSlide: 0
     }
     const fileStyle = {
       'z-index': '1100 !important'

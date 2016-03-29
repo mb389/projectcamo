@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateColumn} from 'actions/sheet';
-import { fetchFormulaStore } from 'actions/formulaStore';
+import { fetchFormulaStore } from 'actions/formulaStore'
 // TODO maybe load this earlier to avoid delay
 import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
@@ -14,6 +14,32 @@ import FormulaMenuItem from './FormulaMenuItem';
 
 const cx = classNames.bind(styles);
 
+function glyphFromType (type) {
+	switch (type) {
+		case 'Text':
+			return 'font';
+		case 'Number':
+			return 'plus';
+		case 'Checkbox':
+			return 'check';
+		case 'Reference':
+			return 'retweet';
+		case 'ID':
+			return 'cog';
+		case 'Formula':
+			return 'console';
+		case 'Images':
+			return 'camera';
+		case 'Link':
+			return 'link';
+		case 'Select':
+			return 'menu-hamburger';
+		case 'Address':
+			return 'map-marker';
+		default:
+			return 'cog';
+	}
+}
 
 class MenuEditCol extends Component {
 	constructor(props,state){
@@ -60,7 +86,7 @@ class MenuEditCol extends Component {
 		newColData.id = this.props.data.id;
 		newColData.idx = this.props.data.idx;
 		// TODO should do a deep equals
-		if (newColData == this.props.data) {}
+		if (newColData == this.props.data) console.log('No Change');
 		else this.props.dispatch(updateColumn(newColData))
 
 		this.props.exitTypeMenu();
@@ -93,9 +119,11 @@ class MenuEditCol extends Component {
 		}
 
 		function generateTypes () {
-			var MenuItems = [];
+			let MenuItems = [];
 			for (let fieldType in columnTypes) {
-				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={fieldType}>{fieldType}</MenuItem>);
+				MenuItems.push(<MenuItem key={MenuItems.length} eventKey={fieldType}>
+									<Glyphicon className={cx('columnTypeMenuItem')} glyph={glyphFromType(fieldType)}/> {fieldType}
+								</MenuItem>);
 			}
 			return MenuItems;
 		}
@@ -105,14 +133,15 @@ class MenuEditCol extends Component {
 					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.name} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
 				      <Dropdown.Toggle noCaret className=' col-md-12'>
-				        {this.state.type} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+				        <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)}/> 
+				        {this.state.type} 
+				        <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
 				      </Dropdown.Toggle>
 				      <Dropdown.Menu className={cx('columnMenu')}>
 				      	{generateTypes()}
 				      </Dropdown.Menu>
 				    </Dropdown>
 
-				    
 				    {columnTypes[this.state.type]}
 				    <div className='col-md-12'>
 					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
@@ -122,6 +151,8 @@ class MenuEditCol extends Component {
 				)
 	}
 }
+
+
 
 // get formulaStore from state and map it to proms if the form is already loaded then don't fetch?
 

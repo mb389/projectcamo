@@ -35,7 +35,7 @@ function decorationType (cell) {
 }
 
 function regexEscape(str) {
-    return str.replace(/[-\\^$?.()|[\]{}]/g, '\\$&')
+    return str.replace(/[-\\^$?.|[\]{}]/g, '\\$&')
 }
 
 export function navToNewCell(keyCode, newSheet) {

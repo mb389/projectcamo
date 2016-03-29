@@ -122,7 +122,6 @@ export function changeSheet(obj) {
   if (obj.sheets) {
     fetchUpdatesFromOtherSheets(obj.sheets, obj.sheetToShow)
   }
-
   return {
     type: types.CHANGE_SHEET,
     sheet: obj.sheetToShow.content,
@@ -168,8 +167,22 @@ export function getSheet(sheetId, sheets) {
     }).then(res => dispatch(changeSheet({
         sheetToShow: res,
         sheets: sheets
-      })));
+      })))
+    .then(res => dispatch(addColumn()))
+    .then(res => dispatch(removeColumn()));;
   };
+}
+
+export function addColumn() {
+  return {
+    type: types.ADD_COLUMN
+  }
+}
+
+export function removeColumn() {
+  return {
+    type: types.REMOVE_COLUMN,
+  }
 }
 
 export function addSheetToView(obj) {

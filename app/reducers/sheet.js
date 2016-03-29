@@ -192,7 +192,7 @@ export default function sheet(state = {
         width: 200
       }
 
-      // TODO need to set this.props.view: 'editNameAndType';
+      // // TODO need to set this.props.view: 'editNameAndType';
       addColumnState.columnHeaders.push(newColumn);
       addColumnState = insertNewColInRows(addColumnState, newColumn);
       return addColumnState;}
@@ -297,6 +297,7 @@ export default function sheet(state = {
         row[newColumn.id] = {
           data: newData,
           type: newColumn.type,
+          width: newColumn.width,
         }
         return row;
       })

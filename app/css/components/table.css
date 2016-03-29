@@ -1,4 +1,4 @@
-@value columnWidth: 199px;
+@value columnMinWidth: 135px;
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .table {
@@ -53,7 +53,7 @@
 }
 
 .columnWidth {
-  min-width: 50px;
+  min-width: columnMinWidth;
   width: 100%;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .thead {
-    min-width: 120px;
+    min-width: columnMinWidth;
     width: 100%;
     display: inline;
     background: #fff;
@@ -124,8 +124,8 @@
 }
 
 .cell {
-    width: 200px;
-    min-width: columnWidth;
+    /*width: 200px;*/
+    min-width: columnMinWidth;
     max-height: 40px;
     padding: 0px;
     display: inline-block;

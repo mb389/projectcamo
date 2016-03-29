@@ -29,17 +29,17 @@ const Headers = (props) => {
         {/*<div className={cx('topCorner')} />
         <div className={cx('topCorner')}></div>*/}
         <AddColumn />
-          <SortablePane
-               direction="horizontal"
-               margin={0}
-               disableEffect={true}
-               onResize={(id, dir, size, rect) => props.resizeCol(id)}
-               onOrderChange={(oldPanes,newPanes) => {
-                //  let bounced=_.debounce(() => props.dragCol(newPanes),500);
-                //  bounced();
-               }}
-               >
-          {generateColumnOptions(props.headers)}
+        <SortablePane
+           direction="horizontal"
+           margin={0}
+           disableEffect={true}
+           onResize={(id, dir, size, rect) => props.resizeCol(id)}
+           onOrderChange={(oldPanes,newPanes) => {
+            //  let bounced=_.debounce(() => props.dragCol(newPanes),500);
+            //  bounced();
+           }}
+           >
+            {generateColumnOptions(props.headers)}
         </SortablePane>
       </div>
     );

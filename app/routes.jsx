@@ -13,6 +13,7 @@ import Dashboard from 'containers/Dashboard';
  */
 export default (store) => {
   const requireAuth = (nextState, replace, callback) => {
+
     const { user: { authenticated }} = store.getState();
     if (!authenticated) {
       replace({

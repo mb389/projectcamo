@@ -11,7 +11,7 @@
 }
 
  .profile {
-   text-align: center;
+   /*text-align: center;*/
   flex: 1;
   min-height: 20px;
   padding: 19px;
@@ -39,19 +39,18 @@
   margin-left: 20px;
   line-height: 200%;
   flex-basis: 250px;
-  flex: 1.3;
+  flex: 1;
 
 }
 
 .profImg {
-  /*margin-top: 10px;
-  margin-right: 10px;*/
-  height: 150px;
+  margin-left: 40px;
+  height: 250px;
   width: 150px;
 }
 
 .profData {
-
+  margin-left: 20px;
 }
 
 .addSpace {

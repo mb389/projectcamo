@@ -15,9 +15,7 @@ export default function user(state={
   isLogin: true,
   message: '',
   isWaiting: false,
-  authenticated: true,
-  profile: { name: '', gender: '', location: '', website: '', picture: '',
-    email: '', password: null } }, action={}) {
+  authenticated: true }, action={}) {
   switch (action.type) {
     case TOGGLE_LOGIN_MODE:
       return Object.assign({}, state, {
@@ -38,8 +36,7 @@ export default function user(state={
       return Object.assign({}, state, {
         isWaiting: false,
         authenticated: true,
-        message: '',
-        profile: action.details
+        message: ''
       });
     case LOGIN_ERROR_USER:
       return Object.assign({}, state, {

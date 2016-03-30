@@ -111,7 +111,8 @@ function mapStateToProps(store) {
     sheet: store.sheet,
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    filteredRows: store.sheet.filteredRows
+    filteredRows: store.sheet.filteredRows,
+    user: store.user
   };
 }
 

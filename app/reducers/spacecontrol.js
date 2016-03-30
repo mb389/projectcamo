@@ -19,8 +19,6 @@ export default function spaceControl(state = { showShareModal: false }, action =
 
   switch (action.type) {
     case ADD_USER_COLLAB: {
-      console.log(action);
-
       let newCollabSpace=_.cloneDeep(state);
       newCollabSpace.space.collabs.push(action.email);
       return newCollabSpace;
@@ -35,7 +33,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
       newState.sheetNames=action.sheetNames;
       newState.sheets=action.sheets;
       return newState;
-      //
+
       // return Object.assign({}, state, {
       //   space: action.space || state.space,
       //   sheetToShow: action.sheetToShow || state.sheetToShow,

@@ -45,12 +45,11 @@ function beginLogin() {
   return { type: types.MANUAL_LOGIN_USER };
 }
 
-function loginSuccess(message,data) {
+function loginSuccess(message) {
 
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message: message,
-    details: data
+    message: message
   };
 }
 
@@ -104,7 +103,7 @@ export function manualLogin(data) {
     return makeUserRequest('post', data, '/login')
       .then(response => {
         if (response.status === 200) {
-          dispatch(loginSuccess(response.data.message,data));
+          dispatch(loginSuccess(response.data.message));
           dispatch(getSpaces());
           dispatch(push('/'));
         } else {

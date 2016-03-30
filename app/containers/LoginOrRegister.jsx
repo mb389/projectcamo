@@ -107,10 +107,6 @@ class LoginOrRegister extends Component {
               type="password"
               ref="password"
               placeholder="password" />
-            <div className={cx('hint')}>
-              <div>Hint</div>
-              <div>email: example@ninja.com password: ninja</div>
-            </div>
             <p className={cx('message', {
               'message-show': message && message.length > 0
               })}>{message}</p>

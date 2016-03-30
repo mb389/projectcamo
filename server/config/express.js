@@ -63,7 +63,7 @@ module.exports = function (app, passport) {
       secure: false,
     },
     store: new MongoStore(
-      { 
+      {
         url: secrets.db,
         autoReconnect: true
       }

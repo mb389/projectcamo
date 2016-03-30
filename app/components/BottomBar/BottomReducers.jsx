@@ -49,7 +49,7 @@ export default class BottomReducers extends Component {
 		return (
 			<Dropdown id="dropdown-custom-1" dropup onSelect={this.handleReduction} className={cx('BottomReducers')} style={{width: this.props.width}}>
 			  <Dropdown.Toggle noCaret className={cx('DropdownHead')}>
-			    {this.state.selectedReducer}: {this.state.reducerReturn || " "} {showing}
+			    {this.state.selectedReducer}: {this.state.reducerReturn || " "}
 						<Glyphicon className={cx('DropdownCarrat')} glyph="menu-down" />
 			  </Dropdown.Toggle>
 			  <Dropdown.Menu className={cx('MenuItem')}>

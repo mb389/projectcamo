@@ -178,6 +178,16 @@
   margin-top: -11px !important;
 }
 
+.cellSelect {
+  /*background: light-primary-color;*/
+  background-color: rgba(100, 100, 100, .15);
+  text-align: center;
+  width: 90%;
+  height: 95%;
+  margin: 3% auto 2% auto;
+
+}
+
 .cell-expand {
     float: left;
     margin-right: 5px;

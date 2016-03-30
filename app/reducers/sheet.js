@@ -73,7 +73,7 @@ export default function sheet(state = {
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
-        if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+        if(action.fromSuper && newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data;
         if (action.formulaCells)

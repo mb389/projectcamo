@@ -9,7 +9,7 @@ import { searching } from 'actions/SpaceControls'
 import ContentEditable from 'react-contenteditable';
 import LinkLabel from './CellTypes/LinkLabel';
 import Checkbox from './CellTypes/Checkbox';
-// import SelectOptionCell from './CellTypes/SelectOptionCell';
+import SelectOptionCell from './CellTypes/SelectOptionCell';
 
 
 const cx = classNames.bind(styles);
@@ -77,13 +77,13 @@ class Cell extends Component {
 						</div>
 					)
       case 'Select':
-          // return (<SelectOptionCell 
-          //     dispatch={this.props.dispatch}
-          //     cell={cell}
-          //     cellKey={cellKey}
-          //     rowIdx={rowIdx}
-          //     />
-          //   )
+          return (<SelectOptionCell 
+              dispatch={this.props.dispatch}
+              cell={cell}
+              cellKey={cellKey}
+              rowIdx={rowIdx}
+              />
+            )
       case 'Link':
       case 'Number':
       default:

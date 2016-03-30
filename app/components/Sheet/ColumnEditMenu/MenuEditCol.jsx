@@ -66,7 +66,7 @@ class MenuEditCol extends Component {
 	}
 
 	addSelectOption(){
-		this.setState({selectOptions: this.state.selectOptions.concat([" "])});
+		this.setState({selectOptions: this.state.selectOptions.concat([""])});
 	}
 
 	editSelectOption(idx, evt){

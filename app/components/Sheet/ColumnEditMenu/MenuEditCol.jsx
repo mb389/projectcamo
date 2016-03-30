@@ -6,8 +6,7 @@ import { fetchFormulaStore } from 'actions/formulaStore'
 // TODO maybe load this earlier to avoid delay
 import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
-import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import { DropdownButton, Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 import OtherMenuItem from './OtherMenuItem';
 import FormulaMenuItem from './FormulaMenuItem';

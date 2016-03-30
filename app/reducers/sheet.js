@@ -212,6 +212,9 @@ export default function sheet(state = {
             row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula);
             row[updatingId].formula = action.data.formula;
           }
+          if(action.data.selectOptions) {
+            row[updatingId].selectOptions = action.data.selectOptions;
+          }
           return row;
         })
         return updateColumnState;

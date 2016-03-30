@@ -18,7 +18,7 @@ class CheckBox extends Component {
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     let val;
     (this.props.cell.data === 'checked') ? val = 'off' : val = 'checked'
-    dispatch(updateCell(val, cellKey, rowIdx, null, []));
+    dispatch(updateCell(val, cellKey, rowIdx));
 	}
 
 	render () {

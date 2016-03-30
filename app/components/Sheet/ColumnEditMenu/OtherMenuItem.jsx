@@ -6,8 +6,8 @@ const cx = classNames.bind(styles);
 
 const OtherMenuItem = (props) => {
 	return (
-	    <div className='col-md-12'>
-			<p className='col-md-12'>{props.description}</p>
+	    <div className='col-xs-12'>
+			<p className='col-xs-12'>{props.description}</p>
 		</div>
 		);
 }

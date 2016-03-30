@@ -6,11 +6,11 @@ import { fetchFormulaStore } from 'actions/formulaStore'
 // TODO maybe load this earlier to avoid delay
 import { formulaUpload } from 'actions/formulaStore';
 import styles from 'css/components/table';
-import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import { DropdownButton, Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 import OtherMenuItem from './OtherMenuItem';
 import FormulaMenuItem from './FormulaMenuItem';
+import SelectMenuItem from './SelectMenuItem';
 
 const cx = classNames.bind(styles);
 
@@ -45,7 +45,7 @@ class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
 
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width, selectOptions: this.props.data.selectOptions};
 
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
@@ -55,6 +55,9 @@ class MenuEditCol extends Component {
 		this.exitTypeMenu = this.exitTypeMenu.bind(this);
 		this.formulaUpload = this.formulaUpload.bind(this);
 		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
+		this.addSelectOption = this.addSelectOption.bind(this);
+		this.editSelectOption = this.editSelectOption.bind(this);
+		this.removeSelectOption = this.removeSelectOption.bind(this);
 	}
 
 	componentWillMount(){
@@ -62,7 +65,24 @@ class MenuEditCol extends Component {
 		this.props.dispatch(fetchFormulaStore());
 	}
 
+	addSelectOption(){
+		this.setState({selectOptions: this.state.selectOptions.concat([""])});
+	}
+
+	editSelectOption(idx, evt){
+		let opts = this.state.selectOptions;
+		opts[idx]=evt.target.value;
+		this.setState({selectOptions: opts})
+	}
+
+	removeSelectOption(idx, evt){
+		let opts = this.state.selectOptions;
+		opts.splice(idx, 1);
+		this.setState({selectOptions: opts})
+	}
+
 	itemSelected(e, ekey) {
+		if (ekey === "Select" && !this.state.selectOptions) this.setState({selectOptions: []})
 		this.setState({type: ekey});
 	}
 
@@ -115,7 +135,14 @@ class MenuEditCol extends Component {
 				),
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
 			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
-			'Select': (<OtherMenuItem description='Select a single predefined option from a dropdown' />),
+			'Select': (
+				<SelectMenuItem 
+					selectOptions={this.state.selectOptions}
+					addSelectOption={this.addSelectOption}
+					editSelectOption={this.editSelectOption}
+					removeSelectOption={this.removeSelectOption}
+				/>
+				),
 			'Link': (<OtherMenuItem description='Create a link to an external site ' />),
 			'Reference': (<OtherMenuItem description='Link to another sheet'/>)
 		}
@@ -132,9 +159,9 @@ class MenuEditCol extends Component {
 
 		return (
 				<div className={cx('editNameAndType')}>
-					<ContentEditable className={cx('thead') + ' col-md-12'} onChange={this.handleEditName} html={this.state.name} />
-					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-md-12'}>
-				      <Dropdown.Toggle noCaret className=' col-md-12'>
+					<ContentEditable className={cx('thead') + ' col-xs-12'} onChange={this.handleEditName} html={this.state.name} />
+					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-xs-12'}>
+				      <Dropdown.Toggle noCaret className=' col-xs-12'>
 				        <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)}/>
 				        {this.state.type}
 				        <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
@@ -146,9 +173,9 @@ class MenuEditCol extends Component {
 
 
 				    {columnTypes[this.state.type]}
-				    <div className='col-md-12'>
-					    <button className="btn col-md-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
-					    <button className="btn btn-primary col-md-5" type="button" onClick={this.saveTypeChanges}>Save</button>
+				    <div className='col-xs-12'>
+					    <button className="btn col-xs-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
+					    <button className="btn btn-primary col-xs-5" type="button" onClick={this.saveTypeChanges}>Save</button>
 					</div>
 				</div>
 				)

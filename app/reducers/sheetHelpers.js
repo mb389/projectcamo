@@ -28,14 +28,15 @@ export function runCustomFunc (state, row, funcText) {
 function decorationType (cell) {
   switch (cell.type) {
     case 'Images': return `["${cell.data.join('","')}"]`;
-    case 'Formula': case 'Link': case 'Text': case 'ID': return `"${cell.data}"`;
     case 'Reference': return null;
-    default: return cell.data;
+    case 'Formula': case 'Link': case 'Text': case 'ID': case 'Select': 
+    default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
   }
 }
 
 function regexEscape(str) {
-    return str.replace(/[-\\^$?.|[\]{}]/g, '\\$&')
+  return str;
+  // return str.replace(/[-\\^$?|\{}]/g, '\\$&')
 }
 
 export function navToNewCell(keyCode, newSheet) {

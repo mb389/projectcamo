@@ -17,6 +17,10 @@
   text-align: center;
 }
 
+.sadMonkey {
+  padding-top: 1000px;
+}
+
 .contribute {
   composes: small from '../common/typography';
 }

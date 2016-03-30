@@ -15,7 +15,7 @@ export default function user(state={
   isLogin: true,
   message: '',
   isWaiting: false,
-  authenticated: false }, action={}) {
+  authenticated: true }, action={}) {
   switch (action.type) {
     case TOGGLE_LOGIN_MODE:
       return Object.assign({}, state, {

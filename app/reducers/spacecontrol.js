@@ -29,12 +29,12 @@ export default function spaceControl(state = { showShareModal: false }, action =
 
     let newState=_.cloneDeep(state)
 
-        newState.space=action.space;
-        newState.space.email=action.email;
-        newState.sheetToShow=action.sheetToShow;
-        newState.sheetNames=action.sheetNames;
-        newState.sheets=action.sheets;
-        return newState;
+      newState.space=action.space;
+      newState.space.email=action.email;
+      newState.sheetToShow=action.sheetToShow;
+      newState.sheetNames=action.sheetNames;
+      newState.sheets=action.sheets;
+      return newState;
       //
       // return Object.assign({}, state, {
       //   space: action.space || state.space,

@@ -15,12 +15,10 @@ import {
 import { insertNewColInRows } from './sheetHelpers.js';
 
 
-export default function spaceControl(state = { showShareModal: false }, action = {}) {
+export default function spaceControl(state = {  }, action = {}) {
 
   switch (action.type) {
     case ADD_USER_COLLAB: {
-      console.log(action);
-
       let newCollabSpace=_.cloneDeep(state);
       newCollabSpace.space.collabs.push(action.email);
       return newCollabSpace;
@@ -28,14 +26,14 @@ export default function spaceControl(state = { showShareModal: false }, action =
     case LOAD_SPACE:
 
     let newState=_.cloneDeep(state)
+      newState.showShareModal=false;
+      newState.space=action.space;
+      newState.space.email=action.email;
+      newState.sheetToShow=action.sheetToShow;
+      newState.sheetNames=action.sheetNames;
+      newState.sheets=action.sheets;
+      return newState;
 
-        newState.space=action.space;
-        newState.space.email=action.email;
-        newState.sheetToShow=action.sheetToShow;
-        newState.sheetNames=action.sheetNames;
-        newState.sheets=action.sheets;
-        return newState;
-      //
       // return Object.assign({}, state, {
       //   space: action.space || state.space,
       //   sheetToShow: action.sheetToShow || state.sheetToShow,

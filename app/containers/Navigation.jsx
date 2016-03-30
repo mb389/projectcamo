@@ -56,7 +56,8 @@ class Navigation extends Component {
 
 Navigation.propTypes = {
   workSpaceName: PropTypes.string,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object
 };
 
 function mapStateToProps(store) {

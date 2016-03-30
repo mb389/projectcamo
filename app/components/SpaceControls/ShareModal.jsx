@@ -7,6 +7,7 @@ import { closeShareModal } from 'actions/SpaceControls';
 import * as DashActions from 'actions/dashboard';
 import ShareModalCollabs from './ShareModalCollabs';
 
+
 const cx = classNames.bind(styles);
 
 class ShareModal extends Component {
@@ -34,7 +35,7 @@ class ShareModal extends Component {
 
   render(){
     let addBtn = <Button onClick={this.newCollab} className={cx('addBtn')}><Glyphicon glyph='plus' /></Button>;
-
+      console.log(this.props)
     return (
       <div className={cx('shareModal')}>
           <Modal show={this.props.showShareModal} onHide={this.close}>
@@ -53,6 +54,7 @@ class ShareModal extends Component {
                 <div>Share This Space</div>
                 <form>
                   <Input type='text' placeholder="Enter User's E-mail" ref="input" buttonAfter={addBtn} onChange={this.handleChange} />
+
                 </form>
                 <hr />
                 <h4>Other Info</h4>

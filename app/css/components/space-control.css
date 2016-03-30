@@ -48,6 +48,8 @@
   cursor: pointer;
   cursor: hand;
   font-weight: 200;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
 }
 
 .SheetButton active {
@@ -64,6 +66,7 @@
   line-height: 20px;
   text-align: center;
   vertical-align: middle;
+
 }
 
 .SheetTab {

@@ -6,6 +6,7 @@ const cx = classNames.bind(styles);
 
 const AddSpace = props => {
     return (
+      <div>
             <Button
               className={cx('addSpace')}
               bsStyle="primary"
@@ -13,6 +14,7 @@ const AddSpace = props => {
             >
               Add Space
             </Button>
+          </div>
     );
   }
 

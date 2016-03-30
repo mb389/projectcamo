@@ -15,9 +15,8 @@ export default class SelectOptionCell extends Component {
 
 
 	handleChange(e){
-    console.log(e.target.value);
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
-    dispatch(updateCell(e.target.value, cellKey, rowIdx, null, []));
+    dispatch(updateCell(e.target.value, cellKey, rowIdx)||updateModalCell(val, cellKey, rowIdx));
 	}
 
 	render () {

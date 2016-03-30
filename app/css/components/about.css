@@ -1,13 +1,28 @@
+.about {
+  display: flex;
+  flex-direction: column;
+
+}
+
+
 .header {
   composes: heading from '../common/typography';
   text-align: center;
 }
 
 .description {
+  margin: 70px;
+  flex: 3;
   composes: normal from '../common/typography';
   text-align: center;
 }
 
 .contribute {
   composes: small from '../common/typography';
+}
+
+.footer {
+  flex: 1;
+  text-align: center;
+  color: lightgrey;
 }

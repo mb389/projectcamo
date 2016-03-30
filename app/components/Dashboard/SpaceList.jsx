@@ -20,15 +20,13 @@ const SpaceList = (props) => {
     });
 
     return (
-        <div className="col-xs-3">
-          <div className="well well-sm">
       <div className={cx('spaces')}>
+
         <strong>Spaces</strong>
+
         {spacesToDisplay}
-      </div>
-      <AddSpace createSpace={props.createSpace}/>
-  </div>
-  </div>
+        <AddSpace createSpace={props.createSpace}/>
+</div>
     );
   }
 

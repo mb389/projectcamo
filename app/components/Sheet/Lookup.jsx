@@ -20,11 +20,17 @@ class Lookup extends Component {
     this.unlinkRow = this.unlinkRow.bind(this)
     this.whichButton = this.whichButton.bind(this)
     this.findColHeader = this.findColHeader.bind(this)
+    this.getTargetName = this.getTargetName.bind(this)
 	}
 
 	close() {
     this.props.dispatch(closeLookupModal())
     this.setState({sheet: null})
+  }
+
+  getTargetName(){
+    if (this.state.sheet) return this.state.sheet.name
+    else return '...'
   }
 
   findColHeader(){
@@ -115,7 +121,7 @@ class Lookup extends Component {
     return (
       <Modal show={this.props.showLookupModal} onHide={this.close} >
 				<Modal.Header className={cx('referenceHead')} classcloseButton>
-          <Modal.Title>Reference</Modal.Title>
+          <Modal.Title>Link {this.props.lookup.row['100'].data} to {this.getTargetName()}</Modal.Title>
         </Modal.Header>
         <Modal.Body className={cx('referenceBody')}>
           <div classNames="row">

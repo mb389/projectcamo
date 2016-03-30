@@ -12,8 +12,8 @@ const UserProfile = props => {
                       <div >
                       <img src={spacebookLogo} alt="" className={cx('profImg')} />
                       </div>
-                      <div>
-                        <div className={cx('profile')}>
+
+                        <div className={cx('profData')}>
                       <h4>Space Monkey</h4>
                       <small>
                         <i className="glyphicon glyphicon-map-marker"></i>
@@ -27,7 +27,7 @@ const UserProfile = props => {
                         <br/>
                         <i className="glyphicon glyphicon-gift"></i>June 02, 1922</p>
                     </div>
-                  </div>
+
               </div>
     );
   }

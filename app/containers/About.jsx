@@ -20,6 +20,7 @@ const About = props => {
         <img width="700px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
         </div>
       </div>
+      <div className={cx('footer')}>(c) SpaceBook, 2016</div>
     </div>
   );
 };

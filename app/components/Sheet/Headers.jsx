@@ -23,12 +23,10 @@ function generateColumnOptions (headers) {
 }
 
 function findAddMargin (headers) {
-  console.log("findMar", headers)
-  let margin = headers.reduce((accum, header) => {
+  let totColWidth = headers.reduce((accum, header) => {
     return accum + header.width;
   }, 0);
-  console.log("margin", margin)
-  return margin;
+  return totColWidth;
 };
 
 const Headers = (props) => {

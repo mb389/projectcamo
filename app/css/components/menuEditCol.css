@@ -1,0 +1,10 @@
+.inputSelectOption{
+	border-radius: 8px;
+}
+
+.addSelectOption{
+	padding: 2px;
+	border-radius: 8px;
+	margin: 0px !important;
+	margin-bottom: 5px !important;
+}

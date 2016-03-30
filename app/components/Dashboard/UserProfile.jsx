@@ -10,9 +10,9 @@ const UserProfile = props => {
         <div className={cx('profile')}>
                 <div className="well well-sm">
                   <div className="row">
-                      <div className="col-md-4">
+                      <div className="col-xs-4">
                       <img src="https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png" alt="" className={cx('profImg')} /></div>
-                      <div className="col-md-4">
+                      <div className="col-xs-4">
                       <h4>
                         {props.user.profile.name}</h4>
                       <small>

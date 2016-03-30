@@ -36,10 +36,10 @@ class Dashboard extends Component {
       <div>
         <Navigation disabled={true} />
         <div className={cx('dashboard')}>
-          <div className='col-md-6'>
+          <div className='col-xs-6'>
           <UserProfile user={this.props.user} />
           </div>
-          <div className='col-md-12'>
+          <div className='col-xs-12'>
           <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
           </div>

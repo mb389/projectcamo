@@ -15,7 +15,7 @@ import {
 import { insertNewColInRows } from './sheetHelpers.js';
 
 
-export default function spaceControl(state = { showShareModal: false }, action = {}) {
+export default function spaceControl(state = {  }, action = {}) {
 
   switch (action.type) {
     case ADD_USER_COLLAB: {
@@ -26,7 +26,7 @@ export default function spaceControl(state = { showShareModal: false }, action =
     case LOAD_SPACE:
 
     let newState=_.cloneDeep(state)
-
+      newState.showShareModal=false;
       newState.space=action.space;
       newState.space.email=action.email;
       newState.sheetToShow=action.sheetToShow;

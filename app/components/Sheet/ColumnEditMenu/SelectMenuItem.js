@@ -13,6 +13,7 @@ const SelectMenuItem = (props) => {
           idx={idx}
           value={opt}
           editSelectOption={props.editSelectOption}
+          removeSelect={props.removeSelectOption}
         />)
 	})
 	return (
@@ -35,10 +36,16 @@ const SelectMenuItem = (props) => {
 export default SelectMenuItem;
 
 const SelectOption = (props) => {
-	return (<input
+	return (<div><input
           className={cx('inputSelectOption') + ' col-xs-12'}
           value={props.value}
           onChange={props.editSelectOption.bind(this, props.idx)}
-        />)
+        	/>
+        	<Glyphicon 
+        		className={cx('removeSelectOption') + ' col-xs-1'} 
+        		glyph="remove" 
+        		onClick={props.removeSelect.bind(this, props.idx)}
+        		/>
+        </div>)
 }
 // The bind in onChange adds an extra argument to the end of the function

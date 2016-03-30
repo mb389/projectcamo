@@ -8,3 +8,9 @@
 	margin: 0px !important;
 	margin-bottom: 5px !important;
 }
+
+.removeSelectOption{
+	margin-left: -10%;
+	margin-top: 5px;
+	padding: 0px;
+}

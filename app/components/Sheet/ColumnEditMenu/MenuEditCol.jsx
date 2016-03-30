@@ -46,7 +46,7 @@ class MenuEditCol extends Component {
 	constructor(props,state){
 		super(props, state);
 
-		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width, selectOptions: ["Assaf", "Jodie"]};
+		this.state = {type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width, selectOptions: this.props.data.selectOptions};
 
 
 		this.saveTypeChanges = this.saveTypeChanges.bind(this);
@@ -58,6 +58,7 @@ class MenuEditCol extends Component {
 		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 		this.addSelectOption = this.addSelectOption.bind(this);
 		this.editSelectOption = this.editSelectOption.bind(this);
+		this.removeSelectOption = this.removeSelectOption.bind(this);
 	}
 
 	componentWillMount(){
@@ -73,10 +74,16 @@ class MenuEditCol extends Component {
 		let opts = this.state.selectOptions;
 		opts[idx]=evt.target.value;
 		this.setState({selectOptions: opts})
+	}
 
+	removeSelectOption(idx, evt){
+		let opts = this.state.selectOptions;
+		opts.splice(idx, 1);
+		this.setState({selectOptions: opts})
 	}
 
 	itemSelected(e, ekey) {
+		if (ekey === "Select" && !this.state.selectOptions) this.setState({selectOptions: []})
 		this.setState({type: ekey});
 	}
 
@@ -134,6 +141,7 @@ class MenuEditCol extends Component {
 					selectOptions={this.state.selectOptions}
 					addSelectOption={this.addSelectOption}
 					editSelectOption={this.editSelectOption}
+					removeSelectOption={this.removeSelectOption}
 				/>
 				),
 			'Link': (<OtherMenuItem description='Create a link to an external site ' />),

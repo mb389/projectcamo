@@ -15,7 +15,7 @@ export default function user(state={
   isLogin: true,
   message: '',
   isWaiting: false,
-  authenticated: false,
+  authenticated: true,
   profile: { name: '', gender: '', location: '', website: '', picture: '',
     email: '', password: null } }, action={}) {
   switch (action.type) {

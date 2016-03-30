@@ -23,16 +23,16 @@ function generateColumnOptions (headers) {
 }
 
 function findAddMargin (headers) {
-  console.log("findMar", headers)
+
   let margin = headers.reduce((accum, header) => {
     return accum + header.width;
   }, 0);
-  console.log("margin", margin)
+
   return margin;
 };
 
 const Headers = (props) => {
-  console.log("rendered!")
+  
   return (
       <div className={cx('theaders')}>
         <div className={cx('topCorner')} />

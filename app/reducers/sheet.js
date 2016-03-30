@@ -286,9 +286,10 @@ export default function sheet(state = {
       let formulaColumnState = _.cloneDeep(state);
 
       let newColumn = Object.assign({}, action.colData);
-      newColumn.id = (100+formulaColumnState.columnHeaders.length).toString();
-      newColumn.name = 'Column ' + (1+formulaColumnState.columnHeaders.length);
-      newColumn.idx = formulaColumnState.columnHeaders.length;
+      let colIdIdx = newColInfo(formulaColumnState.columnHeaders);
+      newColumn.id = colIdIdx.id;
+      newColumn.name = 'Column ' + colIdIdx.idx;
+      newColumn.idx = colIdIdx.idx;
 
       // action.arrMeth usually = 'map' or 'reduce';
       formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{

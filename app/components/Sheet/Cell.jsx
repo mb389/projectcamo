@@ -149,7 +149,15 @@ class Cell extends Component {
       return this.props.cell.focused === nextProps.cell.focused;
     }
 
-    return true;
+
+    for (let keys in nextProps.cell) {
+      if (nextProps.cell[keys] !== this.props.cell[keys]) {
+        return true
+      }
+    }
+
+    // console.log(this.props.cell, 'nextProps', nextProps.cell)
+    return false;
   }
 }
 

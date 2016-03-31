@@ -22,8 +22,6 @@ export function runCustomFunc (state, row, funcText) {
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
 
-  console.log("columnDefs", columnDefs, "funcText", funcText)
-
   return eval(columnDefs+funcText);
 }
 

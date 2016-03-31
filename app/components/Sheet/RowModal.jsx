@@ -41,9 +41,10 @@ class RowModal extends Component {
           </div>
         )
       case 'Checkbox':
-          return <CheckBox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
+          return <CheckBox dispatch={this.props.dispatch} cell={cell} parent={"RowModal"} cellKey={cellKey} rowIdx={rowIdx}/>
       case 'Select': return (<SelectOptionCell 
               dispatch={this.props.dispatch}
+              parent={"RowModal"}
               cell={cell}
               cellKey={cellKey}
               rowIdx={rowIdx}

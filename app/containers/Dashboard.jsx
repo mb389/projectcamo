@@ -7,6 +7,7 @@ import SpaceList from '../components/Dashboard/SpaceList';
 import CollabSpaces from '../components/Dashboard/CollabSpaces';
 import Navigation from 'containers/Navigation';
 import * as Actions from '../actions/dashboard';
+import Footer from 'components/About/Footer';
 /*
  * Note: This is kept as a container-level component,
  *  i.e. We should keep this as the container that does the data-fetching
@@ -28,7 +29,7 @@ class Dashboard extends Component {
   }
 
   createSpace() {
-    this.props.dispatch(Actions.createSpace(this.props.spaces.length+1));
+    this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length+1 : 1));
   }
 
   render() {
@@ -36,10 +37,11 @@ class Dashboard extends Component {
       <div>
         <Navigation disabled={true} />
         <div className={cx('dashboard')}>
-          <UserProfile user={this.props.user} />
+          {/*<UserProfile user={this.props.user} />*/}
           <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>
+
     </div>
     )
   }

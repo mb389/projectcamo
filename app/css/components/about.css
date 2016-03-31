@@ -1,3 +1,6 @@
+@value primary-color, dark-primary-color, light-primary-color, accent-color, primary-text, divider-color from '../common/colors.css';
+
+
 .about {
   display: flex;
   flex-direction: column;
@@ -13,20 +16,57 @@
 .description {
   margin: 70px;
   flex: 3;
+
   composes: normal from '../common/typography';
   text-align: center;
 }
 
-.sadMonkey {
-  padding-top: 1000px;
-}
 
 .contribute {
   composes: small from '../common/typography';
 }
 
-.footer {
-  flex: 1;
+.btn-social {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
   text-align: center;
-  color: lightgrey;
+  font-size: 20px;
+  line-height: 45px;
+  color: dark-primary-color;
+  font-size: 20px;
+  border: solid 2px accent-color;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+.btn-social:hover,
+.btn-social:focus,
+.btn-social:active,
+.btn-social.active {
+  color: #18bc9c;
+  background: white;
+  border: solid 2px accent-color;
+}
+
+footer {
+  color: white;
+}
+footer h3 {
+  margin-bottom: 30px;
+}
+footer .footer-above {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  color: primary-text;
+  background-color: light-primary-color;
+}
+footer .footer-col {
+  margin-bottom: 50px;
+}
+footer .footer-below {
+  padding: 25px 0;
+  background-color: primary-color;
 }

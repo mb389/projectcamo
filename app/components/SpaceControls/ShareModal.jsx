@@ -35,7 +35,6 @@ class ShareModal extends Component {
 
   render(){
     let addBtn = <Button onClick={this.newCollab} className={cx('addBtn')}><Glyphicon glyph='plus' /></Button>;
-      console.log(this.props)
     return (
       <div className={cx('shareModal')}>
           <Modal show={this.props.showShareModal} onHide={this.close}>

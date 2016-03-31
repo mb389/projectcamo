@@ -18,6 +18,13 @@ polyfill();
  * @return Promise
  */
 
+export function saveAllSheets(sheets, currSheet, sheetData, nextSheetId) {
+  return dispatch => {
+    dispatch(saveSheet(currSheet._id, sheetData))
+    dispatch(saveOtherSheets(sheets, currSheet))
+  }
+}
+
 export function updateSheet(history) {
   return {
     type: types.UPDATE_HISTORY,
@@ -25,24 +32,79 @@ export function updateSheet(history) {
   }
 }
 
-export function saveAllSheets(sheets, currSheet) {
+export function saveOtherSheets(sheets, currSheet) {
+  let didWeSave;
   sheets.forEach((sheet)=>{
-    if (sheet._id !== currSheet._id) request.put(`/sheet/${sheet._id}`, {sheet: sheet.content})
+    if (sheet._id !== currSheet._id &&sheet.changed) {
+      request.put(`/sheet/${sheet._id}`, {sheet: sheet.content})
+      didWeSave = true
+    }
   })
+  let type = didWeSave ? types.ALL_CHANGED_FALSE : "none";
   return {
-    type: "none"
+    type: type
   }
 }
 
-export function saveSheet(sheetId, sheet, commit){
-  return (dispatch) => {
-    request.put(`/sheet/${sheetId}`, {sheet, commit})
-    .then(res => {
-      dispatch(updateSheet(res.data.history))
-      return null
-    })
-    .then(() => dispatch(updateSheetsArray(sheetId, sheet)))
+function updateSheetsArray(sheetId, sheetContent, dbSheet) {
+  return {
+    type: types.UPDATE_SHEETS,
+    sheetId: sheetId,
+    sheetContent: sheetContent,
+    dbSheet: dbSheet
+  };
+}
+
+function toggleChanged(){
+  return {
+    type: types.TOGGLE_CHANGED
   }
+}
+// Quick Save Only
+export function saveSheet(sheetId, sheetData){
+  return (dispatch) => {
+    dispatch(updateSheetsArray(sheetId, sheetData))
+    dispatch(toggleChanged())
+    request.put(`/sheet/${sheetId}`, { sheet: sheetData})
+  }
+}
+
+export function changeSheet(obj) {
+  if (obj.sheets) {
+    fetchUpdatesFromOtherSheets(obj.sheets, obj.sheetToShow)
+  }
+  return {
+    type: types.CHANGE_SHEET,
+    sheet: obj.sheetToShow.content,
+    history: obj.sheetToShow.history
+  };
+}
+
+function findInSheets(sheetId, sheets) {
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i]._id === sheetId) {
+      return sheets[i]
+      break;
+    }
+  }
+}
+
+export function getSheet(sheetId, sheets) {
+  let nextSheet = findInSheets(sheetId, sheets)
+  return (dispatch) => {
+      // CHANGE TAB NAME
+      dispatch(loadSheet({
+        sheetToShow: nextSheet
+      }))
+      // CHANGE HITS SHEETS REDUCER 
+      dispatch(changeSheet({
+        sheetToShow: nextSheet,
+        sheets: sheets
+      }))
+      // READJUST COLUMN WIDTHS
+      dispatch(addColumn())
+      dispatch(removeColumn())
+  };
 }
 
 export function updateRefSheet(targetSheet,data,currSheet,currRow) {
@@ -65,13 +127,16 @@ export function removeRef(targetSheet,data,currSheet,currRow) {
   };
 }
 
-function updateSheetsArray(sheetId, sheetContent, dbSheet) {
-  return {
-    type: types.UPDATE_SHEETS,
-    sheetId: sheetId,
-    sheetContent: sheetContent,
-    dbSheet: dbSheet
-  };
+// Act as the commit save only
+export function commit(sheetId, sheet, commit){
+  return (dispatch) => {
+    request.put(`/sheet/${sheetId}`, {sheet, commit})
+    .then(res => {
+      dispatch(updateSheet(res.data.history))
+      return null
+    })
+    .then(() => dispatch(updateSheetsArray(sheetId, sheet)))
+  }
 }
 
 export function loadSpace(obj) {
@@ -118,17 +183,6 @@ function fetchUpdatesFromOtherSheets(sheets, sheetToShow) {
   }
 }
 
-export function changeSheet(obj) {
-  if (obj.sheets) {
-    fetchUpdatesFromOtherSheets(obj.sheets, obj.sheetToShow)
-  }
-  return {
-    type: types.CHANGE_SHEET,
-    sheet: obj.sheetToShow.content,
-    history: obj.sheetToShow.history
-  };
-}
-
 export function getSpace(spaceId) {
   return (dispatch) => {
     request(`/workspace/${spaceId}`)
@@ -153,23 +207,6 @@ export function loadSheet(obj) {
   return {
     type: types.LOAD_SHEET,
     sheetToShow: obj.sheetToShow
-  };
-}
-
-export function getSheet(sheetId, sheets) {
-  return (dispatch) => {
-    request(`/sheet/${sheetId}`)
-    .then((res) => {
-      dispatch(loadSheet({
-        sheetToShow: res.data
-      }))
-      return res.data
-    }).then(res => dispatch(changeSheet({
-        sheetToShow: res,
-        sheets: sheets
-      })))
-    .then(res => dispatch(addColumn()))
-    .then(res => dispatch(removeColumn()));;
   };
 }
 

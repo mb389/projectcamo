@@ -3,6 +3,7 @@ import SearchButton from './SearchButton';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
 import HistoryButton from './HistoryButton';
+import ContentEditable from 'react-contenteditable';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
@@ -24,7 +25,7 @@ const SuperBar = (props) => {
     )
   }
 
-  // If no cell or image then disabled and says Magic Bar
+  // If no cell or image/reference then disabled and says Magic Bar
   if (!props.cell || props.cell.cell.type  === 'Images' || props.cell.cell.type  === 'Reference') return (
       <input
         placeholder={'Magic Bar'}
@@ -33,12 +34,20 @@ const SuperBar = (props) => {
       />
   )
 
+  function keyPress (evt) {
+      if (evt.keyCode === 13) {
+        evt.preventDefault();
+        return props.enterPress(evt.keyCode);
+      }
+    }
+
   // standard when cell is selected is populates the magic bar and is linked with the cell
   return (
-      <input
-        value={props.cell ? props.cell.cell.data : 'Magic Bar'}
-        placeholder={props.cell ? props.cell.cell.data : 'Magic Bar'}
+      <ContentEditable
+        className={cx('SuperBarCE')}
+        html={props.cell.cell.data}
         onChange={funcToCall}
+        onKeyDown={keyPress}
       />
   );
 };

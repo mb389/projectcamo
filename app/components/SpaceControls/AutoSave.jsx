@@ -1,28 +1,36 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { commit } from 'actions/SpaceControls';
+import { saveSheet } from 'actions/SpaceControls';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
 
 const cx = classNames.bind(styles);
 
-class SaveButton extends Component {
+class AutoSave extends Component {
 	constructor(props, state){
 		super(props, state)
-		this.saveSheet = this.saveSheet.bind(this);
 	}
 
-	saveSheet(){
+	componentDidMount() {
 		const {dispatch,sheetToShow,sheet} = this.props
-		dispatch(commit(sheetToShow._id,sheet,true))
-	}
+    this.saveLoop = setInterval(()=>{
+    	if (this.props.sheet.changed) {
+    		dispatch(saveSheet(this.props.sheetToShow._id,{ grid: this.props.sheet.grid, columnHeaders: this.props.sheet.columnHeaders}))
+    	}
+    },5000)
+    
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.saveLoop);
+  }
 
   render(){
 	  return (
 	    <div className={cx('SaveButton')}>
-	      <Button onClick={this.saveSheet}><Glyphicon glyph="floppy-save" /></Button>
+	      <span></span>
 	    </div>
 	  );
  	}
@@ -35,4 +43,4 @@ function mapStateToProps(store) {
   };
 }
 
-export default connect(mapStateToProps)(SaveButton);
+export default connect(mapStateToProps)(AutoSave);

@@ -316,6 +316,8 @@ export default function sheet(state = {
         let newRow = {}
         addRowState.columnHeaders.forEach(function(col) {
           newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
+          if (col.formula) newRow[col.id].formula = col.formula;
+          if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
         })
         addRowState.grid.push(newRow)
         return addRowState

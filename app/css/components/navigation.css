@@ -11,7 +11,7 @@
   text-align: center;
   background:  primary-color;
   border: none;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.23),0 2px 5px rgba(0,0,0,0.16);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.23),0 2px 4px rgba(0,0,0,0.16);
   /*margin-bottom: 30px;*/
 }
 
@@ -55,13 +55,15 @@
   color: black;
 }
 
-.profileNav {
+.profileNav,
+.profileNav:focus,
+.profileNav:hover,
+.profileNav:active {
   width: 30px;
   height: 28px;
   margin-right: 20px;
   border-radius: 50% !important;
   border: 1.5px solid white;
-  padding-left: 10px;
   background: transparent url(https://cdn3.iconfinder.com/data/icons/rcons-user-action/32/boy-512.png) no-repeat center;
   background-size: 90%;
 }
@@ -71,7 +73,7 @@
 }
 
 .logInProfile {
-  float: right;
+
 }
 
 .dashboardLink, .logInNav {

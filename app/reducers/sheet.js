@@ -1,4 +1,3 @@
-
 import _ from 'lodash';
 import {
   // set changed to true
@@ -219,13 +218,15 @@ export default function sheet(state = {
         })
 
         newState.grid = newState.grid.map(row=>{
-          row[updatingId].type = action.data.type;
+          let curRow = row[updatingId];
+          curRow.type = action.data.type;
+          if(action.data.type==="Checkbox") curRow.data = "off";
           if(action.data.formula) {
-            row[updatingId].data = runCustomFunc(newState, row, action.data.formula);
-            row[updatingId].formula = action.data.formula;
+            curRow.data = runCustomFunc(newState, row, action.data.formula);
+            curRow.formula = action.data.formula;
           }
           if(action.data.selectOptions) {
-            row[updatingId].selectOptions = action.data.selectOptions;
+            curRow.selectOptions = action.data.selectOptions;
           }
           return row;
         })

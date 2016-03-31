@@ -5,6 +5,13 @@ import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
 import { MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 
+// prevent error when server tries to render
+if ( typeof window !== "undefined" ) {
+	var AceEditor = require('react-ace');
+	require('brace/mode/javascript');
+	require('brace/theme/kuroir');
+}
+
 const cx = classNames.bind(styles);
 
 const FormulaMenuItem = (props) => {
@@ -22,23 +29,37 @@ const FormulaMenuItem = (props) => {
 		props.handleFormulaNameChange(e);
 	}
 
-
 	return (
 	    <div className='col-xs-12'>
-			<h5 className='col-xs-12'>Allows you to create custom formulas for manipulating your data.</h5>
-			<div className='row clearfix'>
-				<label className='col-xs-4'>Name:</label>
-				<ContentEditable className='col-xs-8' id='handleFormulaNameChange' style={{backgroundColor: 'white'}} onChange={props.handleFormulaNameChange} html={props.formulaName} /> 
-			</div>
-				<Dropdown id="dropdown-custom-1" onSelect={functionSelected} className={cx('typeDropdown') + ' col-xs-12'}>
-				      <Dropdown.Toggle noCaret className=' col-xs-12'>
-				        {props.formulaName} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
-				      </Dropdown.Toggle>
-				      <Dropdown.Menu className={cx('columnMenu')}>
-				      	{createFunctionList()}
-				      </Dropdown.Menu>
-			    </Dropdown>
-			<textarea onChange={props.handleFormulaCustom} className='col-xs-12' value={props.formula} />
+			<h5 className='col-xs-12'>Write your own Javascript formula e.g. Initials below</h5>
+
+			<Dropdown id="dropdown-custom-1" onSelect={functionSelected} className={cx('typeDropdown') + ' col-xs-12'}>
+			      <Dropdown.Toggle noCaret className=' col-xs-12'>
+			        {props.formulaName} <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
+			      </Dropdown.Toggle>
+			      <Dropdown.Menu className={cx('columnMenu')}>
+			      	{createFunctionList()}
+			      </Dropdown.Menu>
+		    </Dropdown>
+
+			<label className='col-xs-4'>Name:</label>
+			<ContentEditable className='col-xs-8' id='handleFormulaNameChange' style={{backgroundColor: 'white'}} onChange={props.handleFormulaNameChange} html={props.formulaName} /> 
+			
+
+			    <AceEditor
+				    mode="javascript"
+				    width="250px"
+				    height="100px"
+				    theme="kuroir"
+				    showGutter={false}
+				    enableBasicAutocompletion={true}
+				    tabSize="2"
+				    onChange={props.handleFormulaCustom}
+				    name="UNIQUE_ID_OF_DIV"
+				    value={props.formula}
+				    editorProps={{$blockScrolling: true}}
+				  />
+
 			<button className="btn col-xs-8 col-xs-offset-4" type="button" onClick={props.formulaUpload}>Upload Formula</button>
 		</div>
 		);

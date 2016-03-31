@@ -18,8 +18,17 @@ class CheckBox extends Component {
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     let val;
     (this.props.cell.data === 'checked') ? val = 'off' : val = 'checked';
-    if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx));
-    else dispatch(updateCell(val, cellKey, rowIdx))
+
+    let recalculateCells = []
+    for (let cell in row) {
+      if (row[cell].type === 'Formula') {
+        row[cell].col = cell;
+        recalculateCells.push(row[cell]);
+      }
+    }
+    
+    if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
+    else dispatch(updateCell(val, cellKey, rowIdx, null, recalculateCells))
 	}
 
 	render () {

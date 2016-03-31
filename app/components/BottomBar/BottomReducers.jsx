@@ -29,7 +29,6 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func, columnData=this.props.columnData) {
-		console.log('reduc fun', func, columnData)
 		function rounder (number, places){
 			let tens = Math.pow(10, places);
 			return Math.round(number*tens)/tens;
@@ -53,12 +52,8 @@ export default class BottomReducers extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(nextProps.columnType === 'Number' || nextProps.columnType === 'Formula') {
+		if(nextProps.columnType === 'Number' || nextProps.columnType === 'Formula' || nextProps.columnType === 'Checkbox') {
 			this.setState({showReducers: true})
-			this.setState({reducerReturn: this.reductionFunctionSwitch(this.state.selectedReducer, nextProps.columnData)})
-		} else if (nextProps.columnType === 'Checkbox') {
-			this.setState({showReducers: true})
-			console.log('checkbox', this.state.selctedReducer, nextProps.columnData)
 			this.setState({reducerReturn: this.reductionFunctionSwitch(this.state.selectedReducer, nextProps.columnData)})
 		} else {
 			this.setState({showReducers: false})

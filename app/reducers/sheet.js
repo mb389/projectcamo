@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { Map, List, fromJS, toJS } from 'immutable';
 import {
   // set changed to true
   UPDATE_CELL,
@@ -47,10 +48,11 @@ export default function sheet(state = {
   columnHeaders: [],
   showRowModal: false,
   modalRow: {data:null,rowIdx:null} }, action = {}) {
+    let immutableState = fromJS(state);
   switch (action.type) {
     case CLEAR_SHEET:
       return {}
-    case CHANGE_SHEET: 
+    case CHANGE_SHEET:
       {
         let newState=_.cloneDeep(state);
 
@@ -180,15 +182,11 @@ export default function sheet(state = {
       }
     case SHOW_HISTORY_MODAL:
       {
-        let newState = _.cloneDeep(state)
-        newState.showHistoryModal = true;
-        return newState
+        return immutableState.set('showHistoryModal', true).toJS()
       }
     case SET_HISTORY_TABLE:
       {
-        let newState = _.cloneDeep(state);
-        newState.historySheet = newState.history[action.index]
-        return newState
+        return immutableState.set('historySheet', immutableState.getIn(['history', action.index])).toJS()  // state.history[action.index]).toJS()
       }
     case UPDATE_HISTORY:
       {
@@ -367,7 +365,7 @@ export default function sheet(state = {
         newState.changed = true;
         return newState
       }
-    case RESIZE_TABLE_COL: 
+    case RESIZE_TABLE_COL:
       {
         let newState=_.cloneDeep(state);
         // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;

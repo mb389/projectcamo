@@ -57,7 +57,8 @@ export function getSpaces() {
 }
 
 
-export function createSpace(spaceCount) {
+export function createSpace(spaceCount=0) {
+
   return (dispatch) => {
     request.post('/workspace', { spaceCount })
     .then(res => {

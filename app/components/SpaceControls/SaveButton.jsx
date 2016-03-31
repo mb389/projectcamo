@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { saveSheet } from 'actions/SpaceControls';
+import { commit } from 'actions/SpaceControls';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
@@ -16,7 +16,7 @@ class SaveButton extends Component {
 
 	saveSheet(){
 		const {dispatch,sheetToShow,sheet} = this.props
-		dispatch(saveSheet(sheetToShow._id,sheet,true))
+		dispatch(commit(sheetToShow._id,sheet,true))
 	}
 
   render(){

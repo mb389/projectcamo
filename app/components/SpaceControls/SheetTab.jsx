@@ -16,16 +16,15 @@ class SheetsTab extends Component {
     this.toggleDisabled = this.toggleDisabled.bind(this);
     this.editSheetName = this.editSheetName.bind(this);
     this.active = 'activeSheet';
-    this.disabledBool = true;
+    this.state = {disabled: true}
   }
 
   showSheet() {
     // check if clicking on the same sheet
     if (!this.active) {
-      this.props.dispatch(Actions.saveAllSheets(this.props.sheets,this.props.sheetToShow))
-      this.props.dispatch(Actions.saveSheet(this.props.sheetToShow._id, this.props.sheetData));
-      // might not be a stable solution. But need to wait for new sheet props.
-      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 300);
+      this.props.dispatch(Actions.saveAllSheets(this.props.sheets, this.props.sheetToShow, this.props.sheetData, this.props.sheetId))
+      // might not be a stable solution. But need to wait for new sheet props for inception to work.
+      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 100);
     }
   }
 
@@ -34,7 +33,7 @@ class SheetsTab extends Component {
   }
 
   toggleDisabled() {
-    this.disabledBool = !this.disabledBool;
+    this.setState({disabled: !this.state.disabled})
   }
 
   render() {
@@ -50,7 +49,7 @@ class SheetsTab extends Component {
       <ContentEditable
           html={this.props.sheet}
             // innerHTML of the editable div
-          disabled={this.disabledBool}     // use true to disable edition
+          disabled={this.state.disabled}     // use true to disable edition
           onChange={this.editSheetName} // handle innerHTML change
         />
       </div>

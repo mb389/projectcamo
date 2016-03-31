@@ -8,7 +8,7 @@ import styles from 'css/components/modal';
 import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
 import LinkLabel from './CellTypes/LinkLabel';
 import SelectOptionCell from './CellTypes/SelectOptionCell';
-import CheckBox from './CellTypes/CheckBox';
+import CheckBox from './CellTypes/Checkbox';
 
 const cx = classNames.bind(styles);
 

@@ -59,11 +59,13 @@ export default function sheet(state = {
             row[cell].focused = false;
           }
         })
-        newState.columnHeaders= action.sheet.columnHeaders || [];
-        newState.grid= action.sheet.grid || [];
-        newState.history= action.history || [];
-        newState.historySheet= action.historySheet || null;
-        newState.modalRow= {
+        action.sheet.grid[0][100].focused = true;
+
+        newState.columnHeaders = action.sheet.columnHeaders || [];
+        newState.grid = action.sheet.grid || [];
+        newState.history = action.history || [];
+        newState.historySheet = action.historySheet || null;
+        newState.modalRow = {
           data: null,
           rowIdx: null
         };
@@ -206,10 +208,8 @@ export default function sheet(state = {
     case ADD_COLUMN:
       {
         let newState =  _.cloneDeep(state);
-
         let newColumn = newColInfo(newState.columnHeaders)
 
-        // // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.push(newColumn);
         newState = insertNewColInRows(newState, newColumn);
         newState.changed = true
@@ -253,7 +253,6 @@ export default function sheet(state = {
           return column;
         })
 
-        // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
         newState = insertNewColInRows(newState, newColumn);

@@ -190,10 +190,8 @@ export default function sheet(state = {
       }
     case ADD_COLUMN:{
       let addColumnState =  _.cloneDeep(state);
-
       let newColumn = newColInfo(addColumnState.columnHeaders)
 
-      // // TODO need to set this.props.view: 'editNameAndType';
       addColumnState.columnHeaders.push(newColumn);
       addColumnState = insertNewColInRows(addColumnState, newColumn);
       return addColumnState;}
@@ -207,13 +205,15 @@ export default function sheet(state = {
         })
 
         updateColumnState.grid = updateColumnState.grid.map(row=>{
-          row[updatingId].type = action.data.type;
+          let curRow = row[updatingId];
+          curRow.type = action.data.type;
+          if(action.data.type==="Checkbox") curRow.data = "off";
           if(action.data.formula) {
-            row[updatingId].data = runCustomFunc(updateColumnState, row, action.data.formula);
-            row[updatingId].formula = action.data.formula;
+            curRow.data = runCustomFunc(updateColumnState, row, action.data.formula);
+            curRow.formula = action.data.formula;
           }
           if(action.data.selectOptions) {
-            row[updatingId].selectOptions = action.data.selectOptions;
+            curRow.selectOptions = action.data.selectOptions;
           }
           return row;
         })
@@ -221,7 +221,6 @@ export default function sheet(state = {
       }
     case INSERT_COLUMN:{
       let insertColumnState = _.cloneDeep(state);
-
 
       let newColumn = newColInfo(insertColumnState.columnHeaders)
       newColumn.name = 'Column ' + (1+action.colIdx);

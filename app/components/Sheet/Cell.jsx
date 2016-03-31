@@ -143,7 +143,7 @@ class Cell extends Component {
 
   shouldComponentUpdate (nextProps) {
     if (this.props.cell.type === "Select") {
-      // don't refocus when opening a select cell
+      // don't rerender when opening a select cell
       return this.props.cell.focused === nextProps.cell.focused;
     }
 

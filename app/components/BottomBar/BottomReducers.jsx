@@ -29,6 +29,7 @@ export default class BottomReducers extends Component {
 	}
 
 	reductionFunctionSwitch (func, columnData=this.props.columnData) {
+		console.log('reduc fun', func, columnData)
 		function rounder (number, places){
 			let tens = Math.pow(10, places);
 			return Math.round(number*tens)/tens;
@@ -40,12 +41,13 @@ export default class BottomReducers extends Component {
 			case 'Median': return (columnData.sort((a, b) => Number(a) - Number(b))[Math.floor(columnData.length/2)]);
 			case 'Min': return Math.min.apply(null, columnData);
 			case 'Max': return Math.max.apply(null, columnData);
-			default: return rounder(columnData.reduce(((a, b) => Number(a) + Number(b))), 2);
+			case 'Sum': return rounder(columnData.reduce(((a, b) => Number(a) + Number(b))), 2)
+			default: return columnData.reduce((accum, elem) => {if(elem!=="off") return accum+1; return accum;}, 0);
 		}
 	}
 
 	componentWillMount() {
-		if(this.props.columnType === 'Number' || this.props.columnType === 'Formula') {
+		if(this.props.columnType === 'Number' || this.props.columnType === 'Formula' || this.props.columnType === 'Checkbox') {
 			this.setState({showReducers: true})
 		}
 	}
@@ -53,7 +55,11 @@ export default class BottomReducers extends Component {
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.columnType === 'Number' || nextProps.columnType === 'Formula') {
 			this.setState({showReducers: true})
-			this.setState({reducerReturn: this.reductionFunctionSwitch(this.state.selctedReducer, nextProps.columnData)})
+			this.setState({reducerReturn: this.reductionFunctionSwitch(this.state.selectedReducer, nextProps.columnData)})
+		} else if (nextProps.columnType === 'Checkbox') {
+			this.setState({showReducers: true})
+			console.log('checkbox', this.state.selctedReducer, nextProps.columnData)
+			this.setState({reducerReturn: this.reductionFunctionSwitch(this.state.selectedReducer, nextProps.columnData)})
 		} else {
 			this.setState({showReducers: false})
 		}

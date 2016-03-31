@@ -223,7 +223,7 @@ export function getLatLongs(addressArray) {
 				if(result.data.status === 'OK') {
 					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
 				}
-			})
+			}).filter(item => item)
 			dispatch(sendLatLongs(geoCoded))
 		})
 	}

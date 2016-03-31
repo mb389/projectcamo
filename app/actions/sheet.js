@@ -219,13 +219,11 @@ export function getLatLongs(addressArray) {
 		})
 		Promise.all(addressUrls)
 		.then(resArray => {
-			console.log(resArray);
 			let geoCoded = resArray.map((result,i) => {
 				if(result.data.status === 'OK') {
 					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
 				}
 			}).filter(item => item)
-			console.log('geocoded', geoCoded)
 			dispatch(sendLatLongs(geoCoded))
 		})
 	}

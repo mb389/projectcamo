@@ -263,6 +263,7 @@ export default function sheet(state = {
         if (!toSave) accum.push(idx);
         return accum;
       }, [])
+      console.log(searchState.filteredRows)
       return searchState;
     case CLEAR_FILTERED_ROWS:
       let clearedFilteredState = _.cloneDeep(state);
@@ -328,12 +329,10 @@ export default function sheet(state = {
         let newGrid = []
         newState.grid.forEach((row,i)=>{
           if (i !== action.rowIdx) {
-            console.log('pushing', i)
             newGrid.push(row)
           }
         })
         newState.grid = newGrid
-        console.log(newState.grid)
         return newState
       }
     case RESIZE_TABLE_COL: {
@@ -351,7 +350,7 @@ export default function sheet(state = {
 
         return newState;
       }
-      case DRAG_TABLE_COL: {
+    case DRAG_TABLE_COL: {
         break;
       }
     case SHOW_MAP:

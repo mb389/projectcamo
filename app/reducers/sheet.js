@@ -1,9 +1,8 @@
-
 import _ from 'lodash';
 import {
+  // set changed to true
   UPDATE_CELL,
-  SHOW_ROW_MODAL,
-  CLOSE_ROW_MODAL,
+  UPDATE_CELL_BY_ID,
   ADD_ROW,
   DELETE_ROW,
   ADD_COLUMN,
@@ -12,6 +11,8 @@ import {
   REMOVE_COLUMN,
   INSERT_COLUMN,
   FORMULA_COLUMN,
+  RESIZE_TABLE_COL,
+  // no need to set changed to true
   UPDATE_MODAL_CELL,
   CHANGE_SHEET,
   CLEAR_SHEET,
@@ -25,12 +26,12 @@ import {
   CLEAR_FILTERED_ROWS,
   SHOW_LOOKUP_MODAL,
   CLOSE_LOOKUP_MODAL,
-  UPDATE_CELL_BY_ID,
+  SHOW_ROW_MODAL,
+  CLOSE_ROW_MODAL,
   MOVE_TO_CELL,
   SHOW_MAP,
   HIDE_MAP,
   DRAG_TABLE_COL,
-  RESIZE_TABLE_COL,
   SEND_LAT_LONGS
 } from 'constants/index';
 import {
@@ -67,6 +68,7 @@ export default function sheet(state = {
         };
         newState.showRowModal= false;
         newState.showHistoryModal= false;
+        newState.changed = false;
 
       return newState;
     }
@@ -83,6 +85,7 @@ export default function sheet(state = {
             newState.grid[action.cell.idx][cell.col].data = data;
           })
         }
+        newState.changed = true
         return newState
       }
     case UPDATE_CELL_BY_ID:
@@ -96,24 +99,29 @@ export default function sheet(state = {
             }
           }
         })
+        newState.changed = true
         return newState
       }
-    case MOVE_TO_CELL:{
-          let newState = _.cloneDeep(state);
-          let newCoord = navToNewCell(action.keyCode, newState)
-          newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-          newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
-          newState.currentCell.rowIdx = newCoord.newRowIdx;
-          newState.currentCell.cellKey = newCoord.newColId;
-          newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
-          return newState}
-    case CURRENT_CELL:{
-          let newState = _.cloneDeep(state);
-          if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-          newState.currentCell = action.cell;
-          if(action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
-          // find cell and give it focus
-          return newState}
+    case MOVE_TO_CELL:
+      {
+        let newState = _.cloneDeep(state);
+        let newCoord = navToNewCell(action.keyCode, newState)
+        newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+        newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
+        newState.currentCell.rowIdx = newCoord.newRowIdx;
+        newState.currentCell.cellKey = newCoord.newColId;
+        newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
+        return newState
+      }
+    case CURRENT_CELL:
+      {
+        let newState = _.cloneDeep(state);
+        if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+        newState.currentCell = action.cell;
+        if(action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
+        // find cell and give it focus
+        return newState
+      }
     case UPDATE_MODAL_CELL:
       {
         let modalRowState = _.cloneDeep(state);
@@ -188,28 +196,33 @@ export default function sheet(state = {
         newState.historySheet = null
         return newState
       }
-    case ADD_COLUMN:{
-      let addColumnState =  _.cloneDeep(state);
-      let newColumn = newColInfo(addColumnState.columnHeaders)
+    case ADD_COLUMN:
+      {
+        let newState =  _.cloneDeep(state);
 
-      addColumnState.columnHeaders.push(newColumn);
-      addColumnState = insertNewColInRows(addColumnState, newColumn);
-      return addColumnState;}
+        let newColumn = newColInfo(newState.columnHeaders)
+
+        // // TODO need to set this.props.view: 'editNameAndType';
+        newState.columnHeaders.push(newColumn);
+        newState = insertNewColInRows(newState, newColumn);
+        newState.changed = true
+        return newState;
+      }
     case UPDATE_COLUMN:
       {
-        let updateColumnState =  _.cloneDeep(state);
+        let newState =  _.cloneDeep(state);
         let updatingId = action.data.id;
-        updateColumnState.columnHeaders = updateColumnState.columnHeaders.map(column=>{
+        newState.columnHeaders = newState.columnHeaders.map(column=>{
           if (column.id===updatingId) {return action.data}
           else return column;
         })
 
-        updateColumnState.grid = updateColumnState.grid.map(row=>{
+        newState.grid = newState.grid.map(row=>{
           let curRow = row[updatingId];
           curRow.type = action.data.type;
           if(action.data.type==="Checkbox") curRow.data = "off";
           if(action.data.formula) {
-            curRow.data = runCustomFunc(updateColumnState, row, action.data.formula);
+            curRow.data = runCustomFunc(newState, row, action.data.formula);
             curRow.formula = action.data.formula;
           }
           if(action.data.selectOptions) {
@@ -217,109 +230,122 @@ export default function sheet(state = {
           }
           return row;
         })
-        return updateColumnState;
+        newState.changed = true;
+        return newState;
       }
-    case INSERT_COLUMN:{
-      let insertColumnState = _.cloneDeep(state);
+    case INSERT_COLUMN:
+      {
+        let newState = _.cloneDeep(state);
 
-      let newColumn = newColInfo(insertColumnState.columnHeaders)
-      newColumn.name = 'Column ' + (1+action.colIdx);
-      newColumn.idx = action.colIdx;
+        let newColumn = newColInfo(newState.columnHeaders)
+        newColumn.name = 'Column ' + (1+action.colIdx);
+        newColumn.idx = action.colIdx;
 
-      insertColumnState.columnHeaders = insertColumnState.columnHeaders.map(column=>{
-        if (column.idx >= action.colIdx) {column.idx++}
-        return column;
-      })
+        newState.columnHeaders = newState.columnHeaders.map(column=>{
+          if (column.idx >= action.colIdx) {column.idx++}
+          return column;
+        })
 
-      // TODO need to set this.props.view: 'editNameAndType';
-      insertColumnState.columnHeaders.splice(action.colIdx, 0, newColumn);
+        // TODO need to set this.props.view: 'editNameAndType';
+        newState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
-      insertColumnState = insertNewColInRows(insertColumnState, newColumn);
-
-      return insertColumnState}
-    case SORT_COLUMN:{
-      let sortColumnState = _.cloneDeep(state);
-      let colId = action.sortBy.colId;
-      let sortFn = function(a,b){
-          if (!a[colId].data) return (1);
-          else if (!b[colId].data) return (-1);
-          else if (a[colId].data > b[colId].data) return (1*action.sortBy.order);
-          else if (b[colId].data > a[colId].data) return (-1*action.sortBy.order);
-          else return 0;
-      };
-      sortColumnState.grid = sortColumnState.grid.sort(sortFn);
-      return sortColumnState;}
+        newState = insertNewColInRows(newState, newColumn);
+        newState.changed = true;
+        return newState
+      }
+    case SORT_COLUMN:
+      {
+        let newState = _.cloneDeep(state);
+        let colId = action.sortBy.colId;
+        let sortFn = function(a,b){
+            if (!a[colId].data) return (1);
+            else if (!b[colId].data) return (-1);
+            else if (a[colId].data > b[colId].data) return (1*action.sortBy.order);
+            else if (b[colId].data > a[colId].data) return (-1*action.sortBy.order);
+            else return 0;
+        };
+        newState.grid = newState.grid.sort(sortFn);
+        newState.changed = true;
+        return newState;
+      }
     case SEARCH_SHEET:
-      let searchState = _.cloneDeep(state);
-      // approach to hide the rows that don't meet search criteria
-      searchState.filteredRows = searchState.grid.reduce((accum, row, idx) => {
-        let toSave;
-        for(let cell in row) {
-          if (row[cell].data && typeof row[cell].data === 'string') {
-            row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
+      {
+        let newState = _.cloneDeep(state);
+        // approach to hide the rows that don't meet search criteria
+        newState.filteredRows = newState.grid.reduce((accum, row, idx) => {
+          let toSave;
+          for(let cell in row) {
+            if (row[cell].data && typeof row[cell].data === 'string') {
+              row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
+            }
           }
-        }
-        if (!toSave) accum.push(idx);
-        return accum;
-      }, [])
-      return searchState;
+          if (!toSave) accum.push(idx);
+          return accum;
+        }, [])
+        return newState;
+      }
     case CLEAR_FILTERED_ROWS:
-      let clearedFilteredState = _.cloneDeep(state);
-      clearedFilteredState.filteredRows = [];
-      return clearedFilteredState;
-    case REMOVE_COLUMN:{
-      let removeColumnState = _.cloneDeep(state);
-      let colId = action.colId ? action.colId : removeColumnState.columnHeaders[removeColumnState.columnHeaders.length-1].id ;
-      removeColumnState.columnHeaders = removeColumnState.columnHeaders.filter(col => {
-        return colId !== col.id;
-      })
+      {
+        let newState = _.cloneDeep(state);
+        newState.filteredRows = [];
+        return newState;
+      }
+    case REMOVE_COLUMN:
+      {
+        let newState = _.cloneDeep(state);
+        let colId = action.colId ? action.colId : newState.columnHeaders[newState.columnHeaders.length-1].id ;
+        newState.columnHeaders = newState.columnHeaders.filter(col => {
+          return colId !== col.id;
+        })
 
-      removeColumnState.grid = removeColumnState.grid.map(row=>{
-        if (row[colId]) delete row[colId];
-        return row;
-      })
+        newState.grid = newState.grid.map(row=>{
+          if (row[colId]) delete row[colId];
+          return row;
+        })
+        newState.changed = true;
+        return newState;
+      }
+    case FORMULA_COLUMN:
+      {
+        let newState = _.cloneDeep(state);
 
-      return removeColumnState;
-    }
-    case FORMULA_COLUMN:{
-      let formulaColumnState = _.cloneDeep(state);
+        let newColumn = Object.assign({}, action.colData);
+        let colIdIdx = newColInfo(newState.columnHeaders);
+        newColumn.id = colIdIdx.id;
+        newColumn.name = 'Column ' + colIdIdx.idx;
+        newColumn.idx = colIdIdx.idx;
 
-      let newColumn = Object.assign({}, action.colData);
-      let colIdIdx = newColInfo(formulaColumnState.columnHeaders);
-      newColumn.id = colIdIdx.id;
-      newColumn.name = 'Column ' + colIdIdx.idx;
-      newColumn.idx = colIdIdx.idx;
+        // action.arrMeth usually = 'map' or 'reduce';
+        newState.grid = newState.grid[action.arrMeth]((row) =>{
+          let newData = action.func(row[action.colData.id].data);
 
-      // action.arrMeth usually = 'map' or 'reduce';
-      formulaColumnState.grid = formulaColumnState.grid[action.arrMeth]((row) =>{
-        let newData = action.func(row[action.colData.id].data);
+          // TODO should this corralate to the type of the new cell?
+          // if (!newColumn.type) newColumn.type = 'Text';
 
-        // TODO should this corralate to the type of the new cell?
-        // if (!newColumn.type) newColumn.type = 'Text';
+          row[newColumn.id] = {
+            data: newData,
+            type: newColumn.type,
+            width: newColumn.width,
+          }
+          return row;
+        })
 
-        row[newColumn.id] = {
-          data: newData,
-          type: newColumn.type,
-          width: newColumn.width,
-        }
-        return row;
-      })
-
-      formulaColumnState.columnHeaders.push(newColumn);
-
-      return formulaColumnState;
+        newState.columnHeaders.push(newColumn);
+        newState.changed = true;
+        return newState;
       }
     case ADD_ROW:
       {
-        let addRowState = _.cloneDeep(state);
+        let newState = _.cloneDeep(state);
         let newRow = {}
-        addRowState.columnHeaders.forEach(function(col) {
+        newState.columnHeaders.forEach(function(col) {
           newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
           if (col.formula) newRow[col.id].formula = col.formula;
           if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
         })
-        addRowState.grid.push(newRow)
-        return addRowState
+        newState.grid.push(newRow)
+        newState.changed = true;
+        return newState
       }
     case DELETE_ROW:
       {
@@ -331,10 +357,11 @@ export default function sheet(state = {
           }
         })
         newState.grid = newGrid
+        newState.changed = true;
         return newState
       }
-    case RESIZE_TABLE_COL: {
-
+    case RESIZE_TABLE_COL: 
+      {
         let newState=_.cloneDeep(state);
         // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
 
@@ -345,32 +372,35 @@ export default function sheet(state = {
         newState.grid.forEach(row => {
           row[action.size.id].width=action.size.rect.width;
         })
-
+        newState.changed = true;
         return newState;
       }
-    case DRAG_TABLE_COL: {
-        break;
-      }
     case SHOW_MAP:
-      let showMapState = _.cloneDeep(state);
-      let colId = action.colId
-      let addressData = showMapState.grid.reduce((accum, row) => {
-        if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
-        return accum
-      },[])
-      showMapState.showMap = true;
-      showMapState.addressData = addressData;
-      showMapState.mapMarkersData = null;
-      showMapState.mapColumn = showMapState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
-      return showMapState;
+      {
+        let newState = _.cloneDeep(state);
+        let colId = action.colId
+        let addressData = newState.grid.reduce((accum, row) => {
+          if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
+          return accum
+        },[])
+        newState.showMap = true;
+        newState.addressData = addressData;
+        newState.mapMarkersData = null;
+        newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
+        return newState;
+      }
     case SEND_LAT_LONGS:
-      let newMapState = _.cloneDeep(state);
-      newMapState.mapMarkersData = action.geoResults;
-      return newMapState;
+      {
+        let newState = _.cloneDeep(state);
+        newState.mapMarkersData = action.geoResults;
+        return newState;
+      }
     case HIDE_MAP:
-        let hideMapState = _.cloneDeep(state);
-        hideMapState.showMap = false;
-        return hideMapState;
+      {
+        let newState = _.cloneDeep(state);
+        newState.showMap = false;
+        return newState;
+      }
     default:
       return state;
   }

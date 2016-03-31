@@ -81,7 +81,8 @@ describe('Sheets reducer', () => {
       modalRow: {
           data:null,
           rowIdx:null
-        } 
+        },
+      changed: true
       })
   })
 

@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import SearchButton from './SearchButton';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
+import AutoSave from './AutoSave';
 import HistoryModal from '../Sheet/HistoryModal';
 import SuperBar from './SuperBar';
 import HistoryButton from './HistoryButton';
@@ -17,6 +18,7 @@ const MagicBar = (props) => {
       <SearchButton {...props}/>
       <SuperBar className={cx('SuperBar')} {...props} />
       <SaveButton saveSheet={props.saveSheet}/>
+      <AutoSave />
       <HistoryButton />
       <ShareButton />
       <HistoryModal />

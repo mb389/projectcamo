@@ -13,6 +13,7 @@ import {
   FORMULA_COLUMN,
   RESIZE_TABLE_COL,
   // no need to set changed to true
+  TOGGLE_CHANGED,
   UPDATE_MODAL_CELL,
   CHANGE_SHEET,
   CLEAR_SHEET,
@@ -49,20 +50,22 @@ export default function sheet(state = {
   switch (action.type) {
     case CLEAR_SHEET:
       return {}
-    case CHANGE_SHEET: {
-
-      let newState=_.cloneDeep(state);
+    case CHANGE_SHEET: 
+      {
+        let newState=_.cloneDeep(state);
 
         action.sheet.grid.forEach(row => {
           for (let cell in row){
             row[cell].focused = false;
           }
         })
-        newState.columnHeaders= action.sheet.columnHeaders || [];
-        newState.grid= action.sheet.grid || [];
-        newState.history= action.history || [];
-        newState.historySheet= action.historySheet || null;
-        newState.modalRow= {
+        action.sheet.grid[0][100].focused = true;
+
+        newState.columnHeaders = action.sheet.columnHeaders || [];
+        newState.grid = action.sheet.grid || [];
+        newState.history = action.history || [];
+        newState.historySheet = action.historySheet || null;
+        newState.modalRow = {
           data: null,
           rowIdx: null
         };
@@ -70,8 +73,14 @@ export default function sheet(state = {
         newState.showHistoryModal= false;
         newState.changed = false;
 
-      return newState;
-    }
+        return newState;
+      }
+    case TOGGLE_CHANGED:
+      {
+        let newState = _.cloneDeep(state)
+        newState.changed = false
+        return newState
+      }
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);

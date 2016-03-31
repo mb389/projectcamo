@@ -55,10 +55,16 @@ function updateSheetsArray(sheetId, sheetContent, dbSheet) {
   };
 }
 
+function toggleChanged(){
+  return {
+    type: types.TOGGLE_CHANGED
+  }
+}
 // Quick Save Only
 export function saveSheet(sheetId, sheetData){
   return (dispatch) => {
     dispatch(updateSheetsArray(sheetId, sheetData))
+    dispatch(toggleChanged())
     request.put(`/sheet/${sheetId}`, { sheet: sheetData})
   }
 }

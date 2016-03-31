@@ -31,7 +31,7 @@ const FormulaMenuItem = (props) => {
 
 	return (
 	    <div className='col-xs-12'>
-			<h5 className='col-xs-12'>Allows you to create custom formulas for manipulating your data.</h5>
+			<h5 className='col-xs-12'>Write your own Javascript formula e.g. Initials below</h5>
 
 			<Dropdown id="dropdown-custom-1" onSelect={functionSelected} className={cx('typeDropdown') + ' col-xs-12'}>
 			      <Dropdown.Toggle noCaret className=' col-xs-12'>

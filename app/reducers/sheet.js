@@ -52,11 +52,11 @@ export default function sheet(state = {
 
       let newState=_.cloneDeep(state);
 
-      action.sheet.grid.forEach(row => {
-        for (let cell in row){
-          row[cell].focused = false;
-        }
-      })
+        action.sheet.grid.forEach(row => {
+          for (let cell in row){
+            row[cell].focused = false;
+          }
+        })
         newState.columnHeaders= action.sheet.columnHeaders || [];
         newState.grid= action.sheet.grid || [];
         newState.history= action.history || [];
@@ -263,7 +263,6 @@ export default function sheet(state = {
         if (!toSave) accum.push(idx);
         return accum;
       }, [])
-      console.log(searchState.filteredRows)
       return searchState;
     case CLEAR_FILTERED_ROWS:
       let clearedFilteredState = _.cloneDeep(state);

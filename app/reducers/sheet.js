@@ -83,6 +83,7 @@ export default function sheet(state = {
             newState.grid[action.cell.idx][cell.col].data = data;
           })
         }
+        newState.changed = true
         return newState
       }
     case UPDATE_CELL_BY_ID:

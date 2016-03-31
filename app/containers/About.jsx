@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/about';
 import Navigation from 'containers/Navigation';
-import sadMonkey from 'images/achievement_monkey.png';
+import Footer from 'components/About/Footer';
+
 
 const cx = classNames.bind(styles);
 
@@ -18,15 +19,13 @@ const About = props => {
     <div className={cx('about')}>
       <div className={cx('description')}>
         <h1></h1>
-        <img width="1200px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
+        <img width="800px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
 
-        <div className={cx('sadMonkey')}>
-        <img width="1000px" height="auto" src={sadMonkey} />
-        </div>
         </div>
 
-      <div className={cx('footer')}>(c) SpaceBook, 2016</div>
+        <Footer />
       </div>
+
     </div>
   );
 };

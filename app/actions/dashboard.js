@@ -22,7 +22,6 @@ function loadUserInfo(user) {
 }
 
 function addCollab(data, email) {
-    // console.log('addCollab', data)
   return {
     type: types.ADD_USER_COLLAB,
     collabSpaces: data.collabs,
@@ -58,7 +57,8 @@ export function getSpaces() {
 }
 
 
-export function createSpace(spaceCount) {
+export function createSpace(spaceCount=0) {
+
   return (dispatch) => {
     request.post('/workspace', { spaceCount })
     .then(res => {

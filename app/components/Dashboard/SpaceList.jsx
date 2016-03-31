@@ -22,7 +22,7 @@ const SpaceList = (props) => {
     return (
       <div className={cx('spaces')}>
 
-        <strong>Spaces</strong>
+        <strong>Your Spaces</strong>
 
         {spacesToDisplay}
         <AddSpace createSpace={props.createSpace}/>

@@ -20,6 +20,7 @@ class SpaceControl extends Component {
     super(props, context);
     this.state = {searching: false};
     this.runUpdateCell = this.runUpdateCell.bind(this);
+    this.superMoveCell = this.superMoveCell.bind(this);
     this.toggleMagicBar = this.toggleMagicBar.bind(this);
     this.searchSheet = this.searchSheet.bind(this);
     this.resizeCol = this.resizeCol.bind(this);
@@ -33,12 +34,16 @@ class SpaceControl extends Component {
   }
 
   componentWillUnmount(){
-    this.props.dispatch(SheetActions.clearSheet())
-    this.props.dispatch(SheetActions.clearFilteredRows())
+    this.props.dispatch(SheetActions.clearSheet());
+    this.props.dispatch(SheetActions.clearFilteredRows());
   }
 
   runUpdateCell(evt, cellKey, rowIdx) {
-    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx, true))
+    this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx, true));
+  }
+
+  superMoveCell(keyCode) {
+    this.props.dispatch(SheetActions.moveToCell(keyCode));
   }
 
   toggleMagicBar() {
@@ -76,6 +81,7 @@ class SpaceControl extends Component {
         <MagicBar
           cell={this.props.sheet.currentCell}
           updateCell={this.runUpdateCell}
+          enterPress={this.superMoveCell}
           toggleMagicBar={this.toggleMagicBar}
           searchSheet={this.searchSheet}
           searching={this.props.searching}

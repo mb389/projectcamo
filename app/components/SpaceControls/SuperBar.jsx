@@ -33,12 +33,20 @@ const SuperBar = (props) => {
       />
   )
 
+  function keyPress (evt) {
+      if (evt.keyCode === 13) {
+        evt.preventDefault();
+        return props.enterPress(evt.keyCode);
+      }
+    }
+
   // standard when cell is selected is populates the magic bar and is linked with the cell
   return (
       <input
         value={props.cell ? props.cell.cell.data : 'Magic Bar'}
         placeholder={props.cell ? props.cell.cell.data : 'Magic Bar'}
         onChange={funcToCall}
+        onKeyDown={keyPress}
       />
   );
 };

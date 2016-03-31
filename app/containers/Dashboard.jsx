@@ -29,7 +29,7 @@ class Dashboard extends Component {
   }
 
   createSpace() {
-    this.props.dispatch(Actions.createSpace(this.props.spaces.length+1));
+    this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length+1 : 1));
   }
 
   render() {

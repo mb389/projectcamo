@@ -52,11 +52,11 @@ export default function sheet(state = {
 
       let newState=_.cloneDeep(state);
 
-      action.sheet.grid.forEach(row => {
-        for (let cell in row){
-          row[cell].focused = false;
-        }
-      })
+        action.sheet.grid.forEach(row => {
+          for (let cell in row){
+            row[cell].focused = false;
+          }
+        })
         newState.columnHeaders= action.sheet.columnHeaders || [];
         newState.grid= action.sheet.grid || [];
         newState.history= action.history || [];
@@ -73,7 +73,7 @@ export default function sheet(state = {
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
-        if(action.fromSuper) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+        if(action.fromSuper && newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
         newState.currentCell.cell.data = action.cell.data;
         if (action.formulaCells)
@@ -316,6 +316,8 @@ export default function sheet(state = {
         let newRow = {}
         addRowState.columnHeaders.forEach(function(col) {
           newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
+          if (col.formula) newRow[col.id].formula = col.formula;
+          if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
         })
         addRowState.grid.push(newRow)
         return addRowState
@@ -326,12 +328,10 @@ export default function sheet(state = {
         let newGrid = []
         newState.grid.forEach((row,i)=>{
           if (i !== action.rowIdx) {
-            console.log('pushing', i)
             newGrid.push(row)
           }
         })
         newState.grid = newGrid
-        console.log(newState.grid)
         return newState
       }
     case RESIZE_TABLE_COL: {
@@ -349,7 +349,7 @@ export default function sheet(state = {
 
         return newState;
       }
-      case DRAG_TABLE_COL: {
+    case DRAG_TABLE_COL: {
         break;
       }
     case SHOW_MAP:

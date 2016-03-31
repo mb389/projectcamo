@@ -35,7 +35,7 @@ export default class BottomReducers extends Component {
 		}
 		if(!this.props.columnData) return null;
 		switch (func) {
-			case 'Count': return this.props.columnData.reduce((accum, elem) => {if(elem!=="false") return accum+1; return accum;}, 0);
+			case 'Count': return this.props.columnData.reduce((accum, elem) => {if(elem!=="off") return accum+1; return accum;}, 0);
 			case 'Average': return rounder((this.props.columnData.reduce(((a, b) => Number(a) + Number(b)))/this.props.columnData.length), 2);
 			case 'Median': return (this.props.columnData.sort((a, b) => Number(a) - Number(b))[Math.floor(this.props.columnData.length/2)]);
 			case 'Min': return Math.min.apply(null, this.props.columnData);
@@ -45,6 +45,7 @@ export default class BottomReducers extends Component {
 	}
 
 	render () {
+		let showing = this.state.reducerReturn>0 ? this.state.reducerReturn : this.state.reducerReturn
 		return (
 			<Dropdown id="dropdown-custom-1" dropup onSelect={this.handleReduction} className={cx('BottomReducers')} style={{width: this.props.width}}>
 			  <Dropdown.Toggle noCaret className={cx('DropdownHead')}>

@@ -22,7 +22,6 @@ function loadUserInfo(user) {
 }
 
 function addCollab(data, email) {
-    // console.log('addCollab', data)
   return {
     type: types.ADD_USER_COLLAB,
     collabSpaces: data.collabs,

@@ -76,7 +76,7 @@ class Cell extends Component {
 						</div>
 					)
       case 'Select':
-          return (<SelectOptionCell 
+          return (<SelectOptionCell
               dispatch={this.props.dispatch}
               cell={cell}
               cellKey={cellKey}

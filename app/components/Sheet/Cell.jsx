@@ -18,7 +18,7 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true};
+    this.state = {disabled: false};
     // leaving disabled in case we choose to use it later
 		this.handleCell = this.handleCell.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -51,7 +51,6 @@ class Cell extends Component {
     this.setState({disabled: false});
     if(evt.target.children[0]) evt.target.children[0].focus();
     else evt.target.focus();
-    // document.execCommand('selectAll',false,null);
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -142,7 +141,16 @@ class Cell extends Component {
       );
   }
 
+  shouldComponentUpdate (nextProps) {
+    if (this.props.cell.type === "Select") {
+      // don't refocus when opening a select cell
+      return this.props.cell.focused === nextProps.cell.focused;
+    }
+
+    return true;
+  }
 }
+
 
 
 Cell.propTypes = {

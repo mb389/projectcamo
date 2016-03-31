@@ -33,6 +33,7 @@ class Cell extends Component {
 
 	handleChange(evt){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
+
     let recalculateCells = []
     for (let cell in row) {
       if (row[cell].type === 'Formula') {
@@ -72,7 +73,7 @@ class Cell extends Component {
       case 'Checkbox':
           return (
 						<div className={cx('checkboxCheck')}>
-							<Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx}/>
+							<Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx} row={row}/>
 						</div>
 					)
       case 'Select':
@@ -81,6 +82,7 @@ class Cell extends Component {
               cell={cell}
               cellKey={cellKey}
               rowIdx={rowIdx}
+              row={row}
               />
             )
       case 'Link':

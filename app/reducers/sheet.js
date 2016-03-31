@@ -199,10 +199,8 @@ export default function sheet(state = {
     case ADD_COLUMN:
       {
         let newState =  _.cloneDeep(state);
-
         let newColumn = newColInfo(newState.columnHeaders)
 
-        // // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.push(newColumn);
         newState = insertNewColInRows(newState, newColumn);
         newState.changed = true
@@ -246,7 +244,6 @@ export default function sheet(state = {
           return column;
         })
 
-        // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
         newState = insertNewColInRows(newState, newColumn);

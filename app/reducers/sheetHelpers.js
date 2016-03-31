@@ -22,6 +22,8 @@ export function runCustomFunc (state, row, funcText) {
     columnDefs += `let Col${idx+1} = ${cellUsed}; `;
     });
 
+  console.log("columnDefs", columnDefs, "funcText", funcText)
+
   return eval(columnDefs+funcText);
 }
 
@@ -29,7 +31,6 @@ function decorationType (cell) {
   switch (cell.type) {
     case 'Images': return `["${cell.data.join('","')}"]`;
     case 'Reference': return null;
-    case 'Formula': case 'Link': case 'Text': case 'ID': case 'Select': 
     default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
   }
 }

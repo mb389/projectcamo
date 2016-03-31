@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
-import { updateCell} from 'actions/sheet';
+import { updateCell, updateModalCell } from 'actions/sheet';
 import styles from 'css/components/table';
 import { Input, Glyphicon } from 'react-bootstrap';
 
@@ -16,7 +16,9 @@ export default class SelectOptionCell extends Component {
 
 	handleChange(e){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
-    dispatch(updateCell(e.target.value, cellKey, rowIdx)||updateModalCell(val, cellKey, rowIdx));
+    let val = e.target.value;
+    if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx));
+    else dispatch(updateCell(val, cellKey, rowIdx))
 	}
 
 	render () {

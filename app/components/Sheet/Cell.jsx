@@ -155,8 +155,7 @@ class Cell extends Component {
         return true
       }
     }
-
-    // console.log(this.props.cell, 'nextProps', nextProps.cell)
+    
     return false;
   }
 }

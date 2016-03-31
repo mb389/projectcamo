@@ -18,7 +18,7 @@ class Cell extends Component {
 	constructor(props, state){
 		super(props, state)
     const { cellKey, rowIdx, grid } = this.props;
-    this.state = {disabled: true};
+    this.state = {disabled: false};
     // leaving disabled in case we choose to use it later
 		this.handleCell = this.handleCell.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -77,7 +77,7 @@ class Cell extends Component {
 						</div>
 					)
       case 'Select':
-          return (<SelectOptionCell 
+          return (<SelectOptionCell
               dispatch={this.props.dispatch}
               cell={cell}
               cellKey={cellKey}
@@ -90,7 +90,7 @@ class Cell extends Component {
           return (<ContentEditable
           className={cx('cellContent')}
           html={cell.data} // innerHTML of the editable div
-          disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
+          disabled={this.state.disabled}       // use true to disable edition
           onChange={this.handleChange} // handle innerHTML change
           onDoubleClick={this.editable} // allow for cell editing after focus
           onMouseEnter={this.setMouseEnter} // handle innerHTML change

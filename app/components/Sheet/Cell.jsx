@@ -86,6 +86,16 @@ class Cell extends Component {
               />
             )
       case 'Link':
+						return (<ContentEditable
+							className={cx('cellContent', 'cellLink')}
+							html={cell.data} // innerHTML of the editable div
+							tagName='a'
+							disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
+							onChange={this.handleChange} // handle innerHTML change
+							onDoubleClick={this.editable} // allow for cell editing after focus
+							onMouseEnter={this.setMouseEnter} // handle innerHTML change
+							onMouseLeave={this.setMouseLeave} // handle innerHTML change
+					/>)
       case 'Number':
       default:
           return (<ContentEditable
@@ -109,6 +119,7 @@ class Cell extends Component {
 	}
 
 	handleCell() {
+		
     if(!this.props.cell.focused) this.props.dispatch(currentCell(this.props));
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
@@ -127,7 +138,7 @@ class Cell extends Component {
 
     return (
       <div tabIndex='-1'
-				className={cx('cell')}
+				className={cell.type === 'Link' && cell.data ? cx('cell', 'cellLink') : cx('cell')}
 				style={{width: this.props.cell.width}}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
@@ -155,7 +166,7 @@ class Cell extends Component {
         return true
       }
     }
-    
+
     return false;
   }
 }

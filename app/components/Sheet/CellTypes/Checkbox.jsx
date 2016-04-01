@@ -37,7 +37,7 @@ class CheckBox extends Component {
       className={cx('cellCheckBox')}
       type="checkbox" label=" "
       checked={this.props.cell.data === 'checked'}
-      onClick={this.handleChange}/>
+      onChange={this.handleChange}/>
     )
   }
 

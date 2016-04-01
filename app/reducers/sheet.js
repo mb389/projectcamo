@@ -190,16 +190,11 @@ export default function sheet(state = {
       }
     case UPDATE_HISTORY:
       {
-        let newState = _.cloneDeep(state);
-        newState.history = action.history;
-        return newState
+        return immutableState.set('history', action.history).toJS();
       }
     case CLOSE_HISTORY_MODAL:
       {
-        let newState = _.cloneDeep(state)
-        newState.showHistoryModal = false;
-        newState.historySheet = null
-        return newState
+        return immutableState.set('showHistoryModal', false).set('historySheet', null).toJS()
       }
     case ADD_COLUMN:
       {
@@ -381,31 +376,40 @@ export default function sheet(state = {
         return newState;
       }
     case SHOW_MAP:
-      {
-        let newState = _.cloneDeep(state);
-        let colId = action.colId
-        let addressData = newState.grid.reduce((accum, row) => {
-          if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
-          return accum
-        },[])
-        newState.showMap = true;
-        newState.addressData = addressData;
-        newState.mapMarkersData = null;
-        newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
-        return newState;
-      }
+      const newAddressData = immutableState
+                          .get('grid')
+                          .reduce((accum, row) =>  {
+                            if (row.get(action.colId)) {
+                              return accum.push(Map({data:row.get(action.colId), name:row.get('100','data')}))
+                            }
+                          }, List());
+
+      const newMapColumn = immutableState
+                              .get('columnHeaders')
+                              .filter(col => col.get('id') === action.colId ? true : false)
+                              .get('0', 'name')
+
+      return immutableState
+                .set('showMap', true)
+                .set('mapMarkersData', null)
+                .set('addressData', newAddressData)
+                .set('mapColumn', newMapColumn)
+                .toJS()
+        // let newState = _.cloneDeep(state);
+        // let colId = action.colId
+        // let addressData = newState.grid.reduce((accum, row) => {
+        //   if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
+        //   return accum
+        // },[])
+        // newState.showMap = true;
+        // newState.addressData = addressData;
+        // newState.mapMarkersData = null;
+        // newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
+        // return newState;
     case SEND_LAT_LONGS:
-      {
-        let newState = _.cloneDeep(state);
-        newState.mapMarkersData = action.geoResults;
-        return newState;
-      }
+        return immutableState.set('mapMarkersData', action.geoResults).toJS();
     case HIDE_MAP:
-      {
-        let newState = _.cloneDeep(state);
-        newState.showMap = false;
-        return newState;
-      }
+        return immutableState.set('showMap', false).toJS()
     default:
       return state;
   }

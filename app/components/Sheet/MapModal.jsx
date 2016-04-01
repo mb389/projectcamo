@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 
 
 const MapModal = (props) => {
+  console.log(props)
   return (
       <Modal className={cx('Map')} show={props.showMap} onHide={props.close} bsSize="lg">
         <Modal.Header className={cx('mapHeader')} classcloseButton>

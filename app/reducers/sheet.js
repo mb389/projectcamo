@@ -53,8 +53,8 @@ export default function sheet(state = {
     case CLEAR_SHEET:
       return {}
     case CHANGE_SHEET:
-      {
-        let newState=_.cloneDeep(state);
+      // {
+        // let newState=_.cloneDeep(state);
 
         action.sheet.grid.forEach(row => {
           for (let cell in row){
@@ -62,26 +62,56 @@ export default function sheet(state = {
           }
         })
 
-        newState.columnHeaders = action.sheet.columnHeaders || [];
-        newState.grid = action.sheet.grid || [];
-        newState.grid[0][100].focused = true;
-        newState.currentCell = {
-          cell: newState.grid[0][100],
-          rowIdx: 0,
-          cellKey: "100"
-        };
-        newState.history = action.history || [];
-        newState.historySheet = action.historySheet || null;
-        newState.modalRow = {
-          data: null,
-          rowIdx: null
-        };
-        newState.showRowModal= false;
-        newState.showHistoryModal= false;
-        newState.changed = false;
+        // const newGridState = immutableState.map(row => {
+        //   return row.map(cell => cell.set('focused', false))
+        // })
 
-        return newState;
-      }
+        const newGridToSet = immutableState
+                                .get('grid')
+                                .set('grid', action.sheet.grid ? action.sheet.grid : List())
+                                .setIn(['0', '100', 'focused'], true)
+
+        console.log(newGridToSet.toJS())
+
+        return immutableState
+          .set('columnHeaders', action.columnHeaders ? action.sheet.columnHeaders : List())
+          .set('grid', newGridToSet)
+          .set('currentCell', Map({
+            cell: newGridToSet.getIn(['0', '100']),
+            rowIdx: 0,
+            cellKey: '100'
+          }))
+          .set('history', action.history ? action.history : List())
+          .set('historySheet', action.historySheet ? action.historySheet : List())
+          .set('modalRow', Map({
+            data: null,
+            rowIdx: null
+          }))
+          .set('showRowModal', false)
+          .set('showHistoryModal', false)
+          .set('changed', false)
+          .toJS()
+
+      //   newState.columnHeaders = action.sheet.columnHeaders || [];
+      //   newState.grid = action.sheet.grid || [];
+      //   newState.grid[0][100].focused = true;
+      //   newState.currentCell = {
+      //     cell: newState.grid[0][100],
+      //     rowIdx: 0,
+      //     cellKey: "100"
+      //   };
+      //   newState.history = action.history || [];
+      //   newState.historySheet = action.historySheet || null;
+      //   newState.modalRow = {
+      //     data: null,
+      //     rowIdx: null
+      //   };
+      //   newState.showRowModal= false;
+      //   newState.showHistoryModal= false;
+      //   newState.changed = false;
+      //
+      //   return newState;
+      // }
     case TOGGLE_CHANGED:
       // {
       //   let newState = _.cloneDeep(state)
@@ -130,6 +160,8 @@ export default function sheet(state = {
         newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
         return newState
       }
+
+
     case CURRENT_CELL:
       // {
       //   let newState = _.cloneDeep(state);
@@ -379,18 +411,18 @@ export default function sheet(state = {
         return newState;
       }
     case ADD_ROW:
-      // {
-      //   let newState = _.cloneDeep(state);
-      //   let newRow = {}
-      //   newState.columnHeaders.forEach(function(col) {
-      //     newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
-      //     if (col.formula) newRow[col.id].formula = col.formula;
-      //     if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
-      //   })
-      //   newState.grid.push(newRow)
-      //   newState.changed = true;
-      //   return newState
-      // }
+      {
+        let newState = _.cloneDeep(state);
+        let newRow = {}
+        newState.columnHeaders.forEach(function(col) {
+          newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
+          if (col.formula) newRow[col.id].formula = col.formula;
+          if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
+        })
+        newState.grid.push(newRow)
+        newState.changed = true;
+        return newState
+      }
 
       const rowToAddAdd = immutableState.get('columnHeaders').reduce((accum, col) => {
         return accum.set(col.get('id'),

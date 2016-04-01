@@ -28,6 +28,7 @@ class Cell extends Component {
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.showLookupModal = this.showLookupModal.bind(this);
+		this.handleLink = this.handleLink.bind(this);
 	}
 
 
@@ -52,6 +53,13 @@ class Cell extends Component {
     this.setState({disabled: false});
     if(evt.target.children[0]) evt.target.children[0].focus();
     else evt.target.focus();
+  }
+
+	handleLink(e) {
+		e.preventDefault()
+		if(window) {
+			window.open(this.props.cell.data, '_blank').focus()
+		}
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -86,6 +94,17 @@ class Cell extends Component {
               />
             )
       case 'Link':
+						return (<ContentEditable
+							className={cx('cellContent', 'cellLink')}
+							html={cell.data} // innerHTML of the editable div
+							tagName='a'
+							disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
+							onChange={this.handleChange} // handle innerHTML change
+							onDoubleClick={this.editable} // allow for cell editing after focus
+							onContextMenu={this.handleLink}
+							onMouseEnter={this.setMouseEnter} // handle innerHTML change
+							onMouseLeave={this.setMouseLeave} // handle innerHTML change
+					/>)
       case 'Number':
       default:
           return (<ContentEditable
@@ -109,6 +128,7 @@ class Cell extends Component {
 	}
 
 	handleCell() {
+
     if(!this.props.cell.focused) this.props.dispatch(currentCell(this.props));
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}
@@ -127,7 +147,7 @@ class Cell extends Component {
 
     return (
       <div tabIndex='-1'
-				className={cx('cell')}
+				className={cell.type === 'Link' && cell.data ? cx('cell', 'cellLink') : cx('cell')}
 				style={{width: this.props.cell.width}}
 				id={''+this.props.cellKey+this.props.rowIdx}
         onDoubleClick={this.editable} // allow for cell editing after focus
@@ -155,7 +175,7 @@ class Cell extends Component {
         return true
       }
     }
-    
+
     return false;
   }
 }

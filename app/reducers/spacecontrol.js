@@ -11,6 +11,7 @@ import {
   UPDATE_REF_SHEET,
   REMOVE_REF,
   ADD_USER_COLLAB,
+  ALL_CHANGED_FALSE
 } from 'constants/index';
 import { insertNewColInRows } from './sheetHelpers.js';
 
@@ -24,24 +25,28 @@ export default function spaceControl(state = {  }, action = {}) {
       return newCollabSpace;
     }
     case LOAD_SPACE:
-
-    let newState=_.cloneDeep(state)
-      newState.showShareModal=false;
-      newState.space=action.space;
-      newState.space.email=action.email;
-      newState.sheetToShow=action.sheetToShow;
-      newState.sheetNames=action.sheetNames;
-      newState.sheets=action.sheets;
-      return newState;
-
-      // return Object.assign({}, state, {
-      //   space: action.space || state.space,
-      //   sheetToShow: action.sheetToShow || state.sheetToShow,
-      //   sheetNames: action.sheetNames || state.sheetNames,
-      //   sheets: action.sheets || state.sheets
-      // });
+      {
+        let newState=_.cloneDeep(state)
+        newState.showShareModal=false;
+        newState.space=action.space;
+        newState.space.email=action.email;
+        newState.sheetToShow=action.sheetToShow;
+        newState.sheetNames=action.sheetNames;
+        newState.sheets=action.sheets;
+        return newState;
+      }
     case LOAD_SHEET:
-      return Object.assign({}, state, { sheetToShow: action.sheetToShow });
+      {
+        let newState=_.cloneDeep(state)
+        newState.sheetToShow = action.sheetToShow
+        return newState
+      }
+    case ALL_CHANGED_FALSE:
+      {
+        let newState = _.cloneDeep(state);
+        newState.sheets.forEach(sheet => sheet.changed = false)
+        return newState
+      }
     case UPDATE_SHEETS:
       {
         let newState = _.cloneDeep(state);
@@ -101,6 +106,7 @@ export default function spaceControl(state = {  }, action = {}) {
               }
             }
           }
+          sheet.changed = true;
         })
         return newState
       }
@@ -139,6 +145,7 @@ export default function spaceControl(state = {  }, action = {}) {
               break;
             }
           }
+          sheet.changed = true
         })
         return newState
       }

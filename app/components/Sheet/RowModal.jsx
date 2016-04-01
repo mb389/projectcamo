@@ -7,8 +7,8 @@ import { closeRowModal, deleteRow } from 'actions/sheet';
 import styles from 'css/components/modal';
 import { Modal, Glyphicon, Button, Input } from 'react-bootstrap';
 import LinkLabel from './CellTypes/LinkLabel';
+import Checkbox from './CellTypes/Checkbox';
 import SelectOptionCell from './CellTypes/SelectOptionCell';
-import CheckBox from './CellTypes/CheckBox';
 
 const cx = classNames.bind(styles);
 
@@ -41,7 +41,7 @@ class RowModal extends Component {
           </div>
         )
       case 'Checkbox':
-          return <CheckBox dispatch={this.props.dispatch} cell={cell} parent={"RowModal"} cellKey={cellKey} rowIdx={rowIdx}/>
+          return <Checkbox dispatch={this.props.dispatch} cell={cell} parent={"RowModal"} cellKey={cellKey} rowIdx={rowIdx}/>
       case 'Select': return (<SelectOptionCell 
               dispatch={this.props.dispatch}
               parent={"RowModal"}

@@ -92,7 +92,7 @@ class MenuEditCol extends Component {
 
 	handleFormulaCustom(e, ekey) {
 		if (ekey) this.setState({formula: ekey});
-		else this.setState({formula: e.target.value});
+		else this.setState({formula: e});
 	}
 
 	handleFormulaNameChange(e) {
@@ -158,7 +158,7 @@ class MenuEditCol extends Component {
 		}
 
 		return (
-				<div className={cx('editNameAndType')}>
+				<div className={cx('editNameAndType')} style={{width: this.state.type==="Formula"?300:250}} >
 					<ContentEditable className={cx('thead') + ' col-xs-12'} onChange={this.handleEditName} html={this.state.name} />
 					<Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={cx('typeDropdown') + ' col-xs-12'}>
 				      <Dropdown.Toggle noCaret className=' col-xs-12'>

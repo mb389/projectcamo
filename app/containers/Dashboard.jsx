@@ -7,7 +7,7 @@ import SpaceList from '../components/Dashboard/SpaceList';
 import CollabSpaces from '../components/Dashboard/CollabSpaces';
 import Navigation from 'containers/Navigation';
 import * as Actions from '../actions/dashboard';
-import Footer from 'components/About/Footer';
+import FooterBelow from 'components/About/FooterBelow';
 /*
  * Note: This is kept as a container-level component,
  *  i.e. We should keep this as the container that does the data-fetching
@@ -41,6 +41,7 @@ class Dashboard extends Component {
           <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>
+        <FooterBelow />
 
     </div>
     )

@@ -27,6 +27,8 @@ export const UPDATE_REF_SHEET = 'UPDATE_REF_SHEET';
 export const REMOVE_REF = 'REMOVE_REF';
 export const ADD_USER_COLLAB = 'ADD_USER_COLLAB';
 export const GET_USER_INFO = 'GET_USER_INFO';
+export const ALL_CHANGED_FALSE = 'ALL_CHANGED_FALSE';
+export const TOGGLE_CHANGED = 'TOGGLE_CHANGED';
 
 // SHEET CONSTS
 export const UPDATE_CELL = 'UPDATE_CELL';

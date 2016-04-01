@@ -129,7 +129,14 @@ footer .footer-above {
 footer .footer-col {
   margin-bottom: 50px;
 }
-footer .footer-below {
-  padding: 25px 0;
+
+.footer-below {
+  height: 40px;
+  padding: 10px;
+  color: white;
+  text-align: center;
   background-color: primary-color;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }

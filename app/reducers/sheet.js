@@ -83,11 +83,12 @@ export default function sheet(state = {
         return newState;
       }
     case TOGGLE_CHANGED:
-      {
-        let newState = _.cloneDeep(state)
-        newState.changed = false
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state)
+      //   newState.changed = false
+      //   return newState
+      // }
+      return immutableState.set('changed', false).toJS();
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
@@ -130,14 +131,30 @@ export default function sheet(state = {
         return newState
       }
     case CURRENT_CELL:
-      {
-        let newState = _.cloneDeep(state);
-        if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.currentCell = action.cell;
-        if(action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
-        // find cell and give it focus
-        return newState
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   if(newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+      //   newState.currentCell = action.cell;
+      //   if(action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
+      //   // find cell and give it focus
+      //   return newState
+      // }
+
+      let CCCurrentCellState;
+      if(immutableState.has('currentCell')) {
+          CCCurrentCellState = immutableState.setIn(['grid',
+                  immutableState.getIn(['currentCell', 'rowIdx']),
+                  immutableState.getIn(['currentCell', 'cellKey']),
+                  'focused'], false)
+                  .set('currentCell', action.cell)
       }
+      if (action.cell) {
+        return CCCurrentCellState.setIn(['grid', action.cell.rowIdx, action.cell.cellKey, 'focused'], true).toJS()
+      } else {
+        return CCCurrentCellState.toJS();
+      }
+
+
     case UPDATE_MODAL_CELL:
       {
         let modalRowState = _.cloneDeep(state);
@@ -149,33 +166,54 @@ export default function sheet(state = {
         return modalRowState
       }
     case SHOW_LOOKUP_MODAL:
-      {
-        let newState = _.cloneDeep(state)
-        newState.showLookupModal = true;
-        newState.lookup = {
-          row: action.row,
-          cell: action.cell,
-          rowIdx: action.rowIdx,
-          colId: action.cellKey
-        }
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state)
+      //   newState.showLookupModal = true;
+      //   newState.lookup = {
+      //     row: action.row,
+      //     cell: action.cell,
+      //     rowIdx: action.rowIdx,
+      //     colId: action.cellKey
+      //   }
+      //   return newState
+      // }
+      return immutableState
+              .set('showLookupModal', false)
+              .set('lookup', Map({
+                row: action.row,
+                cell: action.cell,
+                rowIdx: action.rowIdx,
+                colId: action.cellKey
+              }))
+              .toJS()
+
     case CLOSE_LOOKUP_MODAL:
-      {
-        let modalCloseState = _.cloneDeep(state)
-        modalCloseState.showLookupModal = false;
-        return modalCloseState
-      }
+      // {
+      //   let modalCloseState = _.cloneDeep(state)
+      //   modalCloseState.showLookupModal = false;
+      //   return modalCloseState
+      // }
+      return immutableState.set('showLookupModal', false).toJS()
+
     case SHOW_ROW_MODAL:
-      {
-        let newState = _.cloneDeep(state)
-        newState.showRowModal = true;
-        newState.modalRow = {
-          data: state.grid[action.rowIdx],
-          rowIdx: action.rowIdx
-        }
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state)
+      //   newState.showRowModal = true;
+      //   newState.modalRow = {
+      //     data: state.grid[action.rowIdx],
+      //     rowIdx: action.rowIdx
+      //   }
+      //   return newState
+      // }
+
+      return immutableState
+              .set('showRowModal', true)
+              .set('modalRow', Map({
+                data: immutableState.getIn(['grid', action.rowIdx]),
+                rowIdx: action.rowIdx
+              }))
+              .toJS();
+
     case CLOSE_ROW_MODAL:
       {
         let modalCloseState = _.cloneDeep(state)
@@ -289,11 +327,13 @@ export default function sheet(state = {
         return newState;
       }
     case CLEAR_FILTERED_ROWS:
-      {
-        let newState = _.cloneDeep(state);
-        newState.filteredRows = [];
-        return newState;
-      }
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   newState.filteredRows = [];
+      //   return newState;
+      //
+      // }
+      return immutableState.set('filteredRows', []).toJS();
     case REMOVE_COLUMN:
       {
         let newState = _.cloneDeep(state);

@@ -3,8 +3,8 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/about';
 import Navigation from 'containers/Navigation';
 import Footer from 'components/About/Footer';
-
-
+import Features from 'components/About/Features';
+import Info from 'components/About/Info';
 const cx = classNames.bind(styles);
 
 /*
@@ -22,8 +22,10 @@ const About = props => {
         <img width="800px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
 
         </div>
-
+        <Features />
+          <Info />
         <Footer />
+        
       </div>
 
     </div>

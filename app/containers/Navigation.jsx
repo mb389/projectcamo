@@ -27,9 +27,9 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="/dashboard"
+      <Link to={this.props.link ?  this.props.link.path : "/dashboard"}
       className={cx('item', 'main')}
-      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
+      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> {this.props.link ? this.props.link.name : "Dashboard"}</span></Link>
     <ContentEditable className={cx('item', 'spaceName')}
           html={!this.props.space ? 'SpaceBook' : this.props.space.name}
             // innerHTML of the editable div

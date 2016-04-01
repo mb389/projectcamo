@@ -339,18 +339,39 @@ export default function sheet(state = {
         return newState;
       }
     case ADD_ROW:
-      {
-        let newState = _.cloneDeep(state);
-        let newRow = {}
-        newState.columnHeaders.forEach(function(col) {
-          newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
-          if (col.formula) newRow[col.id].formula = col.formula;
-          if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
-        })
-        newState.grid.push(newRow)
-        newState.changed = true;
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   let newRow = {}
+      //   newState.columnHeaders.forEach(function(col) {
+      //     newRow[col.id] = { width: col.width || 200 ,data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) }
+      //     if (col.formula) newRow[col.id].formula = col.formula;
+      //     if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
+      //   })
+      //   newState.grid.push(newRow)
+      //   newState.changed = true;
+      //   return newState
+      // }
+
+      const rowToAddAdd = immutableState.get('columnHeaders').reduce((accum, col) => {
+        return accum.set(col.get('id'),
+        Map({
+          width: col.has('width') ?  col.get('width'): 200,
+          data: null,
+          type: col.get('type'),
+          id: col.get('id') + Math.floor((Math.random() * (99999999 - 111111) + 111111)),
+          formula: col.has('formula') ? col.get('formula') : '',
+          selectOptions: col.has('selectOptions') ? col.get('selectOptions') : ''
+        }))
+        }
+        , Map())
+
+        const newGridAdd = immutableState.get('grid').push(rowToAddAdd);
+
+        return immutableState
+                .set('changed', true)
+                .set('grid', newGridAdd)
+                .toJS()
+
     case DELETE_ROW:
       // {
       //   let newState = _.cloneDeep(state);
@@ -375,32 +396,32 @@ export default function sheet(state = {
               .toJS()
 
     case RESIZE_TABLE_COL:
-      // {
-      //   let newState=_.cloneDeep(state);
-      //   // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
+      {
+        let newState=_.cloneDeep(state);
+        // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
+
+        newState.columnHeaders.forEach(ch => {
+          if (ch.id === action.size.id) ch.width=action.size.rect.width;
+        })
+
+        newState.grid.forEach(row => {
+          row[action.size.id].width=action.size.rect.width;
+        })
+        newState.changed = true;
+        return newState;
+      }
+
+      // const columnHeaders = immutableState.get('columnHeaders')
+      //                         .map(ch => ch.set('width', action.size.rect.width));
       //
-      //   newState.columnHeaders.forEach(ch => {
-      //     if (ch.id === action.size.id) ch.width=action.size.rect.width;
-      //   })
+      // const newGridI = immutableState.get('grid')
+      //                   .map(row => row.setIn([action.size.id, 'width'], action.size.rect.width))
       //
-      //   newState.grid.forEach(row => {
-      //     row[action.size.id].width=action.size.rect.width;
-      //   })
-      //   newState.changed = true;
-      //   return newState;
-      // }
-
-      const columnHeaders = immutableState.get('columnHeaders')
-                              .map(ch => ch.set('width', action.size.rect.width));
-
-      const newGridI = immutableState.get('grid')
-                        .map(row => row.setIn([action.size.id, 'width'], action.size.rect.width))
-
-      return immutableState
-              .set('grid', newGridI)
-              .set('columnHeaders', columnHeaders)
-              .set('changed', true)
-              .toJS()
+      // return immutableState
+      //         .set('grid', newGridI)
+      //         .set('columnHeaders', columnHeaders)
+      //         .set('changed', true)
+      //         .toJS()
 
     case SHOW_MAP:
       const newAddressData = immutableState

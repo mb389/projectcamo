@@ -4,4 +4,4 @@ npm-debug.log
 .idea
 public
 .swp
-app/googleMaps
+app/googleMaps.js

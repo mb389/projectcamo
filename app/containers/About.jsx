@@ -25,7 +25,7 @@ const About = props => {
         <Features />
           <Info />
         <Footer />
-
+        
       </div>
 
     </div>

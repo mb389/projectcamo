@@ -6,15 +6,13 @@ const cx = classNames.bind(styles);
 
 const AddSpace = props => {
     return (
-      <div>
             <Button
-              className={cx('addSpace') + ' btn-lg'}
+              className={cx('addSpace') + ' btn-md'}
               bsStyle="primary"
               onClick={props.createSpace}
             >
                <Glyphicon glyph="glyphicon glyphicon-plus" />
             </Button>
-          </div>
     );
   }
 

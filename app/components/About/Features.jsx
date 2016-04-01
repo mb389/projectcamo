@@ -5,6 +5,9 @@ import classNames from 'classnames/bind';
 import {Link} from 'react-router';
 import {Glyphicon} from 'react-bootstrap';
 import sblogo from 'images/spacebook-logo-nobg.png';
+import plug from 'images/plugin.png';
+import globe from 'images/globe.png';
+import stack from 'images/stack.png'
 
 const cx = classNames.bind(styles);
 
@@ -17,14 +20,17 @@ const Features = (props) => {
 <div className={cx("features")}>
 
   <div>
-        <img src={sblogo} alt=""/>
+        <img src={stack} alt=""/>
+        Supports a variety of data types.
       </div>
       <div>
-            <img src={sblogo} alt=""/>
+            <img src={globe} alt=""/>
+            Simple spreadsheets with the capabilities of a relational database.
           </div>
 
           <div>
-                <img src={sblogo} alt=""/>
+                <img src={plug} alt=""/>
+                Access to external APIs.
               </div>
 
 

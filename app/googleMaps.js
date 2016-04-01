@@ -1,3 +1,3 @@
 export default {
-  apiKey: 'AIzaSyDP9rjYWewPiLZdd4CSkkJZ-bbsvgiLfKY'
+  apiKey: 'AIzaSyAaphCWQyIQiHuRRNROlIbYwAVY_JrU-T8'
 }

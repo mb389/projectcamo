@@ -65,6 +65,7 @@ export function saveSheet(sheetId, sheetData){
   return (dispatch) => {
     dispatch(updateSheetsArray(sheetId, sheetData))
     dispatch(toggleChanged())
+    dispatch(searching(false))
     request.put(`/sheet/${sheetId}`, { sheet: sheetData})
   }
 }
@@ -96,7 +97,7 @@ export function getSheet(sheetId, sheets) {
       dispatch(loadSheet({
         sheetToShow: nextSheet
       }))
-      // CHANGE HITS SHEETS REDUCER 
+      // CHANGE HITS SHEETS REDUCER
       dispatch(changeSheet({
         sheetToShow: nextSheet,
         sheets: sheets

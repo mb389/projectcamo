@@ -172,7 +172,7 @@ export default function sheet(state = {
       //   return newState
       // }
 
-      let CCCurrentCellState;
+      let CCCurrentCellState = immutableState;
       if(immutableState.has('currentCell')) {
           CCCurrentCellState = immutableState.setIn(['grid',
                   immutableState.getIn(['currentCell', 'rowIdx']),
@@ -200,6 +200,7 @@ export default function sheet(state = {
 
       if(action.push) return immutableState.updateIn(['modalRowState', 'data', action.cell.key, 'data'], data => data.push(action.cell.data))
       else return immutableState.setIn(['modalRowState', 'data', action.cell.key, 'data'], action.cell.data)
+
     case SHOW_LOOKUP_MODAL:
       // {
       //   let newState = _.cloneDeep(state)
@@ -260,6 +261,20 @@ export default function sheet(state = {
         modalCloseState.modalRow.rowIdx = null;
         return modalCloseState
       }
+
+      let savedGridRow;
+      let savedGridRowState;
+      if(!action.dontSave) {
+        savedGridRow = immutableState.get('grid').set(immutableState.getIn(['modalRow', 'rowIdx']),immutableState.getIn(['modalRow', 'data']))
+        savedGridRowState = immutableState.set('grid', savedGridRow);
+      }
+      return immutableState
+              .updateIn()
+              .set('showRowModal', false)
+              .setIn(['modalRow', 'data'], null)
+              .setIn(['moalRow', 'rowIdx'], null)
+              .toJS()
+
     case SHOW_HISTORY_MODAL:
       {
         return immutableState.set('showHistoryModal', true).toJS()

@@ -393,6 +393,8 @@ export default function sheet(state = {
                               .filter(col => col.get('id') === action.colId ? true : false)
                               .get('0', 'name')
 
+      console.log(immutableState.get(''))
+
       return immutableState
                 .set('showMap', true)
                 .set('mapMarkersData', null)
@@ -411,6 +413,7 @@ export default function sheet(state = {
         // newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
         // return newState;
     case SEND_LAT_LONGS:
+        console.log(state);
         return immutableState.set('mapMarkersData', action.geoResults).toJS();
     case HIDE_MAP:
         return immutableState.set('showMap', false).toJS()

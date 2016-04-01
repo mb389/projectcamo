@@ -154,8 +154,8 @@
 }
 
 .cellLink {
-  /*cursor: hand;
-  cursor: pointer;*/
+  cursor: hand;
+  cursor: pointer;
 }
 
 .cellContent::-webkit-scrollbar {

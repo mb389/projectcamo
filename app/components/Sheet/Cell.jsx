@@ -28,6 +28,7 @@ class Cell extends Component {
     this.editable = this.editable.bind(this);
     this.keyPress = this.keyPress.bind(this);
     this.showLookupModal = this.showLookupModal.bind(this);
+		this.handleLink = this.handleLink.bind(this);
 	}
 
 
@@ -52,6 +53,13 @@ class Cell extends Component {
     this.setState({disabled: false});
     if(evt.target.children[0]) evt.target.children[0].focus();
     else evt.target.focus();
+  }
+
+	handleLink(e) {
+		e.preventDefault()
+		if(window) {
+			window.open(this.props.cell.data, '_blank').focus()
+		}
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx){
@@ -93,6 +101,7 @@ class Cell extends Component {
 							disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
 							onChange={this.handleChange} // handle innerHTML change
 							onDoubleClick={this.editable} // allow for cell editing after focus
+							onContextMenu={this.handleLink}
 							onMouseEnter={this.setMouseEnter} // handle innerHTML change
 							onMouseLeave={this.setMouseLeave} // handle innerHTML change
 					/>)
@@ -119,7 +128,7 @@ class Cell extends Component {
 	}
 
 	handleCell() {
-		
+
     if(!this.props.cell.focused) this.props.dispatch(currentCell(this.props));
 		// this.props.searching ? this.props.dispatch(searching(false)) : null;
 	}

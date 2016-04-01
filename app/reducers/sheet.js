@@ -352,18 +352,28 @@ export default function sheet(state = {
         return newState
       }
     case DELETE_ROW:
-      {
-        let newState = _.cloneDeep(state);
-        let newGrid = []
-        newState.grid.forEach((row,i)=>{
-          if (i !== action.rowIdx) {
-            newGrid.push(row)
-          }
-        })
-        newState.grid = newGrid
-        newState.changed = true;
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   let newGrid = []
+      //   newState.grid.forEach((row,i)=>{
+      //     if (i !== action.rowIdx) {
+      //       newGrid.push(row)
+      //     }
+      //   })
+      //   newState.grid = newGrid
+      //   newState.changed = true;
+      //   return newState
+      // }
+
+      const newGrid = immutableState
+        .get('grid')
+        .filter((row, i) => i !== action.rowIdx ? true : false)
+
+      return immutableState
+              .set('grid', newGrid)
+              .set('changed', true)
+              .toJS()
+
     case RESIZE_TABLE_COL:
       {
         let newState=_.cloneDeep(state);
@@ -380,7 +390,6 @@ export default function sheet(state = {
         return newState;
       }
     case SHOW_MAP:
-
       const newAddressData = immutableState
                           .get('grid')
                           .reduce((accum, row) =>  {
@@ -389,13 +398,10 @@ export default function sheet(state = {
                             }
                           }, List());
 
-                          console.log(newAddressData);
       const newMapColumn = immutableState
                               .get('columnHeaders')
                               .filter(col => col.get('id') === action.colId ? true : false)
                               .get(['0', 'name'])
-
-      console.log(immutableState.get(''))
 
       return immutableState
                 .set('showMap', true)
@@ -403,17 +409,6 @@ export default function sheet(state = {
                 .set('addressData', newAddressData)
                 .set('mapColumn', newMapColumn)
                 .toJS()
-        // let newState = _.cloneDeep(state);
-        // let colId = action.colId
-        // let addressData = newState.grid.reduce((accum, row) => {
-        //   if(row[colId]) accum.push({data: row[colId].data, name: row[100].data})
-        //   return accum
-        // },[])
-        // newState.showMap = true;
-        // newState.addressData = addressData;
-        // newState.mapMarkersData = null;
-        // newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
-        // return newState;
     case SEND_LAT_LONGS:
         return immutableState.set('mapMarkersData', action.geoResults).toJS();
     case HIDE_MAP:

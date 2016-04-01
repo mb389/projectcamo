@@ -76,11 +76,11 @@ export default function sheet(state = {
         return immutableState
           .set('columnHeaders', action.columnHeaders ? action.sheet.columnHeaders : List())
           .set('grid', newGridToSet)
-          .set('currentCell', Map({
-            cell: newGridToSet.getIn(['0', '100']),
-            rowIdx: 0,
-            cellKey: '100'
-          }))
+          // .set('currentCell', Map({
+          //   cell: newGridToSet.getIn(['0', '100']),
+          //   rowIdx: 0,
+          //   cellKey: '100'
+          // }))
           .set('history', action.history ? action.history : List())
           .set('historySheet', action.historySheet ? action.historySheet : List())
           .set('modalRow', Map({
@@ -188,15 +188,18 @@ export default function sheet(state = {
 
 
     case UPDATE_MODAL_CELL:
-      {
-        let modalRowState = _.cloneDeep(state);
-        if (action.push) {
-          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
-        } else {
-          modalRowState.modalRow.data[action.cell.key].data = action.cell.data
-        }
-        return modalRowState
-      }
+      // {
+      //   let modalRowState = _.cloneDeep(state);
+      //   if (action.push) {
+      //     modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
+      //   } else {
+      //     modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+      //   }
+      //   return modalRowState
+      // }
+
+      if(action.push) return immutableState.updateIn(['modalRowState', 'data', action.cell.key, 'data'], data => data.push(action.cell.data))
+      else return immutableState.setIn(['modalRowState', 'data', action.cell.key, 'data'], action.cell.data)
     case SHOW_LOOKUP_MODAL:
       // {
       //   let newState = _.cloneDeep(state)

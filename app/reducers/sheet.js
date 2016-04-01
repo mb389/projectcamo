@@ -59,10 +59,15 @@ export default function sheet(state = {
             row[cell].focused = false;
           }
         })
-        action.sheet.grid[0][100].focused = true;
 
         newState.columnHeaders = action.sheet.columnHeaders || [];
         newState.grid = action.sheet.grid || [];
+        newState.grid[0][100].focused = true;
+        newState.currentCell = {
+          cell: newState.grid[0][100],
+          rowIdx: 0,
+          cellKey: "100"
+        };
         newState.history = action.history || [];
         newState.historySheet = action.historySheet || null;
         newState.modalRow = {
@@ -115,6 +120,7 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         let newCoord = navToNewCell(action.keyCode, newState)
+        console.log(newCoord);
         newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
         newState.currentCell.rowIdx = newCoord.newRowIdx;

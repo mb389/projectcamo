@@ -3,6 +3,7 @@ import styles from 'css/components/about';
 import classNames from 'classnames/bind';
 import {Link} from 'react-router';
 import {Glyphicon} from 'react-bootstrap';
+import FooterBelow from './FooterBelow.jsx';
 
 const cx = classNames.bind(styles);
 
@@ -44,15 +45,7 @@ const Footer = (props) => {
                 </div>
             </div>
         </div>
-        <div className={cx("footer-below")}>
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-12">
-                         SpaceBook was created in 2016 at Fullstack Academy
-                    </div>
-                </div>
-            </div>
-        </div>
+        <FooterBelow />
         </footer>
       </div>
 

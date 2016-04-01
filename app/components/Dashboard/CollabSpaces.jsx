@@ -14,17 +14,22 @@ const CollabSpaces = (props) => {
    const collabSpacesToDisplay =
    collabSpaces.map((el) => {
      const route=`space/${el._id}`;
-      return <div key={el._id}><Glyphicon glyph="th-list" />&nbsp;&nbsp;&nbsp;
-    <Link to={route}>{el.name}</Link></div>
+      return <div key={el._id} className={cx('iconForSheet') + ' col-xs-4'}>
+                <Link to={route}>
+                  <Glyphicon glyph="glyphicon glyphicon-folder-open" />
+                </Link>
+                {el.name}
+              </div>
 
     });
 
     return (
-      <div className={cx('spaces')}>
+      <div className={cx('spacesDiv')}>
         <strong>Spaces Shared With You</strong>
-        {collabSpacesToDisplay}
-  </div>
-
+          <div className={cx('spaces')}>
+            {collabSpacesToDisplay}
+          </div>
+      </div>
     );
   }
 

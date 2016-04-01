@@ -59,11 +59,20 @@ export default function sheet(state = {
             row[cell].focused = false;
           }
         })
-        newState.columnHeaders= action.sheet.columnHeaders || [];
-        newState.grid= action.sheet.grid || [];
-        newState.history= action.history || [];
-        newState.historySheet= action.historySheet || null;
-        newState.modalRow= {
+
+        newState.columnHeaders = action.sheet.columnHeaders || [];
+        newState.grid = action.sheet.grid || [];
+        if (newState.grid[0] && newState.grid[0]['100']) {
+          newState.grid[0]['100'].focused = true;
+          newState.currentCell = {
+            cell: newState.grid[0]['100'],
+            rowIdx: 0,
+            cellKey: "100"
+          };
+        }
+        newState.history = action.history || [];
+        newState.historySheet = action.historySheet || null;
+        newState.modalRow = {
           data: null,
           rowIdx: null
         };
@@ -112,7 +121,7 @@ export default function sheet(state = {
     case MOVE_TO_CELL:
       {
         let newState = _.cloneDeep(state);
-        let newCoord = navToNewCell(action.keyCode, newState)
+        let newCoord = navToNewCell(action.keyCode, newState);
         newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
         newState.currentCell.rowIdx = newCoord.newRowIdx;
@@ -131,13 +140,13 @@ export default function sheet(state = {
       }
     case UPDATE_MODAL_CELL:
       {
-        let modalRowState = _.cloneDeep(state);
+        let newState = _.cloneDeep(state);
         if (action.push) {
-          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
+          newState.modalRow.data[action.cell.key].data.push(action.cell.data)
         } else {
-          modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+          newState.modalRow.data[action.cell.key].data = action.cell.data
         }
-        return modalRowState
+        return newState
       }
     case SHOW_LOOKUP_MODAL:
       {
@@ -153,9 +162,9 @@ export default function sheet(state = {
       }
     case CLOSE_LOOKUP_MODAL:
       {
-        let modalCloseState = _.cloneDeep(state)
-        modalCloseState.showLookupModal = false;
-        return modalCloseState
+        let newState = _.cloneDeep(state)
+        newState.showLookupModal = false;
+        return newState
       }
     case SHOW_ROW_MODAL:
       {
@@ -169,14 +178,16 @@ export default function sheet(state = {
       }
     case CLOSE_ROW_MODAL:
       {
-        let modalCloseState = _.cloneDeep(state)
-        modalCloseState.showRowModal = false;
+        let newState = _.cloneDeep(state)
+        console.log(newState.modalRow.data) 
+        newState.showRowModal = false;
         if (!action.dontSave) {
-          modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+          newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data
         }
-        modalCloseState.modalRow.data = null;
-        modalCloseState.modalRow.rowIdx = null;
-        return modalCloseState
+        newState.modalRow.data = null;
+        newState.modalRow.rowIdx = null;
+        newState.changed = true;
+        return newState
       }
     case SHOW_HISTORY_MODAL:
       {
@@ -206,10 +217,8 @@ export default function sheet(state = {
     case ADD_COLUMN:
       {
         let newState =  _.cloneDeep(state);
-
         let newColumn = newColInfo(newState.columnHeaders)
 
-        // // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.push(newColumn);
         newState = insertNewColInRows(newState, newColumn);
         newState.changed = true
@@ -253,7 +262,6 @@ export default function sheet(state = {
           return column;
         })
 
-        // TODO need to set this.props.view: 'editNameAndType';
         newState.columnHeaders.splice(action.colIdx, 0, newColumn);
 
         newState = insertNewColInRows(newState, newColumn);

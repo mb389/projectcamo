@@ -12,7 +12,7 @@ const MapModal = (props) => {
   return (
       <Modal className={cx('Map')} show={props.showMap} onHide={props.close} bsSize="lg">
         <Modal.Header className={cx('mapHeader')} classcloseButton>
-          <Modal.Title>{props.mapName ? props.mapName.name : ''}</Modal.Title>
+          <Modal.Title>{props.mapName}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <GoogleMap {...props} />

@@ -380,18 +380,20 @@ export default function sheet(state = {
         return newState;
       }
     case SHOW_MAP:
+
       const newAddressData = immutableState
                           .get('grid')
                           .reduce((accum, row) =>  {
                             if (row.get(action.colId)) {
-                              return accum.push(Map({data:row.get(action.colId), name:row.get('100','data')}))
+                              return accum.push(Map({data: row.getIn([action.colId, 'data']), name:row.getIn(['100','data'])}))
                             }
                           }, List());
 
+                          console.log(newAddressData);
       const newMapColumn = immutableState
                               .get('columnHeaders')
                               .filter(col => col.get('id') === action.colId ? true : false)
-                              .get('0', 'name')
+                              .get(['0', 'name'])
 
       console.log(immutableState.get(''))
 
@@ -413,7 +415,6 @@ export default function sheet(state = {
         // newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId ? true : false)[0].name
         // return newState;
     case SEND_LAT_LONGS:
-        console.log(state);
         return immutableState.set('mapMarkersData', action.geoResults).toJS();
     case HIDE_MAP:
         return immutableState.set('showMap', false).toJS()

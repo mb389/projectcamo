@@ -71,8 +71,6 @@ export default function sheet(state = {
                                 .set('grid', action.sheet.grid ? action.sheet.grid : List())
                                 .setIn(['0', '100', 'focused'], true)
 
-        console.log(newGridToSet.toJS())
-
         return immutableState
           .set('columnHeaders', action.columnHeaders ? action.sheet.columnHeaders : List())
           .set('grid', newGridToSet)
@@ -119,6 +117,7 @@ export default function sheet(state = {
       //   return newState
       // }
       return immutableState.set('changed', false).toJS();
+
     case UPDATE_CELL:
       {
         let newState = _.cloneDeep(state);
@@ -146,9 +145,28 @@ export default function sheet(state = {
             }
           }
         })
+
+
         newState.changed = true
         return newState
       }
+
+      // TODO use updateIn instead of multiple step
+      newStatGrid = immutableState
+                      .get('grid')
+                      .map(row => {
+                        return row.map(key => {
+                          if(key.get('id') === action.cell.id) {
+                            return key.set('data', action.cell.id)
+                          } else {
+                            return key
+                          }
+                        })
+                      })
+
+      return immutableState
+              .set('grid', )
+
     case MOVE_TO_CELL:
       {
         let newState = _.cloneDeep(state);
@@ -251,25 +269,24 @@ export default function sheet(state = {
               .toJS();
 
     case CLOSE_ROW_MODAL:
-      {
-        let modalCloseState = _.cloneDeep(state)
-        modalCloseState.showRowModal = false;
-        if (!action.dontSave) {
-          modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
-        }
-        modalCloseState.modalRow.data = null;
-        modalCloseState.modalRow.rowIdx = null;
-        return modalCloseState
-      }
+      // {
+      //   let modalCloseState = _.cloneDeep(state)
+      //   modalCloseState.showRowModal = false;
+      //   if (!action.dontSave) {
+      //     modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
+      //   }
+      //   modalCloseState.modalRow.data = null;
+      //   modalCloseState.modalRow.rowIdx = null;
+      //   return modalCloseState
+      // }
 
       let savedGridRow;
-      let savedGridRowState;
+      let savedGridRowState = immutableState;
       if(!action.dontSave) {
         savedGridRow = immutableState.get('grid').set(immutableState.getIn(['modalRow', 'rowIdx']),immutableState.getIn(['modalRow', 'data']))
         savedGridRowState = immutableState.set('grid', savedGridRow);
       }
-      return immutableState
-              .updateIn()
+      return savedGridRowState
               .set('showRowModal', false)
               .setIn(['modalRow', 'data'], null)
               .setIn(['moalRow', 'rowIdx'], null)
@@ -301,6 +318,13 @@ export default function sheet(state = {
         newState.changed = true
         return newState;
       }
+
+      // const newColumnAC = newColInfo(immutableState.get('columnHeaders').toJS())
+      //
+      // const newState =  immutableState.updateIn('columnHeaders', col => col.push(newColumnAC))
+
+
+
     case UPDATE_COLUMN:
       {
         let newState =  _.cloneDeep(state);

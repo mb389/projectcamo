@@ -13,12 +13,14 @@
     "build:prod": "cross-env NODE_ENV=production webpack --colors --config ./webpack/webpack.config.prod.js",
     "build": "npm run clean && npm run build:prod",
     "test": "cross-env NODE_ENV=test karma start",
+    "test:server": "cross-env NODE_ENV=test mocha --reporter spec --timeout 300 server/tests/*.js",
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
     "postinstall": "npm run build"
   },
   "author": "Assaf Packin, Oscar Pena, Cody Schwarz, Michael Bushoy",
   "license": "MIT",
   "devDependencies": {
+    "chai": "^3.5.0",
     "expect": "^1.15.2",
     "karma": "^0.13.22",
     "karma-jsdom-launcher": "^3.0.0",

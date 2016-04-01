@@ -7,13 +7,24 @@
 
 }
 
+.info {
+  text-align: center;
+  padding-bottom: 50px;
+}
+
 
 .header {
   composes: heading from '../common/typography';
   text-align: center;
+
+}
+
+.featureWrap {
+
 }
 
 .description {
+  padding-bottom: 50px;
   margin: 70px;
   flex: 3;
 
@@ -25,6 +36,58 @@
 .contribute {
   composes: small from '../common/typography';
 }
+
+hr.star-primary {
+  padding: 0;
+  border: none;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 250px;
+  margin: 25px auto 30px;
+}
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  top: -0.8em;
+  font-size: 2em;
+  padding: 0 0.25em;
+}
+hr.star-light {
+  border-color: white;
+}
+hr.star-light:after {
+  background-color: #18bc9c;
+  color: white;
+}
+hr.star-primary {
+  border-color: #2c3e50;
+}
+hr.star-primary:after {
+  background-color: white;
+  color: dark-primary-color;
+}
+
+
+.features  {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  color: dark-primary-color;
+  width: 100%;
+  height: 20px;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  padding-bottom: 300px;
+}
+
+.features > div {
+  flex: 1;
+}
+
 
 .btn-social {
   display: inline-block;

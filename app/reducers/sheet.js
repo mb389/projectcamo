@@ -119,8 +119,7 @@ export default function sheet(state = {
     case MOVE_TO_CELL:
       {
         let newState = _.cloneDeep(state);
-        let newCoord = navToNewCell(action.keyCode, newState)
-        console.log(newCoord);
+        let newCoord = navToNewCell(action.keyCode, newState);
         newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
         newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
         newState.currentCell.rowIdx = newCoord.newRowIdx;

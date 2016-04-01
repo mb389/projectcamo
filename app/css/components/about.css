@@ -1,15 +1,24 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color, primary-text, divider-color from '../common/colors.css';
 
 
-.about {
+.aboutpg {
   display: flex;
   flex-direction: column;
+  min-height: 95vh;
+}
+
+.contact {
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
 
 }
 
-.info {
+.about {
   text-align: center;
   padding-bottom: 50px;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 
@@ -21,11 +30,11 @@
 
 .featureWrap {
 
+  margin-bottom: 200px;
 }
 
 .description {
-  padding-bottom: 50px;
-  margin: 70px;
+  margin: 30px;
   flex: 3;
 
   composes: normal from '../common/typography';
@@ -75,13 +84,11 @@ hr.star-primary:after {
   display: flex;
   flex-direction: row;
   text-align: center;
+  justify-content: space-around;
   color: dark-primary-color;
-  width: 100%;
-  height: 20px;
   font-size: 20px;
   text-align: center;
-  color: white;
-  padding-bottom: 300px;
+  color: black;
 }
 
 .features > div {
@@ -116,6 +123,8 @@ hr.star-primary:after {
 
 footer {
   color: white;
+  width: 100%;
+  bottom: 40px;
 }
 footer h3 {
   margin-bottom: 30px;
@@ -136,7 +145,6 @@ footer .footer-col {
   color: white;
   text-align: center;
   background-color: primary-color;
-  position: fixed;
   width: 100%;
   bottom: 0;
 }

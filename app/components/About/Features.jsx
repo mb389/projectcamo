@@ -15,22 +15,22 @@ const Features = (props) => {
 
     return (
       <div className={cx("featureWrap")}>
-      <div className={cx('header')}>FEATURES</div>
-      <hr className={cx("star-primary")}/>
+      {/*<div className={cx('header')}>FEATURES</div>
+      <hr className={cx("star-primary")}/>*/}
 <div className={cx("features")}>
 
-  <div>
+    <div >
         <img src={stack} alt=""/>
-        Supports a variety of data types.
+        <div>Supports a variety of data types.</div>
       </div>
       <div>
             <img src={globe} alt=""/>
-            Simple spreadsheets with the capabilities of a relational database.
+            <div>Simple spreadsheets with the capabilities of a relational database.</div>
           </div>
 
           <div>
                 <img src={plug} alt=""/>
-                Access to external APIs.
+                <div>Access to external APIs.</div>
               </div>
 
 

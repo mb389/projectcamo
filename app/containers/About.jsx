@@ -16,16 +16,16 @@ const About = props => {
   return (
     <div>
     <Navigation disabled={true} />
-    <div className={cx('about')}>
+    <div className={cx('aboutpg')}>
       <div className={cx('description')}>
         <h1></h1>
         <img width="800px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
 
         </div>
         <Features />
-          <Info />
+          {/*<Info />*/}
         <Footer />
-        
+
       </div>
 
     </div>

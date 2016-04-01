@@ -17,8 +17,19 @@ export default class SelectOptionCell extends Component {
 	handleChange(e){
 	  const { dispatch, cellKey, rowIdx, row } = this.props;
     let val = e.target.value;
-    if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx));
-    else dispatch(updateCell(val, cellKey, rowIdx))
+
+    console.log("row", row);
+    let recalculateCells = []
+    for (let cell in row) {
+      if (row[cell].type === 'Formula') {
+        row[cell].col = cell;
+        recalculateCells.push(row[cell]);
+      }
+    }
+
+
+    if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
+    else dispatch(updateCell(val, cellKey, rowIdx, null, recalculateCells))
 	}
 
 	render () {

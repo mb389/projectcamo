@@ -96,13 +96,14 @@ export function getSheet(sheetId, sheets) {
       dispatch(loadSheet({
         sheetToShow: nextSheet
       }))
-      // CHANGE HITS SHEETS REDUCER 
+      // CHANGE HITS SHEETS REDUCER
       dispatch(changeSheet({
         sheetToShow: nextSheet,
         sheets: sheets
       }))
       // READJUST COLUMN WIDTHS
       dispatch(addColumn())
+      dispatch(searching(false))
       dispatch(removeColumn())
   };
 }

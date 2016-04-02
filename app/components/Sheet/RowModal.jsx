@@ -82,7 +82,7 @@ class RowModal extends Component {
       <Modal show={this.props.showRowModal} onHide={this.close} className={cx('modalRow')}>
         <Modal.Header  className={cx('shareModalHeader')} >
           <Modal.Title>
-            <h3>{this.rowName()}</h3>
+            {this.rowName()}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={cx('darkModal')}>

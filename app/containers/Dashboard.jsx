@@ -37,7 +37,6 @@ class Dashboard extends Component {
       <div>
         <Navigation link={{path: "/about", name: "About"}} disabled={true} />
         <div className={cx('dashboard')}>
-          {/*<UserProfile user={this.props.user} />*/}
           <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>

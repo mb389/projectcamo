@@ -25,7 +25,6 @@ const About = props => {
         <div className={cx('overlay')}></div>
         </div>
         <Features />
-          {/*<Info />*/}
         <Footer />
 
       </div>

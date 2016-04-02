@@ -23,20 +23,29 @@ const Footer = (props) => {
                         <h3>Around the Web</h3>
                         <ul className="list-inline">
                             <li>
-                                <a href="#" className={cx("btn-social")}><i className="fa fa-fw fa-facebook"></i></a>
+                                <a href="http://www.github.com/mb389/projectcamo" className={cx("btn-social")}><i className="fa fa-fw fa-github"></i></a>
                             </li>
                             <li>
-                                <a href="#" className={cx("btn-social")}><i className="fa fa-fw fa-google-plus"></i></a>
+                                <a href="https://www.facebook.com/FullstackAcademy" className={cx("btn-social")}><i className="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                          </ul>
+                          <ul className="list-inline">
+                            <li>
+                                <a href="https://www.linkedin.com/in/oscarpenalivhub" className={cx("btn-social")}><i className="fa fa-fw fa-linkedin"></i></a>
                             </li>
                             <li>
-                                <a href="#" className={cx("btn-social")}><i className="fa fa-fw fa-twitter"></i></a>
+                                <a href="https://www.linkedin.com/in/apackin" className={cx("btn-social")}><i className="fa fa-fw fa-linkedin"></i></a>
                             </li>
                             <li>
-                                <a href="#" className={cx("btn-social")}><i className="fa fa-fw fa-linkedin"></i></a>
+                                <a href="https://www.linkedin.com/in/codyschwarz" className={cx("btn-social")}><i className="fa fa-fw fa-linkedin"></i></a>
                             </li>
+                            <li>
+                                <a href="https://www.linkedin.com/in/michaelbushoy" className={cx("btn-social")}><i className="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+
                         </ul>
                     </div>
-                    <div className={cx("footer-col")}>
+
                       <div className="col-md-4">
                         <h3>About SpaceBook</h3>
                         <p>SpaceBook aims to recreate the spreadsheet with today's media rich world in mind.</p>
@@ -44,7 +53,7 @@ const Footer = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
+      
         <FooterBelow />
         </footer>
       </div>

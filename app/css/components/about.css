@@ -1,10 +1,7 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color, primary-text, divider-color from '../common/colors.css';
 
-
 .aboutpg {
-  display: flex;
-  flex-direction: column;
-  min-height: 95vh;
+  min-height: 100%;
 
 }
 
@@ -14,16 +11,9 @@
   position: absolute;
   top: 0;
   left: 0;
+  background-size: auto;
   height: 100%;
   width: 100%;
-}
-
-
-.about {
-  text-align: center;
-  padding-bottom: 50px;
-  padding-top: 25px;
-  padding-bottom: 25px;
 }
 
 .overlay {
@@ -40,23 +30,19 @@
 .header {
   composes: heading from '../common/typography';
   text-align: center;
-
-
 }
 
 .featureWrap {
-
-  margin-bottom: 200px;
+  /*padding-top: 150px;
+  padding-bottom: 200px;*/
 }
 
 .description {
+  padding-top: 100px;
   margin: 30px;
-  flex: 3;
-
   composes: normal from '../common/typography';
   text-align: center;
 }
-
 
 .contribute {
   composes: small from '../common/typography';
@@ -95,7 +81,6 @@ hr.star-primary:after {
   color: dark-primary-color;
 }
 
-
 .features  {
   display: flex;
   flex-direction: row;
@@ -103,8 +88,9 @@ hr.star-primary:after {
   justify-content: space-around;
   color: dark-primary-color;
   font-size: 20px;
-  text-align: center;
   color: white;
+  padding-top: 100px;
+  padding-bottom: 150px;
 }
 
 .features > div {
@@ -140,14 +126,15 @@ hr.star-primary:after {
 footer {
   color: white;
   width: 100%;
- position: absolute;
+ position: relative;
+ /*bottom: 0;*/
 }
 footer h3 {
   margin-bottom: 30px;
 }
 footer .footer-above {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   color: primary-text;
 
   background-color: light-primary-color;

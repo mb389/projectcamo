@@ -2,20 +2,18 @@
  * Routes for express app
  */
 
-var express = require('express');
-var users = require('../controllers/users');
-var mongoose = require('mongoose');
-var _ = require('lodash');
-var Topic = mongoose.model('Topic');
-var topics = require('../controllers/topics');
-var Sheet = mongoose.model('Sheet');
-var sheets = require('../controllers/sheets');
-var Workspace = mongoose.model('Workspace');
-var workspaces = require('../controllers/workspaces');
-var formulaStore = require('../controllers/formulaStore');
-var path = require('path');
-var compiled_app_module_path = path.resolve(__dirname, '../../', 'public', 'assets', 'server.js');
-var App = require(compiled_app_module_path);
+const express = require('express');
+const users = require('../controllers/users');
+const mongoose = require('mongoose');
+const _ = require('lodash');
+const Sheet = mongoose.model('Sheet');
+const sheets = require('../controllers/sheets');
+const Workspace = mongoose.model('Workspace');
+const workspaces = require('../controllers/workspaces');
+const formulaStore = require('../controllers/formulaStore');
+const path = require('path');
+const compiled_app_module_path = path.resolve(__dirname, '../../', 'public', 'assets', 'server.js');
+const App = require(compiled_app_module_path);
 
 module.exports = function(app, passport) {
   // user routes
@@ -43,21 +41,6 @@ module.exports = function(app, passport) {
       successRedirect: '/',
       failureRedirect: '/login'
     }));
-
-  // topic routes
-  app.get('/topic', topics.all);
-
-  app.post('/topic/:id', function(req, res) {
-    topics.add(req, res);
-  });
-
-  app.put('/topic/:id', function(req, res) {
-    topics.update(req, res);
-  });
-
-  app.delete('/topic/:id', function(req, res) {
-    topics.remove(req, res);
-  });
 
   // sheets routes
   app.get('/sheet', sheets.all);

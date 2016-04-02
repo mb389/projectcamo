@@ -18,7 +18,6 @@ class GoogleMap extends Component {
     super(props);
     this.state = {markersCreated: false, markers: [], zoom: 12, midPoint:[]}
     this.createMarkers = this.createMarkers.bind(this);
-    this.onMapCreated = this.onMapCreated.bind(this);
   }
 
   createMarkers(markers) {
@@ -50,19 +49,15 @@ class GoogleMap extends Component {
     this.setState({markersCreated: true, markers: markersToAdd, midPoint, zoom})
   }
 
-  onMapCreated(map) {
 
-  }
 
   componentWillMount() {
-      console.log('component will mount')
       if(!this.props.markers) return;
       this.createMarkers(this.props.markers);
 
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('receive props')
     if(nextProps.markers && nextProps.markers !== this.props.markers) {
       this.createMarkers(nextProps.markers);
     }
@@ -78,7 +73,7 @@ class GoogleMap extends Component {
           zoom={this.state.zoom}
           loadingMessage={'Your map is loading'}
           params={{v: '3.exp'}}
-          onMapCreated={this.onMapCreated}
+
           className={cx('mapPlugIn')}
         >
         {this.state.markers}

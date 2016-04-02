@@ -39,6 +39,19 @@ describe('Space Control Reducer', () => {
               }],
           columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
         }
+      },
+      {
+        _id: "56feca1a2d3d7d0f09b8cb09",
+        content: {
+          grid: [{
+                '100': {
+                    type: 'ID',
+                    data: 'testData',
+                    id: '0'
+                  }
+              }],
+          columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+        }
       }
     ],
     space: {
@@ -208,7 +221,7 @@ describe('Space Control Reducer', () => {
       }
     })
 
-    expect(nextState.sheets[1]._id).toEqual('56feca1a2d3d7d0f09b8cb05')
+    expect(nextState.sheets[2]._id).toEqual('56feca1a2d3d7d0f09b8cb05')
 
   })
 
@@ -292,5 +305,60 @@ describe('Space Control Reducer', () => {
 
     expect(nextState.space.name).toEqual('newSpaceName')
   })
+
+  it('updates the reference sheet for inception UPDATE_REF_SHEET', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.UPDATE_REF_SHEET,
+      targetSheet: {
+        _id: "56feca1a2d3d7d0f09b8cb03",
+        content: {
+          grid: [{
+                '100': {
+                    type: 'ID',
+                    data: 'testData',
+                    id: '0'
+                  }
+              }],
+          columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+        }
+      },
+      data: {
+        data: 'testData',
+        rowId: {
+          data: 'estData',
+          id: '0',
+          type: 'ID',
+          width: 200
+        },
+        sheet: '56feca1a2d3d7d0f09b8cb03'
+      },
+      currSheet: {
+        _id: "56feca1a2d3d7d0f09b8cb09",
+        content: {
+          grid: [{
+                '100': {
+                    type: 'ID',
+                    data: 'testData',
+                    id: '0'
+                  }
+              }],
+          columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+        }
+      },
+      currRow: {
+            '100': {
+                type: 'ID',
+                data: 'testData',
+                id: '0'
+              }
+          }
+    });
+
+  })
+
+
+
+
 
 });

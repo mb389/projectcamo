@@ -2,7 +2,7 @@ import { polyfill } from 'es6-promise';
 import request from 'axios';
 import md5 from 'spark-md5';
 import * as types from 'constants/index';
-import key from 'googleMaps'
+import secrets from '../../server/config/secrets'; 
 
 polyfill();
 
@@ -216,7 +216,7 @@ export function getLatLongs(addressArray) {
 	return (dispatch) => {
 		let addresses = addressArray.filter(item => item.data ? true : false)
 		let addressUrls = addresses.map(add => {
-			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=${key.apiKey}`);
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=${secrets.google.clientID}`);
 		})
 		Promise.all(addressUrls)
 		.then(resArray => {

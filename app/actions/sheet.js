@@ -223,9 +223,11 @@ export function getLatLongs(addressArray) {
 			let geoCoded = resArray.map((result,i) => {
 				if(result.data.status === 'OK') {
 					return {loc: result.data.results[0].geometry.location, name:addresses[i].name};
+				} else {
+					return ''
 				}
-			}).filter(item => item)
-			dispatch(sendLatLongs(geoCoded))
+			}).filter(item => item.loc)
+			geoCoded.length > 0 ? dispatch(sendLatLongs(geoCoded)) : '';
 		})
 	}
 }

@@ -55,12 +55,14 @@ class GoogleMap extends Component {
   }
 
   componentWillMount() {
+      console.log('component will mount')
       if(!this.props.markers) return;
       this.createMarkers(this.props.markers);
 
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('receive props')
     if(nextProps.markers && nextProps.markers !== this.props.markers) {
       this.createMarkers(nextProps.markers);
     }

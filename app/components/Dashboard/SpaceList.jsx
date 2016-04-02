@@ -17,7 +17,6 @@ const SpaceList = (props) => {
      const route=`space/${el._id}`;
       return <div key={el._id} className={cx('iconForSheet') + ' col-xs-6 col-sm-4 col-md-3 col-lg-2'}>
                   <Link to={route}>
-                    {/*<Glyphicon glyph="glyphicon glyphicon-folder-open" />*/}
                     <img className={cx('icon')} src={folder}/>
                   </Link>
                 <h6> {el.name} </h6>

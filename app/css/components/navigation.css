@@ -6,6 +6,7 @@
   justify-content: space-between;
   height: 40px;
   color: white;
+  width: 100%;
   /*text-transform: uppercase;*/
   text-decoration: none;
   text-align: center;
@@ -62,10 +63,11 @@
   width: 30px;
   height: 28px;
   margin-right: 20px;
+  border: 0;
   border-radius: 50% !important;
   /*border: 1.5px solid white;*/
   background: transparent url(images/profle.png) no-repeat center;
-  background-size: 100%;
+  background-size: 110%;
 }
 
 .active {

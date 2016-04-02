@@ -31,7 +31,7 @@ class Navigation extends Component {
       className={cx('item', 'main')}
       activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> {this.props.link ? this.props.link.name : "Dashboard"}</span></Link>
     <ContentEditable className={cx('item', 'spaceName')}
-          html={!this.props.space ? 'SpaceBook' : this.props.space.name}
+          html={!this.props.space || this.props.link ? 'SpaceBook' : this.props.space.name}
             // innerHTML of the editable div
           disabled={this.props.disabled}     // use true to disable edition
           onChange={this.editSpaceName} // handle innerHTML change

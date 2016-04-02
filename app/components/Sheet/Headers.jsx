@@ -3,7 +3,7 @@ import ColumnOptions from './ColumnOptions';
 import AddColumn from './AddColumn';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
-import {Pane,SortablePane} from 'react-sortable-pane'
+import {Pane,SortablePane} from '../SortablePane';
 
 const cx = classNames.bind(styles);
 

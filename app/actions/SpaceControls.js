@@ -102,9 +102,7 @@ export function getSheet(sheetId, sheets) {
         sheets: sheets
       }))
       // READJUST COLUMN WIDTHS
-      dispatch(addColumn())
       dispatch(searching(false))
-      dispatch(removeColumn())
   };
 }
 

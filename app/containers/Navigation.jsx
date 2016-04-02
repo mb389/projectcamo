@@ -18,44 +18,27 @@ class Navigation extends Component {
     super(props, context);
     this.editSpaceName = this.editSpaceName.bind(this);
     this.state = {name: 'SpaceBook'}
-    // this.onNameChange = this.onNameChange.bind(this);
   }
 
   editSpaceName(e) {
+    this.setState({name: e.target.value})
     this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
   }
 
   componentDidMount(){
-    if (this.props.sheet.grid && this.props.space) this.setState({name: this.props.space.name})
-    else this.setState({name: 'SpaceBook'})
-  }
-
-  componentWillReceiveProps(nextProps){
-    console.log("I GOT PROPS", this.props.sheet.grid)
-    if (!this.props.sheet.grid) this.setState({name: 'SpaceBook'}) 
-    else if (this.props.space) this.setState({name: this.props.space.name})
-  }
-
-  // componentDidUpdate(){
-  //   console.log("UPDATED NAV", this.props.sheet.grid)
-  //   if (!this.props.sheet.grid) this.setState({name: 'SpaceBook'}) 
-  // }
-
-  // goToDash(){
-  //   this.context.router.push()
-  // }
-
-  shouldComponentUpdate(nextProps){
-    console.log(nextProps.sheet !== this.props.sheet)
-    return nextProps.sheet !== this.props.sheet
+    if (this.props.sheet.grid && this.props.space) {
+      this.setState({name: this.props.space.name})
+    } else {
+      this.setState({name: 'SpaceBook'})
+    }
   }
 
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="/dashboard"
+      <Link to={this.props.link ?  this.props.link.path : "/dashboard"}
       className={cx('item', 'main')}
-      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> Dashboard</span></Link>
+      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> {this.props.link ? this.props.link.name : "Dashboard"}</span></Link>
     <ContentEditable className={cx('item', 'spaceName')}
           html={this.state.name}
             // innerHTML of the editable div

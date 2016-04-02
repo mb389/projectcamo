@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import AddSpace from './AddSpace'
 import {Link} from 'react-router';
 import {Glyphicon} from 'react-bootstrap';
+import folder from 'images/folder.png'
 
 const cx = classNames.bind(styles);
 
@@ -14,19 +15,23 @@ const SpaceList = (props) => {
    const spacesToDisplay =
    spaces.map((el) => {
      const route=`space/${el._id}`;
-      return <div key={el._id}><Glyphicon glyph="glyphicon glyphicon-folder-open" />&nbsp;&nbsp;&nbsp;
-    <Link to={route}>{el.name}</Link></div>
-
+      return <div key={el._id} className={cx('iconForSheet') + ' col-xs-6 col-sm-4 col-md-3 col-lg-2'}>
+                  <Link to={route}>
+                    <img className={cx('icon')} src={folder}/>
+                  </Link>
+                <h6> {el.name} </h6>
+              </div>
     });
 
     return (
-      <div className={cx('spaces')}>
+      <div className={cx('spacesDiv')}>
+        <strong>Your Spaces <AddSpace createSpace={props.createSpace}/></strong>
 
-        <strong>Your Spaces</strong>
-
+        <div className={cx('spaces')}>
         {spacesToDisplay}
-        <AddSpace createSpace={props.createSpace}/>
-</div>
+
+        </div>
+      </div>
     );
   }
 

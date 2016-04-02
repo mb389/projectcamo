@@ -7,7 +7,7 @@ describe('Space Control Reducer', () => {
   const initialState = {
     showShareModal:false,
     sheetNames: [{
-      id: "56feca1a2d3d7d0f09b8cb01",
+      id: "56feca1a2d3d7d0f09b8cb03",
       name: "Sheet1"
     }],
     sheetToShow: {
@@ -157,13 +157,132 @@ describe('Space Control Reducer', () => {
   })
 
 
-  it('updates sheets for UPDATE_SHEET', () => {
+  it('updates sheets for UPDATE_SHEETS when not given a sheet from db', () => {
 
-    
+    const nextState = reducer(initialState, {
+      type: types.UPDATE_SHEETS,
+      sheetId: '56feca1a2d3d7d0f09b8cb03',
+      sheetContent: {
+        grid: [{
+              '100': {
+                  type: 'ID',
+                  data: 'testData',
+                  id: '0'
+                }
+            }],
+        columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+      }
+    })
+
+    expect(nextState.sheets[0]._id).toEqual('56feca1a2d3d7d0f09b8cb03')
+
+  })
+
+  it('updates sheets for UPDATE_SHEETS when not given a sheet from db', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.UPDATE_SHEETS,
+      sheetId: '56feca1a2d3d7d0f09b8cb05',
+      dbSheet: {
+        _id: "56feca1a2d3d7d0f09b8cb05",
+        content: {
+          grid: [{
+                '100': {
+                    type: 'ID',
+                    data: 'Cody',
+                    id: '0'
+                  }
+              }],
+          columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+        }
+      },
+      sheetContent: {
+        grid: [{
+              '100': {
+                  type: 'ID',
+                  data: 'Cody',
+                  id: '0'
+                }
+            }],
+        columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+      }
+    })
+
+    expect(nextState.sheets[1]._id).toEqual('56feca1a2d3d7d0f09b8cb05')
+
+  })
+
+
+  it('changes the name of the sheet with CHANGE_SHEET_NAME', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.CHANGE_SHEET_NAME,
+      name: 'newTestName',
+      sheetId: '56feca1a2d3d7d0f09b8cb03'
+    })
+
+    expect(nextState.sheetToShow.name).toEqual('newTestName')
+    expect(nextState.sheetNames.length).toEqual(initialState.sheetNames.length)
+
+  })
+
+  it('changes the name of the sheet with CHANGE_SHEET_NAME without adding to length of sheet names', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.CHANGE_SHEET_NAME,
+      name: 'newTestName',
+      sheetId: '56feca1a2d3d7d0f09b8cb03'
+    })
+
+    expect(nextState.sheetNames.length).toEqual(initialState.sheetNames.length)
+
+  })
+
+  it('hides the share modal CLOSE_SHARE_MODAL', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.CLOSE_SHARE_MODAL
+    })
+
+    expect(nextState.showShareModal).toEqual(false)
+
+  })
+
+
+  it('shows the share modal SHOW_SHARE_MODAL', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.SHOW_SHARE_MODAL
+    })
+
+    expect(nextState.showShareModal).toEqual(true)
+
+  })
+
+  it('toggles the state of searching with SEARCHING action set to true', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.SEARCHING,
+      bool: true
+    })
+
+    expect(nextState.searching).toEqual(true)
 
 
   })
 
+
+  it('toggles the state of searching with SEARCHING action set to false', () => {
+
+    const nextState = reducer(initialState, {
+      type: types.SEARCHING,
+      bool: false
+    })
+
+    expect(nextState.searching).toEqual(false)
+
+
+  })
 
   //
   // it('should handle ADD_ROW', () => {

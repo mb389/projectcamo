@@ -18,6 +18,7 @@ class Navigation extends Component {
     super(props, context);
     this.editSpaceName = this.editSpaceName.bind(this);
     this.state = {name: 'SpaceBook'}
+    this.getName = this.getName.bind(this)
   }
 
   editSpaceName(e) {
@@ -25,7 +26,7 @@ class Navigation extends Component {
     this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
   }
 
-  componentDidMount(){
+  getName(){
     if (this.props.sheet.grid && this.props.space) {
       this.setState({name: this.props.space.name})
     } else {
@@ -33,12 +34,12 @@ class Navigation extends Component {
     }
   }
 
+  componentDidMount(){
+    this.getName()
+  }
+
   componentWillReceiveProps(){
-    if (this.props.sheet.grid && this.props.space) {
-      this.setState({name: this.props.space.name})
-    } else {
-      this.setState({name: 'SpaceBook'})
-    }
+    this.getName()
   }
 
   render() {

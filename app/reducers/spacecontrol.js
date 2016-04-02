@@ -13,7 +13,7 @@ import {
   ADD_USER_COLLAB,
   ALL_CHANGED_FALSE
 } from 'constants/index';
-import { insertNewColInRows } from './sheetHelpers.js';
+import { insertNewColInRows, newColInfo } from './sheetHelpers.js';
 
 
 export default function spaceControl(state = {  }, action = {}) {
@@ -89,13 +89,10 @@ export default function spaceControl(state = {  }, action = {}) {
           }
           // if no column ref make a new one
           else {
-            let newColumn = {
-              id: "" + (100 + sheet.content.columnHeaders.length),
-              idx: sheet.content.columnHeaders.length,
-              name: action.currSheet.name,
-              linkedSheet: action.currSheet._id,
-              type: "Reference"
-            }
+            let newColumn = newColInfo(sheet.content.columnHeaders)
+            newColumn.name = action.currSheet.name
+            newColumn.linkedSheet = action.currSheet._id
+            newColumn.type = 'Reference'
             sheet.content.columnHeaders.push(newColumn)
             sheet.content = insertNewColInRows(sheet.content,newColumn)
             // search and add

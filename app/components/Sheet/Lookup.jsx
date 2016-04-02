@@ -132,9 +132,10 @@ class Lookup extends Component {
   getRecords(row){
       let listItems = []
       for (let key in row) {
+        let columnName = this.state.sheet.content.columnHeaders.filter(col=>col.id === key)[0].name
         listItems.push(
           <ListGroupItem key={key}>
-            {this.recType(row[key],key)}
+            <strong>{columnName}: </strong>{this.recType(row[key],key)}
           </ListGroupItem>)
       }
       return listItems
@@ -144,12 +145,12 @@ class Lookup extends Component {
     if (!this.state.sheet) return <h3>Pick a sheet...</h3>
 
     return (
-      this.state.sheet.content.grid.map((row) => {
+      this.state.sheet.content.grid.map((row, i) => {
           return (
             <div className={cx('refTabs')}>
               <Panel header={this.whichButton(row['100'])}>
                   <ListGroup>
-                    {this.getRecords(row)}
+                    {this.getRecords(row, i)}
                   </ListGroup>
               </Panel>
             </div>

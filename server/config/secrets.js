@@ -1,5 +1,4 @@
 /** Important **/
-
 module.exports = {
   // Find the appropriate database to connect to, default to localhost if not found.
   db: process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || 'mongodb://localhost/camo',
@@ -10,3 +9,4 @@ module.exports = {
     callbackURL: process.env.GOOGLE_CALLBACK || "/auth/google/callback"
   }
 };
+

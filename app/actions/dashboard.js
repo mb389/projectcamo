@@ -64,6 +64,7 @@ export function createSpace(spaceCount=0) {
     .then(res => {
       dispatch(spaceToStore(res.data))
     })
+    .then(null,console.log("post workspace failed"))
   }
 }
 

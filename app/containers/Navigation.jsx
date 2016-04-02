@@ -33,6 +33,14 @@ class Navigation extends Component {
     }
   }
 
+  componentWillReceiveProps(){
+    if (this.props.sheet.grid && this.props.space) {
+      this.setState({name: this.props.space.name})
+    } else {
+      this.setState({name: 'SpaceBook'})
+    }
+  }
+
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">

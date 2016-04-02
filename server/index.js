@@ -66,4 +66,4 @@ require('./config/routes')(app, passport);
 
 app.listen(app.get('port'));
 
-module.exports=connect;
+module.exports= {connect,app};

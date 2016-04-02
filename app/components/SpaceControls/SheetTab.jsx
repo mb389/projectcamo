@@ -16,7 +16,11 @@ class SheetsTab extends Component {
     this.toggleDisabled = this.toggleDisabled.bind(this);
     this.editSheetName = this.editSheetName.bind(this);
     this.active = 'activeSheet';
-    this.state = {disabled: true}
+    this.state = {disabled: true, name: 'tab'}
+  }
+
+  componentWillMount(){
+    this.setState({name: this.props.sheet})
   }
 
   showSheet() {
@@ -29,6 +33,7 @@ class SheetsTab extends Component {
   }
 
   editSheetName(e) {
+    this.setState({name: e.target.value})
     this.props.dispatch(Actions.changeSheetName(this.props.sheetId, e.target.value));
   }
 
@@ -47,7 +52,7 @@ class SheetsTab extends Component {
         className={cx('SheetTab', 'SheetButton', this.active)}
       >
       <ContentEditable
-          html={this.props.sheet}
+          html={this.state.name}
             // innerHTML of the editable div
           disabled={this.state.disabled}     // use true to disable edition
           onChange={this.editSheetName} // handle innerHTML change

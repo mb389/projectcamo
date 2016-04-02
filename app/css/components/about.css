@@ -1,30 +1,102 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color, primary-text, divider-color from '../common/colors.css';
 
-
-.about {
-  display: flex;
-  flex-direction: column;
+.aboutpg {
+  min-height: 100%;
 
 }
 
+.bg {
+  background-image: url('http://presidentimage.win/wp/2wuJNqK.jpg');
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.overlay {
+  opacity: .25;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
 
 .header {
   composes: heading from '../common/typography';
   text-align: center;
 }
 
-.description {
-  margin: 70px;
-  flex: 3;
+.featureWrap {
+  /*padding-top: 150px;
+  padding-bottom: 200px;*/
+}
 
+.description {
+  padding-top: 100px;
+  margin: 30px;
   composes: normal from '../common/typography';
   text-align: center;
 }
 
-
 .contribute {
   composes: small from '../common/typography';
 }
+
+hr.star-primary {
+  padding: 0;
+  border: none;
+  border-top: solid 5px;
+  text-align: center;
+  max-width: 250px;
+  margin: 25px auto 30px;
+}
+hr.star-light:after,
+hr.star-primary:after {
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  top: -0.8em;
+  font-size: 2em;
+  padding: 0 0.25em;
+}
+hr.star-light {
+  border-color: white;
+}
+hr.star-light:after {
+  background-color: #18bc9c;
+  color: white;
+}
+hr.star-primary {
+  border-color: #2c3e50;
+}
+hr.star-primary:after {
+  background-color: white;
+  color: dark-primary-color;
+}
+
+.features  {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-around;
+  color: dark-primary-color;
+  font-size: 20px;
+  color: white;
+  padding-top: 100px;
+  padding-bottom: 150px;
+}
+
+.features > div {
+  flex: 1;
+}
+
 
 .btn-social {
   display: inline-block;
@@ -53,20 +125,30 @@
 
 footer {
   color: white;
+  width: 100%;
+ position: relative;
+ /*bottom: 0;*/
 }
 footer h3 {
   margin-bottom: 30px;
 }
 footer .footer-above {
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding-top: 30px;
+  padding-bottom: 20px;
   color: primary-text;
+
   background-color: light-primary-color;
 }
 footer .footer-col {
   margin-bottom: 50px;
 }
-footer .footer-below {
-  padding: 25px 0;
+
+.footer-below {
+  height: 40px;
+  padding: 10px;
+  color: white;
+  text-align: center;
   background-color: primary-color;
+  width: 100%;
+  bottom: 0;
 }

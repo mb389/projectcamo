@@ -148,35 +148,56 @@ export default function spaceControl(state = {  }, action = {}) {
       }
     case SHOW_SHARE_MODAL:
       {
-        return Object.assign({},state,{ showShareModal: true});
+        let newState = _.cloneDeep(state);
+        newState.showShareModal = true;
+        return newState
+        // return Object.assign({},state,{ showShareModal: true});
       }
     case CLOSE_SHARE_MODAL:
       {
-        return Object.assign({},state,{ showShareModal: false});
+        let newState = _.cloneDeep(state);
+        newState.showShareModal = false;
+        return newState
+        // return Object.assign({},state,{ showShareModal: false});
       }
     case ADD_SHEET_VIEW:
       const sheetNamesToShow = state.sheetNames.concat({
         name: action.sheetName,
         id: action.newSheetId
       });
-      return Object.assign({}, state, {
-        newSheetId: action.newSheetId, sheetNames: sheetNamesToShow
-      });
+      let newState = _.cloneDeep(state);
+      newState.newSheetId = action.newSheetId
+      newState.sheetNames = sheetNamesToShow
+      return newState
+      // return Object.assign({}, state, {
+      //   newSheetId: action.newSheetId, sheetNames: sheetNamesToShow
+      // });
     case CHANGE_SPACE_NAME:
-      const space = Object.assign({}, state.space);
-      space.name = action.name;
-      return Object.assign({}, state, { space })
+      {let newState = _.cloneDeep(state);
+      newState.space.name = action.name
+      return newState
+      // const space = Object.assign({}, state.space);
+      // space.name = action.name;
+      // return Object.assign({}, state, { space })
+    }
     case CHANGE_SHEET_NAME:
-      const sheetToShow = Object.assign({}, state.sheetToShow);
-      sheetToShow.name = action.name
+      {let newState = _.cloneDeep(state);
+      newState.sheetToShow.name = action.name
       const sheetNames = state.sheetNames.map(
         sheetInSpace => sheetInSpace.id === action.sheetId ? {
           name: action.name, id: sheetInSpace.id
         } : sheetInSpace
       )
-      return Object.assign({}, state, { sheetNames, sheetToShow });
+      newState.sheetNames = sheetNames;
+      return newState;
+      // return Object.assign({}, state, { sheetNames, sheetToShow });
+    }
     case SEARCHING:
-      return { ...state, searching:action.bool };
+    {  let newState = _.cloneDeep(state);
+      newState.searching = action.bool
+      return newState;
+      // return { ...state, searching:action.bool };
+    }
     default:
       return state;
   }

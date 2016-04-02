@@ -65,7 +65,6 @@ export function saveSheet(sheetId, sheetData){
   return (dispatch) => {
     dispatch(updateSheetsArray(sheetId, sheetData))
     dispatch(toggleChanged())
-    dispatch(searching(false))
     request.put(`/sheet/${sheetId}`, { sheet: sheetData})
   }
 }
@@ -104,6 +103,7 @@ export function getSheet(sheetId, sheets) {
       }))
       // READJUST COLUMN WIDTHS
       dispatch(addColumn())
+      dispatch(searching(false))
       dispatch(removeColumn())
   };
 }

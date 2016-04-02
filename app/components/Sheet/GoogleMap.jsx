@@ -73,7 +73,6 @@ class GoogleMap extends Component {
           zoom={this.state.zoom}
           loadingMessage={'Your map is loading'}
           params={{v: '3.exp'}}
-
           className={cx('mapPlugIn')}
         >
         {this.state.markers}

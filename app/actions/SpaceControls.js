@@ -291,6 +291,7 @@ export function deleteSheet(sheetId, sheets, spaceId) {
     .then(() => dispatch(deleteSheetForReducer(sheetId)))
     // add a sheet if it was the only one or get the new sheet to show
     .then(()=> sheets.length === 1 ? dispatch(addSheet(spaceId)) : dispatch(getSheet(sheetId, sheets, true)))
+    // addSheet needs to also load the new sheet
   }
 }
 

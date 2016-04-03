@@ -39,6 +39,10 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.clearFilteredRows());
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.sheetNames && this.props.sheetNames && nextProps.sheetNames.length !== this.props.sheetNames.length) this.forceUpdate()
+  }
+
   runUpdateCell(evt, cellKey, rowIdx) {
     this.props.dispatch(SheetActions.updateCell(evt, cellKey, rowIdx, true));
   }
@@ -79,7 +83,8 @@ class SpaceControl extends Component {
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>
           <Navigation space={this.props.space} />
-          <SheetsBar sheetToShow={this.props.sheetToShow}
+          <SheetsBar
+            sheetToShow={this.props.sheetToShow}
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />

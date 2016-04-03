@@ -11,7 +11,8 @@ import {
   UPDATE_REF_SHEET,
   REMOVE_REF,
   ADD_USER_COLLAB,
-  ALL_CHANGED_FALSE
+  ALL_CHANGED_FALSE,
+  DELETE_SHEET
 } from 'constants/index';
 import { insertNewColInRows, newColInfo } from './sheetHelpers.js';
 
@@ -57,7 +58,7 @@ export default function spaceControl(state = {  }, action = {}) {
             found = true;
           }
         })
-        !found ? newState.sheets.push(action.dbSheet) : null;
+        !found && action.dbSheet ? newState.sheets.push(action.dbSheet) : null;
         return newState
       }
     case UPDATE_REF_SHEET:
@@ -197,6 +198,13 @@ export default function spaceControl(state = {  }, action = {}) {
       newState.searching = action.bool
       return newState;
       // return { ...state, searching:action.bool };
+    }
+    case DELETE_SHEET:
+    {
+      let newState = _.cloneDeep(state);
+      newState.sheets = newState.sheets.filter(sheet => sheet._id !== action.sheetId)
+      newState.sheetNames = newState.sheetNames.filter(sheet => sheet.id !== action.sheetId)
+      return newState
     }
     default:
       return state;

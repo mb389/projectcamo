@@ -94,8 +94,7 @@ exports.update = function(req, res) {
  * Remove a Workspace
  */
 exports.remove = function(req, res) {
-  var query = { id: req.params.id };
-  Workspace.findOneAndRemove(query)
+  Workspace.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).send('Removed Successfully'))
   .catch(err => console.log('Error on delete'))
 };

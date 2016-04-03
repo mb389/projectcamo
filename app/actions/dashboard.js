@@ -68,7 +68,7 @@ export function createSpace(spaceCount=0) {
 }
 
 export function removeSpace(space) {
-  console.log("action called",space)
+  console.log(space)
   return (dispatch) => {
     request.delete(`/workspace/${space._id}`)
     .then(res => {

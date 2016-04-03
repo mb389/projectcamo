@@ -27,10 +27,7 @@ export default function dashboard(state = {}, action = {}) {
     }
     case REMOVE_USER_SPACE: {
       let newState = _.cloneDeep(state);
-      newState.spaces.forEach(el,idx,arr => {
-        if (el._id===action.id) arr.splice(idx,1)
-      })
-      console.log("post-removal",action,newState.spaces)
+      newState.spaces = newState.spaces.filter(space => space._id !== action.id)
       return newState;
     }
     default:

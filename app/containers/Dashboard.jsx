@@ -33,8 +33,8 @@ class Dashboard extends Component {
     this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length+1 : 1));
   }
 
-  removeSpace(spaceToRemove) {
-    this.props.dispatch(Actions.removeSpace(spaceToRemove))
+  removeSpace(e) {
+    this.props.dispatch(Actions.removeSpace(e))
   }
 
   render() {

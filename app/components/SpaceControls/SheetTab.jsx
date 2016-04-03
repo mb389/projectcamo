@@ -47,7 +47,7 @@ class SheetsTab extends Component {
       'activeSheet' : '';
     let disabledBool = true;
     return (
-      <div onClick={this.showSheet}
+      <div onClick={this.active ? null : this.showSheet}
         onDoubleClick={this.toggleDisabled}
         className={cx('SheetTab', 'SheetButton', this.active)}
       >

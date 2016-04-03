@@ -11,7 +11,8 @@ import {
   UPDATE_REF_SHEET,
   REMOVE_REF,
   ADD_USER_COLLAB,
-  ALL_CHANGED_FALSE
+  ALL_CHANGED_FALSE,
+  DELETE_SHEET
 } from 'constants/index';
 import { insertNewColInRows, newColInfo } from './sheetHelpers.js';
 
@@ -197,6 +198,11 @@ export default function spaceControl(state = {  }, action = {}) {
       newState.searching = action.bool
       return newState;
       // return { ...state, searching:action.bool };
+    }
+    case DELETE_SHEET:
+    {
+      let newState = _.cloneDeep(state);
+      newState.filter(sheet)
     }
     default:
       return state;

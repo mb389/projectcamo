@@ -68,6 +68,10 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.searchSheet(e.target.value))
   }
 
+  deleteSheet(sheetId) {
+    this.props.dispatch(Actions.deleteSheet(sheetId))
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
@@ -85,6 +89,7 @@ class SpaceControl extends Component {
           toggleMagicBar={this.toggleMagicBar}
           searchSheet={this.searchSheet}
           searching={this.props.searching}
+          deleteSheet={this.deleteSheet}
         />
       <ShareModal space={this.props.space} />
         <Lookup />

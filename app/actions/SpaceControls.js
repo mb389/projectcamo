@@ -279,3 +279,18 @@ export function searching(bool=true) {
     bool
   }
 }
+
+export function deleteSheet(sheetId) {
+  return (dispatch) => {
+    request.delete(`/sheet/${sheetId}`)
+    .then(() => dispatch(deleteSheetForReducer(sheetId)))
+  }
+}
+
+
+export function deleteSheetForReducer(sheetId) {
+  return {
+    type: types.DELETE_SHEET,
+    sheetId
+  }
+}

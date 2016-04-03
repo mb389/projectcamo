@@ -16,11 +16,15 @@ class SheetsTab extends Component {
     this.toggleDisabled = this.toggleDisabled.bind(this);
     this.editSheetName = this.editSheetName.bind(this);
     this.active = 'activeSheet';
-    this.state = {disabled: true, name: 'tab'}
+    this.state = {disabled: true, name: this.props.sheet ? this.props.sheet : 'tab'}
   }
 
   componentWillMount(){
     this.setState({name: this.props.sheet})
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props.sheet && nextProps.sheet && this.props.sheet !== nextProps.sheet) this.setState({name:nextProps.sheet})
   }
 
   showSheet() {

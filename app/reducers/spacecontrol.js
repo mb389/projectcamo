@@ -202,7 +202,9 @@ export default function spaceControl(state = {  }, action = {}) {
     case DELETE_SHEET:
     {
       let newState = _.cloneDeep(state);
-      newState.filter(sheet)
+      newState.sheets = newState.sheets.filter(sheet => sheet._id !== action.sheetId)
+      newState.sheetNames = newState.sheetNames.filter(sheet => sheet.id !== action.sheetId)
+      return newState
     }
     default:
       return state;

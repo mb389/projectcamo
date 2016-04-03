@@ -80,17 +80,20 @@ export function changeSheet(obj) {
   };
 }
 
-function findInSheets(sheetId, sheets) {
+function findInSheets(sheetId, sheets, deleting=false) {
   for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i]._id === sheetId) {
+    if (sheets[i]._id === sheetId && !deleting) {
       return sheets[i]
       break;
     }
   }
+  if(deleting) {
+    return sheets.filter(sheet => sheet._id !== sheetId)[0];
+  }
 }
 
-export function getSheet(sheetId, sheets) {
-  let nextSheet = findInSheets(sheetId, sheets)
+export function getSheet(sheetId, sheets, deleting=false) {
+  let nextSheet = findInSheets(sheetId, sheets, deleting)
   return (dispatch) => {
       // CHANGE TAB NAME
       dispatch(loadSheet({
@@ -280,13 +283,16 @@ export function searching(bool=true) {
   }
 }
 
-export function deleteSheet(sheetId) {
+export function deleteSheet(sheetId, sheets, spaceId) {
   return (dispatch) => {
+    // delete sheet from the database
     request.delete(`/sheet/${sheetId}`)
+    // delete the sheet from sheetNames and sheets array
     .then(() => dispatch(deleteSheetForReducer(sheetId)))
+    // add a sheet if it was the only one or get the new sheet to show
+    .then(()=> sheets.length === 1 ? dispatch(addSheet(spaceId)) : dispatch(getSheet(sheetId, sheets, true)))
   }
 }
-
 
 export function deleteSheetForReducer(sheetId) {
   return {

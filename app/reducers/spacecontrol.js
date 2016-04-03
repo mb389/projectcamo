@@ -11,9 +11,10 @@ import {
   UPDATE_REF_SHEET,
   REMOVE_REF,
   ADD_USER_COLLAB,
-  ALL_CHANGED_FALSE
+  ALL_CHANGED_FALSE,
+  DELETE_SHEET
 } from 'constants/index';
-import { insertNewColInRows } from './sheetHelpers.js';
+import { insertNewColInRows, newColInfo } from './sheetHelpers.js';
 
 
 export default function spaceControl(state = {  }, action = {}) {
@@ -57,7 +58,7 @@ export default function spaceControl(state = {  }, action = {}) {
             found = true;
           }
         })
-        !found ? newState.sheets.push(action.dbSheet) : null;
+        !found && action.dbSheet ? newState.sheets.push(action.dbSheet) : null;
         return newState
       }
     case UPDATE_REF_SHEET:
@@ -89,13 +90,10 @@ export default function spaceControl(state = {  }, action = {}) {
           }
           // if no column ref make a new one
           else {
-            let newColumn = {
-              id: "" + (100 + sheet.content.columnHeaders.length),
-              idx: sheet.content.columnHeaders.length,
-              name: action.currSheet.name,
-              linkedSheet: action.currSheet._id,
-              type: "Reference"
-            }
+            let newColumn = newColInfo(sheet.content.columnHeaders)
+            newColumn.name = action.currSheet.name
+            newColumn.linkedSheet = action.currSheet._id
+            newColumn.type = 'Reference'
             sheet.content.columnHeaders.push(newColumn)
             sheet.content = insertNewColInRows(sheet.content,newColumn)
             // search and add
@@ -151,35 +149,63 @@ export default function spaceControl(state = {  }, action = {}) {
       }
     case SHOW_SHARE_MODAL:
       {
-        return Object.assign({},state,{ showShareModal: true});
+        let newState = _.cloneDeep(state);
+        newState.showShareModal = true;
+        return newState
+        // return Object.assign({},state,{ showShareModal: true});
       }
     case CLOSE_SHARE_MODAL:
       {
-        return Object.assign({},state,{ showShareModal: false});
+        let newState = _.cloneDeep(state);
+        newState.showShareModal = false;
+        return newState
+        // return Object.assign({},state,{ showShareModal: false});
       }
     case ADD_SHEET_VIEW:
       const sheetNamesToShow = state.sheetNames.concat({
         name: action.sheetName,
         id: action.newSheetId
       });
-      return Object.assign({}, state, {
-        newSheetId: action.newSheetId, sheetNames: sheetNamesToShow
-      });
+      let newState = _.cloneDeep(state);
+      newState.newSheetId = action.newSheetId
+      newState.sheetNames = sheetNamesToShow
+      return newState
+      // return Object.assign({}, state, {
+      //   newSheetId: action.newSheetId, sheetNames: sheetNamesToShow
+      // });
     case CHANGE_SPACE_NAME:
-      const space = Object.assign({}, state.space);
-      space.name = action.name;
-      return Object.assign({}, state, { space })
+      {let newState = _.cloneDeep(state);
+      newState.space.name = action.name
+      return newState
+      // const space = Object.assign({}, state.space);
+      // space.name = action.name;
+      // return Object.assign({}, state, { space })
+    }
     case CHANGE_SHEET_NAME:
-      const sheetToShow = Object.assign({}, state.sheetToShow);
-      sheetToShow.name = action.name
+      {let newState = _.cloneDeep(state);
+      newState.sheetToShow.name = action.name
       const sheetNames = state.sheetNames.map(
         sheetInSpace => sheetInSpace.id === action.sheetId ? {
           name: action.name, id: sheetInSpace.id
         } : sheetInSpace
       )
-      return Object.assign({}, state, { sheetNames, sheetToShow });
+      newState.sheetNames = sheetNames;
+      return newState;
+      // return Object.assign({}, state, { sheetNames, sheetToShow });
+    }
     case SEARCHING:
-      return { ...state, searching:action.bool };
+    {  let newState = _.cloneDeep(state);
+      newState.searching = action.bool
+      return newState;
+      // return { ...state, searching:action.bool };
+    }
+    case DELETE_SHEET:
+    {
+      let newState = _.cloneDeep(state);
+      newState.sheets = newState.sheets.filter(sheet => sheet._id !== action.sheetId)
+      newState.sheetNames = newState.sheetNames.filter(sheet => sheet.id !== action.sheetId)
+      return newState
+    }
     default:
       return state;
   }

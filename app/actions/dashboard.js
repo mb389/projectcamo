@@ -56,7 +56,6 @@ export function getSpaces() {
   }
 }
 
-
 export function createSpace(spaceCount=0) {
 
   return (dispatch) => {
@@ -64,6 +63,18 @@ export function createSpace(spaceCount=0) {
     .then(res => {
       dispatch(spaceToStore(res.data))
     })
+    .then(null,console.log("post workspace failed"))
+  }
+}
+
+export function removeSpace(space) {
+  console.log(space)
+  return (dispatch) => {
+    request.delete(`/workspace/${space._id}`)
+    .then(res => {
+      dispatch(spaceToRemove(space))
+    })
+    .then(null,(err)=>console.log(err))
   }
 }
 
@@ -73,5 +84,12 @@ export function spaceToStore(res) {
     id: res.space._id,
     name: res.space.name,
     sheet: res.sheet
+  }
+}
+
+export function spaceToRemove(res) {
+  return {
+    type: types.REMOVE_USER_SPACE,
+    id: res._id
   }
 }

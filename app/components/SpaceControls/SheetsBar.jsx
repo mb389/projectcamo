@@ -12,7 +12,8 @@ const SheetsBar = (props) => {
   const sheets = !props.sheetNames ? [] : props.sheetNames;
 
   const sheetsToView = sheets.map((sheetForTab, i) => (
-    <SheetTab spaceId={props.space._id}
+    <SheetTab
+      spaceId={props.space._id}
       activeSheet={props.sheetToShow}
       key={i}
       sheet={sheetForTab.name}

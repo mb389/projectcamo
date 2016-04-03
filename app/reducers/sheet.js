@@ -62,9 +62,32 @@ export default function sheet(state = {
           }
         })
 
+
         // const newGridState = immutableState.map(row => {
         //   return row.map(cell => cell.set('focused', false))
         // })
+
+        // Latest Master
+        // newState.columnHeaders = action.sheet.columnHeaders || [];
+        // newState.grid = action.sheet.grid || [];
+        // if (newState.grid[0] && newState.grid[0]['100']) {
+        //   newState.grid[0]['100'].focused = true;
+        //   newState.currentCell = {
+        //     cell: newState.grid[0]['100'],
+        //     rowIdx: 0,
+        //     cellKey: "100"
+        //   };
+        // }
+        // newState.history = action.history || [];
+        // newState.historySheet = action.historySheet || null;
+        // newState.modalRow = {
+        //   data: null,
+        //   rowIdx: null
+        // };
+        // newState.showRowModal= false;
+        // newState.showHistoryModal= false;
+        // newState.changed = false;
+
 
         const newGridToSet = immutableState
                                 .get('grid')
@@ -90,26 +113,6 @@ export default function sheet(state = {
           .set('changed', false)
           .toJS()
 
-      //   newState.columnHeaders = action.sheet.columnHeaders || [];
-      //   newState.grid = action.sheet.grid || [];
-      //   newState.grid[0][100].focused = true;
-      //   newState.currentCell = {
-      //     cell: newState.grid[0][100],
-      //     rowIdx: 0,
-      //     cellKey: "100"
-      //   };
-      //   newState.history = action.history || [];
-      //   newState.historySheet = action.historySheet || null;
-      //   newState.modalRow = {
-      //     data: null,
-      //     rowIdx: null
-      //   };
-      //   newState.showRowModal= false;
-      //   newState.showHistoryModal= false;
-      //   newState.changed = false;
-      //
-      //   return newState;
-      // }
     case TOGGLE_CHANGED:
       // {
       //   let newState = _.cloneDeep(state)
@@ -198,11 +201,12 @@ export default function sheet(state = {
                   'focused'], false)
                   .set('currentCell', action.cell)
       }
+
       if (action.cell) {
         return CCCurrentCellState.setIn(['grid', action.cell.rowIdx, action.cell.cellKey, 'focused'], true).toJS()
       } else {
         return CCCurrentCellState.toJS();
-      }
+
 
 
     case UPDATE_MODAL_CELL:
@@ -242,12 +246,14 @@ export default function sheet(state = {
               .toJS()
 
     case CLOSE_LOOKUP_MODAL:
+
       // {
-      //   let modalCloseState = _.cloneDeep(state)
-      //   modalCloseState.showLookupModal = false;
-      //   return modalCloseState
+      // let newState = _.cloneDeep(state)
+      // newState.showLookupModal = false;
+      // return newState
       // }
       return immutableState.set('showLookupModal', false).toJS()
+
 
     case SHOW_ROW_MODAL:
       // {
@@ -269,15 +275,18 @@ export default function sheet(state = {
               .toJS();
 
     case CLOSE_ROW_MODAL:
+
       // {
-      //   let modalCloseState = _.cloneDeep(state)
-      //   modalCloseState.showRowModal = false;
-      //   if (!action.dontSave) {
-      //     modalCloseState.grid[modalCloseState.modalRow.rowIdx] = modalCloseState.modalRow.data
-      //   }
-      //   modalCloseState.modalRow.data = null;
-      //   modalCloseState.modalRow.rowIdx = null;
-      //   return modalCloseState
+      // let newState = _.cloneDeep(state)
+      // console.log(newState.modalRow.data)
+      // newState.showRowModal = false;
+      // if (!action.dontSave) {
+      //   newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data
+      // }
+      // newState.modalRow.data = null;
+      // newState.modalRow.rowIdx = null;
+      // newState.changed = true;
+      // return newState
       // }
 
       let savedGridRow;
@@ -285,9 +294,11 @@ export default function sheet(state = {
       if(!action.dontSave) {
         savedGridRow = immutableState.get('grid').set(immutableState.getIn(['modalRow', 'rowIdx']),immutableState.getIn(['modalRow', 'data']))
         savedGridRowState = immutableState.set('grid', savedGridRow);
+
       }
       return savedGridRowState
               .set('showRowModal', false)
+              .set('changed', true)
               .setIn(['modalRow', 'data'], null)
               .setIn(['moalRow', 'rowIdx'], null)
               .toJS()

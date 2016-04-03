@@ -5,7 +5,13 @@ import * as types from 'constants';
 
 describe('Sheets reducer', () => {
   const initialState = {
-    grid: [],
+    grid: [{
+          '100': {
+              type: 'ID',
+              data: 'Oscar',
+              id: '0'
+            }
+        }],
     columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
     showRowModal: false,
     modalRow: {
@@ -65,25 +71,11 @@ describe('Sheets reducer', () => {
 
   it('should handle ADD_COLUMN', () => {
     
-    expect(
-      reducer(initialState, {
-        type: types.ADD_COLUMN
-      })
-    ).toEqual({
-      grid: [],
-      columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },{
-        id: '101',
-        name: 'Column 2' ,
-        idx: 1,
-        width: 200
-      }],
-      showRowModal: false,
-      modalRow: {
-          data:null,
-          rowIdx:null
-        },
-      changed: true
-      })
+    const nextState = reducer(initialState, {type: types.ADD_COLUMN})
+
+    expect(nextState.columnHeaders.length).toEqual(2)  
+    expect(nextState.grid[0]['101']).toExist()  
+
   })
 
   it('should handle ADD_ROW', () => {
@@ -200,6 +192,107 @@ describe('Sheets reducer', () => {
     const nextState = reducer(threebyThree, action);
 
     expect(nextState.filteredRows.length).toEqual(1)
+
+  })
+
+  it('should handle UPDATE_CELL', () => {
+    let state = threebyThree
+    const action = {
+      type: types.UPDATE_CELL,
+      cell: {
+        data: "hilla",
+        idx: 0,
+        key: "100"
+      } 
+    }
+
+    state.currentCell = { cell: {} }
+
+    const nextState = reducer(state, action);
+
+    expect(nextState.grid[0]['100'].data).toEqual('hilla')
+
+  })
+
+  it('should handle UPDATE_CELL_BY_ID', () => {
+
+    const action = {
+      type: types.UPDATE_CELL_BY_ID,
+      cell: {
+        data: "hilla",
+        id: '0'
+      } 
+    }
+
+    const nextState = reducer(threebyThree, action);
+
+    expect(nextState.grid[0]['100'].data).toEqual('hilla')
+
+  })
+
+  it('should handle UPDATE_MODAL_CELL to an array', () => {
+    let state = threebyThree
+
+    state.modalRow = {
+      data : {
+        '100': {
+            type: 'ID',
+            data: 'Oscar',
+            id: '0'
+          },
+        '101': {
+            type: 'Images',
+            data: ["placeholdit.com/400/400"],
+            id: '1'
+          },
+        '102': {
+            type: 'Text',
+            data: 'Hello',
+            id: '2'
+          }
+      }
+    }
+    state.currentCell = {}
+
+    const action = {
+      type: types.UPDATE_MODAL_CELL,
+      cell: {
+        data: "google.com",
+        key: '101',
+        idx: 0
+      },
+      push: true
+
+    }
+
+    const nextState = reducer(state, action);
+
+    expect(nextState.modalRow.data['101'].data.length).toEqual(2)
+
+  })
+
+  it('should handle CLOSE_ROW_MODAL and update grid', () => {
+    let state = initialState
+
+    state.modalRow = {
+      data : {
+        '100': {
+              type: 'ID',
+              data: 'redux',
+              id: '0'
+            }
+      },
+      rowIdx: 0
+    }
+    state.currentCell = {}
+
+    const closeModal = {
+      type: types.CLOSE_ROW_MODAL
+    }
+
+    let nextState = reducer(state, closeModal);
+
+    expect(nextState.grid[0]['100'].data).toEqual('redux')
 
   })
 

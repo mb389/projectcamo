@@ -1,54 +1,56 @@
 @value primary-color, dark-primary-color, light-primary-color, accent-color from '../common/colors.css';
 
 .dashboard {
-  margin: 70px 200px;
+  height: 90vh;
+  margin: 30px;
+  padding-left: 70px;
+  padding-right: 70px;
   display: flex;
   flex-direction: row;
-  /*align-items: stretch;*/
-  /*align-content: center;*/
   justify-content: space-between;
   text-decoration: none;
 }
 
- .profile {
+.removeButton {
+  display: none;
+  position: absolute;
+  top: -8px;
+  left: 2px;
 
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   margin-left: 40px;
-  flex: .5;
-  min-height: 20px;
-  padding: 19px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
+}
+
+
+.spaces {
+  margin-top: 5px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-height: 70vh;
+  min-height: 30vh;
+  background: rgba(50,50,50,.1);
   border: 1px solid #e3e3e3;
   border-radius: 4px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
 }
 
-.profile > div {
+.spacesDiv {
 
-}
-
-.spaceHeader {
-  background: primary-color;
-  border-radius: 1px;
-  color: white;
-}
- .spaces {
-  padding: 19px;
-  margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  margin:20px;
   font-size: 120%;
   margin-left: 20px;
   line-height: 200%;
   flex-basis: 250px;
   flex: 1;
+}
 
+
+.spaceHeader {
+  background: primary-color;
+  border-radius: 1px;
+  color: white;
 }
 
 .profImg {
@@ -63,5 +65,21 @@
   background-color: #00BCD4;
   text-color: white;
   border: 0;
+  margin-left: 10px;
 
+}
+
+.iconForSheet {
+  margin-bottom: 30px;
+  font-size: 2.5em;
+  display: inline-block;
+}
+
+.iconForSheet:hover .removeButton {
+  display: inline-flex;
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
 }

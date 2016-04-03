@@ -25,6 +25,7 @@ class SpaceControl extends Component {
     this.searchSheet = this.searchSheet.bind(this);
     this.resizeCol = this.resizeCol.bind(this);
     this.dragCol = this.dragCol.bind(this);
+    this.deleteSheet = this.deleteSheet.bind(this);
   }
 
   componentWillMount() {
@@ -36,6 +37,10 @@ class SpaceControl extends Component {
   componentWillUnmount(){
     this.props.dispatch(SheetActions.clearSheet());
     this.props.dispatch(SheetActions.clearFilteredRows());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.sheetNames && this.props.sheetNames && nextProps.sheetNames.length !== this.props.sheetNames.length) this.forceUpdate()
   }
 
   runUpdateCell(evt, cellKey, rowIdx) {
@@ -68,13 +73,18 @@ class SpaceControl extends Component {
     this.props.dispatch(SheetActions.searchSheet(e.target.value))
   }
 
+  deleteSheet() {
+    this.props.dispatch(Actions.deleteSheet(this.props.sheetToShow._id, this.props.sheets, this.props.space._id))
+  }
+
   render() {
     if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>
           <Navigation space={this.props.space} />
-          <SheetsBar sheetToShow={this.props.sheetToShow}
+          <SheetsBar
+            sheetToShow={this.props.sheetToShow}
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
@@ -85,6 +95,7 @@ class SpaceControl extends Component {
           toggleMagicBar={this.toggleMagicBar}
           searchSheet={this.searchSheet}
           searching={this.props.searching}
+          deleteSheet={this.deleteSheet}
         />
       <ShareModal space={this.props.space} />
         <Lookup />
@@ -117,7 +128,9 @@ function mapStateToProps(store) {
     sheet: store.sheet,
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    filteredRows: store.sheet.filteredRows
+    filteredRows: store.sheet.filteredRows,
+    sheets: store.spacecontrol.sheets,
+    sheetToShow: store.spacecontrol.sheetToShow
   };
 }
 

@@ -36,6 +36,15 @@ Each row number has an expansion button next to it when hovered. Clicking these 
 When editing a ref column users will be asked to designate the sheet they would like to reference. Once a sheet is selected users can "Link" to any of the records in the selected sheet. The ID of that record(s) will be interpolated into the designated cell.
 
 
+### Formulas
+
+Formula cells allow you to import formulas written by other users from the Formula Store, or write your own custom Javascript formulas. Formulas can reference data from other columns by either refering to them by name or Col#.
+
+e.g.
+
+The formula: `Record Name` or `Col1` will both output the value from the first column
+
+
 ## Technologies
 
 SpaceBook leverages React and Redux to quickly render all of your information. 

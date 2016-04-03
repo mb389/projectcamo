@@ -6,7 +6,6 @@
 }
 
 .bg {
-  background-image: url('http://presidentimage.win/wp/2wuJNqK.jpg');
   z-index: -2;
   position: absolute;
   top: 0;
@@ -17,7 +16,7 @@
 }
 
 .overlay {
-  opacity: .25;
+  opacity: .15;
   z-index: -1;
   width: 100%;
   height: 100%;

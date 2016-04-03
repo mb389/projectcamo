@@ -6,6 +6,7 @@ import Footer from 'components/About/Footer';
 import Features from 'components/About/Features';
 import Info from 'components/About/Info';
 import logo from 'images/SpaceBook.png'
+import space from 'images/spacebg.jpg'
 const cx = classNames.bind(styles);
 
 /*
@@ -18,7 +19,7 @@ const About = props => {
     <div>
     <Navigation disabled={true} />
     <div className={cx('aboutpg')}>
-      <i className={cx('bg')}></i>
+      <img className={cx('bg')} src={space}></img>
       <div className={cx('description')}>
         <h1></h1>
         <img width="800px" height="auto" src={logo} alt="SpaceBook Logo" className={cx('logo')} />

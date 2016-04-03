@@ -4,6 +4,7 @@ import {
   LOAD_USER_SPACES,
   ADD_USER_SPACE,
   LOAD_USER_INFO,
+  REMOVE_USER_SPACE
 } from 'constants/index';
 
 export default function dashboard(state = {}, action = {}) {
@@ -23,6 +24,14 @@ export default function dashboard(state = {}, action = {}) {
     case ADD_USER_SPACE: {
       let newSpaces = state.spaces.concat({_id:action.id, name:action.name, user: action.email})
       return { ...state, spaces: newSpaces }
+    }
+    case REMOVE_USER_SPACE: {
+      let newState = _.cloneDeep(state);
+      newState.spaces.forEach(el,idx,arr => {
+        if (el._id===action.id) arr.splice(idx,1)
+      })
+      console.log("post-removal",action,newState.spaces)
+      return newState;
     }
     default:
       return state;

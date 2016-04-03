@@ -3,7 +3,7 @@ import styles from 'css/components/dashboard';
 import classNames from 'classnames/bind';
 import AddSpace from './AddSpace'
 import {Link} from 'react-router';
-import {Glyphicon} from 'react-bootstrap';
+import {Button, Glyphicon} from 'react-bootstrap';
 import folder from 'images/folder.png'
 
 const cx = classNames.bind(styles);
@@ -16,6 +16,7 @@ const SpaceList = (props) => {
    spaces.map((el) => {
      const route=`space/${el._id}`;
       return <div key={el._id} className={cx('iconForSheet') + ' col-xs-6 col-sm-4 col-md-3 col-lg-2'}>
+        {/*<div className={cx("removeButton")}><Button onClick={props.removeSpace(el)} bsStyle='danger' bsSize="xsmall"><Glyphicon glyph="glyphicon glyphicon-remove"/></Button></div>*/}
                   <Link to={route}>
                     <img className={cx('icon')} src={folder}/>
                   </Link>
@@ -26,10 +27,8 @@ const SpaceList = (props) => {
     return (
       <div className={cx('spacesDiv')}>
         <strong>Your Spaces <AddSpace createSpace={props.createSpace}/></strong>
-
         <div className={cx('spaces')}>
         {spacesToDisplay}
-
         </div>
       </div>
     );

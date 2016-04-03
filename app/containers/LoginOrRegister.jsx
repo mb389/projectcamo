@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { manualLogin, signUp, toggleLoginMode } from 'actions/users';
 import styles from 'css/components/login';
 import hourGlassSvg from 'images/hourglass.svg';
+import space from 'images/spacebg.jpg'
 
 const cx = classNames.bind(styles);
 
@@ -52,9 +53,9 @@ class LoginOrRegister extends Component {
         <div className={cx('header')}>
           <h1 className={cx('heading')}>Login with Email</h1>
           <div className={cx('alternative')}>
-            Not what you want?
+            Don't have an account?
             <a className={cx('alternative-link')}
-              onClick={this.toggleMode}> Register an Account</a>
+              onClick={this.toggleMode}> Register here</a>
           </div>
         </div>
       );
@@ -91,10 +92,11 @@ class LoginOrRegister extends Component {
     const { isWaiting, message } = this.props.user;
 
     return (
-      <div  >
+
       <div className={cx('login', {
         'waiting': isWaiting
       })}>
+      <img className={cx('outer')} src={space} />
         <div>
           { this.renderHeader() }
           <img className={cx('loading')} src={hourGlassSvg} />
@@ -114,7 +116,6 @@ class LoginOrRegister extends Component {
           </div>
         </div>
       </div>
-    </div>
     );
   }
 }

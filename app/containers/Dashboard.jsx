@@ -20,6 +20,7 @@ class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
     this.createSpace = this.createSpace.bind(this)
+    this.removeSpace = this.removeSpace.bind(this)
   }
 
   componentWillMount() {
@@ -32,12 +33,17 @@ class Dashboard extends Component {
     this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length+1 : 1));
   }
 
+  removeSpace(e) {
+    this.props.dispatch(Actions.removeSpace(e))
+  }
+
   render() {
     return (
       <div>
         <Navigation link={{path: "/about", name: "About"}} disabled={true} />
         <div className={cx('dashboard')}>
-          <SpaceList spaces={this.props.spaces} createSpace={this.createSpace}/>
+          <SpaceList spaces={this.props.spaces}
+            createSpace={this.createSpace} removeSpace={this.removeSpace}/>
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>
         <FooterBelow />

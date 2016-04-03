@@ -1,9 +1,20 @@
-@value global-radius, font-large, font-medium, font-small from '../settings';
-@value color-athens-gray, color-mercury, color-white, color-dodger-blue, color-crimson, color-bombay from '../common/colors.css';
-
 
 .wrap {
   width: 70%;
+
+
+}
+
+.outer {
+  z-index: -2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: auto;
+  height: 100%;
+  width: 100%;
+  opacity: .85;
+
 }
 
 .login {
@@ -14,6 +25,7 @@
   border: 2px solid color-mercury;
   border-radius: global-radius;
   box-sizing: border-box;
+  color: white;
 }
 
   .waiting {
@@ -72,6 +84,7 @@
 
   .button {
     composes: greenButton from '../common/button';
+    color: blue;
   }
 
   .hint {

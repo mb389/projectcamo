@@ -58,7 +58,7 @@ export default function spaceControl(state = {  }, action = {}) {
             found = true;
           }
         })
-        !found ? newState.sheets.push(action.dbSheet) : null;
+        !found && action.dbSheet ? newState.sheets.push(action.dbSheet) : null;
         return newState
       }
     case UPDATE_REF_SHEET:

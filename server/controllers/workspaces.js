@@ -60,6 +60,7 @@ exports.one = function(req, res) {
 
 exports.add = function(req, res) {
   var spaceToSend;
+  console.log(req.user)
   Workspace.create({name: `NewSpace${req.body.spaceCount}`, user:req.user._id})
   .then((space) => {
     spaceToSend = space;
@@ -71,11 +72,12 @@ exports.add = function(req, res) {
   .then(sheet => {
     res.json({
       space: spaceToSend,
-      sheet,
-      email: req.user.email
+      sheet
     })
   })
-  .catch(err => res.status(400).send(err))
+  .catch(err => {
+    res.status(400).send(err)
+  })
 };
 
 /**
@@ -92,8 +94,7 @@ exports.update = function(req, res) {
  * Remove a Workspace
  */
 exports.remove = function(req, res) {
-  var query = { id: req.params.id };
-  Workspace.findOneAndRemove(query)
+  Workspace.findByIdAndRemove(req.params.id)
   .then(data => res.status(200).send('Removed Successfully'))
   .catch(err => console.log('Error on delete'))
 };

@@ -45,6 +45,13 @@
   margin-left: 15px;
 }
 
+.DeleteButton {
+  display: inline-block;
+  width: 25px;
+  margin-right: 20px;
+  float:right;
+}
+
 .ShareButton, .HistoryButton, .SaveButton {
   display: inline-block;
   width: 25px;

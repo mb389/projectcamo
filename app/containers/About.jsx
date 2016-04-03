@@ -5,6 +5,8 @@ import Navigation from 'containers/Navigation';
 import Footer from 'components/About/Footer';
 import Features from 'components/About/Features';
 import Info from 'components/About/Info';
+import logo from 'images/SpaceBook.png'
+import space from 'images/spacebg.jpg'
 const cx = classNames.bind(styles);
 
 /*
@@ -16,16 +18,16 @@ const About = props => {
   return (
     <div>
     <Navigation disabled={true} />
-    <div className={cx('about')}>
+    <div className={cx('aboutpg')}>
+      <img className={cx('bg')} src={space}></img>
       <div className={cx('description')}>
         <h1></h1>
-        <img width="800px" height="auto" src="https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs" alt="" className={cx('logo')} />
-
+        <img width="800px" height="auto" src={logo} alt="SpaceBook Logo" className={cx('logo')} />
+        <div className={cx('overlay')}></div>
         </div>
         <Features />
-          <Info />
         <Footer />
-        
+
       </div>
 
     </div>

@@ -17,21 +17,40 @@ class Navigation extends Component {
   constructor(props, context) {
     super(props, context);
     this.editSpaceName = this.editSpaceName.bind(this);
-    // this.onNameChange = this.onNameChange.bind(this);
+    this.state = {name: 'SpaceBook'}
+    this.getName = this.getName.bind(this)
   }
 
   editSpaceName(e) {
+    this.setState({name: e.target.value})
     this.props.dispatch(Actions.changeSpaceName(this.props.space._id, e.target.value));
+  }
+
+  getName(){
+    if (this.props.sheet.grid && this.props.space) {
+      this.setState({name: this.props.space.name})
+    } else {
+      this.setState({name: 'SpaceBook'})
+    }
+  }
+
+  componentDidMount(){
+    this.getName()
+  }
+
+  componentWillReceiveProps(){
+    this.getName()
   }
 
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
+        {this.props.user.authenticated ? (
       <Link to={this.props.link ?  this.props.link.path : "/dashboard"}
       className={cx('item', 'main')}
-      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> {this.props.link ? this.props.link.name : "Dashboard"}</span></Link>
+      activeClassName={cx('active')}><span className={cx('dashboardLink')}> <Glyphicon glyph="menu-left" /> {this.props.link ? this.props.link.name : "Dashboard"}</span></Link>) : '' }
     <ContentEditable className={cx('item', 'spaceName')}
-          html={!this.props.space ? 'SpaceBook' : this.props.space.name}
+          html={this.state.name}
             // innerHTML of the editable div
           disabled={this.props.disabled}     // use true to disable edition
           onChange={this.editSpaceName} // handle innerHTML change
@@ -54,16 +73,11 @@ class Navigation extends Component {
     }
 }
 
-Navigation.propTypes = {
-  workSpaceName: PropTypes.string,
-  dispatch: PropTypes.func.isRequired,
-  user: PropTypes.object
-};
-
 function mapStateToProps(store) {
   return {
     user: store.user,
-    space: store.spacecontrol.space
+    space: store.spacecontrol.space,
+    sheet: store.sheet
   };
 }
 

@@ -75,8 +75,7 @@ exports.updateName = function(req, res) {
  * Remove a Sheet
  */
 exports.remove = function(req, res) {
-  var query = { id: req.params.id };
-  Sheet.findOneAndRemove(query)
+  Sheet.remove({_id: req.params.id})
   .then(data => res.status(200).send('Removed Successfully'))
   .catch(err => console.log('Error on delete'))
 };

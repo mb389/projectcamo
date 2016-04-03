@@ -55,8 +55,6 @@ class ShareModal extends Component {
                   <Input type='text' placeholder="Enter User's E-mail" ref="input" buttonAfter={addBtn} onChange={this.handleChange} />
 
                 </form>
-                <hr />
-                <h4>Other Info</h4>
                 <p></p>
               </div>
             </Modal.Body>

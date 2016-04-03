@@ -2,21 +2,35 @@
 
 .dashboard {
   height: 90vh;
-  /*background: light-primary-color;*/
+  margin: 30px;
+  padding-left: 70px;
+  padding-right: 70px;
   display: flex;
   flex-direction: row;
-  /*align-items: stretch;*/
-  /*align-content: center;*/
   justify-content: space-between;
   text-decoration: none;
 }
 
+.removeButton {
+  display: none;
+  position: absolute;
+  top: -8px;
+  left: 2px;
+
+}
+
+
 .spaces {
+  margin-top: 5px;
   padding-top: 40px;
   padding-bottom: 30px;
   padding-left: 10px;
   padding-right: 10px;
+<<<<<<< HEAD
   max-height: 75vh;
+=======
+  max-height: 70vh;
+>>>>>>> f17463732a7dfe8bd58bbc4539e4af6478057f2b
   min-height: 30vh;
   background: rgba(50,50,50,.1);
   border: 1px solid #e3e3e3;
@@ -43,8 +57,6 @@
   color: white;
 }
 
-
-
 .profImg {
 
 }
@@ -53,14 +65,12 @@
 
 }
 
-
-
 .addSpace {
   background-color: #00BCD4;
   text-color: white;
   border: 0;
-  margin-top: 10px;
   margin-left: 10px;
+
 }
 
 .iconForSheet {
@@ -69,8 +79,11 @@
   display: inline-block;
 }
 
+.iconForSheet:hover .removeButton {
+  display: inline-flex;
+}
+
 .icon {
   width: 60px;
   height: 60px;
-
 }

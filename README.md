@@ -42,7 +42,7 @@ Formula cells allow you to import formulas written by other users from the Formu
 
 e.g.
 
-The formula: `Record Name` or `Col1` will both output the value from the first column
+The formula: `Record Name + ' Formula' ` or `Col1 + ' Formula'` will both output the value from the first column appended by ' Formula'.
 
 
 ## Technologies

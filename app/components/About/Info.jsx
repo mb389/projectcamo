@@ -12,14 +12,8 @@ const Info = (props) => {
 
     return (
     <div>
-      <div className={cx('info')}>
-      <div className={cx('header')}>ABOUT</div>
-      <hr className={cx("star-primary")}/>
-      <div>
-        SpaceBook was created at Fullstack Academy in 2016. We aim to recreate the spreadsheet with today's media rich world in mind.
-    </div>
-  </div>
-  <div className={cx('info')}>
+      
+  <div className={cx('contact')}>
     <div className={cx('header')}>CONTACT</div>
     <hr className={cx("star-primary")}/>
     <div>x@y.com</div>

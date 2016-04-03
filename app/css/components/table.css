@@ -153,6 +153,11 @@
   /*flex-direction:column;*/
 }
 
+.cellLink {
+  cursor: hand;
+  cursor: pointer;
+}
+
 .cellContent::-webkit-scrollbar {
   display: none;
 }

@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { closeLookupModal, updateCellById, updateColumn } from 'actions/sheet';
 import { updateRefSheet, removeRef } from 'actions/SpaceControls';
 import styles from 'css/components/modal';
-import { Modal, Button, ButtonGroup, Panel } from 'react-bootstrap';
+import LinkLabel from './CellTypes/LinkLabel';
+import { Modal, Button, ButtonGroup, Panel, ListGroup, ListGroupItem, Input } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,8 @@ class Lookup extends Component {
     this.whichButton = this.whichButton.bind(this)
     this.findColHeader = this.findColHeader.bind(this)
     this.getTargetName = this.getTargetName.bind(this)
+    this.getRecords = this.getRecords.bind(this)
+    this.recType = this.recType.bind(this)
 	}
 
 	close() {
@@ -99,15 +102,56 @@ class Lookup extends Component {
 
   }
 
+  recType(cell, cellKey){
+    switch (cell.type) {
+      case 'Images':
+        cell.data = cell.data || [];
+        return (cell.data.map(function (img, i) {
+          return (<img src={img} key={i} className={cx('img-thumb')}/>)
+        }))
+      case 'Reference':
+        const labels = cell.data ? cell.data.map((label, i)=> <LinkLabel data={label.data} key={i} />) : <span key='0'></span>
+        return  (
+          <div>
+            {labels}
+          </div>
+        )
+      case 'Checkbox':
+          return (
+           <Input
+            className={cx('cellCheckBox')}
+            type="checkbox" label=" "
+            checked={cell.data === 'checked'}
+            readOnly/>
+          )
+      default:
+        return (cell.data)
+    }
+  }
+
+  getRecords(row){
+      let listItems = []
+      for (let key in row) {
+        let columnName = this.state.sheet.content.columnHeaders.filter(col=>col.id === key)[0].name
+        listItems.push(
+          <ListGroupItem key={key}>
+            <strong>{columnName}: </strong>{this.recType(row[key],key)}
+          </ListGroupItem>)
+      }
+      return listItems
+    }
+
   sheetRowPanels(){
     if (!this.state.sheet) return <h3>Pick a sheet...</h3>
 
     return (
-      this.state.sheet.content.grid.map((row) => {
+      this.state.sheet.content.grid.map((row, i) => {
           return (
             <div className={cx('refTabs')}>
-              <Panel header={row['100'].data}>
-                {this.whichButton(row['100'])}
+              <Panel header={this.whichButton(row['100'])}>
+                  <ListGroup>
+                    {this.getRecords(row, i)}
+                  </ListGroup>
               </Panel>
             </div>
           )

@@ -106,6 +106,7 @@ class MenuEditCol extends Component {
 
 	formulaRemove(id) {
 		this.props.dispatch(formulaRemove(id));
+		this.setState({formulaName: "Empty", formula: "Write your formula here"});
 	}
 
 	saveTypeChanges() {

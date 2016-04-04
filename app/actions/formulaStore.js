@@ -47,6 +47,7 @@ export function formulaRemove(formulaId) {
 	}
 }
 
+
 function removeFromList(formulaId) {
 	return {
 		type: types.FORMULA_REMOVE,
@@ -54,6 +55,7 @@ function removeFromList(formulaId) {
 	}
 }
 
+//TODO formulaUpdate
 
 
 

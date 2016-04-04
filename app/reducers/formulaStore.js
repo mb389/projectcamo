@@ -20,7 +20,7 @@ export default function sheet(state = {formulas: []}, action = {}) {
     case FORMULA_REMOVE:{
           let newState = _.cloneDeep(state);
           newState.formulas = newState.formulas.filter(formula => {
-            return formula._id ==! action.formulaId;
+            return formula._id !== action.formulaId
           })
           return newState;}
     default:

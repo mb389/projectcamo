@@ -7,15 +7,15 @@ import * as types from 'constants/index';
 polyfill();
 
 
-export function formulaUpload(name, functionStr) {
+export function formulaUpload(functionStr) {
 	return (dispatch) => {
-		request.post('/formulaStore', {name, functionStr})
+		request.post('/formulaStore', {functionStr})
 		.then(res => res.data)
-		.then(res => dispatch(formulaAddOneToList(res)))
+		.then(res => dispatch(addOneToList(res)))
 	}
 }
 
-function formulaAddOneToList(addedFormula) {
+function addOneToList(addedFormula) {
 	return {
 		type: types.FORMULA_UPLOAD,
 		addedFormula,
@@ -27,6 +27,7 @@ export function fetchFormulaStore(){
 		request('/formulaStore')
 		.then(res => res.data)
 		.then(res => dispatch(addFormualsToFormulaStore(res)))
+		.catch(err => )
 	}
 }
 
@@ -36,3 +37,21 @@ function addFormualsToFormulaStore (allFormulas) {
 		allFormulas,
 	}
 }
+
+export function formulaRemove(formulaId) {
+	return (dispatch) => {
+		request.delete('/formulaStore:' + formulaId)
+		.then(() => dispatch(removeFromList(formulaId)))
+	}
+}
+
+function removeFromList(formulaId) {
+	return {
+		type: types.FORMULA_REMOVE,
+		formulaId,
+	}
+}
+
+
+
+

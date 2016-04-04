@@ -69,6 +69,7 @@ export const CLOSE_LOOKUP_MODAL = 'CLOSE_LOOKUP_MODAL';
 // FormulaStore Constants
 export const FORMULA_UPLOAD = 'FORMULA_UPLOAD';
 export const FORMULA_FETCH = 'FORMULA_FETCH';
+export const FORMULA_REMOVE = 'FORMULA_REMOVE';
 
 // NAV CONSTS
 export const CHANGE_SPACE_NAME = 'CHANGE_SPACE_NAME';

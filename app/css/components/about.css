@@ -94,6 +94,10 @@ hr.star-primary:after {
   padding-bottom: 150px;
 }
 
+.imgText {
+  margin-top: 20px;
+}
+
 .features > div {
   flex: 1;
 }

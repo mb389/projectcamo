@@ -26,7 +26,7 @@ class CheckBox extends Component {
         recalculateCells.push(row[cell]);
       }
     }
-    
+
     if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
     else dispatch(updateCell(val, cellKey, rowIdx, null, recalculateCells))
 	}
@@ -35,7 +35,7 @@ class CheckBox extends Component {
 
     return (<Input
       className={cx('cellCheckBox')}
-      type="checkbox" label=" "
+      type="checkbox" style={{zoom:1.05}} label=" "
       checked={this.props.cell.data === 'checked'}
       onChange={this.handleChange}/>
     )

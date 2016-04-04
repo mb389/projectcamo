@@ -19,13 +19,12 @@ const FormulaMenuItem = (props) => {
 	function createFunctionList() {
 		return props.formulas.map((elem, idx) => {
 			// on select={props.handleFormulaNameChange}
-			return (<MenuItem key={idx} eventKey={elem.functionStr}>
+			return (<MenuItem key={idx} eventKey={elem.functionStr} >
 									{elem.name}
-									<Button onClick={props.formulaRemove.bind(null, elem._id)}
-                  bsStyle='danger'
-                  bsSize="xsmall">
-                		<Glyphicon glyph="glyphicon glyphicon-remove"/>
-                	</Button>
+                		<Glyphicon 
+                		className={cx('removeFunction')}
+                		onClick={props.formulaRemove.bind(null, elem._id)}
+                		glyph="glyphicon glyphicon-remove"/>
 							</MenuItem>);
 		})
 	}

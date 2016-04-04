@@ -93,7 +93,7 @@ module.exports = function(app, passport) {
     formulaStore.addFormula(req, res);
   });
 
-  app.delete('/formulaStore:formulaId', function(req, res) {
+  app.delete('/formulaStore/:formulaId', function(req, res) {
     formulaStore.removeFormula(req, res);
   });
 

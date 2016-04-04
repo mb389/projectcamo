@@ -7,9 +7,9 @@ import * as types from 'constants/index';
 polyfill();
 
 
-export function formulaUpload(functionStr) {
+export function formulaUpload(name, functionStr) {
 	return (dispatch) => {
-		request.post('/formulaStore', {functionStr})
+		request.post('/formulaStore', {name, functionStr})
 		.then(res => res.data)
 		.then(res => dispatch(addOneToList(res)))
 	}
@@ -27,7 +27,7 @@ export function fetchFormulaStore(){
 		request('/formulaStore')
 		.then(res => res.data)
 		.then(res => dispatch(addFormualsToFormulaStore(res)))
-		.catch(err => )
+		.catch(err => console.log(err))
 	}
 }
 
@@ -39,9 +39,11 @@ function addFormualsToFormulaStore (allFormulas) {
 }
 
 export function formulaRemove(formulaId) {
+	console.log("Action", formulaId);
 	return (dispatch) => {
-		request.delete('/formulaStore:' + formulaId)
+		request.delete('/formulaStore/' + formulaId)
 		.then(() => dispatch(removeFromList(formulaId)))
+		.catch(err => console.log(err))
 	}
 }
 

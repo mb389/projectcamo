@@ -1,14 +1,27 @@
+import { Map } from 'immutable'
 
-export function insertNewColInRows (state, newColumn){
-  state.grid.forEach(row => {
-    row[newColumn.id] = {
-      type: newColumn.type,
+
+// export function insertNewColInRows (state, newColumn){
+//   state.grid.forEach(row => {
+//     row[newColumn.id] = {
+//       type: newColumn.type,
+//       data: null,
+//       width: newColumn.width,
+//       id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
+//     }
+//   });
+//   return state;
+// }
+
+export function inserNewColInRowsIm (state, newColumn) {
+  return state.updateIn(['grid'], grid=> grid.map(row => {
+    row.set(newColumn.get('id'), Map({
+      type: newColumn.get('type'),
       data: null,
-      width: newColumn.width,
-      id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
-    }
-  });
-  return state;
+      width: newColumn.get('width'),
+      id: newColumn.get('id') + Math.floor((Math.random() * (99999999 - 111111) + 111111))
+    }))
+  }))
 }
 
     // TODO remove the column that we're adding to to prevent errors?
@@ -38,52 +51,88 @@ function regexEscape(str) {
   // return str.replace(/[-\\^$?|\{}]/g, '\\$&')
 }
 
-export function navToNewCell(keyCode, newSheet) {
-  let colId = newSheet.currentCell.cellKey;
-  let rowIdx = newSheet.currentCell.rowIdx;
+// export function navToNewCell(keyCode, newSheet) {
+//   let colId = newSheet.currentCell.cellKey;
+//   let rowIdx = newSheet.currentCell.rowIdx;
+//   let newColId;
+//   let colIdx;
+//   let newRowIdx = rowIdx;
+//   switch(keyCode) {
+//       case 38:
+//         if(newSheet.grid[rowIdx-1]) newRowIdx = rowIdx-1;
+//         return {
+//           newRowIdx,
+//           newColId: colId
+//         }
+//       case 13: case 40:
+//         if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
+//         return {
+//           newRowIdx,
+//           newColId: colId
+//         }
+//       case 39: case 9:
+//         colIdx = findColumnIdxFromId(colId, newSheet);
+//         if(newSheet.columnHeaders[colIdx+1]) newColId = newSheet.columnHeaders[colIdx+1].id;
+//         else newColId = colId
+//         return {
+//           newRowIdx: rowIdx,
+//           newColId
+//         }
+//       case 37:
+//         colIdx = findColumnIdxFromId(colId, newSheet);
+//         if(newSheet.columnHeaders[colIdx-1]) newColId = newSheet.columnHeaders[colIdx-1].id;
+//         else newColId = colId
+//         return {
+//           newRowIdx: rowIdx,
+//           newColId
+//         }
+//   }
+// }
+
+export function navToNewCellIm(keyCode, state) {
+  let colId = state.getIn(['currentCell', 'cellKey']);
+  let rowIdx = state.getIn(['currentCell', 'rowIdx'])
   let newColId;
   let colIdx;
   let newRowIdx = rowIdx;
   switch(keyCode) {
       case 38:
-        if(newSheet.grid[rowIdx-1]) newRowIdx = rowIdx-1;
-        return {
+        if(state.hasIn(['grid', rowIdx-1])) newRowIdx = rowIdx;
+        return Map({
           newRowIdx,
           newColId: colId
-        }
+        })
       case 13: case 40:
-        if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
-        return {
+        if(state.hasIn(['grid', rowIdx+1])) newRowIdx = rowIdx+1;
+        return Map({
           newRowIdx,
           newColId: colId
-        }
+        })
       case 39: case 9:
-        colIdx = findColumnIdxFromId(colId, newSheet);
-        if(newSheet.columnHeaders[colIdx+1]) newColId = newSheet.columnHeaders[colIdx+1].id;
+        colIdx = findColumnIdxFromId(colId, state);
+        if(state.hasIn(['columnHeaders', colIdx+1])) newColId = state.getIn(['columnHeaders', colIdx+1, 'id'])
         else newColId = colId
-        return {
+        return Map({
           newRowIdx: rowIdx,
           newColId
-        }
+        })
       case 37:
-        colIdx = findColumnIdxFromId(colId, newSheet);
-        if(newSheet.columnHeaders[colIdx-1]) newColId = newSheet.columnHeaders[colIdx-1].id;
+        colIdx = findColumnIdxFromId(colId, state);
+        if(state.hasIn(['columnHeaders', colIdx-1])) newColId = state.getIn(['columnHeaders', colIdx-1, 'id'])
         else newColId = colId
-        return {
+        return Map({
           newRowIdx: rowIdx,
           newColId
-        }
+        })
   }
 }
 
-function findColumnIdxFromId(colId, newSheet){
-  let colIdx;
-  newSheet.columnHeaders.forEach((col,i) => {
-    if(col.id === colId) {
-      colIdx = i;
-    }
-  });
-  return colIdx;
+
+
+function findColumnIdxFromId(colId, state){
+  return state
+          .get('columnHeaders')
+          .reduce((accum, col, i) => col.get('id') === colId ? i : accum,'')
 }
 
 export function newColInfo (columns) {

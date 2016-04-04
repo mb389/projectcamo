@@ -1,8 +1,6 @@
 
 .wrap {
   width: 70%;
-
-
 }
 
 .outer {
@@ -25,7 +23,6 @@
   border: 2px solid color-mercury;
   border-radius: global-radius;
   box-sizing: border-box;
-  color: white;
 }
 
   .waiting {
@@ -37,7 +34,7 @@
   .alternative {
     background: color-white;
     padding: 12px 8px;
-
+    color: white;
     font-size: font-medium;
     text-align: center;
   }
@@ -71,6 +68,7 @@
 
     padding: 16px 12px;
     text-align: center;
+    color: white;
   }
 
   .input {

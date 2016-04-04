@@ -19,11 +19,12 @@ const About = props => {
     <div>
     <Navigation disabled={true} />
     <div className={cx('aboutpg')}>
+      <div className={cx('overlay')}></div>
       <img className={cx('bg')} src={space}></img>
       <div className={cx('description')}>
         <h1></h1>
         <img width="800px" height="auto" src={logo} alt="SpaceBook Logo" className={cx('logo')} />
-        <div className={cx('overlay')}></div>
+
         </div>
         <Features />
         <Footer />

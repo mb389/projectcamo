@@ -93,6 +93,11 @@ module.exports = function(app, passport) {
     formulaStore.addFormula(req, res);
   });
 
+  app.delete('/formulaStore/:formulaId', function(req, res) {
+    formulaStore.removeFormula(req, res);
+  });
+
+
 
   // This is where the magic happens. We take the locals data we have already
   // fetched and seed our stores with data.

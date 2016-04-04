@@ -10,8 +10,8 @@ const cx = classNames.bind(styles);
 const Footer = (props) => {
 
     return (
-      <div className={cx('footer')}>
-        <footer className="text-center">
+
+        <footer className={cx('footer')+" text-center"}>
         <div className={cx("footer-above")}>
             <div className="container">
                 <div className="row">
@@ -53,10 +53,10 @@ const Footer = (props) => {
                     </div>
                 </div>
             </div>
-      
+
         <FooterBelow />
         </footer>
-      </div>
+
 
     );
   }

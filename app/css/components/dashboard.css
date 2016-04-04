@@ -26,7 +26,11 @@
   padding-bottom: 30px;
   padding-left: 10px;
   padding-right: 10px;
+<<<<<<< HEAD
+  max-height: 75vh;
+=======
   max-height: 70vh;
+>>>>>>> f17463732a7dfe8bd58bbc4539e4af6478057f2b
   min-height: 30vh;
   background: rgba(50,50,50,.1);
   border: 1px solid #e3e3e3;

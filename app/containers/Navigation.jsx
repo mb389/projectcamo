@@ -38,9 +38,9 @@ class Navigation extends Component {
     this.getName()
   }
 
-  // componentWillReceiveProps(){
-  //   this.getName()
-  // }
+  componentWillReceiveProps(){
+    if (this.state.name === 'SpaceBook') this.getName()
+  }
 
   render() {
     return (

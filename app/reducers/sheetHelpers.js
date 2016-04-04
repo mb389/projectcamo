@@ -24,7 +24,7 @@ export function inserNewColInRowsIm (state, newColumn) {
   }))
 }
 
-    // TODO remove the column that we're adding to to prevent errors?
+// TODO remove the column that we're adding to prevent errors?
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
@@ -43,6 +43,14 @@ function decorationType (cell) {
     case 'Images': return `["${cell.data.join('","')}"]`;
     case 'Reference': return null;
     default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
+  }
+}
+
+function decorationType (cell) {
+  switch(cell.get('type')) {
+    case 'Images': return `["${cell.get('data').join('","')}"]`;
+    case 'Reference': return null;
+    default: return !Number(cell.get('data')) ? `"${cell.get('data')}"` : Number(cell.get('data'));
   }
 }
 

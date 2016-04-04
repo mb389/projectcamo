@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
-import { DropdownButton, Glyphicon, Dropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import { DropdownButton, Glyphicon, Dropdown, Button, MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 
 // prevent error when server tries to render
@@ -20,7 +19,13 @@ const FormulaMenuItem = (props) => {
 	function createFunctionList() {
 		return props.formulas.map((elem, idx) => {
 			// on select={props.handleFormulaNameChange}
-			return (<MenuItem key={idx} eventKey={elem.functionStr}>{elem.name}</MenuItem>);
+			return (<MenuItem key={idx} eventKey={elem.functionStr} >
+									{elem.name}
+                		<Glyphicon 
+                		className={cx('removeFunction')}
+                		onClick={props.formulaRemove.bind(null, elem._id)}
+                		glyph="glyphicon glyphicon-remove"/>
+							</MenuItem>);
 		})
 	}
 

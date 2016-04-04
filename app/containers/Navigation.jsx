@@ -38,9 +38,9 @@ class Navigation extends Component {
     this.getName()
   }
 
-  componentWillReceiveProps(){
-    this.getName()
-  }
+  // componentWillReceiveProps(){
+  //   this.getName()
+  // }
 
   render() {
     return (

@@ -2,7 +2,7 @@ import React, {PropTypes, Component} from 'react';
 import styles from 'css/components/dashboard';
 import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
-import spacebookLogo from 'images/spacebook-logo-nobg.png';
+
 
 const UserProfile = props => {
 

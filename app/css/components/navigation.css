@@ -14,18 +14,6 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.23),0 2px 4px rgba(0,0,0,0.16);
 }
 
-.splashNav {
-  display: flex;
-  justify-content: space-between;
-  height: 40px;
-  color: #233140;
-  width: 100%;
-  /*text-transform: uppercase;*/
-  text-decoration: none;
-  text-align: center;
-  border: none;
-}
-
 .item {
   display: inline-block;
   margin-top: auto;

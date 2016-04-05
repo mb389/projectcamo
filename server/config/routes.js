@@ -16,31 +16,20 @@ const compiled_app_module_path = path.resolve(__dirname, '../../', 'public', 'as
 const App = require(compiled_app_module_path);
 
 module.exports = function(app, passport) {
+  app.get('*',function(req,res,next){
+    // if we are in prod and not on secure connection. 
+    if(req.headers['x-forwarded-proto']!='https' && process.env.NODE_ENV === 'production')
+      res.redirect('https://' + req.get('host')+req.url)
+    else
+      next() /* Continue to other routes if we're not redirecting */
+  })
+
+
   // user routes
   app.post('/login', users.postLogin);
   app.post('/signup', users.postSignUp);
   app.post('/logout', users.postLogout);
   app.get('/user/:id',users.getById);
-
-  // google auth
-  // Redirect the user to Google for authentication. When complete, Google
-  // will redirect the user back to the application at
-  // /auth/google/return
-  // Authentication with google requires an additional scope param, for more info go
-  // here https://developers.google.com/identity/protocols/OpenIDConnect#scope-param
-  app.get('/auth/google', passport.authenticate('google', { scope: [
-        'https://www.googleapis.com/auth/userinfo.profile',
-        'https://www.googleapis.com/auth/userinfo.email'
-      ] }));
-
-  // Google will redirect the user to this URL after authentication. Finish the
-  // process by verifying the assertion. If valid, the user will be logged in.
-  // Otherwise, the authentication has failed.
-  app.get('/auth/google/callback',
-    passport.authenticate('google', {
-      successRedirect: '/',
-      failureRedirect: '/login'
-    }));
 
   // sheets routes
   app.get('/sheet', sheets.all);
@@ -92,6 +81,11 @@ module.exports = function(app, passport) {
   app.post('/formulaStore', function(req, res) {
     formulaStore.addFormula(req, res);
   });
+
+  app.delete('/formulaStore/:formulaId', function(req, res) {
+    formulaStore.removeFormula(req, res);
+  });
+
 
 
   // This is where the magic happens. We take the locals data we have already

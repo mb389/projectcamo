@@ -42,7 +42,7 @@ Formula cells allow you to import formulas written by other users from the Formu
 
 e.g.
 
-The formula: `Record Name + ' Formula' ` or `Col1 + ' Formula'` will both output the value from the first column
+The formula: `Record Name + ' Formula' ` or `Col1 + ' Formula'` will both output the value from the first column appended by ' Formula'.
 
 
 ## Technologies
@@ -50,3 +50,8 @@ The formula: `Record Name + ' Formula' ` or `Col1 + ' Formula'` will both output
 SpaceBook leverages React and Redux to quickly render all of your information. 
 
 The backend is supported by NodeJs, ExpressJS, and MongoDB. 
+
+
+
+
+

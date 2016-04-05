@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { updateColumn} from 'actions/sheet';
 import { fetchFormulaStore } from 'actions/formulaStore'
 // TODO maybe load this earlier to avoid delay
-import { formulaUpload } from 'actions/formulaStore';
+import { formulaUpload, formulaRemove } from 'actions/formulaStore';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
@@ -54,6 +54,7 @@ class MenuEditCol extends Component {
 		this.handleEditName = this.handleEditName.bind(this);
 		this.exitTypeMenu = this.exitTypeMenu.bind(this);
 		this.formulaUpload = this.formulaUpload.bind(this);
+		this.formulaRemove = this.formulaRemove.bind(this);
 		this.handleFormulaNameChange = this.handleFormulaNameChange.bind(this);
 		this.addSelectOption = this.addSelectOption.bind(this);
 		this.editSelectOption = this.editSelectOption.bind(this);
@@ -103,6 +104,11 @@ class MenuEditCol extends Component {
 		this.props.dispatch(formulaUpload(this.state.formulaName, this.state.formula));
 	}
 
+	formulaRemove(id) {
+		this.props.dispatch(formulaRemove(id));
+		this.setState({formulaName: "Empty", formula: "Write your formula here"});
+	}
+
 	saveTypeChanges() {
 		let newColData = Object.assign({}, this.state);
 		newColData.id = this.props.data.id;
@@ -130,6 +136,7 @@ class MenuEditCol extends Component {
 					handleFormulaCustom={this.handleFormulaCustom}
 					formula={this.state.formula}
 					formulaUpload={this.formulaUpload}
+					formulaRemove={this.formulaRemove}
 					formulas={this.props.formulas}
 				/>
 				),

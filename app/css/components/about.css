@@ -80,14 +80,14 @@ footer .footer-col {
   margin-bottom: 50px;
 }
 footer .footer-below {
-  padding: 15px 0;
+  padding: 10px 0;
   color: white;
-  background-color: dark-primary-color;
+  background-color: primary-color;
 }
 
  .footer-below {
   padding: 15px 0;
   color: white;
-  background-color: dark-primary-color;
+  background-color: primary-color;
   text-align: center;
 }

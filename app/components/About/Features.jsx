@@ -20,7 +20,7 @@ const Features = (props) => {
 
     <div className='col-md-4'>
         <img src={stack} alt=""/>
-        <div className={cx('imgText')}>Supports for a variety of data types.</div>
+        <div className={cx('imgText')}>Support for a variety of data types.</div>
       </div>
       <div className='col-md-4'>
             <img src={globe} alt=""/>

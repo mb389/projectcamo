@@ -28,23 +28,32 @@ export function inserNewColInRowsIm (state, newColumn) {
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state.columnHeaders.forEach((elem, idx) => {
-    funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
-    let cellUsed = decorationType(row[elem.id]);
-    if(/^\s*$/.test(cellUsed)) cellUsed = "null";
-    columnDefs += `let Col${idx+1} = ${cellUsed}; `;
-    });
+  state
+    .get('columnHeaders')
+    .reduce((accum, elem, idx) => {
+      funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
+      let cellUsed = decorationType(row.get(elem.get('id')));
+      if(/^\s*$/.test(cellUsed)) cellUsed = "null";
+      return accum += `let Col${idx+1} = ${cellUsed}; `
+    }, columnDefs)
+
+  // state.columnHeaders.forEach((elem, idx) => {
+  //   funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
+  //   let cellUsed = decorationType(row[elem.id]);
+  //   if(/^\s*$/.test(cellUsed)) cellUsed = "null";
+  //   columnDefs += `let Col${idx+1} = ${cellUsed}; `;
+  //   });
 
   return eval(columnDefs+funcText);
 }
 
-function decorationType (cell) {
-  switch (cell.type) {
-    case 'Images': return `["${cell.data.join('","')}"]`;
-    case 'Reference': return null;
-    default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
-  }
-}
+// function decorationType (cell) {
+//   switch (cell.type) {
+//     case 'Images': return `["${cell.data.join('","')}"]`;
+//     case 'Reference': return null;
+//     default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
+//   }
+// }
 
 function decorationType (cell) {
   switch(cell.get('type')) {
@@ -143,17 +152,32 @@ function findColumnIdxFromId(colId, state){
           .reduce((accum, col, i) => col.get('id') === colId ? i : accum,'')
 }
 
-export function newColInfo (columns) {
-  let colIdIdx = columns.reduce((accum,col) => {
-    if(col.id>accum[0]) accum[0]=col.id;
-    if(col.idx>accum[1]) accum[1]=col.idx;
-    return accum;
-  },[0,0])
+// export function newColInfo (columns) {
+//   let colIdIdx = columns.reduce((accum,col) => {
+//     if(col.id>accum[0]) accum[0]=col.id;
+//     if(col.idx>accum[1]) accum[1]=col.idx;
+//     return accum;
+//   },[0,0])
+//
+//   return {
+//     id: (1+Number(colIdIdx[0])).toString(),
+//     name: 'Column ' + (1+columns.length),
+//     idx: (1+Number(colIdIdx[1])),
+//     width: 200
+//   }
+// }
 
-  return {
-    id: (1+Number(colIdIdx[0])).toString(),
-    name: 'Column ' + (1+columns.length),
-    idx: (1+Number(colIdIdx[1])),
+export function newColInfo (columns) {
+  let colIdx = colmns.reduce((accum, col) => {
+    if(col.get('id') > accum.get('0')) accum.set('0', col.get('id'))
+    if(col.get('idx') > accum.get('1')) accum.set('1', col.get('idx'))
+    return accum
+  }, List([0,0]))
+
+  return Map({
+    id: (1+Number(colIdIdx.get('0'))).toString(),
+    name: 'Column ' + (1+columns.size),
+    idx: (1+Number(colIdIdx.get('1'))),
     width: 200
-  }
+  })
 }

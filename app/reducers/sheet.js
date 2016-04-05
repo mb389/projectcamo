@@ -184,6 +184,9 @@ export default function sheet(state = {
         return newState
       }
 
+      let newCoord = navToNewCell(action.keyCode, immutableState);
+
+
 
     case CURRENT_CELL:
       // {
@@ -212,22 +215,19 @@ export default function sheet(state = {
 
 
     case UPDATE_MODAL_CELL:
-      {
-        let modalRowState = _.cloneDeep(state);
-        if (action.push) {
-          modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
-        } else {
-          modalRowState.modalRow.data[action.cell.key].data = action.cell.data
-        }
-        return modalRowState
-      }
-
-
-      // if(action.push) {
-      //   return immutableState.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell))
-      // } else {
-      //   return immutableState.setIn(['modalRow', 'data', action.cell.key, 'data'], action.cell.data)
+      // {
+      //   let modalRowState = _.cloneDeep(state);
+      //   if (action.push) {
+      //     modalRowState.modalRow.data[action.cell.key].data.push(action.cell.data)
+      //   } else {
+      //     modalRowState.modalRow.data[action.cell.key].data = action.cell.data
+      //   }
+      //   return modalRowState
       // }
+
+      action.push ? immutableState.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell.data)).toJS()
+      : immutableState.setIn(['modalRow', 'data', action.cell.key, 'data'], action.cell.data).toJS()
+
 
     case SHOW_LOOKUP_MODAL:
       // {
@@ -326,15 +326,20 @@ export default function sheet(state = {
         return immutableState.set('showHistoryModal', false).set('historySheet', null).toJS()
       }
     case ADD_COLUMN:
-      {
-        let newState =  _.cloneDeep(state);
-        let newColumn = newColInfo(newState.columnHeaders)
-
-        newState.columnHeaders.push(newColumn);
-        newState = insertNewColInRows(newState, newColumn);
-        newState.changed = true
-        return newState;
-      }
+      // {
+      //   let newState =  _.cloneDeep(state);
+      //   let newColumn = newColInfo(newState.columnHeaders)
+      //
+      //   newState.columnHeaders.push(newColumn);
+      //   newState = insertNewColInRows(newState, newColumn);
+      //   newState.changed = true
+      //   return newState;
+      // }
+      let newColumn = newColInfo(immutableState.get('columnHeaders'));
+      return insertNewColInRows(immutableState
+              .update('columnHeaders', ch => ch.push(newColumn)),newColumn)
+              .set('changed',  true)
+              .toJS()
 
       // const newColumnAC = newColInfo(immutableState.get('columnHeaders').toJS())
       //
@@ -343,49 +348,80 @@ export default function sheet(state = {
 
 
     case UPDATE_COLUMN:
-      {
-        let newState =  _.cloneDeep(state);
-        let updatingId = action.data.id;
-        newState.columnHeaders = newState.columnHeaders.map(column=>{
-          if (column.id===updatingId) {return action.data}
-          else return column;
-        })
+      // {
+      //   let newState =  _.cloneDeep(state);
+      //   let updatingId = action.data.id;
+      //   newState.columnHeaders = newState.columnHeaders.map(column=>{
+      //     if (column.id===updatingId) {return action.data}
+      //     else return column;
+      //   })
+      //
+      //   newState.grid = newState.grid.map(row=>{
+      //     let curRow = row[updatingId];
+      //     curRow.type = action.data.type;
+      //     if(action.data.type==="Checkbox") curRow.data = "off";
+      //     if(action.data.formula) {
+      //       curRow.data = runCustomFunc(newState, row, action.data.formula);
+      //       curRow.formula = action.data.formula;
+      //     }
+      //     if(action.data.selectOptions) {
+      //       curRow.selectOptions = action.data.selectOptions;
+      //     }
+      //     return row;
+      //   })
+      //   newState.changed = true;
+      //   return newState;
+      // }
 
-        newState.grid = newState.grid.map(row=>{
-          let curRow = row[updatingId];
-          curRow.type = action.data.type;
-          if(action.data.type==="Checkbox") curRow.data = "off";
-          if(action.data.formula) {
-            curRow.data = runCustomFunc(newState, row, action.data.formula);
-            curRow.formula = action.data.formula;
-          }
-          if(action.data.selectOptions) {
-            curRow.selectOptions = action.data.selectOptions;
-          }
-          return row;
-        })
-        newState.changed = true;
-        return newState;
-      }
+      return immutableState
+              .update('columnHeaders', columnHeaders => columnHeaders.map(column => {
+                return column.get('id') === action.data.id ? action.data : column;
+              }))
+              .update('grid', grid => grid.map(row => {
+                return  row
+                          .get(action.data.id)
+                          .set('type', action.data.type)
+                          .update('data', data => action.data.type === "Checkbox" ? 'off' : null)
+                          .update('data', data => if(action.data.formula) runCustomFunc(immutableState, row, action.data.formula))
+                          .update('formula', formula => if(action.data.formula) return action.data.formula)
+                          .update('selectOptions', options => if(action.data.selectOptions) return action.data.selectOptions)
+              }))
+              .set('changed', true)
+
+
     case INSERT_COLUMN:
-      {
-        let newState = _.cloneDeep(state);
+      // {
+      //   let newState = _.cloneDeep(state);
+      //
+      //   let newColumn = newColInfo(newState.columnHeaders)
+      //   newColumn.name = 'Column ' + (1+action.colIdx);
+      //   newColumn.idx = action.colIdx;
+      //
+      //   newState.columnHeaders = newState.columnHeaders.map(column=>{
+      //     if (column.idx >= action.colIdx) {column.idx++}
+      //     return column;
+      //   })
+      //
+      //   newState.columnHeaders.splice(action.colIdx, 0, newColumn);
+      //
+      //   newState = insertNewColInRows(newState, newColumn);
+      //   newState.changed = true;
+      //   return newState
+      // }
 
-        let newColumn = newColInfo(newState.columnHeaders)
-        newColumn.name = 'Column ' + (1+action.colIdx);
-        newColumn.idx = action.colIdx;
 
-        newState.columnHeaders = newState.columnHeaders.map(column=>{
-          if (column.idx >= action.colIdx) {column.idx++}
-          return column;
-        })
+      let newColumn = newColInfo(immutableState.get('columnHeaders'))
+                        .set('name', 'Column ' + (1+action.colIdx))
+                        .set('idx', action.colIdx)
 
-        newState.columnHeaders.splice(action.colIdx, 0, newColumn);
+      return inserNewColInRowsIm(immutableState.update('columnHeaders', columnHeaders => columnHeaders.map(column => {
+        if (column.get('idx') >= action.colIdx) return column.set('idx',column.get('idx')+1)
+        else return column
+      }))
+      .insert(action.colIdx, 0, newColumn),newColumn).set('changed', true)
 
-        newState = insertNewColInRows(newState, newColumn);
-        newState.changed = true;
-        return newState
-      }
+
+
     case SORT_COLUMN:
       // {
       //   let newState = _.cloneDeep(state);
@@ -485,34 +521,53 @@ export default function sheet(state = {
               .toJS()
 
     case FORMULA_COLUMN:
-      {
-        let newState = _.cloneDeep(state);
+      // {
+      //   let newState = _.cloneDeep(state);
+      //
+      //   let newColumn = Object.assign({}, action.colData);
+      //   let colIdIdx = newColInfo(newState.columnHeaders);
+      //   newColumn.id = colIdIdx.id;
+      //   newColumn.name = 'Column ' + colIdIdx.idx;
+      //   newColumn.idx = colIdIdx.idx;
+      //
+      //   // action.arrMeth usually = 'map' or 'reduce';
+      //   newState.grid = newState.grid[action.arrMeth]((row) =>{
+      //     let newData = action.func(row[action.colData.id].data);
+      //
+      //     // TODO should this corralate to the type of the new cell?
+      //     // if (!newColumn.type) newColumn.type = 'Text';
+      //
+      //     row[newColumn.id] = {
+      //       data: newData,
+      //       type: newColumn.type,
+      //       width: newColumn.width,
+      //     }
+      //     return row;
+      //   })
+      //
+      //   newState.columnHeaders.push(newColumn);
+      //   newState.changed = true;
+      //   return newState;
+      // }
+      let colIdIdx = newColInfo(immutableState.get('columnHeaders'))
+      let newColumn = Map(action.colData)
+                        .set('id', colIdIdx.get('id'))
+                        .set('name', 'Column ' + colIdIdx.get('idx'))
+                        .set('idx', colIdIdx.get('idx'))
 
-        let newColumn = Object.assign({}, action.colData);
-        let colIdIdx = newColInfo(newState.columnHeaders);
-        newColumn.id = colIdIdx.id;
-        newColumn.name = 'Column ' + colIdIdx.idx;
-        newColumn.idx = colIdIdx.idx;
 
-        // action.arrMeth usually = 'map' or 'reduce';
-        newState.grid = newState.grid[action.arrMeth]((row) =>{
-          let newData = action.func(row[action.colData.id].data);
+      // TODO assume map method for arr.method - confirm that is satisfactory
+      return immutableState.update('grid', grid => grid.map(row => {
+        let newData = action.func(row.getIn([action.coldata.id,'data']))
+        return row.set(newColumn.get('id'), Map({
+          data: newData,
+          type: newColumn.get('type'),
+          width: newColumn.get('width')
+        }))
+      }))
+      .update('columnHeaders', headers => headers.push(newColumn))
+      .set('changed', true)
 
-          // TODO should this corralate to the type of the new cell?
-          // if (!newColumn.type) newColumn.type = 'Text';
-
-          row[newColumn.id] = {
-            data: newData,
-            type: newColumn.type,
-            width: newColumn.width,
-          }
-          return row;
-        })
-
-        newState.columnHeaders.push(newColumn);
-        newState.changed = true;
-        return newState;
-      }
     case ADD_ROW:
       // {
       //   let newState = _.cloneDeep(state);

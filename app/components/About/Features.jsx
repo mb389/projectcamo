@@ -3,7 +3,7 @@ import styles from 'css/components/about';
 import classNames from 'classnames/bind';
 import {Link} from 'react-router';
 import {Glyphicon} from 'react-bootstrap';
-import sblogo from 'images/Spacebook.png';
+import sblogo from 'images/SpaceBook.png';
 import plug from 'images/plugin.png';
 import globe from 'images/globe.png';
 import stack from 'images/stack.png'

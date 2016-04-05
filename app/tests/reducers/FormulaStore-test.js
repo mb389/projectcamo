@@ -8,7 +8,7 @@ describe('Formula Store reducers', () => {
     formulas: []
   } 
 
-  it('FORMULA_FETCH should add all formula to current state', () => {
+  it('FORMULA_FETCH should add all formula to the state', () => {
 
     let action = {
       type: types.FORMULA_FETCH,
@@ -36,7 +36,7 @@ describe('Formula Store reducers', () => {
     expect(nextState.formulas).toEqual(action.allFormulas)
   })
 
-  it('FORMULA_UPLOAD should add one formula to current state', () => {
+  it('FORMULA_UPLOAD should add one formula to the state', () => {
     
   const action = { 
     type: types.FORMULA_UPLOAD,
@@ -54,6 +54,27 @@ describe('Formula Store reducers', () => {
 
     expect(nextState.formulas.length).toEqual(1)  
     expect(nextState.formulas[0]['name']).toEqual("Oscarfunk")  
+  })
+
+  it('FORMULA_REMOVE should remove one formula from the state', () => {
+    
+  initialState.formulas.push({
+        "_id": "56f703bfeeee0474426fa5af",
+        "name": "Oscarfunk",
+        "functionStr": "Col4/Col3",
+        "createdBy": "s@s.com",
+        "creationDate": "2016-03-26T21:48:47.967Z",
+        "__v": 0
+      })
+
+    const action = { 
+    type: types.FORMULA_REMOVE,
+    formulaId: "56f703bfeeee0474426fa5af" 
+    }
+
+    const nextState = reducer(initialState, action)
+
+    expect(nextState.formulas.length).toEqual(0)  
   })
 
 

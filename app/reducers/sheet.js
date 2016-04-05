@@ -123,21 +123,42 @@ export default function sheet(state = {
       return immutableState.set('changed', false).toJS();
 
     case UPDATE_CELL:
-      {
-        let newState = _.cloneDeep(state);
-        if(action.fromSuper && newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
-        newState.currentCell.cell.data = action.cell.data;
-        if (action.formulaCells)
-        {
-          action.formulaCells.forEach(cell =>{
-            let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
-            newState.grid[action.cell.idx][cell.col].data = data;
-          })
-        }
-        newState.changed = true
-        return newState
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   if(action.fromSuper && newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]) {
+      //     newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+      //   }
+      //   newState.grid[action.cell.idx][action.cell.key].data = action.cell.data
+      //   newState.currentCell.cell.data = action.cell.data;
+      //   if (action.formulaCells)
+      //   {
+      //     action.formulaCells.forEach(cell =>{
+      //       let data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+      //       newState.grid[action.cell.idx][cell.col].data = data;
+      //     })
+      //   }
+      //   newState.changed = true
+      //   return newState
+      // }
+
+      let gridWithoutCC = immutableState
+      if (action.fromSuper && immutableState.hasIn(['grid', immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey'])])) {
+        gridWithoutCC = immutableState.setIn(['grid', immutableState.getIn(['currentCell', 'rowId']), immutableState.getIn(['currentCell', 'cellKey']), 'focused'], false)
       }
+      return gridWithoutCC
+          .setIn(['grid', action.cell.idx, action.cell.key, 'data'], action.cell.data)
+          .setIn(['currentCell', 'cell', 'data'], action.cell.data)
+          .updateIn(['grid'], grid => grid.map((row, rowI) => {
+            return row.map((cell, cellI) => {
+              if(action.formulaCell && cellI === action.idx) {
+                return runCustomFunc(action.formulaCells[i])
+              } else {
+                return cell
+              }
+            })
+          }))
+
+
     case UPDATE_CELL_BY_ID:
       // {
       //   let newState = _.cloneDeep(state);
@@ -173,19 +194,25 @@ export default function sheet(state = {
               .toJS()
 
     case MOVE_TO_CELL:
-      {
-        let newState = _.cloneDeep(state);
-        let newCoord = navToNewCell(action.keyCode, newState);
-        newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
-        newState.currentCell.rowIdx = newCoord.newRowIdx;
-        newState.currentCell.cellKey = newCoord.newColId;
-        newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
-        return newState
-      }
+      // {
+      //   let newState = _.cloneDeep(state);
+      //   let newCoord = navToNewCell(action.keyCode, newState);
+      //   newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+      //   newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
+      //   newState.currentCell.rowIdx = newCoord.newRowIdx;
+      //   newState.currentCell.cellKey = newCoord.newColId;
+      //   newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
+      //   return newState
+      // }
 
       let newCoord = navToNewCell(action.keyCode, immutableState);
 
+      return immutableState
+              .setIn(['grid', immutableState.getIn(['currentCell','rowIdx']), immutableState.getIn(['currentCell','cellKey']), 'focused'], false)
+              .setIn(['currentCell', 'cell'], immutableState.getIn([newCoord.get('newRowIdx'), newCoord.get('newColId')]))
+              .setIn(['currentCell','rowIdx'], newCoord.get('newRowIdx'))
+              .setIn(['currentCell','cellKey'], newCoord.get('newColId'))
+              .setIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId'), 'focused'], true)
 
 
     case CURRENT_CELL:
@@ -335,9 +362,9 @@ export default function sheet(state = {
       //   newState.changed = true
       //   return newState;
       // }
-      let newColumn = newColInfo(immutableState.get('columnHeaders'));
+      let columnToAdd = newColInfo(immutableState.get('columnHeaders'));
       return insertNewColInRows(immutableState
-              .update('columnHeaders', ch => ch.push(newColumn)),newColumn)
+              .update('columnHeaders', ch => ch.push(columnToAdd)),columnToAdd)
               .set('changed',  true)
               .toJS()
 
@@ -382,11 +409,12 @@ export default function sheet(state = {
                           .get(action.data.id)
                           .set('type', action.data.type)
                           .update('data', data => action.data.type === "Checkbox" ? 'off' : null)
-                          .update('data', data => if(action.data.formula) runCustomFunc(immutableState, row, action.data.formula))
-                          .update('formula', formula => if(action.data.formula) return action.data.formula)
-                          .update('selectOptions', options => if(action.data.selectOptions) return action.data.selectOptions)
+                          .update('data', data => {if(action.data.formula) runCustomFunc(immutableState, row, action.data.formula)})
+                          .update('formula', formula => {if(action.data.formula) return action.data.formula})
+                          .update('selectOptions', options => {if(action.data.selectOptions) return action.data.selectOptions})
               }))
               .set('changed', true)
+              .toJS()
 
 
     case INSERT_COLUMN:
@@ -410,7 +438,7 @@ export default function sheet(state = {
       // }
 
 
-      let newColumn = newColInfo(immutableState.get('columnHeaders'))
+      let columnToInsert = newColInfo(immutableState.get('columnHeaders'))
                         .set('name', 'Column ' + (1+action.colIdx))
                         .set('idx', action.colIdx)
 
@@ -418,7 +446,8 @@ export default function sheet(state = {
         if (column.get('idx') >= action.colIdx) return column.set('idx',column.get('idx')+1)
         else return column
       }))
-      .insert(action.colIdx, 0, newColumn),newColumn).set('changed', true)
+      .insert(action.colIdx, 0, columnToInsert),columnToInsert).set('changed', true)
+      .toJS()
 
 
 
@@ -567,6 +596,7 @@ export default function sheet(state = {
       }))
       .update('columnHeaders', headers => headers.push(newColumn))
       .set('changed', true)
+      .toJS()
 
     case ADD_ROW:
       // {

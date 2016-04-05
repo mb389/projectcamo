@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 
 
 // export function insertNewColInRows (state, newColumn){
@@ -13,8 +13,8 @@ import { Map } from 'immutable'
 //   return state;
 // }
 
-export function inserNewColInRowsIm (state, newColumn) {
-  return state.updateIn(['grid'], grid=> grid.map(row => {
+export function inserNewColInRows (state, newColumn) {
+  return state.updateIn(['grid'], grid => grid.map(row => {
     row.set(newColumn.get('id'), Map({
       type: newColumn.get('type'),
       data: null,
@@ -28,14 +28,14 @@ export function inserNewColInRowsIm (state, newColumn) {
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
-  state
-    .get('columnHeaders')
-    .reduce((accum, elem, idx) => {
-      funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
-      let cellUsed = decorationType(row.get(elem.get('id')));
-      if(/^\s*$/.test(cellUsed)) cellUsed = "null";
-      return accum += `let Col${idx+1} = ${cellUsed}; `
-    }, columnDefs)
+  let columnDefsUpdated = state
+                            .get('columnHeaders')
+                            .reduce((accum, elem, idx) => {
+                              funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
+                              let cellUsed = decorationType(row.get(elem.get('id')));
+                              if(/^\s*$/.test(cellUsed)) cellUsed = "null";
+                              return accum += `let Col${idx+1} = ${cellUsed}; `
+                            }, columnDefs)
 
   // state.columnHeaders.forEach((elem, idx) => {
   //   funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
@@ -44,7 +44,7 @@ export function runCustomFunc (state, row, funcText) {
   //   columnDefs += `let Col${idx+1} = ${cellUsed}; `;
   //   });
 
-  return eval(columnDefs+funcText);
+  return eval(columnDefsUpdated+funcText);
 }
 
 // function decorationType (cell) {
@@ -168,7 +168,7 @@ function findColumnIdxFromId(colId, state){
 // }
 
 export function newColInfo (columns) {
-  let colIdx = colmns.reduce((accum, col) => {
+  let colIdIdx = columns.reduce((accum, col) => {
     if(col.get('id') > accum.get('0')) accum.set('0', col.get('id'))
     if(col.get('idx') > accum.get('1')) accum.set('1', col.get('idx'))
     return accum

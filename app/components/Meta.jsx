@@ -14,7 +14,7 @@ class Meta extends React.Component {
   render() {
     return (
       <Helmet
-        title="Project Camo"
+        title="SpaceBook"
         meta={config.meta}
         link={config.link}
       />

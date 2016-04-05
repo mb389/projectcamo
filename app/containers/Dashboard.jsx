@@ -40,7 +40,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Navigation link={{path: "/about", name: "About"}} disabled={true} />
+        <Navigation class={'navigation'} link={{path: "/about", name: "About"}} disabled={true} />
         <div className={cx('dashboard')}>
           <SpaceList spaces={this.props.spaces}
             createSpace={this.createSpace} removeSpace={this.removeSpace}/>

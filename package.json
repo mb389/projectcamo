@@ -89,6 +89,7 @@
     "method-override": "^2.3.5",
     "moment": "^2.12.0",
     "mongoose": "^4.4.7",
+    "neal-react": "^0.2.5",
     "node-libs-browser": "^1.0.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",

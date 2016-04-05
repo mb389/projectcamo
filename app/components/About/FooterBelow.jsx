@@ -8,9 +8,9 @@ const cx = classNames.bind(styles);
 const FooterBelow = (props) => {
 
     return (
-        <div className={cx("footer-below")}>
+        <footer className={cx("footer-below")}>
           <img src={rocket} height={20} width={20} />  SpaceBook was created in 2016 at Fullstack Academy
-        </div>
+        </footer>
     );
   }
 

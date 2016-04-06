@@ -36,6 +36,7 @@
   background-color: #ffffff;
   vertical-align: middle;
   line-height: 35px;
+  overflow-y: scroll;
 }
 
 

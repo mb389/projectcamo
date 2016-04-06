@@ -58,10 +58,10 @@ class Navigation extends Component {
   { this.props.user.authenticated ? (
         <div className={cx('item','logInProfile')}>
         <DropdownButton id='bg-vertical-dropdown-1' title='' bsSize='sm' pullRight={true} noCaret={true} className={cx('profileNav')}>
+              <MenuItem key="1" href='/about'>About</MenuItem>
             <MenuItem key="2" href="/dashboard">Dashboard</MenuItem>
-            <MenuItem key="4" href='/about'>About SpaceBook</MenuItem>
               <MenuItem divider />
-            <MenuItem onSelect={()=> this.props.dispatch(logOut())} key="5">Logout</MenuItem>
+            <MenuItem onSelect={()=> this.props.dispatch(logOut())} key="3">Logout</MenuItem>
           </DropdownButton>
         </div>
       ) : (

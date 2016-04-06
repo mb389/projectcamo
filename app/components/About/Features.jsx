@@ -21,16 +21,16 @@ const Features = (props) => {
 
     <div >
         <img src={stack} alt=""/>
-        <div className={cx('imgText')}>Supports for a variety of data types.</div>
+        <div className={cx('imgText')}>Supports for a variety of data types</div>
       </div>
       <div>
             <img src={globe} alt=""/>
-            <div className={cx('imgText')}>Simple spreadsheets with the capabilities of a relational database.</div>
+            <div className={cx('imgText')}>Simple spreadsheets with the capabilities of a relational database</div>
           </div>
 
           <div>
                 <img src={plug} alt=""/>
-                <div className={cx('imgText')}>Access to external APIs.</div>
+                <div className={cx('imgText')}>Access to external APIs</div>
               </div>
 
 

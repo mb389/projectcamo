@@ -139,6 +139,7 @@
 
 .cellContent:focus {
   background-color: light-primary-color;
+  overflow: scroll;
 }
 
 .cellContent {

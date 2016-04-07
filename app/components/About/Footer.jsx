@@ -48,7 +48,7 @@ const Footer = (props) => {
 
                       <div className="col-md-4">
                         <h3>About SpaceBook</h3>
-                        <p>SpaceBook aims to recreate the spreadsheet with today's media rich world in mind.</p>
+                        <p>SpaceBook recreates the spreadsheet with today's media rich world in mind.</p>
                         </div>
                     </div>
                 </div>

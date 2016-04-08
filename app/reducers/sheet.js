@@ -53,8 +53,13 @@ export default function sheet(state = {
     case CLEAR_SHEET:
       return {}
     case CHANGE_SHEET:
+<<<<<<< HEAD
       // {
         // let newState=_.cloneDeep(state);
+=======
+      {
+        let newState=_.cloneDeep(state);
+>>>>>>> master
 
         action.sheet.grid.forEach(row => {
           for (let cell in row){
@@ -310,17 +315,16 @@ export default function sheet(state = {
     case CLOSE_ROW_MODAL:
 
       // {
-      // let newState = _.cloneDeep(state)
-      // console.log(newState.modalRow.data)
-      // newState.showRowModal = false;
-      // if (!action.dontSave) {
-      //   newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data
-      // }
-      // newState.modalRow.data = null;
-      // newState.modalRow.rowIdx = null;
-      // newState.changed = true;
-      // return newState
-      // }
+      //   let newState = _.cloneDeep(state)
+      //   console.log(newState.modalRow.data)
+      //   newState.showRowModal = false;
+      //   if (!action.dontSave) {
+      //     newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data
+      //   }
+      //   newState.modalRow.data = null;
+      //   newState.modalRow.rowIdx = null;
+      //   newState.changed = true;
+      //   return newState
 
       let savedGridRow;
       let savedGridRowState = immutableState;
@@ -633,6 +637,7 @@ export default function sheet(state = {
                 .toJS()
 
     case DELETE_ROW:
+<<<<<<< HEAD
       // {
       //   let newState = _.cloneDeep(state);
       //   let newGrid = []
@@ -645,6 +650,25 @@ export default function sheet(state = {
       //   newState.changed = true;
       //   return newState
       // }
+=======
+      {
+        let newState = _.cloneDeep(state);
+        let newGrid = []
+        newState.currentCell = null;
+        newState.grid.forEach((row,i)=>{
+          if (i !== action.rowIdx) {
+            newGrid.push(row)
+          }
+        })
+        newState.grid = newGrid
+        newState.changed = true;
+        return newState
+      }
+    case RESIZE_TABLE_COL:
+      {
+        let newState=_.cloneDeep(state);
+        // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
+>>>>>>> master
 
       const newGrid = immutableState
         .get('grid')

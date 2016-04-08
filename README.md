@@ -1,4 +1,5 @@
 ![SpaceBook](https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs)
+[![Built at Fullstack Academy](https://img.shields.io/badge/Built%20at-Fullstack%20Academy-red.svg?style=round-square)](http://fullstackacademy.com)
 
 SpaceBook aims to recreate the spreadsheet with today's media rich world in mind. 
 

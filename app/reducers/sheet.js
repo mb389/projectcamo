@@ -362,7 +362,7 @@ export default function sheet(state = {
       //   return newState;
       // }
       let columnToAdd = newColInfo(immutableState.get('columnHeaders'));
-      
+
       return insertNewColInRows(immutableState
               .update('columnHeaders', ch => ch.push(columnToAdd)),columnToAdd)
               .set('changed',  true)
@@ -469,10 +469,10 @@ export default function sheet(state = {
 
       let colId = action.sortBy.colId;
       let sortFnImm = function(a, b) {
-        if(!a.hasIn(['colId', 'data'])) return 1;
-        else if(!b.hasIn(['colId', 'data'])) return -1;
-        else if(a.getIn(['colId','data'])>b.getIn(['colId','data'])) return (1*action.sortBy.order)
-        else if(b.getIn(['colId','data'])>a.getIn(['colId','data'])) return (-1*action.sortBy.order)
+        if(!a.hasIn([colId, 'data'])) return 1;
+        else if(!b.hasIn([colId, 'data'])) return -1;
+        else if(a.getIn([colId,'data'])>b.getIn([colId,'data'])) return (1*action.sortBy.order)
+        else if(b.getIn([colId,'data'])>a.getIn([colId,'data'])) return (-1*action.sortBy.order)
         else return 0;
       }
       return immutableState
@@ -502,14 +502,14 @@ export default function sheet(state = {
         immutableState.get('grid')
           .reduce((accum, row, idx) => {
             let toSave;
-            row.map(cell => {
+            row.forEach(cell => {
               if (cell.has('data') && typeof cell.get('data') === 'string') {
-                cell.set('data').toLowerCase().indexOf(action.term.toLowerCase()) > -1 ?
+                cell.get('data').toLowerCase().indexOf(action.term.toLowerCase()) > -1 ?
                   toSave = true : null;
               }
             })
-            if (!toSave) accum.push(idx);
-            return accum
+            if (!toSave) return accum.push(idx);
+            else return accum
           }, List())
         )
         .toJS()

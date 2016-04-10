@@ -362,6 +362,8 @@ export default function sheet(state = {
       //   return newState;
       // }
       let columnToAdd = newColInfo(immutableState.get('columnHeaders'));
+      console.log('columnn to add')
+      console.log(columnToAdd.toJS())
       return insertNewColInRows(immutableState
               .update('columnHeaders', ch => ch.push(columnToAdd)),columnToAdd)
               .set('changed',  true)

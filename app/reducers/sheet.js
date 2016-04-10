@@ -94,7 +94,7 @@ export default function sheet(state = {
                               .setIn(['0', '100', 'focused'], true)
 
         return immutableState
-          .set('columnHeaders', action.columnHeaders ? action.sheet.columnHeaders : List())
+          .set('columnHeaders', action.sheet ? action.sheet.columnHeaders : List())
           .set('grid', action.sheet.grid ? action.sheet.grid : List())
           // .setIn(['grid','0', '100', 'focused'], true)
           .set('grid', newGridToSet)
@@ -362,8 +362,7 @@ export default function sheet(state = {
       //   return newState;
       // }
       let columnToAdd = newColInfo(immutableState.get('columnHeaders'));
-      console.log('columnn to add')
-      console.log(columnToAdd.toJS())
+      
       return insertNewColInRows(immutableState
               .update('columnHeaders', ch => ch.push(columnToAdd)),columnToAdd)
               .set('changed',  true)

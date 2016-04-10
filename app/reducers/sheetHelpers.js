@@ -169,9 +169,9 @@ function findColumnIdxFromId(colId, state){
 
 export function newColInfo (columns) {
   let colIdIdx = columns.reduce((accum, col) => {
-    if(col.get('id') > accum.get('0')) accum.set('0', col.get('id'))
-    if(col.get('idx') > accum.get('1')) accum.set('1', col.get('idx'))
-    return accum
+    if(col.get('id') > accum.get('0')) return accum.set('0', col.get('id')).set('1', col.get('idx'));
+    return accum;
+    // if(col.get('idx') > accum.get('1')) accum.set('1', col.get('idx'))
   }, List([0,0]))
 
   return Map({

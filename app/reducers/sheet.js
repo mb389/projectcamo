@@ -141,22 +141,26 @@ export default function sheet(state = {
       //   return newState
       // }
 
-      let gridWithoutCC = immutableState
-      if (action.fromSuper && immutableState.hasIn(['grid', immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey'])])) {
-        gridWithoutCC = immutableState.setIn(['grid', immutableState.getIn(['currentCell', 'rowId']), immutableState.getIn(['currentCell', 'cellKey']), 'focused'], false)
+      let stateWithoutCC = immutableState
+      if (action.fromSuper && immutableState.get('grid').hasIn([immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey'])])) {
+        stateWithoutCC = immutableState.setIn(['grid', immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey']), 'focused'], false)
       }
-      return gridWithoutCC
+
+      return stateWithoutCC
           .setIn(['grid', action.cell.idx, action.cell.key, 'data'], action.cell.data)
           .setIn(['currentCell', 'cell', 'data'], action.cell.data)
-          .updateIn(['grid'], grid => grid.map((row, rowI) => {
-            return row.map((cell, cellI) => {
-              if(action.formulaCell && cellI === action.idx) {
-                return runCustomFunc(action.formulaCells[i])
-              } else {
-                return cell
-              }
+          .update('grid', grid => {
+            return grid.map((row, rowI) => {
+              return row.map((cell, cellI) => {
+                if(action.formulaCells && cellI === action.idx) {
+                  return runCustomFunc(stateWithoutCC, row, action.formulaCells[cellI])
+                } else {
+                  return cell
+                }
+              })
             })
-          }))
+          })
+
 
 
     case UPDATE_CELL_BY_ID:
@@ -252,7 +256,7 @@ export default function sheet(state = {
       //   return modalRowState
       // }
 
-      action.push ? immutableState.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell.data)).toJS()
+      return action.push ? immutableState.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell.data)).toJS()
       : immutableState.setIn(['modalRow', 'data', action.cell.key, 'data'], action.cell.data).toJS()
 
 

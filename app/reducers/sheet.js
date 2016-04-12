@@ -214,10 +214,11 @@ export default function sheet(state = {
 
       return immutableState
               .setIn(['grid', immutableState.getIn(['currentCell','rowIdx']), immutableState.getIn(['currentCell','cellKey']), 'focused'], false)
-              .setIn(['currentCell', 'cell'], immutableState.getIn([newCoord.get('newRowIdx'), newCoord.get('newColId')]))
+              .setIn(['currentCell', 'cell'], immutableState.getIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId')]))
               .setIn(['currentCell','rowIdx'], newCoord.get('newRowIdx'))
               .setIn(['currentCell','cellKey'], newCoord.get('newColId'))
               .setIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId'), 'focused'], true)
+              .toJS()
 
 
     case CURRENT_CELL:
@@ -714,6 +715,6 @@ export default function sheet(state = {
     case HIDE_MAP:
         return immutableState.set('showMap', false).toJS()
     default:
-      return state;
+      return immutableState.toJS();
   }
 }

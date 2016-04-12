@@ -106,7 +106,7 @@ function regexEscape(str) {
 //   }
 // }
 
-export function navToNewCellIm(keyCode, state) {
+export function navToNewCell(keyCode, state) {
   let colId = state.getIn(['currentCell', 'cellKey']);
   let rowIdx = state.getIn(['currentCell', 'rowIdx'])
   let newColId;
@@ -114,15 +114,15 @@ export function navToNewCellIm(keyCode, state) {
   let newRowIdx = rowIdx;
   switch(keyCode) {
       case 38:
-        if(state.hasIn(['grid', rowIdx-1])) newRowIdx = rowIdx;
+        if(state.hasIn(['grid', rowIdx-1])) newRowIdx = rowIdx-1;
         return Map({
-          newRowIdx,
+          newRowIdx: newRowIdx,
           newColId: colId
         })
       case 13: case 40:
         if(state.hasIn(['grid', rowIdx+1])) newRowIdx = rowIdx+1;
         return Map({
-          newRowIdx,
+          newRowIdx: newRowIdx,
           newColId: colId
         })
       case 39: case 9:
@@ -131,7 +131,7 @@ export function navToNewCellIm(keyCode, state) {
         else newColId = colId
         return Map({
           newRowIdx: rowIdx,
-          newColId
+          newColId: newColId
         })
       case 37:
         colIdx = findColumnIdxFromId(colId, state);
@@ -139,7 +139,7 @@ export function navToNewCellIm(keyCode, state) {
         else newColId = colId
         return Map({
           newRowIdx: rowIdx,
-          newColId
+          newColId: newColId
         })
   }
 }

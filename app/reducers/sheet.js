@@ -140,7 +140,7 @@ export default function sheet(state = {
       //   newState.changed = true
       //   return newState
       // }
-
+      //
       let stateWithoutCC = immutableState
       if (action.fromSuper && immutableState.get('grid').hasIn([immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey'])])) {
         stateWithoutCC = immutableState.setIn(['grid', immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey']), 'focused'], false)
@@ -160,6 +160,7 @@ export default function sheet(state = {
               })
             })
           })
+          .toJS()
 
 
 

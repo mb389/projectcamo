@@ -90,14 +90,18 @@ export default function sheet(state = {
         // return newState
 
 
-        const newGridToSet = (action.sheet.grid ? fromJS(action.sheet.grid) : List())
-                              .setIn(['0', '100', 'focused'], true)
+        const newGridToSet = action.sheet.grid ? fromJS(action.sheet.grid) : List()
+        console.log(newGridToSet.hasIn(['grid','0','100']))
+
+        const newGridWFocus = newGridToSet.hasIn(['grid','0','100']) ? newGridToSet.setIn(['0', '100', 'focused'], true) : newGridToSet
+
+        console.log(newGridWFocus.toJS())
 
         return immutableState
           .set('columnHeaders', action.sheet ? action.sheet.columnHeaders : List())
-          .set('grid', action.sheet.grid ? action.sheet.grid : List())
+          // .set('grid', action.sheet.grid ? action.sheet.grid : List())
           // .setIn(['grid','0', '100', 'focused'], true)
-          .set('grid', newGridToSet)
+          .set('grid', newGridWFocus)
           .set('currentCell', Map({
             cell: newGridToSet.getIn(['0', '100']),
             rowIdx: 0,

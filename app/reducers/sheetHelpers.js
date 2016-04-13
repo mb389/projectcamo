@@ -1,17 +1,17 @@
 import { Map, List } from 'immutable'
 
 
-// export function insertNewColInRows (state, newColumn){
-//   state.grid.forEach(row => {
-//     row[newColumn.id] = {
-//       type: newColumn.type,
-//       data: null,
-//       width: newColumn.width,
-//       id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
-//     }
-//   });
-//   return state;
-// }
+export function insertNewColInRowsNonIm (state, newColumn){
+  state.grid.forEach(row => {
+    row[newColumn.id] = {
+      type: newColumn.type,
+      data: null,
+      width: newColumn.width,
+      id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
+    }
+  });
+  return state;
+}
 
 export function insertNewColInRows (state, newColumn) {
   return state.update('grid', grid => grid.map(row => {
@@ -152,20 +152,20 @@ function findColumnIdxFromId(colId, state){
           .reduce((accum, col, i) => col.get('id') === colId ? i : accum,'')
 }
 
-// export function newColInfo (columns) {
-//   let colIdIdx = columns.reduce((accum,col) => {
-//     if(col.id>accum[0]) accum[0]=col.id;
-//     if(col.idx>accum[1]) accum[1]=col.idx;
-//     return accum;
-//   },[0,0])
-//
-//   return {
-//     id: (1+Number(colIdIdx[0])).toString(),
-//     name: 'Column ' + (1+columns.length),
-//     idx: (1+Number(colIdIdx[1])),
-//     width: 200
-//   }
-// }
+export function newColInfoNonIm (columns) {
+  let colIdIdx = columns.reduce((accum,col) => {
+    if(col.id>accum[0]) accum[0]=col.id;
+    if(col.idx>accum[1]) accum[1]=col.idx;
+    return accum;
+  },[0,0])
+
+  return {
+    id: (1+Number(colIdIdx[0])).toString(),
+    name: 'Column ' + (1+columns.length),
+    idx: (1+Number(colIdIdx[1])),
+    width: 200
+  }
+}
 
 export function newColInfo (columns) {
   let colIdIdx = columns.reduce((accum, col) => {

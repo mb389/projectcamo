@@ -14,7 +14,7 @@ import {
   ALL_CHANGED_FALSE,
   DELETE_SHEET
 } from 'constants/index';
-import { insertNewColInRows, newColInfo } from './sheetHelpers.js';
+import { insertNewColInRowsNonIm, newColInfoNonIm } from './sheetHelpers.js';
 
 
 export default function spaceControl(state = {  }, action = {}) {
@@ -90,12 +90,12 @@ export default function spaceControl(state = {  }, action = {}) {
           }
           // if no column ref make a new one
           else {
-            let newColumn = newColInfo(sheet.content.columnHeaders)
+            let newColumn = newColInfoNonIm(sheet.content.columnHeaders)
             newColumn.name = action.currSheet.name
             newColumn.linkedSheet = action.currSheet._id
             newColumn.type = 'Reference'
             sheet.content.columnHeaders.push(newColumn)
-            sheet.content = insertNewColInRows(sheet.content,newColumn)
+            sheet.content = insertNewColInRowsNonIm(sheet.content,newColumn)
             // search and add
             for (var i = 0; i < sheet.content.grid.length; i++) {
               if (sheet.content.grid[i]['100'].data === action.data.data) {

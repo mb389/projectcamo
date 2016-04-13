@@ -51,7 +51,7 @@ export default function sheet(state = {
     let immutableState = fromJS(state);
   switch (action.type) {
     case CLEAR_SHEET:
-      return {}
+      return Map({}).toJS()
     case CHANGE_SHEET:
       // {
         // let newState=_.cloneDeep(state);
@@ -290,7 +290,7 @@ export default function sheet(state = {
       //   return newState
       // }
       return immutableState
-              .set('showLookupModal', false)
+              .set('showLookupModal', true)
               .set('lookup', Map({
                 row: action.row,
                 cell: action.cell,
@@ -697,12 +697,13 @@ export default function sheet(state = {
       // }
 
       return immutableState
-              .update('columnHeaders', headers => headers.map(ch => {
+              // .setIn(['columnHeaders', action.size.id-100, 'width'], action.size.rect.width)
+              .update('columnHeaders', headers => headers.map((ch,i) => {
                 if(ch.get('id') === action.size.id) return ch.set('width', action.size.rect.width)
                 else return ch;
               }))
               .update('grid', grid => grid.map(row => {
-                row.setIn([action.size.id, 'width'], action.size.rect.width)
+                return row.setIn([action.size.id, 'width'], action.size.rect.width)
               }))
               .set('changed', true)
               .toJS()

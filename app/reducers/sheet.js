@@ -185,22 +185,33 @@ export default function sheet(state = {
       //   return newState
       // }
 
-      // TODO use updateIn instead of multiple step
-      let newStateGrid = immutableState
-                      .get('grid')
-                      .map(row => {
-                        return row.map(key => {
-                          if(key.get('id') === action.cell.id) {
-                            return key.set('data', action.cell.data)
-                          } else {
-                            return key
-                          }
-                        })
-                      })
-
-      return immutableState
-              .set('grid', newStateGrid)
-              .toJS()
+      return immutableState.update('grid', grid => grid.map(row => {
+            return row.map(key => {
+              if(key.get('id') === action.cell.id) {
+                return key.set('data', action.cell.data)
+              } else {
+                return key
+              }
+            })
+          })
+        )
+        .toJS()
+      //
+      // let newStateGrid = immutableState
+      //                 .get('grid')
+      //                 .map(row => {
+      //                   return row.map(key => {
+      //                     if(key.get('id') === action.cell.id) {
+      //                       return key.set('data', action.cell.data)
+      //                     } else {
+      //                       return key
+      //                     }
+      //                   })
+      //                 })
+      //
+      // return immutableState
+      //         .set('grid', newStateGrid)
+      //         .toJS()
 
     case MOVE_TO_CELL:
       // {
@@ -454,11 +465,11 @@ export default function sheet(state = {
                         .set('name', 'Column ' + (1+action.colIdx))
                         .set('idx', action.colIdx)
 
-      return inserNewColInRowsIm(immutableState.update('columnHeaders', columnHeaders => columnHeaders.map(column => {
+      return insertNewColInRows(immutableState.update('columnHeaders', columnHeaders => columnHeaders.map(column => {
         if (column.get('idx') >= action.colIdx) return column.set('idx',column.get('idx')+1)
         else return column
-      }))
-      .insert(action.colIdx, 0, columnToInsert),columnToInsert).set('changed', true)
+      }).insert(action.colIdx, columnToInsert)),columnToInsert)
+      .set('changed', true)
       .toJS()
 
 

@@ -14,7 +14,7 @@ import { Map, List } from 'immutable'
 // }
 
 export function insertNewColInRows (state, newColumn) {
-  return state.updateIn(['grid'], grid => grid.map(row => {
+  return state.update('grid', grid => grid.map(row => {
     return row.set(newColumn.get('id'), Map({
       type: newColumn.get('type'),
       data: null,

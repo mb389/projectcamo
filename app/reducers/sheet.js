@@ -415,13 +415,15 @@ export default function sheet(state = {
                 return column.get('id') === action.data.id ? action.data : column;
               }))
               .update('grid', grid => grid.map(row => {
-                return  row
-                          .get(action.data.id)
-                          .set('type', action.data.type)
-                          .update('data', data => action.data.type === "Checkbox" ? 'off' : null)
-                          .update('data', data => {if(action.data.formula) runCustomFunc(immutableState, row, action.data.formula)})
-                          .update('formula', formula => {if(action.data.formula) return action.data.formula})
-                          .update('selectOptions', options => {if(action.data.selectOptions) return action.data.selectOptions})
+                let curCell = row
+                                .get(action.data.id)
+                                .set('type', action.data.type)
+                                .update('data', data => action.data.type === "Checkbox" ? 'off' : null)
+                                .update('data', data => action.data.formula ? runCustomFunc(immutableState, row, action.data.formula) : data)
+                                .update('formula', formula => {if(action.data.formula) return action.data.formula})
+                                .update('selectOptions', options => {if(action.data.selectOptions) return action.data.selectOptions})
+
+                return row.set(action.data.id, curCell)
               }))
               .set('changed', true)
               .toJS()

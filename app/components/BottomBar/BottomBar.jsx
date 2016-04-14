@@ -6,6 +6,7 @@ import BottomReducers from './BottomReducers';
 const cx = classNames.bind(styles);
 
 const BottomBar = (props) => {
+  
   let columnData = {}
   props.grid.forEach(function(row){
   	for (let columnId in row){

@@ -32,7 +32,7 @@ class SheetsTab extends Component {
     if (!this.active) {
       this.props.dispatch(Actions.saveAllSheets(this.props.sheets, this.props.sheetToShow, this.props.sheetData, this.props.sheetId))
       // might not be a stable solution. But need to wait for new sheet props for inception to work.
-      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 100);
+      setTimeout(()=> this.props.dispatch(Actions.getSheet(this.props.sheetId, this.props.sheets)), 10);
     }
   }
 

@@ -8,7 +8,7 @@ import styles from 'css/components/space-control';
 const cx = classNames.bind(styles);
 
 const SheetsBar = (props) => {
-  // to be replace with real sheets fed in via props
+  // to be replaced with real sheets fed in via props
   const sheets = !props.sheetNames ? [] : props.sheetNames;
 
   const sheetsToView = sheets.map((sheetForTab, i) => (

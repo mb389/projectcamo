@@ -5,11 +5,8 @@ var Sheet = mongoose.model('Sheet');
 var User = mongoose.model('User');
 
 
-/**
- * List
- */
+
 exports.all = function(req, res) {
-  console.log(req.user);
   if (req.user) {
   Promise.all([
     Workspace.find({user: req.user._id}),
@@ -32,7 +29,6 @@ exports.addCollab = function(req, res) {
     return Workspace.findByIdAndUpdate(req.params.id, {$push: {collabs: user._id}}, {safe: true, upsert: true, new: true})
   })
   .then((space) => {
-    console.log(space)
     res.status(200).json(space)
   })
   .catch(err => res.status(500).send('We failed to save due some reason'))
@@ -60,7 +56,6 @@ exports.one = function(req, res) {
 
 exports.add = function(req, res) {
   var spaceToSend;
-  console.log(req.user)
   Workspace.create({name: `NewSpace${req.body.spaceCount}`, user:req.user._id})
   .then((space) => {
     spaceToSend = space;

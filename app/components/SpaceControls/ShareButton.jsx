@@ -17,7 +17,6 @@ class ShareButton extends Component {
 
   openModal(){
     // dispatch show modal
-    console.log('openmodal')
     const { dispatch } = this.props;
     dispatch(showShareModal())
   }

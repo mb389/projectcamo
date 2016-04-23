@@ -37,23 +37,9 @@ export function runCustomFunc (state, row, funcText) {
                               return accum += `let Col${idx+1} = ${cellUsed}; `
                             }, columnDefs)
 
-  // state.columnHeaders.forEach((elem, idx) => {
-  //   funcText = regexEscape(funcText.replace(new RegExp(elem.name, 'g'), 'Col' + (idx+1)));
-  //   let cellUsed = decorationType(row[elem.id]);
-  //   if(/^\s*$/.test(cellUsed)) cellUsed = "null";
-  //   columnDefs += `let Col${idx+1} = ${cellUsed}; `;
-  //   });
 
   return eval(columnDefsUpdated+funcText);
 }
-
-// function decorationType (cell) {
-//   switch (cell.type) {
-//     case 'Images': return `["${cell.data.join('","')}"]`;
-//     case 'Reference': return null;
-//     default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
-//   }
-// }
 
 function decorationType (cell) {
   switch(cell.get('type')) {
@@ -67,44 +53,6 @@ function regexEscape(str) {
   return str;
   // return str.replace(/[-\\^$?|\{}]/g, '\\$&')
 }
-
-// export function navToNewCell(keyCode, newSheet) {
-//   let colId = newSheet.currentCell.cellKey;
-//   let rowIdx = newSheet.currentCell.rowIdx;
-//   let newColId;
-//   let colIdx;
-//   let newRowIdx = rowIdx;
-//   switch(keyCode) {
-//       case 38:
-//         if(newSheet.grid[rowIdx-1]) newRowIdx = rowIdx-1;
-//         return {
-//           newRowIdx,
-//           newColId: colId
-//         }
-//       case 13: case 40:
-//         if(newSheet.grid[rowIdx+1]) newRowIdx = rowIdx+1;
-//         return {
-//           newRowIdx,
-//           newColId: colId
-//         }
-//       case 39: case 9:
-//         colIdx = findColumnIdxFromId(colId, newSheet);
-//         if(newSheet.columnHeaders[colIdx+1]) newColId = newSheet.columnHeaders[colIdx+1].id;
-//         else newColId = colId
-//         return {
-//           newRowIdx: rowIdx,
-//           newColId
-//         }
-//       case 37:
-//         colIdx = findColumnIdxFromId(colId, newSheet);
-//         if(newSheet.columnHeaders[colIdx-1]) newColId = newSheet.columnHeaders[colIdx-1].id;
-//         else newColId = colId
-//         return {
-//           newRowIdx: rowIdx,
-//           newColId
-//         }
-//   }
-// }
 
 export function navToNewCell(keyCode, state) {
   let colId = state.getIn(['currentCell', 'cellKey']);
@@ -171,7 +119,6 @@ export function newColInfo (columns) {
   let colIdIdx = columns.reduce((accum, col) => {
     if(col.get('id') > accum.get('0')) return accum.set('0', col.get('id')).set('1', col.get('idx'));
     return accum;
-    // if(col.get('idx') > accum.get('1')) accum.set('1', col.get('idx'))
   }, List([0,0]))
 
   return Map({

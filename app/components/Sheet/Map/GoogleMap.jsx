@@ -33,23 +33,17 @@ class GoogleMap extends Component {
       )
     })
 
-    let ranges = markers.reduce((accum, mrk) => {
-      if (accum.length === 0) accum = [mrk.loc.lat, mrk.loc.lat, mrk.loc.lng, mrk.loc.lng]
-      if (mrk.loc.lat > accum[0]) accum[0] = mrk.loc.lat;
-      if (mrk.loc.lat < accum[1]) accum[1] = mrk.loc.lat;
-      if (mrk.loc.lng > accum[2]) accum[2] = mrk.loc.lng;
-      if (mrk.loc.lng < accum[3]) accum[3] = mrk.loc.lng;
-      return accum;
-    },[])
+    // manually calculating zoom for map
+    // find the furthest coords for all places
+    let ranges = markerCoordRangeFinder(markers)
+    // midpoint of the view
     let midPoint = [(ranges[0]+ranges[1])/2,(ranges[2]+ranges[3])/2];
-    ranges = [ranges[0]-ranges[1],ranges[2]-ranges[3]];
-    let zoom = 21-Math.ceil(Math.log(Math.max(...ranges)/.0005)/Math.log(2))
-    if(zoom > 13) zoom--;
-
+    let latLongRanges = [ranges[0]-ranges[1],ranges[2]-ranges[3]];
+    // zoom of the view
+    let zoom = findZoomFromRanges(latLongRanges)
+    
     this.setState({markersCreated: true, markers: markersToAdd, midPoint, zoom})
   }
-
-
 
   componentWillMount() {
       if(!this.props.markers) return;
@@ -85,3 +79,21 @@ class GoogleMap extends Component {
 }
 
 export default GoogleMap;
+
+
+function markerCoordRangeFinder(markers) {
+  if(markers.length === 1) markers.push(markers[0])
+  return markers.reduce((accum, mrk) => {
+    if (accum.length === 0) accum = [mrk.loc.lat, mrk.loc.lat, mrk.loc.lng, mrk.loc.lng]
+    if (mrk.loc.lat > accum[0]) accum[0] = mrk.loc.lat;
+    if (mrk.loc.lat < accum[1]) accum[1] = mrk.loc.lat;
+    if (mrk.loc.lng > accum[2]) accum[2] = mrk.loc.lng;
+    if (mrk.loc.lng < accum[3]) accum[3] = mrk.loc.lng;
+    return accum;
+  },[])
+}
+
+function findZoomFromRanges(ranges) {
+  let zoom = 21-Math.ceil(Math.log(Math.max(...ranges)/.0005)/Math.log(2))
+  return zoom > 13 ? Math.min(zoom--,20) : zoom
+}

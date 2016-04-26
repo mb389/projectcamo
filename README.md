@@ -3,6 +3,8 @@
 
 SpaceBook aims to recreate the spreadsheet with today's media rich world in mind. 
 
+Check out SpaceBook in action [here] (https://spacebookapp.herokuapp.com) or [here] (https://www.dropbox.com/s/xx7q678z07qo2h3/SpaceBook.mp4?dl=0).
+
 ## Summary
 
 Now you can organize all of your information, including images, lists, checkbox, map locations, and more, in one simple place. SpaceBook also allows users to collaborate while viewing and manipulating their data in a variety of ways. 

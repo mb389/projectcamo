@@ -33,10 +33,10 @@ class MapContainer extends Component {
 
 function mapStateToProps(store) {
   return {
-    showMap: store.sheet.showMap,
-    addressData: store.sheet.addressData,
-    mapMarkersData: store.sheet.mapMarkersData,
-    mapName: store.sheet.mapColumn
+    showMap: store.sheet.get('showMap').toJS(),
+    addressData: store.sheet.get('addressData').toJS(),
+    mapMarkersData: store.sheet.get('mapMarkersData').toJS(),
+    mapName: store.sheet.get('mapColumn').toJS()
   };
 }
 

@@ -30,7 +30,7 @@ class HistoryButton extends Component {
 
 function mapStateToProps(store) {
 	return {
-		history: store.sheet.history
+		history: store.sheet.get('history').toJS()
 	}
 }
 

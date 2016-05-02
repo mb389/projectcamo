@@ -76,7 +76,7 @@ function mapStateToProps(store) {
   return {
     user: store.user,
     space: store.spacecontrol.space,
-    sheet: store.sheet
+    sheet: store.sheet.toJS()
   };
 }
 

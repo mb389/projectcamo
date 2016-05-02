@@ -6,6 +6,7 @@ import { updateRefSheet, removeRef } from 'actions/SpaceControls';
 import styles from 'css/components/modal';
 import LinkLabel from './CellTypes/LinkLabel';
 import { Modal, Button, ButtonGroup, Panel, ListGroup, ListGroupItem, Input } from 'react-bootstrap';
+import {List} from 'immutable';
 
 const cx = classNames.bind(styles);
 
@@ -66,31 +67,33 @@ class Lookup extends Component {
   }
 
   linkRow(rowId){
-    let cellData = this.props.lookup.cell.data
+    let cellData = this.props.lookup.getIn(['cell', 'data']);
     let data = {data: rowId.data, rowId: rowId, sheet: this.state.sheet._id}
-    cellData ? cellData.push(data) : cellData = [data]
-    this.props.dispatch(updateCellById(cellData,this.props.lookup.cell.id))
-    this.props.dispatch(updateRefSheet(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.row))
-    this.close()
+    cellData = cellData ? cellData.push(data) : List(data);
+    this.props.dispatch(updateCellById(cellData,this.props.lookup.getIn(['cell' , 'id'])));
+    this.props.dispatch(updateRefSheet(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.get('row')));
+    this.close();
   }
 
   unlinkRow(rowId) {
-    let cellData = this.props.lookup.cell.data
+    let cellData = this.props.lookup.getIn(['cell', 'data']);
     for (var i = 0; i < cellData.length; i++) {
-      if (cellData[i].data === rowId.data) {
-        cellData.splice(i,1)
-        this.props.dispatch(updateCellById(cellData,this.props.lookup.cell.id))
+      // if (cellData[i].data === rowId.data) {
+      if (cellData.get(i).get('data') === rowId.data) {
+        // cellData.splice(i,1)
+        cellData = cellData.delete(i);
+        this.props.dispatch(updateCellById(cellData,this.props.lookup.getIn(['cell' , 'id'])));
         this.close()
         break;
       }
     }
     let data = {data: rowId.data, rowId: rowId, sheet: this.state.sheet._id}
-    this.props.dispatch(removeRef(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.row))
+    this.props.dispatch(removeRef(this.state.sheet,data,this.props.sheetToShow,this.props.lookup.get('row')));
   }
 
 
   whichButton(rowId){
-    let links = this.props.lookup.cell.data
+    let links = this.props.lookup.getIn(['cell', 'data']);
 
     if (!links) return <Button bsStyle="success" onClick={this.linkRow.bind(this, rowId)} >Link</Button>
 
@@ -190,9 +193,9 @@ function mapStateToProps(store) {
   return {
     sheets: store.spacecontrol.sheets,
     sheetToShow: store.spacecontrol.sheetToShow,
-    showLookupModal: store.sheet.get('showLookupModal').toJS(),
-    lookup: store.sheet.get('lookup').toJS(),
-    columnHeaders: store.sheet.get('columnHeaders').toJS()
+    showLookupModal: store.sheet.get('showLookupModal'),
+    lookup: store.sheet.get('lookup'),
+    columnHeaders: store.sheet.get('columnHeaders')
   };
 }
 

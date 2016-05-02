@@ -190,9 +190,9 @@ function mapStateToProps(store) {
   return {
     sheets: store.spacecontrol.sheets,
     sheetToShow: store.spacecontrol.sheetToShow,
-    showLookupModal: store.sheet.showLookupModal,
-    lookup: store.sheet.lookup,
-    columnHeaders: store.sheet.columnHeaders
+    showLookupModal: store.sheet.get('showLookupModal').toJS(),
+    lookup: store.sheet.get('lookup').toJS(),
+    columnHeaders: store.sheet.get('columnHeaders').toJS()
   };
 }
 

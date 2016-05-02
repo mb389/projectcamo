@@ -24,7 +24,7 @@ export function insertNewColInRows (state, newColumn) {
   }))
 }
 
-// TODO remove the column that we're adding to prevent errors?
+
 export function runCustomFunc (state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 

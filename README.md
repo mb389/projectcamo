@@ -1,13 +1,18 @@
 ![SpaceBook](https://cdn.filestackcontent.com/RtKLuovRQBmEvxbC3JOs)
 [![Built at Fullstack Academy](https://img.shields.io/badge/Built%20at-Fullstack%20Academy-red.svg?style=round-square)](http://fullstackacademy.com)
 
-SpaceBook aims to recreate the spreadsheet with today's media rich world in mind. 
+SpaceBook aims to recreate the spreadsheet with today's media rich world in mind.
+
+## To run application
+
+Use 'npm install && npm run dev' to run the development version of the application
+Note - requires local MongoDB instance to be running
 
 Check out SpaceBook in action [here] (https://spacebookapp.herokuapp.com) or [here] (https://www.dropbox.com/s/xx7q678z07qo2h3/SpaceBook.mp4?dl=0).
 
 ## Summary
 
-Now you can organize all of your information, including images, lists, checkbox, map locations, and more, in one simple place. SpaceBook also allows users to collaborate while viewing and manipulating their data in a variety of ways. 
+Now you can organize all of your information, including images, lists, checkbox, map locations, and more, in one simple place. SpaceBook also allows users to collaborate while viewing and manipulating their data in a variety of ways.
 
 ## Features
 
@@ -32,7 +37,7 @@ New sheets in SpaceBook start with an ID column (see Referencing). Users can add
 
 ### Displaying Data
 
-Each row number has an expansion button next to it when hovered. Clicking these icons opens a pane where users can see and edit all of the information from that row in one place. 
+Each row number has an expansion button next to it when hovered. Clicking these icons opens a pane where users can see and edit all of the information from that row in one place.
 
 ### Referencing
 
@@ -50,11 +55,6 @@ The formula: `Record Name + ' Formula' ` or `Col1 + ' Formula'` will both output
 
 ## Technologies
 
-SpaceBook leverages React and Redux to quickly render all of your information. 
+SpaceBook leverages React and Redux to quickly render all of your information.
 
-The backend is supported by NodeJs, ExpressJS, and MongoDB. 
-
-
-
-
-
+The backend is supported by NodeJs, ExpressJS, and MongoDB.

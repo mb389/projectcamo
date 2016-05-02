@@ -27,7 +27,7 @@ class Navigation extends Component {
   }
 
   getName(){
-    if (this.props.sheet.grid && this.props.space) {
+    if (this.props.sheet.has('grid') && this.props.space) {
       this.setState({name: this.props.space.name})
     } else {
       this.setState({name: 'SpaceBook'})
@@ -76,7 +76,7 @@ function mapStateToProps(store) {
   return {
     user: store.user,
     space: store.spacecontrol.space,
-    sheet: store.sheet.toJS()
+    sheet: store.sheet
   };
 }
 

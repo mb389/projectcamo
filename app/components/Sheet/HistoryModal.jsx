@@ -49,7 +49,7 @@ class HistoryModal extends Component {
       return (
           <div style={divStyle} key={i}>
             <h6>
-              <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
+              <Time value={sheet.get('saveDate')} format="YYYY/MM/DD HH:mm"/>
             </h6>
             <ButtonGroup>
               <Button bsStyle="info" onClick={self.setHistoryTable.bind(null, i)} ><Glyphicon glyph="eye-open" /> Show past</Button>
@@ -65,20 +65,20 @@ class HistoryModal extends Component {
 
     return (
       <Table
-        grid={this.props.historySheet.grid}
-        headers={this.props.historySheet.columnHeaders}
+        grid={this.props.historySheet.get('grid')}
+        headers={this.props.historySheet.get('columnHeaders')}
         disableAll={true}
       />
     )
   }
 
   render () {
-    if (!this.props.history || !this.props.history.length) return <span></span>
+    if (!this.props.history || !this.props.history.size) return <span></span>
 
     const settings = {
       dots: true,
       slidesToShow: 3,
-      initialSlide: this.props.history.length - 1,
+      initialSlide: this.props.history.size - 1,
       adaptiveHeight: true,
       infinite: false,
       arrows: true
@@ -107,9 +107,9 @@ class HistoryModal extends Component {
 
 function mapStateToProps(store) {
   return {
-    showHistoryModal: store.sheet.get('showHistoryModal').toJS(),
-    history: store.sheet.get('history').toJS(),
-    historySheet: store.sheet.get('historySheet').toJS(),
+    showHistoryModal: store.sheet.get('showHistoryModal'),
+    history: store.sheet.get('history'),
+    historySheet: store.sheet.get('historySheet'),
     space: store.spacecontrol.space
   };
 }

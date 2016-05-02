@@ -47,7 +47,7 @@ class HistoryModal extends Component {
 
     return this.props.history.map(function (sheet, i) {
       return (
-          <div style={divStyle} key={i}> 
+          <div style={divStyle} key={i}>
             <h6>
               <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
             </h6>
@@ -64,7 +64,7 @@ class HistoryModal extends Component {
     if (!this.props.historySheet) return <h3>Pick a date...</h3>
 
     return (
-      <Table 
+      <Table
         grid={this.props.historySheet.grid}
         headers={this.props.historySheet.columnHeaders}
         disableAll={true}
@@ -107,12 +107,11 @@ class HistoryModal extends Component {
 
 function mapStateToProps(store) {
   return {
-    showHistoryModal: store.sheet.showHistoryModal,
-    history: store.sheet.history,
-    historySheet: store.sheet.historySheet,
+    showHistoryModal: store.sheet.get('showHistoryModal').toJS(),
+    history: store.sheet.get('history').toJS(),
+    historySheet: store.sheet.get('historySheet').toJS(),
     space: store.spacecontrol.space
   };
 }
 
 export default connect(mapStateToProps)(HistoryModal);
-

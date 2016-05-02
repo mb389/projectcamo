@@ -125,10 +125,10 @@ class SpaceControl extends Component {
 function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,
-    sheet: store.sheet,
+    sheet: store.sheet.toJS(),
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    filteredRows: store.sheet.filteredRows,
+    filteredRows: store.sheet.get('filteredRows').toJS(),
     sheets: store.spacecontrol.sheets,
     sheetToShow: store.spacecontrol.sheetToShow
   };

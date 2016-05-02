@@ -42,7 +42,7 @@ class RowModal extends Component {
         )
       case 'Checkbox':
           return <Checkbox dispatch={this.props.dispatch} cell={cell} parent={"RowModal"} cellKey={cellKey} rowIdx={rowIdx}/>
-      case 'Select': return (<SelectOptionCell 
+      case 'Select': return (<SelectOptionCell
               dispatch={this.props.dispatch}
               parent={"RowModal"}
               cell={cell}
@@ -74,7 +74,7 @@ class RowModal extends Component {
           </div>
         </div>
       );
-    })   
+    })
   }
 
   render () {
@@ -100,11 +100,10 @@ class RowModal extends Component {
 function mapStateToProps(store) {
   return {
     showRowModal: store.sheet.showRowModal,
-    modalRow: store.sheet.modalRow.data,
-    modalRowIdx: store.sheet.modalRow.rowIdx,
-    columnHeaders: store.sheet.columnHeaders
+    modalRow: store.sheet.getIn(['modalRow','data']).toJS(),
+    modalRowIdx: store.sheet.getIn(['modalRow','rowIdx']).toJS(),
+    columnHeaders: store.sheet.get('columnHeaders').toJS()
   };
 }
 
 export default connect(mapStateToProps)(RowModal);
-

@@ -21,7 +21,7 @@ class SortablePane extends Component {
     direction: PropTypes.oneOf(['horizontal', 'vertical']),
     margin: PropTypes.number,
     style: PropTypes.object,
-    children: PropTypes.array,
+    children: PropTypes.any.isRequired,
     onResizeStart: PropTypes.func,
     onResize: PropTypes.func,
     onResizeStop: PropTypes.func,
@@ -86,8 +86,8 @@ class SortablePane extends Component {
 
   componentWillUpdate(next) {
     const { panes } = this.state;
-    if (next.children.length > panes.length) return this.addPane(next);
-    if (next.children.length < panes.length) return this.removePane(next);
+    if (next.children.length > panes.get('length')) return this.addPane(next);
+    if (next.children.length < panes.get('length')) return this.removePane(next);
     return null;
   }
 

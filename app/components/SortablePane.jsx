@@ -86,8 +86,9 @@ class SortablePane extends Component {
 
   componentWillUpdate(next) {
     const { panes } = this.state;
-    if (next.children.length > panes.get('length')) return this.addPane(next);
-    if (next.children.length < panes.get('length')) return this.removePane(next);
+
+    if (next.children.size > panes.size) return this.addPane(next);
+    if (next.children.size < panes.size) return this.removePane(next);
     return null;
   }
 

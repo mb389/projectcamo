@@ -43,12 +43,11 @@ import {
   newColInfo
 } from './sheetHelpers.js';
 
-export default function sheet(state = {
+export default function sheet(state = fromJS({
   grid: [],
   columnHeaders: [],
   showRowModal: false,
-  modalRow: {data:null,rowIdx:null} }, action = {}) {
-    let immutableState = fromJS(state);
+  modalRow: {data:null,rowIdx:null} }), action = {}) {
   switch (action.type) {
     case CLEAR_SHEET:
       return Map({})
@@ -66,7 +65,7 @@ export default function sheet(state = {
 
         const newGridWFocus = newGridToSet.hasIn(['grid','0','100']) ? newGridToSet.setIn(['0', '100', 'focused'], true) : newGridToSet
 
-        return immutableState
+        return state
           .set('columnHeaders', action.sheet ? action.sheet.columnHeaders : List())
           .set('grid', newGridWFocus)
           .set('currentCell', Map({
@@ -87,13 +86,13 @@ export default function sheet(state = {
 
     case TOGGLE_CHANGED:
 
-      return immutableState.set('changed', false);
+      return state.set('changed', false);
 
     case UPDATE_CELL:
 
-      let stateWithoutCC = immutableState
-      if (action.fromSuper && immutableState.get('grid').hasIn([immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey'])])) {
-        stateWithoutCC = immutableState.setIn(['grid', immutableState.getIn(['currentCell', 'rowIdx']), immutableState.getIn(['currentCell', 'cellKey']), 'focused'], false)
+      let stateWithoutCC = state
+      if (action.fromSuper && state.get('grid').hasIn([state.getIn(['currentCell', 'rowIdx']), state.getIn(['currentCell', 'cellKey'])])) {
+        stateWithoutCC = state.setIn(['grid', state.getIn(['currentCell', 'rowIdx']), state.getIn(['currentCell', 'cellKey']), 'focused'], false)
       }
 
       return stateWithoutCC
@@ -116,7 +115,7 @@ export default function sheet(state = {
 
     case UPDATE_CELL_BY_ID:
 
-      return immutableState.update('grid', grid => grid.map(row => {
+      return state.update('grid', grid => grid.map(row => {
             return row.map(key => {
               if(key.get('id') === action.cell.id) {
                 return key.set('data', action.cell.data)
@@ -130,11 +129,11 @@ export default function sheet(state = {
 
     case MOVE_TO_CELL:
 
-      let newCoord = navToNewCell(action.keyCode, immutableState);
+      let newCoord = navToNewCell(action.keyCode, state);
 
-      return immutableState
-              .setIn(['grid', immutableState.getIn(['currentCell','rowIdx']), immutableState.getIn(['currentCell','cellKey']), 'focused'], false)
-              .setIn(['currentCell', 'cell'], immutableState.getIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId')]))
+      return state
+              .setIn(['grid', state.getIn(['currentCell','rowIdx']), state.getIn(['currentCell','cellKey']), 'focused'], false)
+              .setIn(['currentCell', 'cell'], state.getIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId')]))
               .setIn(['currentCell','rowIdx'], newCoord.get('newRowIdx'))
               .setIn(['currentCell','cellKey'], newCoord.get('newColId'))
               .setIn(['grid', newCoord.get('newRowIdx'), newCoord.get('newColId'), 'focused'], true)
@@ -143,11 +142,11 @@ export default function sheet(state = {
 
     case CURRENT_CELL:
 
-      let CCCurrentCellState = immutableState;
-      if(immutableState.has('currentCell')) {
-          CCCurrentCellState = immutableState.setIn(['grid',
-                  immutableState.getIn(['currentCell', 'rowIdx']),
-                  immutableState.getIn(['currentCell', 'cellKey']),
+      let CCCurrentCellState = state;
+      if(state.has('currentCell')) {
+          CCCurrentCellState = state.setIn(['grid',
+                  state.getIn(['currentCell', 'rowIdx']),
+                  state.getIn(['currentCell', 'cellKey']),
                   'focused'], false)
                   .set('currentCell', action.cell)
       }
@@ -161,13 +160,13 @@ export default function sheet(state = {
 
     case UPDATE_MODAL_CELL:
 
-      return action.push ? immutableState.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell.data))
-      : immutableState.setIn(['modalRow', 'data', action.cell.key, 'data'], action.cell.data)
+      return action.push ? state.updateIn(['modalRow', 'data', action.cell.key, 'data'], data => data.push(action.cell.data))
+      : state.setIn(['modalRow', 'data', action.cell.key, 'data'], action.cell.data)
 
 
     case SHOW_LOOKUP_MODAL:
 
-      return immutableState
+      return state
               .set('showLookupModal', true)
               .set('lookup', Map({
                 row: action.row,
@@ -179,16 +178,16 @@ export default function sheet(state = {
 
     case CLOSE_LOOKUP_MODAL:
 
-      return immutableState.set('showLookupModal', false)
+      return state.set('showLookupModal', false)
 
 
     case SHOW_ROW_MODAL:
 
 
-      return immutableState
+      return state
               .set('showRowModal', true)
               .set('modalRow', Map({
-                data: immutableState.getIn(['grid', action.rowIdx]),
+                data: state.getIn(['grid', action.rowIdx]),
                 rowIdx: action.rowIdx
               }))
               ;
@@ -196,10 +195,10 @@ export default function sheet(state = {
     case CLOSE_ROW_MODAL:
 
       let savedGridRow;
-      let savedGridRowState = immutableState;
+      let savedGridRowState = state;
       if(!action.dontSave) {
-        savedGridRow = immutableState.get('grid').set(immutableState.getIn(['modalRow', 'rowIdx']),immutableState.getIn(['modalRow', 'data']))
-        savedGridRowState = immutableState.set('grid', savedGridRow);
+        savedGridRow = state.get('grid').set(state.getIn(['modalRow', 'rowIdx']),state.getIn(['modalRow', 'data']))
+        savedGridRowState = state.set('grid', savedGridRow);
       }
       return savedGridRowState
               .set('showRowModal', false)
@@ -210,30 +209,30 @@ export default function sheet(state = {
 
     case SHOW_HISTORY_MODAL:
       {
-        return immutableState.set('showHistoryModal', true)
+        return state.set('showHistoryModal', true)
       }
     case SET_HISTORY_TABLE:
       {
-        return immutableState.set('historySheet', immutableState.getIn(['history', action.index]))  // state.history[action.index])
+        return state.set('historySheet', state.getIn(['history', action.index]))  // state.history[action.index])
       }
     case UPDATE_HISTORY:
       {
-        return immutableState.set('history', action.history);
+        return state.set('history', action.history);
       }
     case CLOSE_HISTORY_MODAL:
       {
-        return immutableState.set('showHistoryModal', false).set('historySheet', null)
+        return state.set('showHistoryModal', false).set('historySheet', null)
       }
     case ADD_COLUMN:
-      let columnToAdd = newColInfo(immutableState.get('columnHeaders'));
+      let columnToAdd = newColInfo(state.get('columnHeaders'));
 
-      return insertNewColInRows(immutableState
+      return insertNewColInRows(state
               .update('columnHeaders', ch => ch.push(columnToAdd)),columnToAdd)
               .set('changed',  true)
 
 
     case UPDATE_COLUMN:
-      return immutableState
+      return state
               .update('columnHeaders', columnHeaders => columnHeaders.map(column => {
                 return column.get('id') === action.data.id ? action.data : column;
               }))
@@ -242,7 +241,7 @@ export default function sheet(state = {
                                 .get(action.data.id)
                                 .set('type', action.data.type)
                                 .update('data', data => action.data.type === "Checkbox" ? 'off' : null)
-                                .update('data', data => action.data.formula ? runCustomFunc(immutableState, row, action.data.formula) : data)
+                                .update('data', data => action.data.formula ? runCustomFunc(state, row, action.data.formula) : data)
                                 .update('formula', formula => {if(action.data.formula) return action.data.formula})
                                 .update('selectOptions', options => {if(action.data.selectOptions) return action.data.selectOptions})
 
@@ -254,11 +253,11 @@ export default function sheet(state = {
 
     case INSERT_COLUMN:
 
-      let columnToInsert = newColInfo(immutableState.get('columnHeaders'))
+      let columnToInsert = newColInfo(state.get('columnHeaders'))
                         .set('name', 'Column ' + (1+action.colIdx))
                         .set('idx', action.colIdx)
 
-      return insertNewColInRows(immutableState.update('columnHeaders', columnHeaders => columnHeaders.map(column => {
+      return insertNewColInRows(state.update('columnHeaders', columnHeaders => columnHeaders.map(column => {
         if (column.get('idx') >= action.colIdx) return column.set('idx',column.get('idx')+1)
         else return column
       }).insert(action.colIdx, columnToInsert)),columnToInsert)
@@ -277,15 +276,15 @@ export default function sheet(state = {
         else if(b.getIn([colId,'data'])>a.getIn([colId,'data'])) return (-1*action.sortBy.order)
         else return 0;
       }
-      return immutableState
+      return state
         .updateIn(['grid'], grid => grid.sort(sortFnImm))
         .set('changed', true)
 
 
     case SEARCH_SHEET:
-      return immutableState
+      return state
         .set('filteredRows',
-        immutableState.get('grid')
+        state.get('grid')
           .reduce((accum, row, idx) => {
             let toSave;
             row.forEach(cell => {
@@ -301,12 +300,12 @@ export default function sheet(state = {
 
 
     case CLEAR_FILTERED_ROWS:
-      return immutableState.set('filteredRows', []);
+      return state.set('filteredRows', []);
     case REMOVE_COLUMN:
       let colIdIm = action.colId ? action.colId :
-        immutableState.getIn(['columnHeaders',immutableState.get('columnHeaders').length-1, 'id'])
+        state.getIn(['columnHeaders',state.get('columnHeaders').length-1, 'id'])
 
-      return immutableState
+      return state
               .updateIn(['columnHeaders'], cols => cols.filter(col => colIdIm !== col.get('id')))
               .updateIn(['grid'], grid => grid.map(row => row.delete(colIdIm)))
               .set('changed', true)
@@ -315,7 +314,7 @@ export default function sheet(state = {
     case FORMULA_COLUMN:
           // TODO should this corralate to the type of the new cell?
           // if (!newColumn.type) newColumn.type = 'Text';
-      let colIdIdx = newColInfo(immutableState.get('columnHeaders'))
+      let colIdIdx = newColInfo(state.get('columnHeaders'))
       let newColumn = Map(action.colData)
                         .set('id', colIdIdx.get('id'))
                         .set('name', 'Column ' + colIdIdx.get('idx'))
@@ -323,7 +322,7 @@ export default function sheet(state = {
 
 
       // TODO assume map method for arr.method - confirm that is satisfactory
-      return immutableState.update('grid', grid => grid.map(row => {
+      return state.update('grid', grid => grid.map(row => {
         let newData = action.func(row.getIn([action.coldata.id,'data']))
         return row.set(newColumn.get('id'), Map({
           data: newData,
@@ -336,7 +335,8 @@ export default function sheet(state = {
 
 
     case ADD_ROW:
-      const rowToAddAdd = immutableState.get('columnHeaders').reduce((accum, col) => {
+    console.log(state.get('columnHeaders'))
+      const rowToAddAdd = state.get('columnHeaders').reduce((accum, col) => {
         return accum.set(col.get('id'),
         Map({
           width: col.has('width') ?  col.get('width'): 200,
@@ -349,27 +349,27 @@ export default function sheet(state = {
         }
         , Map())
 
-        const newGridAdd = immutableState.get('grid').push(rowToAddAdd);
+        const newGridAdd = state.get('grid').push(rowToAddAdd);
 
-        return immutableState
+        return state
                 .set('changed', true)
                 .set('grid', newGridAdd)
 
 
     case DELETE_ROW:
 
-      const newGrid = immutableState
+      const newGrid = state
         .get('grid')
         .filter((row, i) => i !== action.rowIdx ? true : false)
 
-      return immutableState
+      return state
               .set('grid', newGrid)
               .set('changed', true)
 
 
     case RESIZE_TABLE_COL:
 
-      return immutableState
+      return state
               .update('columnHeaders', headers => headers.map((ch,i) => {
                 if(ch.get('id') === action.size.id) return ch.set('width', action.size.rect.width)
                 else return ch;
@@ -381,7 +381,7 @@ export default function sheet(state = {
 
 
     case SHOW_MAP:
-      const newAddressData = immutableState
+      const newAddressData = state
                           .get('grid')
                           .reduce((accum, row) =>  {
                             if (row.get(action.colId)) {
@@ -389,22 +389,22 @@ export default function sheet(state = {
                             }
                           }, List());
 
-      const newMapColumn = immutableState
+      const newMapColumn = state
                               .get('columnHeaders')
                               .filter(col => col.get('id') === action.colId ? true : false)
                               .get(['0', 'name'])
 
-      return immutableState
+      return state
                 .set('showMap', true)
                 .set('mapMarkersData', null)
                 .set('addressData', newAddressData)
                 .set('mapColumn', newMapColumn)
 
     case SEND_LAT_LONGS:
-        return immutableState.set('mapMarkersData', action.geoResults);
+        return state.set('mapMarkersData', action.geoResults);
     case HIDE_MAP:
-        return immutableState.set('showMap', false)
+        return state.set('showMap', false)
     default:
-      return immutableState;
+      return state;
   }
 }

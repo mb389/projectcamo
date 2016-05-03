@@ -12,11 +12,11 @@ function generateColumnOptions (headers) {
       return (
         <Pane
         className={cx('thead')}
-        id={header.get('id')}
-        key={header.get('id')}
-        width={header.has('width') ? header.get('width') : 200}
+        id={header.id}
+        key={header.id}
+        width={header.width || 200}
         height={34}>
-        <ColumnOptions data={header} key={header.get('id')}/>
+        <ColumnOptions data={header} key={header.id}/>
         </Pane>
       )
   })
@@ -24,7 +24,7 @@ function generateColumnOptions (headers) {
 
 function findAddMargin (headers) {
   let totColWidth = headers.reduce((accum, header) => {
-    return accum + header.get('width');
+    return accum + header.width;
   }, 0);
   return totColWidth;
 };

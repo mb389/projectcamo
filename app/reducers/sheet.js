@@ -84,7 +84,6 @@ export default function sheet(state = {
           .set('showHistoryModal', false)
           .set('changed', false)
 
-
     case TOGGLE_CHANGED:
 
       return immutableState.set('changed', false);

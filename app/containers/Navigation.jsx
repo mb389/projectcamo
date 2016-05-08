@@ -27,7 +27,7 @@ class Navigation extends Component {
   }
 
   getName(){
-    if (this.props.sheet.has('grid') && this.props.space) {
+    if (this.props.sheet.size && this.props.space) {
       this.setState({name: this.props.space.name})
     } else {
       this.setState({name: 'SpaceBook'})

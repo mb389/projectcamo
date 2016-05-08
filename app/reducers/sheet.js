@@ -64,9 +64,9 @@ export default function sheet(state = fromJS({
         const newGridToSet = action.sheet.grid ? fromJS(action.sheet.grid) : List()
 
         const newGridWFocus = newGridToSet.hasIn(['grid','0','100']) ? newGridToSet.setIn(['0', '100', 'focused'], true) : newGridToSet
-
+        console.log(action.sheet.columnHeaders)
         return state
-          .set('columnHeaders', action.sheet ? action.sheet.columnHeaders : List())
+          .set('columnHeaders', action.sheet ? fromJS(action.sheet.columnHeaders) : List())
           .set('grid', newGridWFocus)
           .set('currentCell', Map({
             cell: newGridToSet.getIn(['0', '100']),
@@ -335,7 +335,6 @@ export default function sheet(state = fromJS({
 
 
     case ADD_ROW:
-    console.log(state.get('columnHeaders'))
       const rowToAddAdd = state.get('columnHeaders').reduce((accum, col) => {
         return accum.set(col.get('id'),
         Map({

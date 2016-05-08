@@ -21,7 +21,9 @@ const Grid = (props) => {
   }
 
   function generateCells (row, idx) {
+    console.log(props.headers)
     return props.headers.map((head) => {
+      console.log('head', head)
       return (<Cell
         cell={row.get(head.get('id'))}
         key={head.get('id')}

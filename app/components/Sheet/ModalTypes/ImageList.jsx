@@ -23,11 +23,7 @@ class ImageList extends Component {
   }
 
   render () {
-    // return this if we want to delte images
-    //<div key={i}> 
-      //<img src={img} /> 
-      //<Button bsStyle="danger" onClick={this.removeImage.bind(null,i)}><Glyphicon glyph="trash"/></Button>
-    //</div>  
+
     const images = this.props.cell.data.map((img, i) => {
       return (
         <img src={img} />
@@ -49,11 +45,10 @@ class ImageList extends Component {
           {images}
         </Slider>
         <FilepickerInput  style={fileStyle} cellKey={this.props.cellKey} rowIdx={this.props.rowIdx} />
-      </div>  
+      </div>
     );
 	}
 }
 
 
 export default connect()(ImageList);
-

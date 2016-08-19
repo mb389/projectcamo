@@ -14,14 +14,13 @@ if ( typeof window !== "undefined" ) {
 const cx = classNames.bind(styles);
 
 const FormulaMenuItem = (props) => {
-	// componenet will mount fetachformals 
-	// if the form is already loaded then don't fetch?
+
 	function createFunctionList() {
 		return props.formulas.map((elem, idx) => {
-			// on select={props.handleFormulaNameChange}
+
 			return (<MenuItem key={idx} eventKey={elem.functionStr} >
 									{elem.name}
-                		<Glyphicon 
+                		<Glyphicon
                 		className={cx('removeFunction')}
                 		onClick={props.formulaRemove.bind(null, elem._id)}
                 		glyph="glyphicon glyphicon-remove"/>
@@ -48,8 +47,8 @@ const FormulaMenuItem = (props) => {
 		    </Dropdown>
 
 			<label className='col-xs-4'>Name:</label>
-			<ContentEditable className='col-xs-8' id='handleFormulaNameChange' style={{backgroundColor: 'white'}} onChange={props.handleFormulaNameChange} html={props.formulaName} /> 
-			
+			<ContentEditable className='col-xs-8' id='handleFormulaNameChange' style={{backgroundColor: 'white'}} onChange={props.handleFormulaNameChange} html={props.formulaName} />
+
 
 			    <AceEditor
 				    mode="javascript"

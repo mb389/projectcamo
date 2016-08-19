@@ -3,7 +3,6 @@ import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import { updateColumn} from 'actions/sheet';
 import { fetchFormulaStore } from 'actions/formulaStore'
-// TODO maybe load this earlier to avoid delay
 import { formulaUpload, formulaRemove } from 'actions/formulaStore';
 import styles from 'css/components/table';
 import { DropdownButton, Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
@@ -143,7 +142,7 @@ class MenuEditCol extends Component {
 			'Images': (<OtherMenuItem description='Upload custom images.' />),
 			'Checkbox': (<OtherMenuItem description='Create checkboxes' />),
 			'Select': (
-				<SelectMenuItem 
+				<SelectMenuItem
 					selectOptions={this.state.selectOptions}
 					addSelectOption={this.addSelectOption}
 					editSelectOption={this.editSelectOption}

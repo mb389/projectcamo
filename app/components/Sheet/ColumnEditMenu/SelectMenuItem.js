@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 const SelectMenuItem = (props) => {
 	let selectOptions = props.selectOptions.map((opt, idx) => {
 		return (<SelectOption
-          // editSelectOption={props.editSelectOption}
           key={idx}
           idx={idx}
           value={opt}
@@ -23,7 +22,7 @@ const SelectMenuItem = (props) => {
 			<h5> Select Options:</h5>
 
 			{selectOptions}
-			<Button 
+			<Button
 				className={cx('addSelectOption') +' col-xs-12 btn'}
 				onClick={props.addSelectOption}
 				>
@@ -41,9 +40,9 @@ const SelectOption = (props) => {
           value={props.value}
           onChange={props.editSelectOption.bind(this, props.idx)}
         	/>
-        	<Glyphicon 
-        		className={cx('removeSelectOption') + ' col-xs-1'} 
-        		glyph="remove" 
+        	<Glyphicon
+        		className={cx('removeSelectOption') + ' col-xs-1'}
+        		glyph="remove"
         		onClick={props.removeSelect.bind(this, props.idx)}
         		/>
         </div>)

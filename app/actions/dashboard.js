@@ -39,7 +39,6 @@ export function addCollabRoute(email,id) {
   }
 }
 
-
 export function clearSheet() {
   return {
     type: types.CLEAR_SHEET

@@ -6,7 +6,6 @@ import * as types from 'constants/index';
 
 polyfill();
 
-
 export function formulaUpload(name, functionStr) {
 	return (dispatch) => {
 		request.post('/formulaStore', {name, functionStr})
@@ -47,15 +46,9 @@ export function formulaRemove(formulaId) {
 	}
 }
 
-
 function removeFromList(formulaId) {
 	return {
 		type: types.FORMULA_REMOVE,
 		formulaId,
 	}
 }
-
-//TODO formulaUpdate
-
-
-

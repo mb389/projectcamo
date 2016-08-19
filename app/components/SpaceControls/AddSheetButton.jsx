@@ -4,7 +4,6 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
 import * as Actions from '../../actions/SpaceControls';
 
-
 const cx = classNames.bind(styles);
 
 class AddSheetButton extends Component {
@@ -22,7 +21,6 @@ class AddSheetButton extends Component {
       <button className={cx('AddSheetButton', 'SheetButton')} onClick={this.addSheet}>+</button>
     );
   }
-
 }
 
 const mapStateToProps = (store) => {
@@ -30,7 +28,5 @@ const mapStateToProps = (store) => {
     space: store.spacecontrol.space,
   };
 };
-
-
 
 export default connect(mapStateToProps)(AddSheetButton);

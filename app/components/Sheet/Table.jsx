@@ -7,12 +7,9 @@ import MapContainer from 'containers/MapContainer';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 
-
 const cx = classNames.bind(styles);
 
-
 export default class Table extends Component {
-
 
   render () {
     if(!this.props.headers) return <div>Loading...</div>

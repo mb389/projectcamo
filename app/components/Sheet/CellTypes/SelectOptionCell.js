@@ -27,7 +27,6 @@ export default class SelectOptionCell extends Component {
       }
     }
 
-
     if (this.props.parent==="RowModal") dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
     else dispatch(updateCell(val, cellKey, rowIdx, null, recalculateCells))
 	}
@@ -39,7 +38,7 @@ export default class SelectOptionCell extends Component {
       })
     }
 
-    return (<Input type="select" 
+    return (<Input type="select"
                   className={cx('cellSelect')}
                   placeholder={this.props.cell.data}
                   value={this.props.cell.data}

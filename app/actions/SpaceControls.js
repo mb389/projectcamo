@@ -232,7 +232,7 @@ export function addSheet(spaceId, sheet) {
       return res
     })
     .then(sheet => {
-      dispatch(updateSheetsArray(sheet.get('_id'), sheet.get('content'), sheet))
+      dispatch(updateSheetsArray(sheet._id, sheet.content, sheet))
     })
   }
 }

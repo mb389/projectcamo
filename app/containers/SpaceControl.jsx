@@ -29,7 +29,7 @@ class SpaceControl extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.space || !this.props.sheet.has('grid')) {
+    if (!this.props.space || !this.props.sheet.grid) {
       this.props.dispatch(Actions.getSpace(this.props.params.spaceId));
     }
   }
@@ -78,7 +78,7 @@ class SpaceControl extends Component {
   }
 
   render() {
-    if (!this.props.sheet || !this.props.sheet.has('grid')) return <div>loading ...</div>
+    if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>
@@ -89,7 +89,7 @@ class SpaceControl extends Component {
             sheetNames={this.props.sheetNames}
           />
         <MagicBar
-          cell={this.props.sheet.get('currentCell')}
+          cell={this.props.sheet.currentCell}
           updateCell={this.runUpdateCell}
           enterPress={this.superMoveCell}
           toggleMagicBar={this.toggleMagicBar}
@@ -104,8 +104,8 @@ class SpaceControl extends Component {
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
               <Table
-                grid={this.props.sheet.get('grid')}
-                headers={this.props.sheet.get('columnHeaders')}
+                grid={this.props.sheet.grid}
+                headers={this.props.sheet.columnHeaders}
                 searching={this.props.searching}
                 filteredRows={this.props.filteredRows}
                 resizeCol={this.resizeCol}
@@ -114,7 +114,7 @@ class SpaceControl extends Component {
             </div>
           </div>
         </div>
-        <BottomBar grid={this.props.sheet.get('grid')} columns={this.props.sheet.get('columnHeaders')}/>
+        <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders}/>
       </div>
     );
   }
@@ -128,7 +128,7 @@ function mapStateToProps(store) {
     sheet: store.sheet,
     sheetNames: store.spacecontrol.sheetNames,
     searching: store.spacecontrol.searching,
-    filteredRows: store.sheet.get('filteredRows'),
+    filteredRows: store.sheet.filteredRows,
     sheets: store.spacecontrol.sheets,
     sheetToShow: store.spacecontrol.sheetToShow
   };

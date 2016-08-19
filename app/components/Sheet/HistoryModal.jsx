@@ -49,7 +49,7 @@ class HistoryModal extends Component {
       return (
           <div style={divStyle} key={i}>
             <h6>
-              <Time value={sheet.get('saveDate')} format="YYYY/MM/DD HH:mm"/>
+              <Time value={sheet.saveDate} format="YYYY/MM/DD HH:mm"/>
             </h6>
             <ButtonGroup>
               <Button bsStyle="info" onClick={self.setHistoryTable.bind(null, i)} ><Glyphicon glyph="eye-open" /> Show past</Button>
@@ -65,8 +65,8 @@ class HistoryModal extends Component {
 
     return (
       <Table
-        grid={this.props.historySheet.get('grid')}
-        headers={this.props.historySheet.get('columnHeaders')}
+        grid={this.props.historySheet.grid}
+        headers={this.props.historySheet.columnHeaders}
         disableAll={true}
       />
     )
@@ -107,9 +107,9 @@ class HistoryModal extends Component {
 
 function mapStateToProps(store) {
   return {
-    showHistoryModal: store.sheet.get('showHistoryModal'),
-    history: store.sheet.get('history'),
-    historySheet: store.sheet.get('historySheet'),
+    showHistoryModal: store.sheet.showHistoryModal,
+    history: store.sheet.history,
+    historySheet: store.sheet.historySheet,
     space: store.spacecontrol.space
   };
 }

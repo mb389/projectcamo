@@ -22,7 +22,7 @@ class RowModal extends Component {
 	}
 
   rowName(){
-    if (this.props.modalRow) return this.props.modalRow.getIn(['100','data'])
+    if (this.props.modalRow) return this.props.modalRow['100'].data
   }
 
 	close(dontSave) {
@@ -68,9 +68,9 @@ class RowModal extends Component {
     return columnHeaders.map((head, i) => {
       return (
         <div key={i}>
-          <div className={cx('col-header')}>{head.get('name')}</div>
+          <div className={cx('col-header')}>{head.name}</div>
           <div className={cx('wrapper')}>
-            {this.cell(modalRow.get(head.get('id')),head.get('id'),modalRow,modalRowIdx,i)}
+            {this.cell(modalRow[head['id']],head['id'],modalRow,modalRowIdx,i)}
           </div>
         </div>
       );
@@ -100,9 +100,9 @@ class RowModal extends Component {
 function mapStateToProps(store) {
   return {
     showRowModal: store.sheet.showRowModal,
-    modalRow: store.sheet.getIn(['modalRow','data']),
-    modalRowIdx: store.sheet.getIn(['modalRow','rowIdx']),
-    columnHeaders: store.sheet.get('columnHeaders')
+    modalRow: store.sheet.modalRow.data,
+    modalRowIdx: store.sheet.modalRow.rowIdx,
+    columnHeaders: store.sheet.columnHeaders
   };
 }
 

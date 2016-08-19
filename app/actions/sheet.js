@@ -214,9 +214,9 @@ export function closeMap() {
 
 export function getLatLongs(addressArray) {
 	return (dispatch) => {
-		let addresses = addressArray.filter(item => item.has('data') ? true : false)
+		let addresses = addressArray.filter(item => item.data ? true : false)
 		let addressUrls = addresses.map(add => {
-			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.get('data')}&key=${secrets.google.clientID}`);
+			return request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=${secrets.google.clientID}`);
 		})
 		Promise.all(addressUrls)
 		.then(resArray => {

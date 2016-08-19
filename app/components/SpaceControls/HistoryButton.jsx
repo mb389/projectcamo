@@ -26,11 +26,11 @@ class HistoryButton extends Component {
 	    </div>
 	  );
  	}
-};
+}
 
 function mapStateToProps(store) {
 	return {
-		history: store.sheet.get('history')
+		history: store.sheet.history
 	}
 }
 

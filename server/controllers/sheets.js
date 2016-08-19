@@ -37,18 +37,6 @@ exports.one = function(req, res) {
     .catch(err => res.status(400).send(err))
  };
 
-
-
-// /**
-//  * Add a Sheet
-//  */
-// exports.add = function(req, res) {
-//   console.log("hello",req.body)
-//   Sheet.create(req.body)
-//   .then(() => res.status(200).send('OK'))
-//   .catch(err => res.status(400).send(err))
-// };
-
 /**
  * Update/Save a Sheet
  */

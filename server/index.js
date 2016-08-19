@@ -22,18 +22,6 @@ connect();
 
 mongoose.connection.on('error', console.log);
 mongoose.connection.on('disconnected', connect);
-//
-// var db = mongoose.connect(secrets.db).connection;
-// var startDbPromise = new Promise(function (resolve, reject) {
-//     connect.connection.on('open', resolve);
-//     connect.connection.on('error', reject);
-//
-// });
-
-// console.log(chalk.yellow('Opening connection to MongoDB . . .'));
-// startDbPromise.then(() => console.log(chalk.green('MongoDB connection opened!')));
-
-
 
 // Bootstrap models
 fs.readdirSync(__dirname + '/models').forEach(function(file) {

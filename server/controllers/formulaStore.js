@@ -27,17 +27,8 @@ exports.addFormula = function(req, res) {
 /**
  * Remove a Formula from store
  */
-exports.removeFormula = function(req, res) {  
+exports.removeFormula = function(req, res) {
    FormulaStore.findByIdAndRemove(req.params.formulaId)
   .then(data => res.status(200).send('Removed Successfully'))
   .catch(err => console.log('Error on delete'))
 };
-
-
-// exports.updateFormula = function(req, res) {
-//  // TODO Find by ID or find by name ?  
-//   FormulaStore.findByIdAndUpdate(req.params.formulaId, req.body )
-//   .then(() => res.sendStatus(200))
-//   .catch(() => res.sendStatus(500));
-// }
-

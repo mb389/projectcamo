@@ -17,7 +17,7 @@ const App = require(compiled_app_module_path);
 
 module.exports = function(app, passport) {
   app.get('*',function(req,res,next){
-    // if we are in prod and not on secure connection. 
+    // if we are in prod and not on secure connection.
     if(req.headers['x-forwarded-proto']!='https' && process.env.NODE_ENV === 'production')
       res.redirect('https://' + req.get('host')+req.url)
     else
@@ -87,10 +87,6 @@ module.exports = function(app, passport) {
   });
 
 
-
-  // This is where the magic happens. We take the locals data we have already
-  // fetched and seed our stores with data.
-  // App is a function that requires store data and url to initialize and return the React-rendered html string
   app.get('*', function (req, res, next) {
     App.default(req, res);
   });

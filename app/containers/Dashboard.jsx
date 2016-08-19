@@ -2,17 +2,13 @@ import styles from 'css/components/dashboard';
 import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
-import UserProfile from '../components/Dashboard/UserProfile';
+// import UserProfile from '../components/Dashboard/UserProfile';
 import SpaceList from '../components/Dashboard/SpaceList';
 import CollabSpaces from '../components/Dashboard/CollabSpaces';
 import Navigation from 'containers/Navigation';
 import * as Actions from '../actions/dashboard';
 import FooterBelow from 'components/About/FooterBelow';
-/*
- * Note: This is kept as a container-level component,
- *  i.e. We should keep this as the container that does the data-fetching
- *  and dispatching of actions if you decide to have any sub-components.
- */
+
 
 const cx = classNames.bind(styles);
 

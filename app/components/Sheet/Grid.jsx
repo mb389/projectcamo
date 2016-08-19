@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { List } from 'immutable'
 import Cell from './Cell';
 import RowOpener from './RowOpener'
 import classNames from 'classnames/bind';
@@ -12,7 +11,7 @@ const Grid = (props) => {
   function generateRows(grid, filtered) {
     return grid.map( (row, idx) => {
         return (
-          <div className={!filtered.has(idx) ? cx('trow') : cx('trowHidden')} key={idx}>
+          <div className={filtered.indexOf(idx) === -1 ? cx('trow') : cx('trowHidden')} key={idx}>
             <div className={cx('rnum')}>{idx + 1}</div>
             {props.disableAll ? <div className={cx('rnum')}></div> : <RowOpener className={cx('rnum')} row={idx}/>}
             {generateCells(row, idx)}
@@ -23,12 +22,12 @@ const Grid = (props) => {
   function generateCells (row, idx) {
     return props.headers.map((head) => {
       return (<Cell
-        cell={row.get(head.get('id'))}
-        key={head.get('id')}
-        cellKey={head.get('id')}
+        cell={row[head.id]}
+        key={head.id}
+        cellKey={head.id}
         row={row}
         rowIdx={idx}
-        cellIdx={head.get('idx')}
+        cellIdx={head.idx}
         disableAll={props.disableAll}
         searching={props.searching}
       /> );
@@ -37,7 +36,7 @@ const Grid = (props) => {
 
   return (
     <div className={cx('trows')}>
-      {generateRows(props.grid ? props.grid : [], props.filteredRows ? props.filteredRows : List())}
+      {generateRows(props.grid ? props.grid : [], props.filteredRows ? props.filteredRows : [])}
     </div>
   );
 }

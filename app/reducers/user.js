@@ -11,22 +11,22 @@ import {
   LOGOUT_ERROR_USER,
   GET_USER_INFO } from 'constants/index';
 
-export default function user(state={
+export default function user(state = {
   isLogin: true,
   message: '',
   isWaiting: false,
-  authenticated: true }, action={}) {
+  authenticated: true }, action = {}) {
   switch (action.type) {
     case TOGGLE_LOGIN_MODE:
       return Object.assign({}, state, {
         isLogin: !state.isLogin,
         message: ''
       });
-      case GET_USER_INFO: {
-        return Object.assign({}, state, {
-          user: action.user
-        });
-      }
+    case GET_USER_INFO: {
+      return Object.assign({}, state, {
+        user: action.user
+      });
+    }
     case MANUAL_LOGIN_USER:
       return Object.assign({}, state, {
         isWaiting: true,

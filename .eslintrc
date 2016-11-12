@@ -23,6 +23,7 @@
         "no-restricted-syntax": 0,
         "react/jsx-no-bind": 0,
         "guard-for-in": 0,
-        "no-undef": 0
+        "no-undef": 0,
+        "quote-props": 0
     }
 }

@@ -17,187 +17,188 @@ import {
 import { insertNewColInRowsNonIm, newColInfoNonIm } from './sheetHelpers.js';
 
 
-export default function spaceControl(state = {  }, action = {}) {
-
+export default function spaceControl(state = { }, action = {}) {
   switch (action.type) {
     case ADD_USER_COLLAB: {
-      let newCollabSpace=_.cloneDeep(state);
+      const newCollabSpace = _.cloneDeep(state);
       newCollabSpace.space.collabs.push(action.email);
       return newCollabSpace;
     }
     case LOAD_SPACE:
       {
-        let newState=_.cloneDeep(state)
-        newState.showShareModal=false;
-        newState.space=action.space;
-        newState.space.email=action.email;
-        newState.sheetToShow=action.sheetToShow;
-        newState.sheetNames=action.sheetNames;
-        newState.sheets=action.sheets;
+        const newState = _.cloneDeep(state);
+        newState.showShareModal = false;
+        newState.space = action.space;
+        newState.space.email = action.email;
+        newState.sheetToShow = action.sheetToShow;
+        newState.sheetNames = action.sheetNames;
+        newState.sheets = action.sheets;
         return newState;
       }
     case LOAD_SHEET:
       {
-        let newState=_.cloneDeep(state)
-        newState.sheetToShow = action.sheetToShow
-        return newState
+        const newState = _.cloneDeep(state);
+        newState.sheetToShow = action.sheetToShow;
+        return newState;
       }
     case ALL_CHANGED_FALSE:
       {
-        let newState = _.cloneDeep(state);
-        newState.sheets.forEach(sheet => sheet.changed = false)
-        return newState
+        const newState = _.cloneDeep(state);
+        newState.sheets.forEach((sheet) => { sheet.changed = false; });
+        return newState;
       }
     case UPDATE_SHEETS:
       {
-        let newState = _.cloneDeep(state);
+        const newState = _.cloneDeep(state);
         let found = false;
         newState.sheets.forEach((sheet, i) => {
           if (sheet._id === action.sheetId) {
             newState.sheets[i].content = action.sheetContent;
             found = true;
           }
-        })
+        });
         !found && action.dbSheet ? newState.sheets.push(action.dbSheet) : null;
-        return newState
+        return newState;
       }
     case UPDATE_REF_SHEET:
       {
-        let newState = _.cloneDeep(state);
+        const newState = _.cloneDeep(state);
         // find matching sheet and add reference to it
-        newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
-        .forEach((sheet)=>{
-          let columnHeaders = sheet.content.columnHeaders;
+        newState.sheets.filter((sheet) => sheet._id === action.targetSheet._id)
+        .forEach((sheet) => {
+          const columnHeaders = sheet.content.columnHeaders;
           let existingCol;
-          let newRefLabel = {
-                    data: action.currRow["100"].data,
-                    rowId: action.currRow["100"],
-                    sheet: action.currSheet._id
-                  }
+          const newRefLabel = {
+            data: action.currRow['100'].data,
+            rowId: action.currRow['100'],
+            sheet: action.currSheet._id
+          };
           // check for an existing column reference
-          for (var i = 0; i < columnHeaders.length; i++){
+          for (let i = 0; i < columnHeaders.length; i++) {
             if (columnHeaders[i].linkedSheet == action.currSheet._id) {
-              existingCol = columnHeaders[i]
+              existingCol = columnHeaders[i];
               break;
             }
           }
           if (existingCol) {
-              sheet.content.grid.forEach((row)=>{
+            sheet.content.grid.forEach((row) => {
               if (row['100'].data === action.data.data) {
-                row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel]
+                row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel];
               }
-            })
+            });
           }
           // if no column ref make a new one
           else {
-            let newColumn = newColInfoNonIm(sheet.content.columnHeaders)
-            newColumn.name = action.currSheet.name
-            newColumn.linkedSheet = action.currSheet._id
-            newColumn.type = 'Reference'
-            sheet.content.columnHeaders.push(newColumn)
-            sheet.content = insertNewColInRowsNonIm(sheet.content,newColumn)
+            const newColumn = newColInfoNonIm(sheet.content.columnHeaders);
+            newColumn.name = action.currSheet.name;
+            newColumn.linkedSheet = action.currSheet._id;
+            newColumn.type = 'Reference';
+            sheet.content.columnHeaders.push(newColumn);
+            sheet.content = insertNewColInRowsNonIm(sheet.content, newColumn);
             // search and add
-            for (var i = 0; i < sheet.content.grid.length; i++) {
+            for (let i = 0; i < sheet.content.grid.length; i++) {
               if (sheet.content.grid[i]['100'].data === action.data.data) {
-                sheet.content.grid[i][newColumn.id].data = [newRefLabel]
+                sheet.content.grid[i][newColumn.id].data = [newRefLabel];
                 break;
               }
             }
           }
           sheet.changed = true;
-        })
-        return newState
+        });
+        return newState;
       }
     case REMOVE_REF:
-      function removeRef(cell,ref) {
+      function removeRef(cell, ref) {
         for (var i = 0; i < cell.data.length; i++) {
           if (cell.data[i].data === ref) {
-            cell.data.splice(i,1)
+            cell.data.splice(i, 1);
             break;
           }
         }
       }
 
       {
-       let newState = _.cloneDeep(state);
-       //refactor to helper formula
-       newState.sheets.filter((sheet)=> sheet._id === action.targetSheet._id)
-        .forEach((sheet)=>{
-          let columnHeaders = sheet.content.columnHeaders;
+        const newState = _.cloneDeep(state);
+       // refactor to helper formula
+        newState.sheets.filter((sheet) => sheet._id === action.targetSheet._id)
+        .forEach((sheet) => {
+          const columnHeaders = sheet.content.columnHeaders;
           let existingCol;
-          let newRefLabel = {
-                    data: action.currRow["100"].data,
-                    rowId: action.currRow["100"],
-                    sheet: action.currSheet._id
-                  }
+          const newRefLabel = {
+            data: action.currRow['100'].data,
+            rowId: action.currRow['100'],
+            sheet: action.currSheet._id
+          };
           // find existing column reference
-          for (var i = 0; i < columnHeaders.length; i++){
+          for (let i = 0; i < columnHeaders.length; i++) {
             if (columnHeaders[i].linkedSheet == action.currSheet._id) {
-              existingCol = columnHeaders[i]
+              existingCol = columnHeaders[i];
               break;
             }
           }
-          for (var i = 0; i < sheet.content.grid.length; i++) {
+          for (let i = 0; i < sheet.content.grid.length; i++) {
             if (sheet.content.grid[i]['100'].data === action.data.data) {
-              removeRef(sheet.content.grid[i][existingCol.id],action.currRow['100'].data)
+              removeRef(sheet.content.grid[i][existingCol.id], action.currRow['100'].data);
               break;
             }
           }
-          sheet.changed = true
-        })
-        return newState
+          sheet.changed = true;
+        });
+        return newState;
       }
     case SHOW_SHARE_MODAL:
       {
-        let newState = _.cloneDeep(state);
+        const newState = _.cloneDeep(state);
         newState.showShareModal = true;
-        return newState
+        return newState;
       }
     case CLOSE_SHARE_MODAL:
       {
-        let newState = _.cloneDeep(state);
+        const newState = _.cloneDeep(state);
         newState.showShareModal = false;
-        return newState
+        return newState;
       }
     case ADD_SHEET_VIEW:
-      const sheetNamesToShow = state.sheetNames.concat({
-        name: action.sheetName,
-        id: action.newSheetId
-      });
-      let newState = _.cloneDeep(state);
-      newState.newSheetId = action.newSheetId
-      newState.sheetNames = sheetNamesToShow
-      return newState
-
+      {
+        const sheetNamesToShow = state.sheetNames.concat({
+          name: action.sheetName,
+          id: action.newSheetId
+        });
+        const newState = _.cloneDeep(state);
+        newState.newSheetId = action.newSheetId;
+        newState.sheetNames = sheetNamesToShow;
+        return newState;
+      }
     case CHANGE_SPACE_NAME:
-      {let newState = _.cloneDeep(state);
-      newState.space.name = action.name
-      return newState
-
-    }
+      {
+        const newState = _.cloneDeep(state);
+        newState.space.name = action.name;
+        return newState;
+      }
     case CHANGE_SHEET_NAME:
-      {let newState = _.cloneDeep(state);
-      newState.sheetToShow.name = action.name
-      const sheetNames = state.sheetNames.map(
+      {
+        const newState = _.cloneDeep(state);
+        newState.sheetToShow.name = action.name;
+        const sheetNames = state.sheetNames.map(
         sheetInSpace => sheetInSpace.id === action.sheetId ? {
           name: action.name, id: sheetInSpace.id
         } : sheetInSpace
-      )
-      newState.sheetNames = sheetNames;
-      return newState;
-    }
+      );
+        newState.sheetNames = sheetNames;
+        return newState;
+      }
     case SEARCHING:
-    {  let newState = _.cloneDeep(state);
-      newState.searching = action.bool
-      return newState;
-    }
+      { const newState = _.cloneDeep(state);
+        newState.searching = action.bool;
+        return newState;
+      }
     case DELETE_SHEET:
-    {
-      let newState = _.cloneDeep(state);
-      newState.sheets = newState.sheets.filter(sheet => sheet._id !== action.sheetId)
-      newState.sheetNames = newState.sheetNames.filter(sheet => sheet.id !== action.sheetId)
-      return newState
-    }
+      {
+        const newState = _.cloneDeep(state);
+        newState.sheets = newState.sheets.filter(sheet => sheet._id !== action.sheetId);
+        newState.sheetNames = newState.sheetNames.filter(sheet => sheet.id !== action.sheetId);
+        return newState;
+      }
     default:
       return state;
   }

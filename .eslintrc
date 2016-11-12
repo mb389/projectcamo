@@ -13,6 +13,12 @@
     "rules": {
         "comma-dangle": 0,
         "indent": [2, 2, {"SwitchCase": 1}],
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "max-len": "off",
+        "no-confusing-arrow": "off",
+        "no-underscore-dangle": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "no-restricted-syntax": "off"
     }
 }

@@ -13,8 +13,7 @@ import Dashboard from 'containers/Dashboard';
  */
 export default (store) => {
   const requireAuth = (nextState, replace, callback) => {
-
-    const { user: { authenticated }} = store.getState();
+    const { user: { authenticated } } = store.getState();
     if (!authenticated) {
       replace({
         pathname: '/login',
@@ -25,7 +24,7 @@ export default (store) => {
   };
 
   const redirectAuth = (nextState, replace, callback) => {
-    const { user: { authenticated }} = store.getState();
+    const { user: { authenticated } } = store.getState();
     if (authenticated) {
       replace({
         pathname: '/'
@@ -37,9 +36,11 @@ export default (store) => {
     <Route path="/" component={App} history={browserHistory}>
       <IndexRoute component={About} />
       <Route path="/login"
-        component={LoginOrRegister} onEnter={redirectAuth} />
+        component={LoginOrRegister} onEnter={redirectAuth}
+      />
       <Route path="/dashboard"
-        component={Dashboard} onEnter={requireAuth} />
+        component={Dashboard} onEnter={requireAuth}
+      />
       <Route path="about" component={About} />
       <Route path="space/:spaceId" component={SpaceControl} onEnter={requireAuth} />
     </Route>

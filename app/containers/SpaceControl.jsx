@@ -121,7 +121,6 @@ class SpaceControl extends Component {
 }
 
 
-
 function mapStateToProps(store) {
   return {
     space: store.spacecontrol.space,

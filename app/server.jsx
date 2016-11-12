@@ -22,7 +22,7 @@ axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
  * @param initial state of the store, so that the client can be hydrated with the same state as the server
  * @param head - optional arguments to be placed into the head
  */
-function renderFullPage(renderedContent, initialState, head={
+function renderFullPage(renderedContent, initialState, head = {
   title: '<title>SpaceBook</title>',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
   link: '<link rel="stylesheet" href="/assets/styles/main.css"/>',
@@ -76,22 +76,22 @@ function renderFullPage(renderedContent, initialState, head={
  * and pass it into the Router.run function.
  */
 export default function render(req, res) {
-    const history = createMemoryHistory();
-    const authenticated = req.isAuthenticated();
-    const store = configureStore({
-      user: {
-        authenticated: authenticated,
-        isWaiting: false,
-        message: '',
-        isLogin: true,
-        profile: {
-          name: '',
-          email: ''
-        }
+  const history = createMemoryHistory();
+  const authenticated = req.isAuthenticated();
+  const store = configureStore({
+    user: {
+      authenticated,
+      isWaiting: false,
+      message: '',
+      isLogin: true,
+      profile: {
+        name: '',
+        email: ''
       }
-    }, history);
+    }
+  }, history);
 
-    const routes = createRoutes(store);
+  const routes = createRoutes(store);
 
 
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
@@ -100,16 +100,15 @@ export default function render(req, res) {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-
       const InitialView = (
         <Provider store={store}>
             <RouterContext {...renderProps} />
         </Provider>
       );
 
-      //This method waits for all render component promises to resolve before returning to browser
+      // This method waits for all render component promises to resolve before returning to browser
       fetchComponentDataBeforeRender(store.dispatch, renderProps.components, renderProps.params)
-      .then(html => {
+      .then(() => {
         const componentHTML = renderToString(InitialView);
         const initialState = store.getState();
         res.status(200).end(renderFullPage(componentHTML, initialState, {
@@ -118,9 +117,7 @@ export default function render(req, res) {
           link: headconfig.link
         }));
       })
-      .catch(err => {
-        res.end(renderFullPage("",{}));
-      });
+      .catch(() => res.end(renderFullPage('', {})));
     } else {
       res.status(404).send('Not Found');
     }

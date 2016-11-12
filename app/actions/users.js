@@ -1,33 +1,34 @@
 import { polyfill } from 'es6-promise';
 import request from 'axios';
 import { push } from 'react-router-redux';
-
-import * as types from 'constants';
+import { updateSheet } from './SpaceControls';
+import * as types from '../constants';
 import { getSpaces } from '../actions/dashboard';
 
 polyfill();
 
-function makeUserRequest(method, data, api='/login') {
+function makeUserRequest(method, data, api = '/login') {
   return request({
     url: api,
-    method: method,
-    data: data,
+    method,
+    data,
     withCredentials: true
   });
 }
 
-function getUser(user) {
-  return {
-    type: types.GET_USER_INFO,
-    user
-  }
-}
+// function getUser(user) {
+//   return {
+//     type: types.GET_USER_INFO,
+//     user
+//   };
+// }
 
 export function retrieveUserInfo(id) {
   return (dispatch) => {
     request(`/user/${id}`)
     .then(res => dispatch(updateSheet(res.data.history)))
-  }
+    .catch(err => err);
+  };
 }
 
 // Log In Action Creators
@@ -36,17 +37,16 @@ function beginLogin() {
 }
 
 function loginSuccess(message) {
-
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message: message
+    message
   };
 }
 
 function loginError(message) {
   return {
     type: types.LOGIN_ERROR_USER,
-    message: message
+    message
   };
 }
 
@@ -54,7 +54,7 @@ function loginError(message) {
 function signUpError(message) {
   return {
     type: types.SIGNUP_ERROR_USER,
-    message: message
+    message
   };
 }
 
@@ -65,13 +65,13 @@ function beginSignUp() {
 function signUpSuccess(message) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
-    message: message
+    message
   };
 }
 
 // Log Out Action Creators
 function beginLogout() {
-  return { type: types.LOGOUT_USER};
+  return { type: types.LOGOUT_USER };
 }
 
 function logoutSuccess() {
@@ -87,11 +87,11 @@ export function toggleLoginMode() {
 }
 
 export function manualLogin(data) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(beginLogin());
 
     return makeUserRequest('post', data, '/login')
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
           dispatch(loginSuccess(response.data.message));
           dispatch(getSpaces());
@@ -100,18 +100,16 @@ export function manualLogin(data) {
           dispatch(loginError('Oops! Something went wrong!'));
         }
       })
-      .catch(err => {
-        dispatch(loginError(err.data.message));
-      });
+      .catch(err => dispatch(loginError(err.data.message)));
   };
 }
 
 export function signUp(data) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(beginSignUp());
 
     return makeUserRequest('post', data, '/signup')
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
           dispatch(signUpSuccess(response.data.message));
           dispatch(push('/'));
@@ -119,23 +117,23 @@ export function signUp(data) {
           dispatch(signUpError('Oops! Something went wrong'));
         }
       })
-      .catch(err => {
-        dispatch(signUpError(err.data.message));
-      });
+      .catch(err => dispatch(signUpError(err.data.message)));
   };
 }
 
 export function logOut() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(beginLogout());
 
     return makeUserRequest('post', null, '/logout')
-      .then( response => {
+      .then((response) => {
         if (response.status === 200) {
           dispatch(logoutSuccess());
         } else {
           dispatch(logoutError());
         }
-      }).then( () => dispatch(push('/login')));
+      })
+      .then(() => dispatch(push('/login')))
+      .catch(err => err);
   };
 }

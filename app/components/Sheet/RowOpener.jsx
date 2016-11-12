@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Glyphicon } from 'react-bootstrap';
 import { showRowModal } from 'actions/sheet';
@@ -10,14 +10,14 @@ const cx = classNames.bind(styles);
 
 class RowOpener extends Component {
   constructor(props) {
-    super(props)
-    this.openModal = this.openModal.bind(this)
+    super(props);
+    this.openModal = this.openModal.bind(this);
   }
 
-  openModal(){
+  openModal() {
     // dispatch show modal
-    const { dispatch, rowIdx } = this.props;
-    dispatch(showRowModal(this.props.row))
+    const { dispatch } = this.props;
+    dispatch(showRowModal(this.props.row));
   }
 
   render() {
@@ -26,12 +26,12 @@ class RowOpener extends Component {
         <Glyphicon
           className={cx('cell-expand')}
           glyph="fullscreen"
-          onClick={this.openModal} />
+          onClick={this.openModal}
+        />
       </div>
-    )
+    );
   }
 }
-
 
 
 export default connect()(RowOpener);

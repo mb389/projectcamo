@@ -1,7 +1,4 @@
 import React, { PropTypes } from 'react';
-import Navigation from 'containers/Navigation';
-import SpaceControl from 'containers/SpaceControl';
-import Message from 'containers/Message';
 import classNames from 'classnames/bind';
 import styles from 'css/main';
 
@@ -17,14 +14,11 @@ const cx = classNames.bind(styles);
  * A better explanation of react-router is available here:
  * https://github.com/rackt/react-router/blob/latest/docs/Introduction.md
  */
-const App = ({children}) => {
-  // <Navigation /> // placed in space controller container so it can inherit props
-  return (
-    <div className={cx('app')}>
-        {children}
-    </div>
-  );
-};
+const App = ({ children }) => (
+  <div className={cx('app')}>
+    {children}
+  </div>
+);
 
 App.propTypes = {
   children: PropTypes.object

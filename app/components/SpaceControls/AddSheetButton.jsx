@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
@@ -23,10 +23,8 @@ class AddSheetButton extends Component {
   }
 }
 
-const mapStateToProps = (store) => {
-  return {
-    space: store.spacecontrol.space,
-  };
-};
+const mapStateToProps = (store) => ({
+  space: store.spacecontrol.space,
+});
 
 export default connect(mapStateToProps)(AddSheetButton);

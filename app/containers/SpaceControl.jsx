@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {searching: false};
+    this.state = { searching: false };
     this.runUpdateCell = this.runUpdateCell.bind(this);
     this.superMoveCell = this.superMoveCell.bind(this);
     this.toggleMagicBar = this.toggleMagicBar.bind(this);
@@ -34,13 +34,13 @@ class SpaceControl extends Component {
     }
   }
 
-  componentWillUnmount(){
-    this.props.dispatch(SheetActions.clearSheet());
-    this.props.dispatch(SheetActions.clearFilteredRows());
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.sheetNames && this.props.sheetNames && nextProps.sheetNames.length !== this.props.sheetNames.length) this.forceUpdate();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.sheetNames && this.props.sheetNames && nextProps.sheetNames.length !== this.props.sheetNames.length) this.forceUpdate()
+  componentWillUnmount() {
+    this.props.dispatch(SheetActions.clearSheet());
+    this.props.dispatch(SheetActions.clearFilteredRows());
   }
 
   runUpdateCell(evt, cellKey, rowIdx) {
@@ -52,33 +52,33 @@ class SpaceControl extends Component {
   }
 
   toggleMagicBar() {
-    this.props.dispatch(SheetActions.currentCell())
+    this.props.dispatch(SheetActions.currentCell());
     if (!!this.props.searching) {
-        this.props.dispatch(Actions.searching(false));
-        this.props.dispatch(SheetActions.clearFilteredRows())
-      } else {
-        this.props.dispatch(Actions.searching())
-      }
+      this.props.dispatch(Actions.searching(false));
+      this.props.dispatch(SheetActions.clearFilteredRows());
+    } else {
+      this.props.dispatch(Actions.searching());
+    }
   }
 
   resizeCol(e) {
-    this.props.dispatch(SheetActions.resizeCol(e))
+    this.props.dispatch(SheetActions.resizeCol(e));
   }
 
   dragCol(e) {
-    this.props.dispatch(SheetActions.dragCol(e))
+    this.props.dispatch(SheetActions.dragCol(e));
   }
 
   searchSheet(e) {
-    this.props.dispatch(SheetActions.searchSheet(e.target.value))
+    this.props.dispatch(SheetActions.searchSheet(e.target.value));
   }
 
   deleteSheet() {
-    this.props.dispatch(Actions.deleteSheet(this.props.sheetToShow._id, this.props.sheets, this.props.space._id))
+    this.props.dispatch(Actions.deleteSheet(this.props.sheetToShow._id, this.props.sheets, this.props.space._id));
   }
 
   render() {
-    if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>
+    if (!this.props.sheet || !this.props.sheet.grid) return <div>loading ...</div>;
     return (
       <div className={cx('SpaceControl')}>
         <div className={cx('ControlBar')}>
@@ -114,7 +114,7 @@ class SpaceControl extends Component {
             </div>
           </div>
         </div>
-        <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders}/>
+        <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders} />
       </div>
     );
   }

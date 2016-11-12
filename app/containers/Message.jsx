@@ -15,7 +15,7 @@ const Message = ({message, type}) => {
 };
 
 function mapStateToProps(state) {
-  return {...state.message};
+  return { ...state.message };
 }
 
 export default connect(mapStateToProps)(Message);

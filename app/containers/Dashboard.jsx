@@ -1,6 +1,5 @@
 import styles from 'css/components/dashboard';
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 // import UserProfile from '../components/Dashboard/UserProfile';
 import SpaceList from '../components/Dashboard/SpaceList';
@@ -15,8 +14,8 @@ const cx = classNames.bind(styles);
 class Dashboard extends Component {
   constructor(props, context) {
     super(props, context);
-    this.createSpace = this.createSpace.bind(this)
-    this.removeSpace = this.removeSpace.bind(this)
+    this.createSpace = this.createSpace.bind(this);
+    this.removeSpace = this.removeSpace.bind(this);
   }
 
   componentWillMount() {
@@ -26,31 +25,34 @@ class Dashboard extends Component {
   }
 
   createSpace() {
-    this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length+1 : 1));
+    this.props.dispatch(Actions.createSpace(this.props.spaces ? this.props.spaces.length + 1 : 1));
   }
 
   removeSpace(e) {
-    this.props.dispatch(Actions.removeSpace(e))
+    this.props.dispatch(Actions.removeSpace(e));
   }
 
   render() {
     return (
       <div>
-        <Navigation class={'navigation'} link={{path: "/about", name: "About"}} disabled={true} />
+        <Navigation class={'navigation'} link={{ path: '/about', name: 'About' }} disabled />
         <div className={cx('dashboard')}>
-          <SpaceList spaces={this.props.spaces}
-            createSpace={this.createSpace} removeSpace={this.removeSpace}/>
+          <SpaceList
+            spaces={this.props.spaces}
+            createSpace={this.createSpace}
+            removeSpace={this.removeSpace}
+          />
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>
         <FooterBelow />
 
     </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
-  return {user: state.user, spaces: state.dashboard.spaces, collabSpaces: state.dashboard.collabSpaces};
+  return { user: state.user, spaces: state.dashboard.spaces, collabSpaces: state.dashboard.collabSpaces };
 }
 
 export default connect(mapStateToProps)(Dashboard);

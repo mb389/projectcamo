@@ -9,14 +9,13 @@ import {
  * messages/notifications should appear within the component to give the user
  * more context. - My 2 cents.
  */
-export default function message(state={
+export default function message(state = {
   message: '',
   type: 'SUCCESS'
-}, action={}) {
+}, action = {}) {
   switch (action.type) {
-    case LOGIN_SUCCESS_USER: {
-    
-    }
+    case LOGIN_SUCCESS_USER:
+      return state;
     case SIGNUP_SUCCESS_USER:
       return Object.assign({}, state, {
         message: action.message,

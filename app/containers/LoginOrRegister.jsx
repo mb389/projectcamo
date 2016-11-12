@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { manualLogin, signUp, toggleLoginMode } from 'actions/users';
 import styles from 'css/components/login';
 import hourGlassSvg from 'images/hourglass.svg';
-import space from 'images/spacebg.jpg'
+import space from 'images/spacebg.jpg';
 
 const cx = classNames.bind(styles);
 
@@ -31,8 +31,8 @@ class LoginOrRegister extends Component {
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
     dispatch(manualLogin({
-      email: email,
-      password: password
+      email,
+      password
     }));
   }
 
@@ -41,8 +41,8 @@ class LoginOrRegister extends Component {
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
     dispatch(signUp({
-      email: email,
-      password: password
+      email,
+      password
     }));
   }
 
@@ -54,8 +54,12 @@ class LoginOrRegister extends Component {
           <h1 className={cx('heading')}>Login with Email</h1>
           <div className={cx('alternative')}>
             Don't have an account?
-            <a className={cx('alternative-link')}
-              onClick={this.toggleMode}> Register here</a>
+            <a
+              className={cx('alternative-link')}
+              onClick={this.toggleMode}
+            >
+              Register here
+            </a>
           </div>
         </div>
       );
@@ -66,8 +70,12 @@ class LoginOrRegister extends Component {
       <h1 className={cx('heading')}>Register with Email</h1>
         <div className={cx('alternative')}>
           Already have an account?
-          <a className={cx('alternative-link')}
-            onClick={this.toggleMode}> Login</a>
+          <a
+            className={cx('alternative-link')}
+            onClick={this.toggleMode}
+          >
+            Login
+          </a>
         </div>
       </div>
     );
@@ -77,14 +85,22 @@ class LoginOrRegister extends Component {
     const { isLogin } = this.props.user;
     if (isLogin) {
       return (
-        <button className={cx('button')}
-          onClick={this.onLoginSubmit}>Login</button>
+        <button
+          className={cx('button')}
+          onClick={this.onLoginSubmit}
+        >
+          Login
+        </button>
       );
     }
 
     return (
-      <button className={cx('button')}
-        onClick={this.onRegisterSubmit}>Register</button>
+      <button
+        className={cx('button')}
+        onClick={this.onRegisterSubmit}
+      >
+        Register
+      </button>
     );
   }
 
@@ -92,10 +108,7 @@ class LoginOrRegister extends Component {
     const { isWaiting, message } = this.props.user;
 
     return (
-
-      <div className={cx('login', {
-        'waiting': isWaiting
-      })}>
+      <div className={cx('login', { waiting: isWaiting })}>
       <img className={cx('outer')} src={space} />
         <div>
           { this.renderHeader() }
@@ -104,15 +117,17 @@ class LoginOrRegister extends Component {
             <input className={cx('input')}
               type="email"
               ref="email"
-              placeholder="email" />
+              placeholder="email"
+            />
             <input className={cx('input')}
               type="password"
               ref="password"
-              placeholder="password" />
-            <p className={cx('message', {
-              'message-show': message && message.length > 0
-              })}>{message}</p>
-            { this.renderButton() }
+              placeholder="password"
+            />
+            <p className={cx('message', { 'message-show': message && message.length > 0 })}>
+              {message}
+            </p>
+              { this.renderButton() }
           </div>
         </div>
       </div>

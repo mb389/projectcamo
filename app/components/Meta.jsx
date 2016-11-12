@@ -10,19 +10,15 @@ if (__DEVSERVER__) {
   config.link = config.link.filter(l => l.rel !== 'stylesheet');
 }
 
-class Meta extends React.Component {
-  render() {
-    return (
-      <Helmet
-        title="SpaceBook"
-        meta={config.meta}
-        link={config.link}
-      />
-    );
-  }
-}
+const Meta = () => (
+  <Helmet
+    title="SpaceBook"
+    meta={config.meta}
+    link={config.link}
+  />
+);
 
 ReactDOMServer.renderToString(<Meta />);
-let header = Helmet.rewind();
+const header = Helmet.rewind();
 
 export default header;

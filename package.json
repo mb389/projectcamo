@@ -20,6 +20,7 @@
   "author": "Assaf Packin, Oscar Pena, Cody Schwarz, Michael Bushoy",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^5.0.4",
     "chai": "^3.5.0",
     "expect": "^1.15.2",
     "karma": "^0.13.22",

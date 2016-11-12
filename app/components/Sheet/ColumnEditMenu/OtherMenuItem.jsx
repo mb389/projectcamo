@@ -1,15 +1,9 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import styles from 'css/components/table';
+import React from 'react';
 
-const cx = classNames.bind(styles);
-
-const OtherMenuItem = (props) => {
-	return (
-	    <div className='col-xs-12'>
-			<p className='col-xs-12'>{props.description}</p>
-		</div>
-		);
-}
+const OtherMenuItem = ({ description }) => (
+  <div className="col-xs-12">
+    <p className="col-xs-12">{description}</p>
+  </div>
+);
 
 export default OtherMenuItem;

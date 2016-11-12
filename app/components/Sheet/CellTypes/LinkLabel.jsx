@@ -1,24 +1,18 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames/bind';
-import styles from 'css/components/table';
+import React from 'react';
 import { Label } from 'react-bootstrap';
 
-
-const cx = classNames.bind(styles);
-
-
-const LinkLabel = (props) => {
-  let styles = {
+const LinkLabel = ({ data }) => {
+  const style = {
     fontSize: '20px',
     display: 'inline-block',
     clear: 'both'
-  }
+  };
 
   return (
-      <div style={styles}>
-        <Label bsStyle="info">{props.data} </Label>
-      </div>
-    );
-}
+    <div style={style}>
+      <Label bsStyle="info">{data} </Label>
+    </div>
+  );
+};
 
 export default LinkLabel;

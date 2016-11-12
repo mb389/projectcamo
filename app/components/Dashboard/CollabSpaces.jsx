@@ -1,29 +1,26 @@
-import React, {PropTypes, Component} from 'react';
+import React from 'react';
 import styles from 'css/components/dashboard';
 import classNames from 'classnames/bind';
-import AddSpace from './AddSpace'
-import {Link} from 'react-router';
-import {Glyphicon} from 'react-bootstrap';
-import doc from 'images/document.png'
+import { Link } from 'react-router';
+import doc from 'images/document.png';
 
 const cx = classNames.bind(styles);
 
 const CollabSpaces = (props) => {
+  const collabSpaces = !props.collabSpaces ? [] : props.collabSpaces;
 
-   const collabSpaces = !props.collabSpaces ? [] : props.collabSpaces;
-
-   const collabSpacesToDisplay =
+  const collabSpacesToDisplay =
    collabSpaces.map((el) => {
-     const route=`space/${el._id}`;
-      return <div key={el._id} className={cx('iconForSheet') + ' col-xs-4 col-sm-4 col-md-3 col-lg-2'}>
+     const route = `space/${el._id}`;
+     return (<div key={el._id} className={`${cx('iconForSheet')} col-xs-4 col-sm-4 col-md-3 col-lg-2`}>
                   <Link to={route}>
-                    <img className={cx('icon')} src={doc}/>
+                    <img className={cx('icon')} src={doc} />
                   </Link>
                 <h6> {el.name} </h6>
-              </div>
-    });
+              </div>);
+   });
 
-    return (
+  return (
       <div className={cx('spacesDiv')}>
         <strong>Spaces Shared With You</strong>
           <div className={cx('spaces')}>
@@ -31,6 +28,6 @@ const CollabSpaces = (props) => {
           </div>
       </div>
     );
-  }
+};
 
 export default CollabSpaces;

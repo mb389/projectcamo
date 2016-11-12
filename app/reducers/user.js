@@ -9,7 +9,7 @@ import {
   LOGOUT_USER,
   LOGOUT_SUCCESS_USER,
   LOGOUT_ERROR_USER,
-  GET_USER_INFO } from 'constants/index';
+  GET_USER_INFO } from '../constants';
 
 export default function user(state = {
   isLogin: true,

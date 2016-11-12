@@ -4,8 +4,6 @@ var Workspace = mongoose.model('Workspace');
 var Sheet = mongoose.model('Sheet');
 var User = mongoose.model('User');
 
-
-
 exports.all = function(req, res) {
   if (req.user) {
   Promise.all([

@@ -40,8 +40,8 @@ class Lookup extends Component {
 
   getRecords(row) {
     const listItems = [];
-    for (let key in row) {
-      let columnName = this.state.sheet.content.columnHeaders.filter(col => col.id === key)[0].name;
+    for (const key in row) {
+      const columnName = this.state.sheet.content.columnHeaders.filter(col => col.id === key)[0].name;
       listItems.push(
         <ListGroupItem key={key}>
           <strong>{columnName}: </strong>{this.recType(row[key], key)}
@@ -51,12 +51,12 @@ class Lookup extends Component {
   }
 
   recType(cell) {
+    const labels = cell.data ? cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />) : <span key="0"></span>;
     switch (cell.type) {
       case 'Images':
         cell.data = cell.data || [];
         return cell.data.map((img, i) => <img src={img} key={i} className={cx('img-thumb')} />);
       case 'Reference':
-        const labels = cell.data ? cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />) : <span key="0"></span>;
         return (
           <div>
             {labels}

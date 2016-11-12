@@ -13,11 +13,19 @@ import {
   ADD_USER_COLLAB,
   ALL_CHANGED_FALSE,
   DELETE_SHEET
-} from 'constants/index';
-import { insertNewColInRowsNonIm, newColInfoNonIm } from './sheetHelpers.js';
+} from '../constants';
+import { insertNewColInRowsNonIm, newColInfoNonIm } from './sheetHelpers';
 
 
 export default function spaceControl(state = { }, action = {}) {
+  function removeRef(cell, ref) {
+    for (let i = 0; i < cell.data.length; i++) {
+      if (cell.data[i].data === ref) {
+        cell.data.splice(i, 1);
+        break;
+      }
+    }
+  }
   switch (action.type) {
     case ADD_USER_COLLAB: {
       const newCollabSpace = _.cloneDeep(state);
@@ -57,7 +65,9 @@ export default function spaceControl(state = { }, action = {}) {
             found = true;
           }
         });
-        !found && action.dbSheet ? newState.sheets.push(action.dbSheet) : null;
+        if (!found && action.dbSheet) {
+          newState.sheets.push(action.dbSheet);
+        }
         return newState;
       }
     case UPDATE_REF_SHEET:
@@ -86,9 +96,7 @@ export default function spaceControl(state = { }, action = {}) {
                 row[existingCol.id].data ? row[existingCol.id].data.push(newRefLabel) : row[existingCol.id].data = [newRefLabel];
               }
             });
-          }
-          // if no column ref make a new one
-          else {
+          } else {
             const newColumn = newColInfoNonIm(sheet.content.columnHeaders);
             newColumn.name = action.currSheet.name;
             newColumn.linkedSheet = action.currSheet._id;
@@ -108,15 +116,6 @@ export default function spaceControl(state = { }, action = {}) {
         return newState;
       }
     case REMOVE_REF:
-      function removeRef(cell, ref) {
-        for (var i = 0; i < cell.data.length; i++) {
-          if (cell.data[i].data === ref) {
-            cell.data.splice(i, 1);
-            break;
-          }
-        }
-      }
-
       {
         const newState = _.cloneDeep(state);
        // refactor to helper formula
@@ -124,11 +123,11 @@ export default function spaceControl(state = { }, action = {}) {
         .forEach((sheet) => {
           const columnHeaders = sheet.content.columnHeaders;
           let existingCol;
-          const newRefLabel = {
-            data: action.currRow['100'].data,
-            rowId: action.currRow['100'],
-            sheet: action.currSheet._id
-          };
+          // const newRefLabel = {
+          //   data: action.currRow['100'].data,
+          //   rowId: action.currRow['100'],
+          //   sheet: action.currSheet._id
+          // };
           // find existing column reference
           for (let i = 0; i < columnHeaders.length; i++) {
             if (columnHeaders[i].linkedSheet == action.currSheet._id) {

@@ -1,6 +1,6 @@
 import expect from 'expect';
-import reducer from 'reducers/spacecontrol';
-import * as types from 'constants';
+import reducer from '../../reducers/spacecontrol';
+import * as types from '../../constants';
 
 describe('Space Control Reducer', () => {
   const initialState = {

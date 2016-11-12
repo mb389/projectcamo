@@ -1,8 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/bottom-bar';
-import { Glyphicon, Dropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import { Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -69,7 +68,7 @@ class BottomReducers extends React.Component {
           {this.generateMenuItems()}
         </Dropdown.Menu>
       </Dropdown>
-      );
+    );
   }
 }
 

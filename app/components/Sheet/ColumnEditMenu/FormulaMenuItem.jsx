@@ -3,10 +3,11 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/table';
 import { Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
-import AceEditor from 'react-ace';
+//
 
 // prevent error when server tries to render
 if (typeof window !== 'undefined') {
+  const AceEditor = require('react-ace');
   require('brace/mode/javascript');
   require('brace/theme/kuroir');
 }

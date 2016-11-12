@@ -1,6 +1,6 @@
 import expect from 'expect';
-import reducer from 'reducers/formulaStore';
-import * as types from 'constants';
+import reducer from '../../reducers/formulaStore';
+import * as types from '../../constants';
 
 describe('Formula Store reducers', () => {
   const initialState = {
@@ -50,7 +50,7 @@ describe('Formula Store reducers', () => {
     const nextState = reducer(initialState, action);
 
     expect(nextState.formulas.length).toEqual(1);
-    expect(nextState.formulas[0]['name']).toEqual('Oscarfunk');
+    expect(nextState.formulas[0].name).toEqual('Oscarfunk');
   });
 
   it('FORMULA_REMOVE should remove one formula from the state', () => {

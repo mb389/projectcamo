@@ -1,15 +1,6 @@
-{
+module.exports = {
     "extends": "airbnb",
-    "env": {
-        "browser": true,
-        "node": true,
-        "mocha": true
-    },
-    "ecmaFeatures": {
-        "forOf": true,
-        "jsx": true,
-        "es6": true
-    },
+    "parser": "babel-eslint",
     "rules": {
         "strict": 0,
         "comma-dangle": 0,
@@ -24,6 +15,7 @@
         "react/jsx-no-bind": 0,
         "guard-for-in": 0,
         "no-undef": 0,
-        "quote-props": 0
+        "quote-props": 0,
+        "eqeqeq": 0
     }
 }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SearchButton from './SearchButton';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
@@ -20,7 +20,7 @@ const MagicBar = (props) => (
     <SaveButton saveSheet={props.saveSheet} />
     <AutoSave />
     <HistoryButton />
-    <ShareButton />
+    <ShareButton {...props} />
     <DeleteSheetButton deleteSheet={props.deleteSheet} />
     <HistoryModal />
   </div>

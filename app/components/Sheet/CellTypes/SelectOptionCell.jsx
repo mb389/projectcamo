@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
-import { updateCell, updateModalCell } from 'actions/sheet';
-import styles from 'css/components/table';
+import { updateCell, updateModalCell } from '../../../actions/sheet';
+import styles from '../../../css/components/table';
 import { Input } from 'react-bootstrap';
-
 
 const cx = classNames.bind(styles);
 
-export default class SelectOptionCell extends Component {
+class SelectOptionCell extends Component {
   constructor(props, state) {
     super(props, state);
     this.handleChange = this.handleChange.bind(this);
@@ -47,3 +46,5 @@ export default class SelectOptionCell extends Component {
     );
   }
 }
+
+export default SelectOptionCell;

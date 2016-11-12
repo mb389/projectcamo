@@ -3,23 +3,23 @@
 * As seen in: https://github.com/caljrimmer/isomorphic-redux-app
 */
 export default function promiseMiddleware() {
-  return next => action => {
+  return next => (action) => {
     const { promise, type, ...rest } = action;
 
     if (!promise) return next(action);
 
-    const SUCCESS = type + '_SUCCESS';
-    const REQUEST = type + '_REQUEST';
-    const FAILURE = type + '_FAILURE';
+    const SUCCESS = `${type} _SUCCESS`;
+    const REQUEST = `${type} _REQUEST`;
+    const FAILURE = `${type} _FAILURE`;
     next({ ...rest, type: REQUEST });
     return promise
-      .then(req => {
+      .then((req) => {
         next({ ...rest, req, type: SUCCESS });
         return true;
       })
-      .catch(error => {
+      .catch((error) => {
         next({ ...rest, error, type: FAILURE });
         return false;
       });
-   };
+  };
 }

@@ -1,6 +1,7 @@
 import styles from 'css/components/dashboard';
 import React, { Component } from 'react';
 import classNames from 'classnames/bind';
+import { connect } from 'react-redux';
 // import UserProfile from '../components/Dashboard/UserProfile';
 import SpaceList from '../components/Dashboard/SpaceList';
 import CollabSpaces from '../components/Dashboard/CollabSpaces';
@@ -52,7 +53,11 @@ class Dashboard extends Component {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user, spaces: state.dashboard.spaces, collabSpaces: state.dashboard.collabSpaces };
+  return {
+    user: state.user,
+    spaces: state.dashboard.spaces,
+    collabSpaces: state.dashboard.collabSpaces
+  };
 }
 
 export default connect(mapStateToProps)(Dashboard);

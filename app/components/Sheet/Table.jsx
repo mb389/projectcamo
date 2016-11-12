@@ -9,17 +9,21 @@ import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
 
-const Table = () => {
-  if (!this.props.headers) return <div>Loading...</div>;
+const Table = (props) => {
+  if (!props.headers) return <div>Loading...</div>;
   return (
     <div className={cx('table')}>
-      <Headers headers={this.props.headers}
-        resizeCol={this.props.resizeCol}
-        dragCol={this.props.dragCol}
+      <Headers
+        headers={props.headers}
+        resizeCol={props.resizeCol}
+        dragCol={props.dragCol}
       />
-      <Grid grid={this.props.grid} headers={this.props.headers}
-        disableAll={this.props.disableAll} searching={this.props.searching}
-        filteredRows={this.props.filteredRows}
+      <Grid
+        grid={props.grid}
+        headers={props.headers}
+        disableAll={props.disableAll}
+        searching={props.searching}
+        filteredRows={props.filteredRows}
       />
       <AddRow />
       <RowModal className={cx('row-modal')} />

@@ -86,7 +86,6 @@ export function navToNewCell(keyCode, newSheet) {
     default:
       return state;
   }
-  return null;
 }
 
 export function newColInfo(columns) {

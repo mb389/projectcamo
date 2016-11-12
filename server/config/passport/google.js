@@ -1,7 +1,7 @@
-var mongoose = require('mongoose');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = mongoose.model('User');
-var secrets = require('../secrets');
+const mongoose = require('mongoose');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const User = mongoose.model('User');
+const secrets = require('../secrets');
 
 /*
  * OAuth Strategy taken modified from https://github.com/sahat/hackathon-starter/blob/master/config/passport.js
@@ -22,46 +22,42 @@ var secrets = require('../secrets');
  * as options specifying a client ID, client secret, and callback URL.
  */
 module.exports = new GoogleStrategy({
-	clientID: secrets.google.clientID,
-	clientSecret: secrets.google.clientSecret,
-	callbackURL: secrets.google.callbackURL
-},  function(req, accessToken, refreshToken, profile, done) {
-	if (req.user) {
-		User.findOne({ google: profile.id }, function(err, existingUser) {
-			if (existingUser) {
-				return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.'})
-			} else {
-				User.findById(req.user.id, function(err, user) {
-					user.google = profile.id;
-					user.tokens.push({ kind: 'google', accessToken: accessToken});
-					user.profile.name = user.profile.name || profile.displayName;
-          user.profile.gender = user.profile.gender || profile._json.gender;
-          user.profile.picture = user.profile.picture || profile._json.picture;
-          user.save(function(err) {
-            done(err, user, { message: 'Google account has been linked.' });
-          });
-				})
-			}
-		});
-	} else {
-		User.findOne({ google: profile.id }, function(err, existingUser) {
+  clientID: secrets.google.clientID,
+  clientSecret: secrets.google.clientSecret,
+  callbackURL: secrets.google.callbackURL
+}, (req, accessToken, refreshToken, profile, done) => {
+  if (req.user) {
+    User.findOne({ google: profile.id }, (err, existingUser) => {
+      if (existingUser) {
+        return done(null, false, { message: 'There is already a Google account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+      }
+      User.findById(req.user.id, (findErr, user) => {
+        if (findErr) return findErr;
+        user.google = profile.id;
+        user.tokens.push({ kind: 'google', accessToken });
+        user.profile.name = user.profile.name || profile.displayName;
+        user.profile.gender = user.profile.gender || profile._json.gender;
+        user.profile.picture = user.profile.picture || profile._json.picture;
+        return user.save(saveErr => done(saveErr, user, { message: 'Google account has been linked.' }));
+      });
+      return null;
+    });
+  } else {
+    User.findOne({ google: profile.id }, (err, existingUser) => {
       if (existingUser) return done(null, existingUser);
-      User.findOne({ email: profile._json.emails[0].value }, function(err, existingEmailUser) {
+      return User.findOne({ email: profile._json.emails[0].value }, (findErr, existingEmailUser) => {
         if (existingEmailUser) {
-          return done(null, false, { message: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.'});
-        } else {
-          var user = new User();
-          user.email = profile._json.emails[0].value;
-          user.google = profile.id;
-          user.tokens.push({ kind: 'google', accessToken: accessToken });
-          user.profile.name = profile.displayName;
-          user.profile.gender = profile._json.gender;
-          user.profile.picture = profile._json.picture;
-          user.save(function(err) {
-            done(err, user);
-          });
+          return done(null, false, { message: 'There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' });
         }
+        const user = new User();
+        user.email = profile._json.emails[0].value;
+        user.google = profile.id;
+        user.tokens.push({ kind: 'google', accessToken });
+        user.profile.name = profile.displayName;
+        user.profile.gender = profile._json.gender;
+        user.profile.picture = profile._json.picture;
+        return user.save(saveErr => done(saveErr, user));
       });
     });
-	}
+  }
 });

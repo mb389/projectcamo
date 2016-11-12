@@ -102,7 +102,7 @@ export default function render(req, res) {
     } else if (renderProps) {
       const InitialView = (
         <Provider store={store}>
-            <RouterContext {...renderProps} />
+          <RouterContext {...renderProps} />
         </Provider>
       );
 

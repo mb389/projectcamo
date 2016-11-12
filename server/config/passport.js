@@ -1,24 +1,18 @@
 /* Initializing passport.js */
-var mongoose = require('mongoose');
-var local = require('./passport/local');
-var google = require('./passport/google');
-var User = mongoose.model('User');
+const mongoose = require('mongoose');
+const local = require('./passport/local');
+const User = mongoose.model('User');
 /*
  * Expose
  */
-module.exports = function(app, passport, config) {
+module.exports = (app, passport) => {
+  passport.serializeUser((user, done) => done(null, user.id));
 
-  passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => done(err, user));
   });
 
-  passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-      done(err, user);
-    });
-  });
-
-  //use the following strategies
+  // use the following strategies
   passport.use(local);
   // passport.use(google);
 };

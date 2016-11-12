@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import styles from 'css/components/menuEditCol';
+import styles from '../../../css/components/menuEditCol';
 import { Button, Glyphicon } from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
@@ -17,16 +17,16 @@ const SelectMenuItem = (props) => {
   ));
   return (
     <div className="col-xs-12">
-    <h5 className="col-xs-12">Allows you to select a single predefined option. </h5>
-    <h5> Select Options:</h5>
-      {selectOptions}
-    <Button
-      className={`${cx('addSelectOption')} col-xs-12 btn`}
-      onClick={props.addSelectOption}
-    >
-      <Glyphicon glyph="plus" />
-    </Button>
-  </div>
+      <h5 className="col-xs-12">Allows you to select a single predefined option. </h5>
+      <h5> Select Options:</h5>
+        {selectOptions}
+      <Button
+        className={`${cx('addSelectOption')} col-xs-12 btn`}
+        onClick={props.addSelectOption}
+      >
+        <Glyphicon glyph="plus" />
+      </Button>
+    </div>
   );
 };
 

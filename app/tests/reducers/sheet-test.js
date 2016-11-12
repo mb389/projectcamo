@@ -1,6 +1,6 @@
 import expect from 'expect';
-import reducer from 'reducers/sheet';
-import * as types from 'constants';
+import reducer from '../../reducers/sheet';
+import * as types from '../../constants';
 
 describe('Sheets reducer', () => {
   const initialState = {

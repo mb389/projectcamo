@@ -1,13 +1,13 @@
-var express = require('express');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var MongoStore =  require('connect-mongo')(session);
-var path = require('path');
-var secrets = require('./secrets');
-var flash = require('express-flash');
-var methodOverride = require('method-override');
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const MongoStore = require('connect-mongo')(session);
+const path = require('path');
+const secrets = require('./secrets');
+const flash = require('express-flash');
+const methodOverride = require('method-override');
 
-module.exports = function (app, passport) {
+module.exports = (app, passport) => {
   app.set('port', (process.env.PORT || 3000));
 
   // X-Powered-By header has no functional value.
@@ -19,14 +19,14 @@ module.exports = function (app, passport) {
   app.set('view cache', false);
 
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
 
 
   app.set('trust proxy', 'loopback');
 
-  var sess = {
+  const sess = {
     resave: true,
     saveUninitialized: false,
     secret: secrets.sessionSecret,
@@ -46,11 +46,12 @@ module.exports = function (app, passport) {
     )
   };
 
-  var node_env = process.env.NODE_ENV;
+  /* eslint-disable */
+  const node_env = process.env.NODE_ENV;
   console.log('--------------------------');
   console.log('===> 😊  Starting Server . . .');
-  console.log('===>  Environment: ' + node_env);
-  if(node_env === 'production') {
+  console.log(`===>  Environment: ${node_env}`);
+  if (node_env === 'production') {
     console.log('===> 🚦  Note: In order for authentication to work in production');
     console.log('===>           you will need a secure HTTPS connection');
     sess.cookie.secure = true; // Serve secure cookies
@@ -62,5 +63,4 @@ module.exports = function (app, passport) {
   app.use(passport.session());
 
   app.use(flash());
-
 };

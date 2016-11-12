@@ -14,16 +14,17 @@ class ShareButton extends Component {
 
   openModal() {
     // dispatch show modal
+    console.log(this.props)
     const { dispatch } = this.props;
     dispatch(showShareModal());
   }
 
   render() {
     return (
-    <div className={cx('ShareButton')}>
-      <Button onClick={this.openModal}><Glyphicon glyph="share" /></Button>
-    </div>
-  );
+      <div className={cx('ShareButton')}>
+        <Button onClick={this.openModal}><Glyphicon glyph="share" /></Button>
+      </div>
+    );
   }
 }
 

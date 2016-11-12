@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import {
-  // set changed to true
   UPDATE_CELL,
   UPDATE_CELL_BY_ID,
   ADD_ROW,
@@ -12,7 +11,6 @@ import {
   INSERT_COLUMN,
   FORMULA_COLUMN,
   RESIZE_TABLE_COL,
-  // no need to set changed to true
   TOGGLE_CHANGED,
   UPDATE_MODAL_CELL,
   CHANGE_SHEET,
@@ -32,13 +30,13 @@ import {
   SHOW_MAP,
   HIDE_MAP,
   SEND_LAT_LONGS
-} from 'constants/index';
+} from '../constants';
 import {
   insertNewColInRows,
   runCustomFunc,
   navToNewCell,
   newColInfo
-} from './sheetHelpers.js';
+} from './sheetHelpers';
 
 export default function sheet(state = {
   grid: [],
@@ -52,7 +50,7 @@ export default function sheet(state = {
       {
         const newState = _.cloneDeep(state);
 
-        action.sheet.grid.forEach(row => {
+        action.sheet.grid.forEach((row) => {
           for (const cell in row) {
             row[cell].focused = false;
           }
@@ -93,7 +91,7 @@ export default function sheet(state = {
         newState.grid[action.cell.idx][action.cell.key].data = action.cell.data;
         newState.currentCell.cell.data = action.cell.data;
         if (action.formulaCells) {
-          action.formulaCells.forEach(cell => {
+          action.formulaCells.forEach((cell) => {
             const data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
             newState.grid[action.cell.idx][cell.col].data = data;
           });
@@ -224,14 +222,14 @@ export default function sheet(state = {
       {
         const newState = _.cloneDeep(state);
         const updatingId = action.data.id;
-        newState.columnHeaders = newState.columnHeaders.map(column => {
+        newState.columnHeaders = newState.columnHeaders.map((column) => {
           if (column.id === updatingId) {
             return action.data;
           }
           return column;
         });
 
-        newState.grid = newState.grid.map(row => {
+        newState.grid = newState.grid.map((row) => {
           const curRow = row[updatingId];
           curRow.type = action.data.type;
           if (action.data.type === 'Checkbox') curRow.data = 'off';
@@ -251,11 +249,13 @@ export default function sheet(state = {
       {
         let newState = _.cloneDeep(state);
         const newColumn = newColInfo(newState.columnHeaders);
-        newColumn.name = 'Column ' + (1 + action.colIdx);
+        newColumn.name = `Column ${1 + action.colIdx}`;
         newColumn.idx = action.colIdx;
 
-        newState.columnHeaders = newState.columnHeaders.map(column => {
-          if (column.idx >= action.colIdx) {column.idx++;}
+        newState.columnHeaders = newState.columnHeaders.map((column) => {
+          if (column.idx >= action.colIdx) {
+            column.idx++;
+          }
           return column;
         });
 
@@ -306,11 +306,9 @@ export default function sheet(state = {
       {
         const newState = _.cloneDeep(state);
         const colId = action.colId ? action.colId : newState.columnHeaders[newState.columnHeaders.length - 1].id;
-        newState.columnHeaders = newState.columnHeaders.filter(col => {
-          return colId !== col.id;
-        });
+        newState.columnHeaders = newState.columnHeaders.filter(col => colId !== col.id);
 
-        newState.grid = newState.grid.map(row => {
+        newState.grid = newState.grid.map((row) => {
           if (row[colId]) delete row[colId];
           return row;
         });
@@ -378,11 +376,11 @@ export default function sheet(state = {
         const newState = _.cloneDeep(state);
         // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
 
-        newState.columnHeaders.forEach(ch => {
+        newState.columnHeaders.forEach((ch) => {
           if (ch.id === action.size.id) ch.width = action.size.rect.width;
         });
 
-        newState.grid.forEach(row => {
+        newState.grid.forEach((row) => {
           row[action.size.id].width = action.size.rect.width;
         });
         newState.changed = true;

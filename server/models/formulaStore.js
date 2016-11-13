@@ -2,11 +2,11 @@
  * Schema Definitions
  *
  */
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
-  name: { type: String, required: true },
-  functionStr: { type: String, required: true },
+var schema = new mongoose.Schema({
+  name: {type: String, required: true},
+  functionStr: {type: String, required: true},
   createdBy: String,
   creationDate: { type: Date, default: Date.now },
 });

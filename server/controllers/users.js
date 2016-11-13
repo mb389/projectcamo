@@ -1,31 +1,30 @@
-'use strict';
-const _ = require('lodash');
-const mongoose = require('mongoose');
+var _ = require('lodash');
+var mongoose = require('mongoose');
 // var User = require('../models/user');
-const passport = require('passport');
-const User = mongoose.model('User');
+var passport = require('passport');
+var User = mongoose.model('User');
 
 
-exports.getById = function (req, res, next) {
+exports.getById = function(req,res,next) {
   User.findById(req.params.id)
-    .then(user => res.json(user))
-    .catch(err => console.log(err));
-};
+  .then(user => res.json(user))
+  .catch(err => console.log(err))
+}
 
 /**
  * POST /login
  */
-exports.postLogin = function (req, res, next) {
+exports.postLogin = function(req, res, next) {
   // Do email and password validation for the server
-  passport.authenticate('local', (err, user, info) => {
-    if (err) return next(err);
-    if (!user) {
-      return res.status(401).json({ message: info.message });
+  passport.authenticate('local', function(err, user, info) {
+    if(err) return next(err);
+    if(!user) {
+     return res.status(401).json({ message: info.message});
     }
     // Passport exposes a login() function on req (also aliased as
     // logIn()) that can be used to establish a login session
-    req.logIn(user, (err) => {
-      if (err) return res.status(401).json({ message: err });
+    req.logIn(user, function(err) {
+      if(err) return res.status(401).json({message: err});
       return res.status(200).json(
         {
           message: 'You have been successfully logged in.'
@@ -38,7 +37,7 @@ exports.postLogin = function (req, res, next) {
 /**
  * POST /logout
  */
-exports.postLogout = function (req, res) {
+exports.postLogout = function(req, res) {
   // Do email and password validation for the server
   req.logout();
   res.redirect('/');
@@ -48,20 +47,20 @@ exports.postLogout = function (req, res) {
  * POST /signup
  * Create a new local account
  */
-exports.postSignUp = function (req, res, next) {
-  const user = new User({
+exports.postSignUp = function(req, res, next) {
+  var user =  new User({
     email: req.body.email,
     password: req.body.password
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (existingUser) {
-      return res.status(409).json({ message: 'Account with this email address already exists!' });
+  User.findOne({email: req.body.email}, function(err, existingUser) {
+    if(existingUser) {
+      return res.status(409).json({ message: 'Account with this email address already exists!'});
     }
-    user.save((err) => {
-      if (err) return next(err);
-      req.logIn(user, (err) => {
-        if (err) return res.status(401).json({ message: err });
+    user.save(function(err) {
+      if(err) return next(err);
+      req.logIn(user, function(err) {
+        if(err) return res.status(401).json({message: err});
         return res.status(200).json(
           {
             message: 'You have been successfully logged in.'

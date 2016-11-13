@@ -2,9 +2,9 @@
  * Schema Definitions
  *
  */
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
+var schema = new mongoose.Schema({
   name: {
     type: String,
     required: true

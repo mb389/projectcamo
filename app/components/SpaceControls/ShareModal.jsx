@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames/bind';
 import { connect } from 'react-redux';
 import styles from 'css/components/modal';
-import { Modal, Glyphicon, Input, Button } from 'react-bootstrap';
+import { Modal, Glyphicon, InputGroup, Button, FormGroup, FormControl } from 'react-bootstrap';
 import { closeShareModal } from 'actions/SpaceControls';
 import * as DashActions from 'actions/dashboard';
 import ShareModalCollabs from './ShareModalCollabs';
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 class ShareModal extends Component {
   constructor(props, state) {
     super(props, state);
+    this.state = { value: '' };
     this.close = this.close.bind(this);
     this.newCollab = this.newCollab.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,9 +27,9 @@ class ShareModal extends Component {
     // after this completes we want to add the email to the list;
   }
 
-  handleChange() {
+  handleChange(e) {
     this.setState({
-      value: this.refs.input.getValue()
+      value: e.target.value
     });
   }
 
@@ -37,7 +38,7 @@ class ShareModal extends Component {
     return (
       <div className={cx('shareModal')}>
         <Modal show={this.props.showShareModal} onHide={this.close}>
-          <Modal.Header className={cx('shareModalHeader')} classcloseButton>
+          <Modal.Header className={cx('shareModalHeader')}>
             <Modal.Title>Sharing Dashboard</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -50,15 +51,19 @@ class ShareModal extends Component {
               <ShareModalCollabs collabs={this.props.space ? this.props.space.collabs : []} />
               <hr />
               <div>Share This Space</div>
-              <form>
-                <Input
-                  type="text"
-                  placeholder="Enter User's E-mail"
-                  ref="input"
-                  buttonAfter={addBtn}
-                  onChange={this.handleChange}
-                />
-              </form>
+              <FormGroup>
+                <InputGroup>
+                    <FormControl
+                      type="text"
+                      placeholder="Enter User's E-mail"
+                      value={this.state.value}
+                      onChange={this.handleChange}
+                    />
+                    <InputGroup.Button>
+                      {addBtn}
+                    </InputGroup.Button>
+                  </InputGroup>
+                </FormGroup>
               <p></p>
             </div>
           </Modal.Body>

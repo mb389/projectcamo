@@ -170,7 +170,7 @@ class MenuEditCol extends Component {
       <div className={cx('editNameAndType')} style={{ width: this.state.type === 'Formula' ? 300 : 250 }} >
         <ContentEditable className={`${cx('thead')} col-xs-12`} onChange={this.handleEditName} html={this.state.name} />
         <Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={`${cx('typeDropdown')} col-xs-12`}>
-          <Dropdown.Toggle noCaret className=" col-xs-12">
+          <Dropdown.Toggle noCaret className="col-xs-12">
             <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)} />
               {this.state.type}
             <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />

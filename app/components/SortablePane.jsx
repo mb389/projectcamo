@@ -29,9 +29,10 @@ class SortablePane extends Component {
     onOrderChange: PropTypes.func,
     className: PropTypes.string,
     isResizable: PropTypes.shape({
-      x: React.PropTypes.bool,
-      y: React.PropTypes.bool,
-      xy: React.PropTypes.bool,
+      right: React.PropTypes.bool,
+      left: React.PropTypes.bool,
+      top: React.PropTypes.bool,
+      bottom: React.PropTypes.bool,
     }),
   };
 
@@ -48,9 +49,10 @@ class SortablePane extends Component {
     className: '',
     disableEffect: false,
     isResizable: {
-      x: true,
-      y: true,
-      xy: true,
+      right: true,
+      left: false,
+      top: false,
+      bottom: false,
     },
   };
 
@@ -317,6 +319,7 @@ class SortablePane extends Component {
 
   render() {
     const { style, className } = this.props;
+
     return (
       <div
         ref="panes"

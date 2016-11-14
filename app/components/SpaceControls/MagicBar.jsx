@@ -20,7 +20,7 @@ const MagicBar = (props) => (
     <SaveButton saveSheet={props.saveSheet} />
     <AutoSave />
     <HistoryButton />
-    <ShareButton {...props} />
+    <ShareButton dispatch={props.dispatch} />
     <DeleteSheetButton deleteSheet={props.deleteSheet} />
     <HistoryModal />
   </div>

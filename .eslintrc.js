@@ -16,6 +16,10 @@ module.exports = {
         "guard-for-in": 0,
         "no-undef": 0,
         "quote-props": 0,
-        "eqeqeq": 0
+        "eqeqeq": 0,
+        "no-console": 0,
+        "global-require": 0,
+        "consistent-return": 0,
+        "camel-case": 0,
     }
 }

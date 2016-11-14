@@ -2,13 +2,13 @@
  * Schema Definitions
  *
  */
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
-var schema = new mongoose.Schema({
+const schema = new mongoose.Schema({
   content: {
-    columnHeaders: {type: Array, default: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }]},
-    grid: {type: Array, default: []}
+    columnHeaders: { type: Array, default: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }] },
+    grid: { type: Array, default: [] }
   },
   history: [{
     columnHeaders: Array,
@@ -28,12 +28,12 @@ Sheet = mongoose.model('Sheet', schema);
 
 const columnHeaders = [
       { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
-    ]
+];
 
-const grid = []
-const sheetState = {
-  grid: grid,
-  columnHeaders: columnHeaders,
-  showRowModal: false,
-  modalRow: { data:null, rowIdx: null}
-}
+// const grid = [];
+// const sheetState = {
+//   grid,
+//   columnHeaders,
+//   showRowModal: false,
+//   modalRow: { data: null, rowIdx: null }
+// };

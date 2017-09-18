@@ -8,7 +8,7 @@ SpaceBook aims to recreate the spreadsheet with today's media rich world in mind
 Use 'npm install && npm run dev' to run the development version of the application
 Note - requires local MongoDB instance to be running
 
-Check out SpaceBook in action [here] (https://spacebookapp.herokuapp.com) or [here] (https://www.dropbox.com/s/xx7q678z07qo2h3/SpaceBook.mp4?dl=0).
+Check out SpaceBook in action ![here] (https://spacebookapp.herokuapp.com) or ![here] (https://www.dropbox.com/s/xx7q678z07qo2h3/SpaceBook.mp4?dl=0).
 
 ## Summary
 

@@ -6,7 +6,6 @@ module.exports = {
   google: {
     clientID: process.env.GOOGLE_CLIENTID || 'AIzaSyAoo94JWybbein9PXeiprYaHmKRizDhGcI',
     clientSecret: process.env.GOOGLE_SECRET || '6cKCWD75gHgzCvM4VQyR5_TU',
-    callbackURL: process.env.GOOGLE_CALLBACK || '/auth/google/callback'
-  }
+    callbackURL: process.env.GOOGLE_CALLBACK || '/auth/google/callback',
+  },
 };
-

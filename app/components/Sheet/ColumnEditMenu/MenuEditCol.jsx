@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { updateColumn } from 'actions/sheet';
-import { fetchFormulaStore } from 'actions/formulaStore';
-import { formulaUpload, formulaRemove } from 'actions/formulaStore';
+import {connect} from 'react-redux';
+import {updateColumn} from 'actions/sheet';
+import {fetchFormulaStore} from 'actions/formulaStore';
+import {formulaUpload, formulaRemove} from 'actions/formulaStore';
 import styles from 'css/components/table';
-import { Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
+import {Glyphicon, Dropdown, MenuItem} from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 import OtherMenuItem from './OtherMenuItem';
 import FormulaMenuItem from './FormulaMenuItem';
@@ -44,8 +44,15 @@ class MenuEditCol extends Component {
   constructor(props, state) {
     super(props, state);
 
-    this.state = { type: (this.props.data.type || 'Text'), name: this.props.data.name, formula: this.props.data.formula, formulaName: this.props.data.formulaName || 'Unnamed', linkedSheet: this.props.data.linkedSheet, width: this.props.data.width, selectOptions: this.props.data.selectOptions };
-
+    this.state = {
+      type: this.props.data.type || 'Text',
+      name: this.props.data.name,
+      formula: this.props.data.formula,
+      formulaName: this.props.data.formulaName || 'Unnamed',
+      linkedSheet: this.props.data.linkedSheet,
+      width: this.props.data.width,
+      selectOptions: this.props.data.selectOptions,
+    };
 
     this.saveTypeChanges = this.saveTypeChanges.bind(this);
     this.itemSelected = this.itemSelected.bind(this);
@@ -66,37 +73,37 @@ class MenuEditCol extends Component {
   }
 
   addSelectOption() {
-    this.setState({ selectOptions: this.state.selectOptions.concat(['']) });
+    this.setState({selectOptions: this.state.selectOptions.concat([''])});
   }
 
   editSelectOption(idx, evt) {
     const opts = this.state.selectOptions;
     opts[idx] = evt.target.value;
-    this.setState({ selectOptions: opts });
+    this.setState({selectOptions: opts});
   }
 
   removeSelectOption(idx) {
     const opts = this.state.selectOptions;
     opts.splice(idx, 1);
-    this.setState({ selectOptions: opts });
+    this.setState({selectOptions: opts});
   }
 
   itemSelected(e, ekey) {
-    if (ekey === 'Select' && !this.state.selectOptions) this.setState({ selectOptions: [] });
-    this.setState({ type: ekey });
+    if (ekey === 'Select' && !this.state.selectOptions) this.setState({selectOptions: []});
+    this.setState({type: ekey});
   }
 
   handleEditName(e) {
-    this.setState({ name: e.target.value });
+    this.setState({name: e.target.value});
   }
 
   handleFormulaCustom(e, ekey) {
-    if (ekey) this.setState({ formula: ekey });
-    else this.setState({ formula: e });
+    if (ekey) this.setState({formula: ekey});
+    else this.setState({formula: e});
   }
 
   handleFormulaNameChange(e) {
-    this.setState({ formulaName: e.target.value || e.target.innerHTML });
+    this.setState({formulaName: e.target.value || e.target.innerHTML});
   }
 
   formulaUpload() {
@@ -105,7 +112,7 @@ class MenuEditCol extends Component {
 
   formulaRemove(id) {
     this.props.dispatch(formulaRemove(id));
-    this.setState({ formulaName: 'Empty', formula: 'Write your formula here' });
+    this.setState({formulaName: 'Empty', formula: 'Write your formula here'});
   }
 
   saveTypeChanges() {
@@ -126,8 +133,8 @@ class MenuEditCol extends Component {
 
   render() {
     const columnTypes = {
-      Text: (<OtherMenuItem description="A single line of text." />),
-      Number: (<OtherMenuItem description="A number field." />),
+      Text: <OtherMenuItem description="A single line of text." />,
+      Number: <OtherMenuItem description="A number field." />,
       Formula: (
         <FormulaMenuItem
           handleFormulaNameChange={this.handleFormulaNameChange}
@@ -138,9 +145,9 @@ class MenuEditCol extends Component {
           formulaRemove={this.formulaRemove}
           formulas={this.props.formulas}
         />
-        ),
-      Images: (<OtherMenuItem description="Upload custom images." />),
-      Checkbox: (<OtherMenuItem description="Create checkboxes" />),
+      ),
+      Images: <OtherMenuItem description="Upload custom images." />,
+      Checkbox: <OtherMenuItem description="Create checkboxes" />,
       Select: (
         <SelectMenuItem
           selectOptions={this.state.selectOptions}
@@ -148,9 +155,9 @@ class MenuEditCol extends Component {
           editSelectOption={this.editSelectOption}
           removeSelectOption={this.removeSelectOption}
         />
-        ),
-      Link: (<OtherMenuItem description="Create a link to an external site " />),
-      Reference: (<OtherMenuItem description="Link to another sheet" />)
+      ),
+      Link: <OtherMenuItem description="Create a link to an external site " />,
+      Reference: <OtherMenuItem description="Link to another sheet" />,
     };
 
     function generateTypes() {
@@ -159,7 +166,7 @@ class MenuEditCol extends Component {
         MenuItems.push(
           <MenuItem key={MenuItems.length} eventKey={fieldType}>
             <Glyphicon className={cx('columnTypeMenuItem')} glyph={glyphFromType(fieldType)} />
-              {fieldType}
+            {fieldType}
           </MenuItem>
         );
       }
@@ -167,22 +174,35 @@ class MenuEditCol extends Component {
     }
 
     return (
-      <div className={cx('editNameAndType')} style={{ width: this.state.type === 'Formula' ? 300 : 250 }} >
-        <ContentEditable className={`${cx('thead')} col-xs-12`} onChange={this.handleEditName} html={this.state.name} />
-        <Dropdown id="dropdown-custom-1" onSelect={this.itemSelected} className={`${cx('typeDropdown')} col-xs-12`}>
+      <div
+        className={cx('editNameAndType')}
+        style={{width: this.state.type === 'Formula' ? 300 : 250}}
+      >
+        <ContentEditable
+          className={`${cx('thead')} col-xs-12`}
+          onChange={this.handleEditName}
+          html={this.state.name}
+        />
+        <Dropdown
+          id="dropdown-custom-1"
+          onSelect={this.itemSelected}
+          className={`${cx('typeDropdown')} col-xs-12`}
+        >
           <Dropdown.Toggle noCaret className="col-xs-12">
             <Glyphicon className={cx('columnType')} glyph={glyphFromType(this.state.type)} />
-              {this.state.type}
+            {this.state.type}
             <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
           </Dropdown.Toggle>
-          <Dropdown.Menu className={cx('columnMenu')}>
-            {generateTypes()}
-          </Dropdown.Menu>
+          <Dropdown.Menu className={cx('columnMenu')}>{generateTypes()}</Dropdown.Menu>
         </Dropdown>
-          {columnTypes[this.state.type]}
+        {columnTypes[this.state.type]}
         <div className="col-xs-12">
-          <button className="btn col-xs-5" type="button" onClick={this.exitTypeMenu}>Cancel</button>
-          <button className="btn btn-primary col-xs-5" type="button" onClick={this.saveTypeChanges}>Save</button>
+          <button className="btn col-xs-5" type="button" onClick={this.exitTypeMenu}>
+            Cancel
+          </button>
+          <button className="btn btn-primary col-xs-5" type="button" onClick={this.saveTypeChanges}>
+            Save
+          </button>
         </div>
       </div>
     );

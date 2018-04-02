@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
 import TextModal from './ModalTypes/Text';
 import ImageList from './ModalTypes/ImageList';
-import { connect } from 'react-redux';
-import { closeRowModal, deleteRow } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {closeRowModal, deleteRow} from 'actions/sheet';
 import styles from 'css/components/modal';
-import { Modal, Button } from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
 import LinkLabel from './CellTypes/LinkLabel';
 import Checkbox from './CellTypes/Checkbox';
 import SelectOptionCell from './CellTypes/SelectOptionCell';
@@ -30,23 +30,33 @@ class RowModal extends Component {
   }
 
   cell(cell, cellKey, row, rowIdx, cellIdx) {
-    const labels = cell.data ? cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />) : <span key="0"></span>;
+    const labels = cell.data ? (
+      cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />)
+    ) : (
+      <span key="0" />
+    );
     switch (cell.type) {
       case 'Images':
-        return <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx} />;
-      case 'Reference':
         return (
-          <div>
-            {labels}
-          </div>
+          <ImageList cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx} />
         );
+      case 'Reference':
+        return <div>{labels}</div>;
       case 'Checkbox':
-        return <Checkbox dispatch={this.props.dispatch} cell={cell} parent={"RowModal"} cellKey={cellKey} rowIdx={rowIdx} />;
+        return (
+          <Checkbox
+            dispatch={this.props.dispatch}
+            cell={cell}
+            parent={'RowModal'}
+            cellKey={cellKey}
+            rowIdx={rowIdx}
+          />
+        );
       case 'Select':
         return (
           <SelectOptionCell
             dispatch={this.props.dispatch}
-            parent={"RowModal"}
+            parent={'RowModal'}
             cell={cell}
             cellKey={cellKey}
             rowIdx={rowIdx}
@@ -55,7 +65,9 @@ class RowModal extends Component {
       case 'Link':
       case 'Number':
       default:
-        return <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx} />;
+        return (
+          <TextModal cell={cell} cellKey={cellKey} row={row} rowIdx={rowIdx} cellIdx={cellIdx} />
+        );
     }
   }
 
@@ -65,7 +77,7 @@ class RowModal extends Component {
   }
 
   rowCells() {
-    const { modalRow, modalRowIdx, columnHeaders } = this.props;
+    const {modalRow, modalRowIdx, columnHeaders} = this.props;
     if (!modalRow) return null;
     return columnHeaders.map((head, i) => (
       <div key={i}>
@@ -80,29 +92,26 @@ class RowModal extends Component {
   render() {
     return (
       <Modal show={this.props.showRowModal} onHide={this.close} className={cx('modalRow')}>
-        <Modal.Header className={cx('shareModalHeader')} >
-          <Modal.Title>
-            {this.rowName()}
-          </Modal.Title>
+        <Modal.Header className={cx('shareModalHeader')}>
+          <Modal.Title>{this.rowName()}</Modal.Title>
         </Modal.Header>
-        <Modal.Body className={cx('darkModal')}>
-          {this.rowCells()}
-        </Modal.Body>
+        <Modal.Body className={cx('darkModal')}>{this.rowCells()}</Modal.Body>
         <Modal.Footer>
-          <Button bsStyle="danger" onClick={this.deleteRow}>Delete Row</Button>
+          <Button bsStyle="danger" onClick={this.deleteRow}>
+            Delete Row
+          </Button>
         </Modal.Footer>
       </Modal>
     );
   }
 }
 
-
 function mapStateToProps(store) {
   return {
     showRowModal: store.sheet.showRowModal,
     modalRow: store.sheet.modalRow.data,
     modalRowIdx: store.sheet.modalRow.rowIdx,
-    columnHeaders: store.sheet.columnHeaders
+    columnHeaders: store.sheet.columnHeaders,
   };
 }
 

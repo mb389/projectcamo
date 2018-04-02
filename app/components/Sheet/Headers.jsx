@@ -3,7 +3,7 @@ import ColumnOptions from './ColumnOptions';
 import AddColumn from './AddColumn';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
-import { Pane, SortablePane } from '../SortablePane';
+import {Pane, SortablePane} from '../SortablePane';
 
 const cx = classNames.bind(styles);
 
@@ -29,7 +29,7 @@ function findAddMargin(headers) {
 const Headers = (props) => (
   <div className={cx('theaders')}>
     <div className={cx('topCorner')} />
-    <div className={cx('topCorner')}></div>
+    <div className={cx('topCorner')} />
     <SortablePane
       direction="horizontal"
       margin={0}

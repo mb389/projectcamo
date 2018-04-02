@@ -1,4 +1,4 @@
-import { polyfill } from 'es6-promise';
+import {polyfill} from 'es6-promise';
 import request from 'axios';
 import * as types from '../constants/index';
 import secrets from '../../server/config/secrets';
@@ -7,26 +7,26 @@ polyfill();
 
 export function closeHistoryModal() {
   return {
-    type: types.CLOSE_HISTORY_MODAL
+    type: types.CLOSE_HISTORY_MODAL,
   };
 }
 
 export function showHistoryModal() {
   return {
-    type: types.SHOW_HISTORY_MODAL
+    type: types.SHOW_HISTORY_MODAL,
   };
 }
 
 export function clearSheet() {
   return {
-    type: types.CLEAR_SHEET
+    type: types.CLEAR_SHEET,
   };
 }
 
 export function deleteRow(rowIdx) {
   return {
     type: types.DELETE_ROW,
-    rowIdx
+    rowIdx,
   };
 }
 
@@ -48,8 +48,8 @@ export function updateCellById(data, id) {
     type: types.UPDATE_CELL_BY_ID,
     cell: {
       data,
-      id
-    }
+      id,
+    },
   };
 }
 
@@ -59,20 +59,20 @@ export function showLookupModal(row, rowIdx, cell, cellKey) {
     row,
     cell,
     rowIdx,
-    cellKey
+    cellKey,
   };
 }
 
 export function closeLookupModal() {
   return {
-    type: types.CLOSE_LOOKUP_MODAL
+    type: types.CLOSE_LOOKUP_MODAL,
   };
 }
 
 export function showRowModal(rowIdx) {
   return {
     type: types.SHOW_ROW_MODAL,
-    rowIdx
+    rowIdx,
   };
 }
 
@@ -82,28 +82,28 @@ export function updateModalCell(data, key, idx, push) {
     cell: {
       data,
       key,
-      idx
+      idx,
     },
-    push
+    push,
   };
 }
 
 export function closeRowModal(dontSave) {
   return {
     type: types.CLOSE_ROW_MODAL,
-    dontSave
+    dontSave,
   };
 }
 
 export function addRow() {
   return {
-    type: types.ADD_ROW
+    type: types.ADD_ROW,
   };
 }
 
 export function addColumn() {
   return {
-    type: types.ADD_COLUMN
+    type: types.ADD_COLUMN,
   };
 }
 
@@ -120,7 +120,7 @@ export function sortColumn(colId, sign) {
     sortBy: {
       colId,
       order: sign,
-    }
+    },
   };
 }
 
@@ -141,7 +141,7 @@ export function insertColumn(colIdx) {
 export function currentCell(cell) {
   return {
     type: types.CURRENT_CELL,
-    cell
+    cell,
   };
 }
 
@@ -157,82 +157,86 @@ export function formulaColumn(arrMeth, func, colData) {
 export function moveToCell(keyCode) {
   return {
     type: types.MOVE_TO_CELL,
-    keyCode
+    keyCode,
   };
 }
 
 export function searchSheet(term) {
   return {
     type: types.SEARCH_SHEET,
-    term
+    term,
   };
 }
 
 export function setHistoryTable(index) {
   return {
     type: types.SET_HISTORY_TABLE,
-    index
+    index,
   };
 }
 
 export function clearFilteredRows() {
   return {
-    type: types.CLEAR_FILTERED_ROWS
+    type: types.CLEAR_FILTERED_ROWS,
   };
 }
-
 
 export function dragCol(panes) {
   return {
     type: types.DRAG_TABLE_COL,
-    panes
+    panes,
   };
 }
-
 
 export function resizeCol(size) {
   return {
     type: types.RESIZE_TABLE_COL,
-    size
+    size,
   };
 }
 
 export function showMap(colId) {
   return {
     type: types.SHOW_MAP,
-    colId
+    colId,
   };
 }
 
 export function closeMap() {
   return {
-    type: types.HIDE_MAP
+    type: types.HIDE_MAP,
   };
 }
 
 export function sendLatLongs(geoResults) {
   return {
     type: types.SEND_LAT_LONGS,
-    geoResults
+    geoResults,
   };
 }
 
 export function getLatLongs(addressArray) {
   return (dispatch) => {
-    const addresses = addressArray.filter(item => item.data);
-    const addressUrls = addresses.map(add => request(`https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=${secrets.google.clientID}`));
-    Promise.all(addressUrls)
-    .then((resArray) => {
-      const geoCoded = resArray.map((result, i) => {
-        if (result.data.status === 'OK') {
-          return { loc: result.data.results[0].geometry.location, name: addresses[i].name };
-        }
-        return '';
-      }).filter(item => item.loc);
+    const addresses = addressArray.filter((item) => item.data);
+    const addressUrls = addresses.map((add) =>
+      request(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${add.data}&key=${
+          secrets.google.clientID
+        }`
+      )
+    );
+    Promise.all(addressUrls).then((resArray) => {
+      const geoCoded = resArray
+        .map((result, i) => {
+          if (result.data.status === 'OK') {
+            return {loc: result.data.results[0].geometry.location, name: addresses[i].name};
+          }
+          return '';
+        })
+        .filter((item) => item.loc);
       if (geoCoded.length) {
         dispatch(sendLatLongs(geoCoded));
       }
     });
   };
 }
-

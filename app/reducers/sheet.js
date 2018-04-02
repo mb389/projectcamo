@@ -29,389 +29,373 @@ import {
   MOVE_TO_CELL,
   SHOW_MAP,
   HIDE_MAP,
-  SEND_LAT_LONGS
+  SEND_LAT_LONGS,
 } from '../constants';
-import {
-  insertNewColInRows,
-  runCustomFunc,
-  navToNewCell,
-  newColInfo
-} from './sheetHelpers';
+import {insertNewColInRows, runCustomFunc, navToNewCell, newColInfo} from './sheetHelpers';
 
-export default function sheet(state = {
-  grid: [],
-  columnHeaders: [],
-  showRowModal: false,
-  modalRow: { data: null, rowIdx: null } }, action = {}) {
+export default function sheet(
+  state = {
+    grid: [],
+    columnHeaders: [],
+    showRowModal: false,
+    modalRow: {data: null, rowIdx: null},
+  },
+  action = {}
+) {
   switch (action.type) {
     case CLEAR_SHEET:
       return {};
-    case CHANGE_SHEET:
-      {
-        const newState = _.cloneDeep(state);
+    case CHANGE_SHEET: {
+      const newState = _.cloneDeep(state);
 
-        action.sheet.grid.forEach((row) => {
-          for (const cell in row) {
-            row[cell].focused = false;
-          }
-        });
-
-        newState.columnHeaders = action.sheet.columnHeaders || [];
-        newState.grid = action.sheet.grid || [];
-        if (newState.grid[0] && newState.grid[0]['100']) {
-          newState.grid[0]['100'].focused = true;
-          newState.currentCell = {
-            cell: newState.grid[0]['100'],
-            rowIdx: 0,
-            cellKey: '100'
-          };
+      action.sheet.grid.forEach((row) => {
+        for (const cell in row) {
+          row[cell].focused = false;
         }
-        newState.history = action.history || [];
-        newState.historySheet = action.historySheet || null;
-        newState.modalRow = {
-          data: null,
-          rowIdx: null
+      });
+
+      newState.columnHeaders = action.sheet.columnHeaders || [];
+      newState.grid = action.sheet.grid || [];
+      if (newState.grid[0] && newState.grid[0]['100']) {
+        newState.grid[0]['100'].focused = true;
+        newState.currentCell = {
+          cell: newState.grid[0]['100'],
+          rowIdx: 0,
+          cellKey: '100',
         };
-        newState.showRowModal = false;
-        newState.showHistoryModal = false;
-        newState.changed = false;
+      }
+      newState.history = action.history || [];
+      newState.historySheet = action.historySheet || null;
+      newState.modalRow = {
+        data: null,
+        rowIdx: null,
+      };
+      newState.showRowModal = false;
+      newState.showHistoryModal = false;
+      newState.changed = false;
 
-        return newState;
-      }
-    case TOGGLE_CHANGED:
-      {
-        const newState = _.cloneDeep(state);
-        newState.changed = false;
-        return newState;
-      }
-    case UPDATE_CELL:
-      {
-        const newState = _.cloneDeep(state);
-        if (action.fromSuper && newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.grid[action.cell.idx][action.cell.key].data = action.cell.data;
-        newState.currentCell.cell.data = action.cell.data;
-        if (action.formulaCells) {
-          action.formulaCells.forEach((cell) => {
-            const data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
-            newState.grid[action.cell.idx][cell.col].data = data;
-          });
-        }
-        newState.changed = true;
-        return newState;
-      }
-    case UPDATE_CELL_BY_ID:
-      {
-        const newState = _.cloneDeep(state);
-        newState.grid.forEach((row) => {
-          for (const key in row) {
-            if (row[key].id == action.cell.id) {
-              row[key].data = action.cell.data;
-              break;
-            }
-          }
-        });
-        newState.changed = true;
-        return newState;
-      }
-    case MOVE_TO_CELL:
-      {
-        const newState = _.cloneDeep(state);
-        const newCoord = navToNewCell(action.keyCode, newState);
+      return newState;
+    }
+    case TOGGLE_CHANGED: {
+      const newState = _.cloneDeep(state);
+      newState.changed = false;
+      return newState;
+    }
+    case UPDATE_CELL: {
+      const newState = _.cloneDeep(state);
+      if (
+        action.fromSuper &&
+        newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey]
+      )
         newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
-        newState.currentCell.rowIdx = newCoord.newRowIdx;
-        newState.currentCell.cellKey = newCoord.newColId;
-        newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
-        return newState;
+      newState.grid[action.cell.idx][action.cell.key].data = action.cell.data;
+      newState.currentCell.cell.data = action.cell.data;
+      if (action.formulaCells) {
+        action.formulaCells.forEach((cell) => {
+          const data = runCustomFunc(newState, newState.grid[action.cell.idx], cell.formula);
+          newState.grid[action.cell.idx][cell.col].data = data;
+        });
       }
-    case CURRENT_CELL:
-      {
-        const newState = _.cloneDeep(state);
-        if (newState.currentCell) newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
-        newState.currentCell = action.cell;
-        if (action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
-        // find cell and give it focus
-        return newState;
-      }
-    case UPDATE_MODAL_CELL:
-      {
-        const newState = _.cloneDeep(state);
-        if (action.push) {
-          newState.modalRow.data[action.cell.key].data.push(action.cell.data);
-        } else {
-          newState.modalRow.data[action.cell.key].data = action.cell.data;
+      newState.changed = true;
+      return newState;
+    }
+    case UPDATE_CELL_BY_ID: {
+      const newState = _.cloneDeep(state);
+      newState.grid.forEach((row) => {
+        for (const key in row) {
+          if (row[key].id == action.cell.id) {
+            row[key].data = action.cell.data;
+            break;
+          }
         }
-        return newState;
+      });
+      newState.changed = true;
+      return newState;
+    }
+    case MOVE_TO_CELL: {
+      const newState = _.cloneDeep(state);
+      const newCoord = navToNewCell(action.keyCode, newState);
+      newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+      newState.currentCell.cell = state.grid[newCoord.newRowIdx][newCoord.newColId];
+      newState.currentCell.rowIdx = newCoord.newRowIdx;
+      newState.currentCell.cellKey = newCoord.newColId;
+      newState.grid[newCoord.newRowIdx][newCoord.newColId].focused = true;
+      return newState;
+    }
+    case CURRENT_CELL: {
+      const newState = _.cloneDeep(state);
+      if (newState.currentCell)
+        newState.grid[newState.currentCell.rowIdx][newState.currentCell.cellKey].focused = false;
+      newState.currentCell = action.cell;
+      if (action.cell) newState.grid[action.cell.rowIdx][action.cell.cellKey].focused = true;
+      // find cell and give it focus
+      return newState;
+    }
+    case UPDATE_MODAL_CELL: {
+      const newState = _.cloneDeep(state);
+      if (action.push) {
+        newState.modalRow.data[action.cell.key].data.push(action.cell.data);
+      } else {
+        newState.modalRow.data[action.cell.key].data = action.cell.data;
       }
-    case SHOW_LOOKUP_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showLookupModal = true;
-        newState.lookup = {
-          row: action.row,
-          cell: action.cell,
-          rowIdx: action.rowIdx,
-          colId: action.cellKey
-        };
-        return newState;
+      return newState;
+    }
+    case SHOW_LOOKUP_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showLookupModal = true;
+      newState.lookup = {
+        row: action.row,
+        cell: action.cell,
+        rowIdx: action.rowIdx,
+        colId: action.cellKey,
+      };
+      return newState;
+    }
+    case CLOSE_LOOKUP_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showLookupModal = false;
+      return newState;
+    }
+    case SHOW_ROW_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showRowModal = true;
+      newState.modalRow = {
+        data: state.grid[action.rowIdx],
+        rowIdx: action.rowIdx,
+      };
+      return newState;
+    }
+    case CLOSE_ROW_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showRowModal = false;
+      if (!action.dontSave) {
+        newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data;
       }
-    case CLOSE_LOOKUP_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showLookupModal = false;
-        return newState;
-      }
-    case SHOW_ROW_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showRowModal = true;
-        newState.modalRow = {
-          data: state.grid[action.rowIdx],
-          rowIdx: action.rowIdx
-        };
-        return newState;
-      }
-    case CLOSE_ROW_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showRowModal = false;
-        if (!action.dontSave) {
-          newState.grid[newState.modalRow.rowIdx] = newState.modalRow.data;
+      newState.modalRow.data = null;
+      newState.modalRow.rowIdx = null;
+      newState.changed = true;
+      return newState;
+    }
+    case SHOW_HISTORY_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showHistoryModal = true;
+      return newState;
+    }
+    case SET_HISTORY_TABLE: {
+      const newState = _.cloneDeep(state);
+      newState.historySheet = newState.history[action.index];
+      return newState;
+    }
+    case UPDATE_HISTORY: {
+      const newState = _.cloneDeep(state);
+      newState.history = action.history;
+      return newState;
+    }
+    case CLOSE_HISTORY_MODAL: {
+      const newState = _.cloneDeep(state);
+      newState.showHistoryModal = false;
+      newState.historySheet = null;
+      return newState;
+    }
+    case ADD_COLUMN: {
+      let newState = _.cloneDeep(state);
+      const newColumn = newColInfo(newState.columnHeaders);
+
+      newState.columnHeaders.push(newColumn);
+      newState = insertNewColInRows(newState, newColumn);
+      newState.changed = true;
+      return newState;
+    }
+    case UPDATE_COLUMN: {
+      const newState = _.cloneDeep(state);
+      const updatingId = action.data.id;
+      newState.columnHeaders = newState.columnHeaders.map((column) => {
+        if (column.id === updatingId) {
+          return action.data;
         }
-        newState.modalRow.data = null;
-        newState.modalRow.rowIdx = null;
-        newState.changed = true;
-        return newState;
-      }
-    case SHOW_HISTORY_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showHistoryModal = true;
-        return newState;
-      }
-    case SET_HISTORY_TABLE:
-      {
-        const newState = _.cloneDeep(state);
-        newState.historySheet = newState.history[action.index];
-        return newState;
-      }
-    case UPDATE_HISTORY:
-      {
-        const newState = _.cloneDeep(state);
-        newState.history = action.history;
-        return newState;
-      }
-    case CLOSE_HISTORY_MODAL:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showHistoryModal = false;
-        newState.historySheet = null;
-        return newState;
-      }
-    case ADD_COLUMN:
-      {
-        let newState = _.cloneDeep(state);
-        const newColumn = newColInfo(newState.columnHeaders);
+        return column;
+      });
 
-        newState.columnHeaders.push(newColumn);
-        newState = insertNewColInRows(newState, newColumn);
-        newState.changed = true;
-        return newState;
-      }
-    case UPDATE_COLUMN:
-      {
-        const newState = _.cloneDeep(state);
-        const updatingId = action.data.id;
-        newState.columnHeaders = newState.columnHeaders.map((column) => {
-          if (column.id === updatingId) {
-            return action.data;
+      newState.grid = newState.grid.map((row) => {
+        const curRow = row[updatingId];
+        curRow.type = action.data.type;
+        if (action.data.type === 'Checkbox') curRow.data = 'off';
+        if (action.data.formula) {
+          curRow.data = runCustomFunc(newState, row, action.data.formula);
+          curRow.formula = action.data.formula;
+        }
+        if (action.data.selectOptions) {
+          curRow.selectOptions = action.data.selectOptions;
+        }
+        return row;
+      });
+      newState.changed = true;
+      return newState;
+    }
+    case INSERT_COLUMN: {
+      let newState = _.cloneDeep(state);
+      const newColumn = newColInfo(newState.columnHeaders);
+      newColumn.name = `Column ${1 + action.colIdx}`;
+      newColumn.idx = action.colIdx;
+
+      newState.columnHeaders = newState.columnHeaders.map((column) => {
+        if (column.idx >= action.colIdx) {
+          column.idx++;
+        }
+        return column;
+      });
+
+      newState.columnHeaders.splice(action.colIdx, 0, newColumn);
+
+      newState = insertNewColInRows(newState, newColumn);
+      newState.changed = true;
+      return newState;
+    }
+    case SORT_COLUMN: {
+      const newState = _.cloneDeep(state);
+      const colId = action.sortBy.colId;
+      const sortFn = (a, b) => {
+        if (!a[colId].data) return 1;
+        else if (!b[colId].data) return -1;
+        else if (a[colId].data > b[colId].data) return 1 * action.sortBy.order;
+        else if (b[colId].data > a[colId].data) return -1 * action.sortBy.order;
+        return 0;
+      };
+      newState.grid = newState.grid.sort(sortFn);
+      newState.changed = true;
+      return newState;
+    }
+    case SEARCH_SHEET: {
+      const newState = _.cloneDeep(state);
+      // approach to hide the rows that don't meet search criteria
+      newState.filteredRows = newState.grid.reduce((accum, row, idx) => {
+        let toSave;
+        for (const cell in row) {
+          if (row[cell].data && typeof row[cell].data === 'string') {
+            row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1
+              ? (toSave = true)
+              : null;
           }
-          return column;
-        });
+        }
+        if (!toSave) accum.push(idx);
+        return accum;
+      }, []);
+      return newState;
+    }
+    case CLEAR_FILTERED_ROWS: {
+      const newState = _.cloneDeep(state);
+      newState.filteredRows = [];
+      return newState;
+    }
+    case REMOVE_COLUMN: {
+      const newState = _.cloneDeep(state);
+      const colId = action.colId
+        ? action.colId
+        : newState.columnHeaders[newState.columnHeaders.length - 1].id;
+      newState.columnHeaders = newState.columnHeaders.filter((col) => colId !== col.id);
 
-        newState.grid = newState.grid.map((row) => {
-          const curRow = row[updatingId];
-          curRow.type = action.data.type;
-          if (action.data.type === 'Checkbox') curRow.data = 'off';
-          if (action.data.formula) {
-            curRow.data = runCustomFunc(newState, row, action.data.formula);
-            curRow.formula = action.data.formula;
-          }
-          if (action.data.selectOptions) {
-            curRow.selectOptions = action.data.selectOptions;
-          }
-          return row;
-        });
-        newState.changed = true;
-        return newState;
-      }
-    case INSERT_COLUMN:
-      {
-        let newState = _.cloneDeep(state);
-        const newColumn = newColInfo(newState.columnHeaders);
-        newColumn.name = `Column ${1 + action.colIdx}`;
-        newColumn.idx = action.colIdx;
+      newState.grid = newState.grid.map((row) => {
+        if (row[colId]) delete row[colId];
+        return row;
+      });
+      newState.changed = true;
+      return newState;
+    }
+    case FORMULA_COLUMN: {
+      const newState = _.cloneDeep(state);
 
-        newState.columnHeaders = newState.columnHeaders.map((column) => {
-          if (column.idx >= action.colIdx) {
-            column.idx++;
-          }
-          return column;
-        });
+      const newColumn = Object.assign({}, action.colData);
+      const colIdIdx = newColInfo(newState.columnHeaders);
+      newColumn.id = colIdIdx.id;
+      newColumn.name = `Column ${colIdIdx.idx}`;
+      newColumn.idx = colIdIdx.idx;
 
-        newState.columnHeaders.splice(action.colIdx, 0, newColumn);
+      // action.arrMeth usually = 'map' or 'reduce';
+      newState.grid = newState.grid[action.arrMeth]((row) => {
+        const newData = action.func(row[action.colData.id].data);
 
-        newState = insertNewColInRows(newState, newColumn);
-        newState.changed = true;
-        return newState;
-      }
-    case SORT_COLUMN:
-      {
-        const newState = _.cloneDeep(state);
-        const colId = action.sortBy.colId;
-        const sortFn = (a, b) => {
-          if (!a[colId].data) return (1);
-          else if (!b[colId].data) return (-1);
-          else if (a[colId].data > b[colId].data) return (1 * action.sortBy.order);
-          else if (b[colId].data > a[colId].data) return (-1 * action.sortBy.order);
-          return 0;
+        // TODO should this corralate to the type of the new cell?
+        // if (!newColumn.type) newColumn.type = 'Text';
+
+        row[newColumn.id] = {
+          data: newData,
+          type: newColumn.type,
+          width: newColumn.width,
         };
-        newState.grid = newState.grid.sort(sortFn);
-        newState.changed = true;
-        return newState;
-      }
-    case SEARCH_SHEET:
-      {
-        const newState = _.cloneDeep(state);
-        // approach to hide the rows that don't meet search criteria
-        newState.filteredRows = newState.grid.reduce((accum, row, idx) => {
-          let toSave;
-          for (const cell in row) {
-            if (row[cell].data && typeof row[cell].data === 'string') {
-              row[cell].data.toLowerCase().indexOf(action.term.toLowerCase()) > -1 ? toSave = true : null;
-            }
-          }
-          if (!toSave) accum.push(idx);
-          return accum;
-        }, []);
-        return newState;
-      }
-    case CLEAR_FILTERED_ROWS:
-      {
-        const newState = _.cloneDeep(state);
-        newState.filteredRows = [];
-        return newState;
-      }
-    case REMOVE_COLUMN:
-      {
-        const newState = _.cloneDeep(state);
-        const colId = action.colId ? action.colId : newState.columnHeaders[newState.columnHeaders.length - 1].id;
-        newState.columnHeaders = newState.columnHeaders.filter(col => colId !== col.id);
+        return row;
+      });
 
-        newState.grid = newState.grid.map((row) => {
-          if (row[colId]) delete row[colId];
-          return row;
-        });
-        newState.changed = true;
-        return newState;
-      }
-    case FORMULA_COLUMN:
-      {
-        const newState = _.cloneDeep(state);
+      newState.columnHeaders.push(newColumn);
+      newState.changed = true;
+      return newState;
+    }
+    case ADD_ROW: {
+      const newState = _.cloneDeep(state);
+      const newRow = {};
+      newState.columnHeaders.forEach((col) => {
+        newRow[col.id] = {
+          width: col.width || 200,
+          data: null,
+          type: col.type,
+          id: col.id + Math.floor(Math.random() * (99999999 - 111111) + 111111),
+        };
+        if (col.formula) newRow[col.id].formula = col.formula;
+        if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
+      });
+      newState.grid.push(newRow);
+      newState.changed = true;
+      return newState;
+    }
+    case DELETE_ROW: {
+      const newState = _.cloneDeep(state);
+      const newGrid = [];
+      newState.currentCell = null;
+      newState.grid.forEach((row, i) => {
+        if (i !== action.rowIdx) {
+          newGrid.push(row);
+        }
+      });
+      newState.grid = newGrid;
+      newState.changed = true;
+      return newState;
+    }
+    case RESIZE_TABLE_COL: {
+      const newState = _.cloneDeep(state);
+      // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
 
-        const newColumn = Object.assign({}, action.colData);
-        const colIdIdx = newColInfo(newState.columnHeaders);
-        newColumn.id = colIdIdx.id;
-        newColumn.name = `Column ${colIdIdx.idx}`;
-        newColumn.idx = colIdIdx.idx;
+      newState.columnHeaders.forEach((ch) => {
+        if (ch.id === action.size.id) ch.width = action.size.rect.width;
+      });
 
-        // action.arrMeth usually = 'map' or 'reduce';
-        newState.grid = newState.grid[action.arrMeth]((row) => {
-          const newData = action.func(row[action.colData.id].data);
-
-          // TODO should this corralate to the type of the new cell?
-          // if (!newColumn.type) newColumn.type = 'Text';
-
-          row[newColumn.id] = {
-            data: newData,
-            type: newColumn.type,
-            width: newColumn.width,
-          };
-          return row;
-        });
-
-        newState.columnHeaders.push(newColumn);
-        newState.changed = true;
-        return newState;
-      }
-    case ADD_ROW:
-      {
-        const newState = _.cloneDeep(state);
-        const newRow = {};
-        newState.columnHeaders.forEach((col) => {
-          newRow[col.id] = { width: col.width || 200, data: null, type: col.type, id: col.id + Math.floor((Math.random() * (99999999 - 111111) + 111111)) };
-          if (col.formula) newRow[col.id].formula = col.formula;
-          if (col.selectOptions) newRow[col.id].selectOptions = col.selectOptions;
-        });
-        newState.grid.push(newRow);
-        newState.changed = true;
-        return newState;
-      }
-    case DELETE_ROW:
-      {
-        const newState = _.cloneDeep(state);
-        const newGrid = [];
-        newState.currentCell = null;
-        newState.grid.forEach((row, i) => {
-          if (i !== action.rowIdx) {
-            newGrid.push(row);
-          }
-        });
-        newState.grid = newGrid;
-        newState.changed = true;
-        return newState;
-      }
-    case RESIZE_TABLE_COL:
-      {
-        const newState = _.cloneDeep(state);
-        // newState.columnHeaders[(action.size.id)-100].width=action.size.rect.width;
-
-        newState.columnHeaders.forEach((ch) => {
-          if (ch.id === action.size.id) ch.width = action.size.rect.width;
-        });
-
-        newState.grid.forEach((row) => {
-          row[action.size.id].width = action.size.rect.width;
-        });
-        newState.changed = true;
-        return newState;
-      }
-    case SHOW_MAP:
-      {
-        const newState = _.cloneDeep(state);
-        const colId = action.colId;
-        const addressData = newState.grid.reduce((accum, row) => {
-          if (row[colId]) accum.push({ data: row[colId].data, name: row[100].data });
-          return accum;
-        }, []);
-        newState.showMap = true;
-        newState.addressData = addressData;
-        newState.mapMarkersData = null;
-        newState.mapColumn = newState.columnHeaders.filter(col => col.id === colId)[0].name;
-        return newState;
-      }
-    case SEND_LAT_LONGS:
-      {
-        const newState = _.cloneDeep(state);
-        newState.mapMarkersData = action.geoResults;
-        return newState;
-      }
-    case HIDE_MAP:
-      {
-        const newState = _.cloneDeep(state);
-        newState.showMap = false;
-        return newState;
-      }
+      newState.grid.forEach((row) => {
+        row[action.size.id].width = action.size.rect.width;
+      });
+      newState.changed = true;
+      return newState;
+    }
+    case SHOW_MAP: {
+      const newState = _.cloneDeep(state);
+      const colId = action.colId;
+      const addressData = newState.grid.reduce((accum, row) => {
+        if (row[colId]) accum.push({data: row[colId].data, name: row[100].data});
+        return accum;
+      }, []);
+      newState.showMap = true;
+      newState.addressData = addressData;
+      newState.mapMarkersData = null;
+      newState.mapColumn = newState.columnHeaders.filter((col) => col.id === colId)[0].name;
+      return newState;
+    }
+    case SEND_LAT_LONGS: {
+      const newState = _.cloneDeep(state);
+      newState.mapMarkersData = action.geoResults;
+      return newState;
+    }
+    case HIDE_MAP: {
+      const newState = _.cloneDeep(state);
+      newState.showMap = false;
+      return newState;
+    }
     default:
       return state;
   }

@@ -1,11 +1,6 @@
 import _ from 'lodash';
 
-import {
-  LOAD_USER_SPACES,
-  ADD_USER_SPACE,
-  LOAD_USER_INFO,
-  REMOVE_USER_SPACE
-} from '../constants';
+import {LOAD_USER_SPACES, ADD_USER_SPACE, LOAD_USER_INFO, REMOVE_USER_SPACE} from '../constants';
 
 export default function dashboard(state = {}, action = {}) {
   switch (action.type) {
@@ -18,16 +13,20 @@ export default function dashboard(state = {}, action = {}) {
       return Object.assign({}, state, {
         spaces: action.spaces,
         collabSpaces: action.collabSpaces,
-        sheet: action.sheet
+        sheet: action.sheet,
       });
     }
     case ADD_USER_SPACE: {
-      const newSpaces = state.spaces.concat({ _id: action.id, name: action.name, user: action.email });
-      return { ...state, spaces: newSpaces };
+      const newSpaces = state.spaces.concat({
+        _id: action.id,
+        name: action.name,
+        user: action.email,
+      });
+      return {...state, spaces: newSpaces};
     }
     case REMOVE_USER_SPACE: {
       const newState = _.cloneDeep(state);
-      newState.spaces = newState.spaces.filter(space => space._id !== action.id);
+      newState.spaces = newState.spaces.filter((space) => space._id !== action.id);
       return newState;
     }
     default:

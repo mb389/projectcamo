@@ -60,7 +60,7 @@ module.exports = (app) => {
 
   app.delete('/workspace/:id', (req, res) => workspaces.remove(req, res));
 
-// formulaStore routes
+  // formulaStore routes
   app.get('/formulaStore', formulaStore.all);
 
   app.post('/formulaStore', (req, res) => formulaStore.addFormula(req, res));

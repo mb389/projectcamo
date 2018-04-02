@@ -3,7 +3,6 @@ import ContentEditable from 'react-contenteditable';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
-
 const cx = classNames.bind(styles);
 
 const SuperBar = (props) => {
@@ -13,23 +12,17 @@ const SuperBar = (props) => {
 
   // Being used as search
   if (props.searching && !props.cell) {
-    return (
-      <input
-        placeholder={'Search your sheet'}
-        onChange={props.searchSheet}
-      />
-    );
+    return <input placeholder={'Search your sheet'} onChange={props.searchSheet} />;
   }
 
   // If no cell or image/reference then disabled and says Magic Bar
-  if (!props.cell || !props.cell.cell || props.cell.cell.type === 'Images' || props.cell.cell.type === 'Reference') {
-    return (
-      <input
-        placeholder={'Magic Bar'}
-        onChange={props.searchSheet}
-        disabled
-      />
-    );
+  if (
+    !props.cell ||
+    !props.cell.cell ||
+    props.cell.cell.type === 'Images' ||
+    props.cell.cell.type === 'Reference'
+  ) {
+    return <input placeholder={'Magic Bar'} onChange={props.searchSheet} disabled />;
   }
 
   function keyPress(evt) {
@@ -50,6 +43,5 @@ const SuperBar = (props) => {
     />
   );
 };
-
 
 export default SuperBar;

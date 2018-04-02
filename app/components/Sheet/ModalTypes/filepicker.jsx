@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { updateModalCell } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {updateModalCell} from 'actions/sheet';
 
 class FilepickerInput extends React.Component {
   constructor(props, state) {
@@ -22,7 +22,9 @@ class FilepickerInput extends React.Component {
   }
 
   handleChangeFileUrl(evt) {
-    this.props.dispatch(updateModalCell(evt.target.value, this.props.cellKey, this.props.rowIdx, true));
+    this.props.dispatch(
+      updateModalCell(evt.target.value, this.props.cellKey, this.props.rowIdx, true)
+    );
   }
 
   render() {

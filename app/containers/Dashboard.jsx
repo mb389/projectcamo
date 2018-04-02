@@ -1,14 +1,13 @@
 import styles from 'css/components/dashboard';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 // import UserProfile from '../components/Dashboard/UserProfile';
 import SpaceList from '../components/Dashboard/SpaceList';
 import CollabSpaces from '../components/Dashboard/CollabSpaces';
 import Navigation from 'containers/Navigation';
 import * as Actions from '../actions/dashboard';
 import FooterBelow from 'components/About/FooterBelow';
-
 
 const cx = classNames.bind(styles);
 
@@ -36,7 +35,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <Navigation class={'navigation'} link={{ path: '/about', name: 'About' }} disabled />
+        <Navigation class={'navigation'} link={{path: '/about', name: 'About'}} disabled />
         <div className={cx('dashboard')}>
           <SpaceList
             spaces={this.props.spaces}
@@ -46,8 +45,7 @@ class Dashboard extends Component {
           <CollabSpaces collabSpaces={this.props.collabSpaces} />
         </div>
         <FooterBelow />
-
-    </div>
+      </div>
     );
   }
 }
@@ -56,7 +54,7 @@ function mapStateToProps(state) {
   return {
     user: state.user,
     spaces: state.dashboard.spaces,
-    collabSpaces: state.dashboard.collabSpaces
+    collabSpaces: state.dashboard.collabSpaces,
   };
 }
 

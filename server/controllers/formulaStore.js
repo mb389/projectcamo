@@ -7,21 +7,21 @@ const FormulaStore = mongoose.model('FormulaStore');
  */
 exports.all = (req, res) => {
   FormulaStore.find({})
-    .then(formulas => res.json(formulas))
-    .catch(err => res.status(400).send(err));
+    .then((formulas) => res.json(formulas))
+    .catch((err) => res.status(400).send(err));
 };
 
 /**
-* Add a Formula to Store
-*/
+ * Add a Formula to Store
+ */
 exports.addFormula = (req, res) => {
   FormulaStore.create({
     name: req.body.name,
     functionStr: req.body.functionStr,
     createdBy: req.user.email,
   })
-    .then(formula => res.json(formula))
-    .catch(err => res.status(400).send(err));
+    .then((formula) => res.json(formula))
+    .catch((err) => res.status(400).send(err));
 };
 
 /**

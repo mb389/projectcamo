@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { sortColumn, removeColumn, insertColumn, formulaColumn, showMap } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {sortColumn, removeColumn, insertColumn, formulaColumn, showMap} from 'actions/sheet';
 import styles from 'css/components/table';
-import { Glyphicon, Dropdown } from 'react-bootstrap';
-import { MenuItem } from 'react-bootstrap';
+import {Glyphicon, Dropdown} from 'react-bootstrap';
+import {MenuItem} from 'react-bootstrap';
 import MenuEditCol from './ColumnEditMenu/MenuEditCol';
 
 const cx = classNames.bind(styles);
@@ -13,7 +13,7 @@ class ColumnOptions extends Component {
   constructor(props, state) {
     super(props, state);
     this.state = {
-      view: (this.props.data.type ? 'dropdown' : 'editNameAndType')
+      view: this.props.data.type ? 'dropdown' : 'editNameAndType',
     };
     this.handleSelection = this.handleSelection.bind(this);
     this.changeType = this.changeType.bind(this);
@@ -33,15 +33,15 @@ class ColumnOptions extends Component {
   }
 
   exitTypeMenu() {
-    this.setState({ view: 'dropdown' });
+    this.setState({view: 'dropdown'});
   }
 
   changeType() {
-    this.setState({ view: 'editNameAndType' });
+    this.setState({view: 'editNameAndType'});
   }
 
   duplicate() {
-    const dupFn = el => el;
+    const dupFn = (el) => el;
     this.props.dispatch(formulaColumn('map', dupFn, this.props.data));
   }
 
@@ -103,23 +103,54 @@ class ColumnOptions extends Component {
       function generateMenuItems() {
         if (this.props.data.id === '100') {
           return [
-            <MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
-            <MenuItem key="8" eventKey="insertRight"> Insert Right </MenuItem>,
-            <MenuItem key="4" eventKey="sortAsc">Sort A -> Z</MenuItem>,
-            <MenuItem key="5" eventKey="sortDec">Sort Z -> A</MenuItem>,
-            <MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
+            <MenuItem key="1" eventKey="changeType">
+              Rename Column
+            </MenuItem>,
+            <MenuItem key="8" eventKey="insertRight">
+              {' '}
+              Insert Right{' '}
+            </MenuItem>,
+            <MenuItem key="4" eventKey="sortAsc">
+              Sort A -> Z
+            </MenuItem>,
+            <MenuItem key="5" eventKey="sortDec">
+              Sort Z -> A
+            </MenuItem>,
+            <MenuItem key="9" eventKey="showMap">
+              View as Map
+            </MenuItem>,
           ];
         }
         return [
-          <MenuItem key="1" eventKey="changeType">Rename Column</MenuItem>,
-          <MenuItem key="2" eventKey="changeType">Change Type</MenuItem>,
-          <MenuItem key="3" eventKey="duplicate">Duplicate Field</MenuItem>,
-          <MenuItem key="7" eventKey="insertLeft"> Insert Col Left </MenuItem>,
-          <MenuItem key="8" eventKey="insertRight"> Insert Col Right </MenuItem>,
-          <MenuItem key="6" eventKey="removeCol">Delete Column</MenuItem>,
-          <MenuItem key="4" eventKey="sortAsc">Sort A -> Z (ASC)</MenuItem>,
-          <MenuItem key="5" eventKey="sortDec">Sort Z -> A (DESC)</MenuItem>,
-          <MenuItem key="9" eventKey="showMap">View as Map</MenuItem>
+          <MenuItem key="1" eventKey="changeType">
+            Rename Column
+          </MenuItem>,
+          <MenuItem key="2" eventKey="changeType">
+            Change Type
+          </MenuItem>,
+          <MenuItem key="3" eventKey="duplicate">
+            Duplicate Field
+          </MenuItem>,
+          <MenuItem key="7" eventKey="insertLeft">
+            {' '}
+            Insert Col Left{' '}
+          </MenuItem>,
+          <MenuItem key="8" eventKey="insertRight">
+            {' '}
+            Insert Col Right{' '}
+          </MenuItem>,
+          <MenuItem key="6" eventKey="removeCol">
+            Delete Column
+          </MenuItem>,
+          <MenuItem key="4" eventKey="sortAsc">
+            Sort A -> Z (ASC)
+          </MenuItem>,
+          <MenuItem key="5" eventKey="sortDec">
+            Sort Z -> A (DESC)
+          </MenuItem>,
+          <MenuItem key="9" eventKey="showMap">
+            View as Map
+          </MenuItem>,
         ];
       }
 
@@ -128,25 +159,22 @@ class ColumnOptions extends Component {
           id="dropdown-custom-1"
           onSelect={this.handleSelection}
           className={cx('columnWidth')}
-          style={{ width: this.props.data.width }}
+          style={{width: this.props.data.width}}
         >
           <Dropdown.Toggle noCaret className={cx('thead')}>
             <Glyphicon className={cx('columnType')} glyph={this.dataType()} />
-              {this.props.data.name}
+            {this.props.data.name}
             <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
           </Dropdown.Toggle>
           <Dropdown.Menu className={cx('columnWidth')}>
             {generateMenuItems.call(this)}
           </Dropdown.Menu>
-        </Dropdown>);
+        </Dropdown>
+      );
     } else if (this.state.view === 'editNameAndType') {
-      viewing = (<MenuEditCol data={this.props.data} exitTypeMenu={this.exitTypeMenu} />);
+      viewing = <MenuEditCol data={this.props.data} exitTypeMenu={this.exitTypeMenu} />;
     }
-    return (
-      <div className={cx('thead')}>
-        {viewing}
-      </div>
-    );
+    return <div className={cx('thead')}>{viewing}</div>;
   }
 }
 

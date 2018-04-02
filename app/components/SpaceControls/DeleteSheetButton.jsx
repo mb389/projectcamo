@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
-import { Button, Glyphicon } from 'react-bootstrap';
+import {Button, Glyphicon} from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -12,6 +12,5 @@ const DeleteButton = (props) => (
     </Button>
   </div>
 );
-
 
 export default DeleteButton;

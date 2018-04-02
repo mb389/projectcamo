@@ -26,7 +26,11 @@ const Grid = (props) => {
     return grid.map((row, idx) => (
       <div className={filtered.indexOf(idx) === -1 ? cx('trow') : cx('trowHidden')} key={idx}>
         <div className={cx('rnum')}>{idx + 1}</div>
-        {props.disableAll ? <div className={cx('rnum')}></div> : <RowOpener className={cx('rnum')} row={idx} />}
+        {props.disableAll ? (
+          <div className={cx('rnum')} />
+        ) : (
+          <RowOpener className={cx('rnum')} row={idx} />
+        )}
         {generateCells(row, idx)}
       </div>
     ));

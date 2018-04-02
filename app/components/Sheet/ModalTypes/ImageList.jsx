@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import FilepickerInput from './filepicker';
-import { connect } from 'react-redux';
-import { updateModalCell } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {updateModalCell} from 'actions/sheet';
 import Slider from 'react-slick';
 
 class ImageList extends Component {
@@ -11,7 +11,7 @@ class ImageList extends Component {
   }
 
   removeImage(i) {
-    const { dispatch, cellKey, rowIdx } = this.props;
+    const {dispatch, cellKey, rowIdx} = this.props;
     const newData = this.props.cell.data.slice();
     newData.splice(i, 1);
     dispatch(updateModalCell(newData, cellKey, rowIdx));
@@ -24,21 +24,22 @@ class ImageList extends Component {
       slidesToShow: 1,
       infinite: false,
       arrows: true,
-      initialSlide: 0
+      initialSlide: 0,
     };
     const fileStyle = {
-      'z-index': '1100 !important'
+      'z-index': '1100 !important',
     };
     return (
       <div>
-        <Slider {...settings}>
-          {images}
-        </Slider>
-        <FilepickerInput style={fileStyle} cellKey={this.props.cellKey} rowIdx={this.props.rowIdx} />
+        <Slider {...settings}>{images}</Slider>
+        <FilepickerInput
+          style={fileStyle}
+          cellKey={this.props.cellKey}
+          rowIdx={this.props.rowIdx}
+        />
       </div>
     );
   }
 }
-
 
 export default connect()(ImageList);

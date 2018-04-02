@@ -10,11 +10,10 @@ import HistoryButton from './HistoryButton';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
-
 const cx = classNames.bind(styles);
 
 const MagicBar = (props) => (
-  <div className={cx('MagicBar')} >
+  <div className={cx('MagicBar')}>
     <SearchButton {...props} />
     <SuperBar className={cx('SuperBar')} {...props} />
     <SaveButton saveSheet={props.saveSheet} />
@@ -25,6 +24,5 @@ const MagicBar = (props) => (
     <HistoryModal />
   </div>
 );
-
 
 export default MagicBar;

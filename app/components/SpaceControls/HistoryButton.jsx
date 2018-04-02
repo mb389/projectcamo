@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Button, Glyphicon } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { showHistoryModal } from 'actions/sheet.js';
+import React, {Component} from 'react';
+import {Button, Glyphicon} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {showHistoryModal} from 'actions/sheet.js';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
 
@@ -14,15 +14,17 @@ class HistoryButton extends Component {
   }
 
   showHistoryModal() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch(showHistoryModal());
   }
 
   render() {
-    if (!this.props.history || !this.props.history.size) return <span></span>;
+    if (!this.props.history || !this.props.history.size) return <span />;
     return (
       <div className={cx('HistoryButton')}>
-        <Button onClick={this.showHistoryModal}><Glyphicon glyph="backward" /></Button>
+        <Button onClick={this.showHistoryModal}>
+          <Glyphicon glyph="backward" />
+        </Button>
       </div>
     );
   }
@@ -30,7 +32,7 @@ class HistoryButton extends Component {
 
 function mapStateToProps(store) {
   return {
-    history: store.sheet.history
+    history: store.sheet.history,
   };
 }
 

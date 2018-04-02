@@ -13,11 +13,7 @@ const Table = (props) => {
   if (!props.headers) return <div>Loading...</div>;
   return (
     <div className={cx('table')}>
-      <Headers
-        headers={props.headers}
-        resizeCol={props.resizeCol}
-        dragCol={props.dragCol}
-      />
+      <Headers headers={props.headers} resizeCol={props.resizeCol} dragCol={props.dragCol} />
       <Grid
         grid={props.grid}
         headers={props.headers}

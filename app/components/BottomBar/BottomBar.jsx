@@ -15,20 +15,24 @@ const BottomBar = (props) => {
   });
 
   function generateColumnReducers(columns) {
-    return columns.map(column => (
-      <BottomReducers columnData={columnData[column.id]} columnType={props.grid.length ? props.grid[0][column.id].type : 'Text'} key={column.id} width={column.width} />
+    return columns.map((column) => (
+      <BottomReducers
+        columnData={columnData[column.id]}
+        columnType={props.grid.length ? props.grid[0][column.id].type : 'Text'}
+        key={column.id}
+        width={column.width}
+      />
       // component of dropdown for reducers column has id, idx, name, type;
     ));
   }
   return (
-    <div className={cx('BottomBar')} >
+    <div className={cx('BottomBar')}>
       <div className={cx('BottomRowCount')}>
         <text className={cx('BottomRowCountSpan')}>{props.grid.length} rows</text>
       </div>
-        {generateColumnReducers(props.columns)}
+      {generateColumnReducers(props.columns)}
     </div>
   );
 };
-
 
 export default BottomBar;

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { addColumn } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {addColumn} from 'actions/sheet';
 import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
@@ -19,14 +19,15 @@ class AddColumn extends Component {
   render() {
     return (
       <button
-        className={cx('addColumn') }
-        style={{ marginLeft: this.props.margin }}
+        className={cx('addColumn')}
+        style={{marginLeft: this.props.margin}}
         onClick={this.addColumn}
-      > +
+      >
+        {' '}
+        +
       </button>
     );
   }
 }
 
 export default connect()(AddColumn);
-

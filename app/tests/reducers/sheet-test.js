@@ -4,19 +4,21 @@ import * as types from '../../constants';
 
 describe('Sheets reducer', () => {
   const initialState = {
-    grid: [{
-      '100': {
-        type: 'ID',
-        data: 'Oscar',
-        id: '0'
-      }
-    }],
-    columnHeaders: [{ id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }],
+    grid: [
+      {
+        '100': {
+          type: 'ID',
+          data: 'Oscar',
+          id: '0',
+        },
+      },
+    ],
+    columnHeaders: [{id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200}],
     showRowModal: false,
     modalRow: {
       data: null,
-      rowIdx: null
-    }
+      rowIdx: null,
+    },
   };
 
   const threebyThree = {
@@ -25,51 +27,51 @@ describe('Sheets reducer', () => {
         '100': {
           type: 'ID',
           data: 'Oscar',
-          id: '0'
+          id: '0',
         },
         '101': {
           type: 'Images',
           data: ['placeholdit.com/400/400'],
-          id: '1'
+          id: '1',
         },
         '102': {
           type: 'Text',
           data: 'Hello',
-          id: '2'
-        }
+          id: '2',
+        },
       },
       {
         '100': {
           type: 'ID',
           data: 'Mike',
-          id: '3'
+          id: '3',
         },
         '101': {
           type: 'Images',
           data: ['placeholdit.com/400/400'],
-          id: '4'
+          id: '4',
         },
         '102': {
           type: 'Text',
           data: 'Hi',
-          id: '5'
-        }
-      }
+          id: '5',
+        },
+      },
     ],
     columnHeaders: [
-      { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
-      { type: 'Images', name: 'Pic', id: '101', idx: 2 },
-      { type: 'Text', name: 'Info', id: '102', idx: 4 }
+      {id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200},
+      {type: 'Images', name: 'Pic', id: '101', idx: 2},
+      {type: 'Text', name: 'Info', id: '102', idx: 4},
     ],
     showRowModal: false,
     modalRow: {
       data: null,
-      rowIdx: null
-    }
+      rowIdx: null,
+    },
   };
 
   it('should handle ADD_COLUMN', () => {
-    const nextState = reducer(initialState, { type: types.ADD_COLUMN });
+    const nextState = reducer(initialState, {type: types.ADD_COLUMN});
 
     expect(nextState.columnHeaders.length).toEqual(2);
     expect(nextState.grid[0]['101']).toExist();
@@ -77,7 +79,7 @@ describe('Sheets reducer', () => {
 
   it('should handle ADD_ROW', () => {
     const action = {
-      type: types.ADD_ROW
+      type: types.ADD_ROW,
     };
 
     const nextState = reducer(initialState, action);
@@ -90,23 +92,29 @@ describe('Sheets reducer', () => {
     const state = {
       grid: [],
       columnHeaders: [
-        { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
-        { id: '101', idx: 1, name: 'Skills', linkedSheet: '56f845ce7ed6ca5a3dc2c360', type: 'Reference' },
-        { type: 'Images', name: 'Pic', id: '102', idx: 2 },
-        { type: 'Text', name: 'Info', id: '103', idx: 4 },
-        { type: 'Number', name: 'Column 4', id: '104', idx: 4 },
-        { type: 'Checkbox', name: 'Column 5', id: '105', idx: 5 },
-        { type: 'Select', name: 'Column 6', id: '106', idx: 6 }
+        {id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200},
+        {
+          id: '101',
+          idx: 1,
+          name: 'Skills',
+          linkedSheet: '56f845ce7ed6ca5a3dc2c360',
+          type: 'Reference',
+        },
+        {type: 'Images', name: 'Pic', id: '102', idx: 2},
+        {type: 'Text', name: 'Info', id: '103', idx: 4},
+        {type: 'Number', name: 'Column 4', id: '104', idx: 4},
+        {type: 'Checkbox', name: 'Column 5', id: '105', idx: 5},
+        {type: 'Select', name: 'Column 6', id: '106', idx: 6},
       ],
       showRowModal: false,
       modalRow: {
         data: null,
-        rowIdx: null
-      }
+        rowIdx: null,
+      },
     };
 
     const action = {
-      type: types.ADD_ROW
+      type: types.ADD_ROW,
     };
 
     const nextState = reducer(state, action);
@@ -121,7 +129,6 @@ describe('Sheets reducer', () => {
     expect(nextState.grid[0]['106'].type).toEqual('Select');
   });
 
-
   it('should handle SORT_COLUMN', () => {
     const state = {
       grid: [
@@ -129,33 +136,31 @@ describe('Sheets reducer', () => {
           '100': {
             type: 'ID',
             data: 'Oscar',
-            id: '0'
-          }
+            id: '0',
+          },
         },
         {
           '100': {
             type: 'ID',
             data: 'Mike',
-            id: '1'
-          }
-        }
+            id: '1',
+          },
+        },
       ],
-      columnHeaders: [
-        { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 }
-      ],
+      columnHeaders: [{id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200}],
       showRowModal: false,
       modalRow: {
         data: null,
-        rowIdx: null
-      }
+        rowIdx: null,
+      },
     };
 
     const asc = {
       type: types.SORT_COLUMN,
       sortBy: {
         colId: '100',
-        order: 1
-      }
+        order: 1,
+      },
     };
 
     const ascState = reducer(state, asc);
@@ -164,12 +169,11 @@ describe('Sheets reducer', () => {
       type: types.SORT_COLUMN,
       sortBy: {
         colId: '100',
-        order: -1
-      }
+        order: -1,
+      },
     };
 
     const descState = reducer(state, desc);
-
 
     expect(ascState.grid[0]['100'].data).toEqual('Mike');
     expect(descState.grid[0]['100'].data).toEqual('Oscar');
@@ -178,7 +182,7 @@ describe('Sheets reducer', () => {
   it('should handle SEARCH_SHEET', () => {
     const action = {
       type: types.SEARCH_SHEET,
-      term: 'Mike'
+      term: 'Mike',
     };
 
     const nextState = reducer(threebyThree, action);
@@ -193,11 +197,11 @@ describe('Sheets reducer', () => {
       cell: {
         data: 'hilla',
         idx: 0,
-        key: '100'
-      }
+        key: '100',
+      },
     };
 
-    state.currentCell = { cell: {} };
+    state.currentCell = {cell: {}};
 
     const nextState = reducer(state, action);
 
@@ -209,8 +213,8 @@ describe('Sheets reducer', () => {
       type: types.UPDATE_CELL_BY_ID,
       cell: {
         data: 'hilla',
-        id: '0'
-      }
+        id: '0',
+      },
     };
 
     const nextState = reducer(threebyThree, action);
@@ -226,19 +230,19 @@ describe('Sheets reducer', () => {
         '100': {
           type: 'ID',
           data: 'Oscar',
-          id: '0'
+          id: '0',
         },
         '101': {
           type: 'Images',
           data: ['placeholdit.com/400/400'],
-          id: '1'
+          id: '1',
         },
         '102': {
           type: 'Text',
           data: 'Hello',
-          id: '2'
-        }
-      }
+          id: '2',
+        },
+      },
     };
     state.currentCell = {};
 
@@ -247,10 +251,9 @@ describe('Sheets reducer', () => {
       cell: {
         data: 'google.com',
         key: '101',
-        idx: 0
+        idx: 0,
       },
-      push: true
-
+      push: true,
     };
 
     const nextState = reducer(state, action);
@@ -266,15 +269,15 @@ describe('Sheets reducer', () => {
         '100': {
           type: 'ID',
           data: 'redux',
-          id: '0'
-        }
+          id: '0',
+        },
       },
-      rowIdx: 0
+      rowIdx: 0,
     };
     state.currentCell = {};
 
     const closeModal = {
-      type: types.CLOSE_ROW_MODAL
+      type: types.CLOSE_ROW_MODAL,
     };
 
     const nextState = reducer(state, closeModal);

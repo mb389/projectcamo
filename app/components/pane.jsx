@@ -1,11 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 export default class Pane extends Component {
   static propTypes = {
-    id: PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-    ]).isRequired,
+    id: PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]).isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
     minWidth: PropTypes.number,
@@ -23,8 +20,6 @@ export default class Pane extends Component {
   };
 
   render() {
-    return (
-      <div className={this.props.className}>{this.props.children}</div>
-    );
+    return <div className={this.props.className}>{this.props.children}</div>;
   }
 }

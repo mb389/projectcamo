@@ -6,62 +6,63 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Workspace = Promise.promisifyAll(mongoose.model('Workspace'));
 var Sheet = Promise.promisifyAll(mongoose.model('Sheet'));
 
-const columnHeaders = [
-      { id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200 },
-    ]
+const columnHeaders = [{id: '100', type: 'ID', name: 'Record Name', idx: 0, width: 200}];
 
-const grid = []
-const sheetState = { grid: grid, columnHeaders: columnHeaders, showRowModal: false, modalRow: { data:null, rowIdx: null} }
-
-var seedUsers = function () {
-
-    var users = [
-        {
-            email: 'cody@camo.com',
-            password: '123'
-        },
-        {
-            email: 'oscar@camo.com',
-            password: '123'
-        },
-        {
-          email: 'mb@camo.com',
-          password: '123'
-        },
-        {
-          email: 'assaf@camo.com',
-          password: '123'
-        }
-    ];
-    return User.createAsync(users);
-
+const grid = [];
+const sheetState = {
+  grid: grid,
+  columnHeaders: columnHeaders,
+  showRowModal: false,
+  modalRow: {data: null, rowIdx: null},
 };
 
-var seedSheet = function (workspaceId) {
+var seedUsers = function() {
+  var users = [
+    {
+      email: 'cody@camo.com',
+      password: '123',
+    },
+    {
+      email: 'oscar@camo.com',
+      password: '123',
+    },
+    {
+      email: 'mb@camo.com',
+      password: '123',
+    },
+    {
+      email: 'assaf@camo.com',
+      password: '123',
+    },
+  ];
+  return User.createAsync(users);
+};
+
+var seedSheet = function(workspaceId) {
   var sheet = [
     {
       name: 'Sheet1',
       content: sheetState,
-      workspace: workspaceId
-    }
+      workspace: workspaceId,
+    },
   ];
 
   return Sheet.createAsync(sheet);
-}
+};
 
-var seedWorkspace = function (userId) {
+var seedWorkspace = function(userId) {
   var workspace = [
     {
       name: 'Seedspace',
       user: userId,
-      collabs: [userId]
-    }
-  ]
+      collabs: [userId],
+    },
+  ];
   return Workspace.createAsync(workspace);
-}
+};
 
- // dbConnect.then(() => {
-  User.remove({})
+// dbConnect.then(() => {
+User.remove({})
   .then(() => Workspace.remove({}))
   .then(() => Sheet.remove({}))
   .then(() => seedUsers())
@@ -71,8 +72,8 @@ var seedWorkspace = function (userId) {
     console.log(chalk.green('Seed successful!'));
     process.kill(0);
   })
-  .catch(function (err) {
-      console.error(err);
-      process.kill(1);
+  .catch(function(err) {
+    console.error(err);
+    process.kill(1);
   });
 // });

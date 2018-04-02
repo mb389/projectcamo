@@ -1,9 +1,9 @@
-import { polyfill } from 'es6-promise';
+import {polyfill} from 'es6-promise';
 import request from 'axios';
-import { push } from 'react-router-redux';
-import { updateSheet } from './SpaceControls';
+import {push} from 'react-router-redux';
+import {updateSheet} from './SpaceControls';
 import * as types from '../constants';
-import { getSpaces } from '../actions/dashboard';
+import {getSpaces} from '../actions/dashboard';
 
 polyfill();
 
@@ -12,7 +12,7 @@ function makeUserRequest(method, data, api = '/login') {
     url: api,
     method,
     data,
-    withCredentials: true
+    withCredentials: true,
   });
 }
 
@@ -26,27 +26,27 @@ function makeUserRequest(method, data, api = '/login') {
 export function retrieveUserInfo(id) {
   return (dispatch) => {
     request(`/user/${id}`)
-    .then(res => dispatch(updateSheet(res.data.history)))
-    .catch(err => err);
+      .then((res) => dispatch(updateSheet(res.data.history)))
+      .catch((err) => err);
   };
 }
 
 // Log In Action Creators
 function beginLogin() {
-  return { type: types.MANUAL_LOGIN_USER };
+  return {type: types.MANUAL_LOGIN_USER};
 }
 
 function loginSuccess(message) {
   return {
     type: types.LOGIN_SUCCESS_USER,
-    message
+    message,
   };
 }
 
 function loginError(message) {
   return {
     type: types.LOGIN_ERROR_USER,
-    message
+    message,
   };
 }
 
@@ -54,36 +54,36 @@ function loginError(message) {
 function signUpError(message) {
   return {
     type: types.SIGNUP_ERROR_USER,
-    message
+    message,
   };
 }
 
 function beginSignUp() {
-  return { type: types.SIGNUP_USER };
+  return {type: types.SIGNUP_USER};
 }
 
 function signUpSuccess(message) {
   return {
     type: types.SIGNUP_SUCCESS_USER,
-    message
+    message,
   };
 }
 
 // Log Out Action Creators
 function beginLogout() {
-  return { type: types.LOGOUT_USER };
+  return {type: types.LOGOUT_USER};
 }
 
 function logoutSuccess() {
-  return { type: types.LOGOUT_SUCCESS_USER };
+  return {type: types.LOGOUT_SUCCESS_USER};
 }
 
 function logoutError() {
-  return { type: types.LOGOUT_ERROR_USER };
+  return {type: types.LOGOUT_ERROR_USER};
 }
 
 export function toggleLoginMode() {
-  return { type: types.TOGGLE_LOGIN_MODE };
+  return {type: types.TOGGLE_LOGIN_MODE};
 }
 
 export function manualLogin(data) {
@@ -100,7 +100,7 @@ export function manualLogin(data) {
           dispatch(loginError('Oops! Something went wrong!'));
         }
       })
-      .catch(err => dispatch(loginError(err.data.message)));
+      .catch((err) => dispatch(loginError(err.data.message)));
   };
 }
 
@@ -117,7 +117,7 @@ export function signUp(data) {
           dispatch(signUpError('Oops! Something went wrong'));
         }
       })
-      .catch(err => dispatch(signUpError(err.data.message)));
+      .catch((err) => dispatch(signUpError(err.data.message)));
   };
 }
 
@@ -134,6 +134,6 @@ export function logOut() {
         }
       })
       .then(() => dispatch(push('/login')))
-      .catch(err => err);
+      .catch((err) => err);
   };
 }

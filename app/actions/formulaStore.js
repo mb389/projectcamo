@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
-import { polyfill } from 'es6-promise';
+import {polyfill} from 'es6-promise';
 import request from 'axios';
 import * as types from '../constants/index';
 
@@ -14,10 +14,11 @@ function addOneToList(addedFormula) {
 
 export function formulaUpload(name, functionStr) {
   return (dispatch) => {
-    request.post('/formulaStore', { name, functionStr })
-    .then(res => res.data)
-    .then(res => dispatch(addOneToList(res)))
-    .catch(err => err);
+    request
+      .post('/formulaStore', {name, functionStr})
+      .then((res) => res.data)
+      .then((res) => dispatch(addOneToList(res)))
+      .catch((err) => err);
   };
 }
 
@@ -31,9 +32,9 @@ function addFormualsToFormulaStore(allFormulas) {
 export function fetchFormulaStore() {
   return (dispatch) => {
     request('/formulaStore')
-    .then(res => res.data)
-    .then(res => dispatch(addFormualsToFormulaStore(res)))
-    .catch(err => err);
+      .then((res) => res.data)
+      .then((res) => dispatch(addFormualsToFormulaStore(res)))
+      .catch((err) => err);
   };
 }
 
@@ -46,9 +47,9 @@ function removeFromList(formulaId) {
 
 export function formulaRemove(formulaId) {
   return (dispatch) => {
-    request.delete(`/formulaStore/${formulaId}`)
-    .then(() => dispatch(removeFromList(formulaId)))
-    .catch(err => err);
+    request
+      .delete(`/formulaStore/${formulaId}`)
+      .then(() => dispatch(removeFromList(formulaId)))
+      .catch((err) => err);
   };
 }
-

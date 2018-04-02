@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Gmaps, Marker } from 'react-gmaps';
+import React, {Component} from 'react';
+import {Gmaps, Marker} from 'react-gmaps';
 import classNames from 'classnames/bind';
 import styles from 'css/components/map';
 
@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 class GoogleMap extends Component {
   constructor(props) {
     super(props);
-    this.state = { markersCreated: false, markers: [], zoom: 12, midPoint: [] };
+    this.state = {markersCreated: false, markers: [], zoom: 12, midPoint: []};
     this.createMarkers = this.createMarkers.bind(this);
     this.markerCoordRangeFinder = this.markerCoordRangeFinder.bind(this);
     this.findZoomFromRanges = this.findZoomFromRanges.bind(this);
@@ -49,13 +49,7 @@ class GoogleMap extends Component {
 
   createMarkers(markers) {
     const markersToAdd = markers.map((mrk, i) => (
-      <Marker
-        key={i}
-        lat={mrk.loc.lat}
-        lng={mrk.loc.lng}
-        label={String(i + 1)}
-        title={mrk.name}
-      />
+      <Marker key={i} lat={mrk.loc.lat} lng={mrk.loc.lng} label={String(i + 1)} title={mrk.name} />
     ));
 
     // manually calculating zoom for map
@@ -66,19 +60,20 @@ class GoogleMap extends Component {
     const latLongRanges = [ranges[0] - ranges[1], ranges[2] - ranges[3]];
     // zoom of the view
     const zoom = this.findZoomFromRanges(latLongRanges);
-    this.setState({ markersCreated: true, markers: markersToAdd, midPoint, zoom });
+    this.setState({markersCreated: true, markers: markersToAdd, midPoint, zoom});
   }
 
   render() {
     if (this.state.markersCreated) {
       return (
-        <Gmaps width={'750px'}
+        <Gmaps
+          width={'750px'}
           height={'600px'}
           lat={this.state.midPoint[0]}
           lng={this.state.midPoint[1]}
           zoom={this.state.zoom}
           loadingMessage={'Your map is loading'}
-          params={{ v: '3.exp' }}
+          params={{v: '3.exp'}}
           className={cx('mapPlugIn')}
         >
           {this.state.markers}

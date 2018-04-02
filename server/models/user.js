@@ -13,26 +13,25 @@ const mongoose = require('mongoose');
  */
 
 const UserSchema = new mongoose.Schema({
-  email: { type: String, unique: true, lowercase: true },
+  email: {type: String, unique: true, lowercase: true},
   password: String,
   tokens: Array,
   profile: {
-    name: { type: String, default: '' },
-    gender: { type: String, default: '' },
-    location: { type: String, default: '' },
-    website: { type: String, default: '' },
-    picture: { type: String, default: '' }
+    name: {type: String, default: ''},
+    gender: {type: String, default: ''},
+    location: {type: String, default: ''},
+    website: {type: String, default: ''},
+    picture: {type: String, default: ''},
   },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-  google: {}
+  google: {},
 });
-
 
 /**
  * Password hash middleware.
  */
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
   const user = this;
   if (!user.isModified('password')) return next();
   bcrypt.genSalt(5, (err, salt) => {
@@ -54,7 +53,7 @@ UserSchema.methods = {
       if (err) return cb(err);
       cb(null, isMatch);
     });
-  }
+  },
 };
 
 /**
@@ -62,6 +61,5 @@ UserSchema.methods = {
  */
 
 UserSchema.statics = {};
-
 
 User = mongoose.model('User', UserSchema);

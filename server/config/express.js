@@ -8,7 +8,7 @@ const flash = require('express-flash');
 const methodOverride = require('method-override');
 
 module.exports = (app, passport) => {
-  app.set('port', (process.env.PORT || 3000));
+  app.set('port', process.env.PORT || 3000);
 
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile
@@ -19,10 +19,9 @@ module.exports = (app, passport) => {
   app.set('view cache', false);
 
   app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());
   app.use(express.static(path.join(__dirname, '../..', 'public')));
-
 
   app.set('trust proxy', 'loopback');
 
@@ -38,12 +37,10 @@ module.exports = (app, passport) => {
       httpOnly: true,
       secure: false,
     },
-    store: new MongoStore(
-      {
-        url: secrets.db,
-        autoReconnect: true
-      }
-    )
+    store: new MongoStore({
+      url: secrets.db,
+      autoReconnect: true,
+    }),
   };
 
   /* eslint-disable */

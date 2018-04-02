@@ -3,11 +3,10 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const User = mongoose.model('User');
 
-
 exports.getById = (req, res) => {
   User.findById(req.params.id)
-  .then(user => res.json(user))
-  .catch(err => err);
+    .then((user) => res.json(user))
+    .catch((err) => err);
 };
 
 /**
@@ -18,18 +17,17 @@ exports.postLogin = (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) return next(err);
     if (!user) {
-      return res.status(401).json({ message: info.message });
+      return res.status(401).json({message: info.message});
     }
     // Passport exposes a login() function on req (also aliased as
     // logIn()) that can be used to establish a login session
     req.logIn(user, (loginErr) => {
-      if (loginErr) return res.status(401).json({ message: loginErr });
-      return res.status(200).json({ message: 'You have been successfully logged in.' });
+      if (loginErr) return res.status(401).json({message: loginErr});
+      return res.status(200).json({message: 'You have been successfully logged in.'});
     });
     return null;
   })(req, res, next);
 };
-
 
 /**
  * POST /logout
@@ -47,18 +45,18 @@ exports.postLogout = (req, res) => {
 exports.postSignUp = (req, res, next) => {
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
   });
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
+  User.findOne({email: req.body.email}, (err, existingUser) => {
     if (existingUser) {
-      return res.status(409).json({ message: 'Account with this email address already exists!' });
+      return res.status(409).json({message: 'Account with this email address already exists!'});
     }
     user.save((saveErr) => {
       if (saveErr) return next(saveErr);
       req.logIn(user, (loginErr) => {
-        if (loginErr) return res.status(401).json({ message: loginErr });
-        return res.status(200).json({ message: 'You have been successfully logged in.' });
+        if (loginErr) return res.status(401).json({message: loginErr});
+        return res.status(200).json({message: 'You have been successfully logged in.'});
       });
     });
   });

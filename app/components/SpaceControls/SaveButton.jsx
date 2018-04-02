@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { Button, Glyphicon } from 'react-bootstrap';
-import { connect } from 'react-redux';
-import { commit } from 'actions/SpaceControls';
+import React, {Component} from 'react';
+import {Button, Glyphicon} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {commit} from 'actions/SpaceControls';
 import classNames from 'classnames/bind';
 import styles from 'css/components/magic-bar';
-
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +14,7 @@ class SaveButton extends Component {
   }
 
   saveSheet() {
-    const { dispatch, sheetToShow, sheet } = this.props;
+    const {dispatch, sheetToShow, sheet} = this.props;
     dispatch(commit(sheetToShow._id, sheet, true));
   }
 
@@ -33,7 +32,7 @@ class SaveButton extends Component {
 function mapStateToProps(store) {
   return {
     sheetToShow: store.spacecontrol.sheetToShow,
-    sheet: store.sheet
+    sheet: store.sheet,
   };
 }
 

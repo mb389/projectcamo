@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
 import * as Actions from '../../actions/SpaceControls';
@@ -18,7 +18,9 @@ class AddSheetButton extends Component {
 
   render() {
     return (
-      <button className={cx('AddSheetButton', 'SheetButton')} onClick={this.addSheet}>+</button>
+      <button className={cx('AddSheetButton', 'SheetButton')} onClick={this.addSheet}>
+        +
+      </button>
     );
   }
 }

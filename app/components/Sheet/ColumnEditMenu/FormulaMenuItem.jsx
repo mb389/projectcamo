@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/table';
-import { Glyphicon, Dropdown, MenuItem } from 'react-bootstrap';
+import {Glyphicon, Dropdown, MenuItem} from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 //
 
@@ -17,7 +17,7 @@ const cx = classNames.bind(styles);
 const FormulaMenuItem = (props) => {
   function createFunctionList() {
     return props.formulas.map((elem, idx) => (
-      <MenuItem key={idx} eventKey={elem.functionStr} >
+      <MenuItem key={idx} eventKey={elem.functionStr}>
         {elem.name}
         <Glyphicon
           className={cx('removeFunction')}
@@ -36,20 +36,22 @@ const FormulaMenuItem = (props) => {
   return (
     <div className="col-xs-12">
       <h5 className="col-xs-12">Write your own Javascript formula e.g. Initials below</h5>
-      <Dropdown id="dropdown-custom-1" onSelect={functionSelected} className={`${cx('typeDropdown')} col-xs-12'`}>
+      <Dropdown
+        id="dropdown-custom-1"
+        onSelect={functionSelected}
+        className={`${cx('typeDropdown')} col-xs-12'`}
+      >
         <Dropdown.Toggle noCaret className=" col-xs-12">
           {props.formulaName}
           <Glyphicon className={cx('columnCarrat')} glyph="menu-down" />
         </Dropdown.Toggle>
-        <Dropdown.Menu className={cx('columnMenu')}>
-          {createFunctionList()}
-        </Dropdown.Menu>
+        <Dropdown.Menu className={cx('columnMenu')}>{createFunctionList()}</Dropdown.Menu>
       </Dropdown>
       <label className="col-xs-4">Name:</label>
       <ContentEditable
         className="col-xs-8"
         id="handleFormulaNameChange"
-        style={{ backgroundColor: 'white' }}
+        style={{backgroundColor: 'white'}}
         onChange={props.handleFormulaNameChange}
         html={props.formulaName}
       />
@@ -64,12 +66,9 @@ const FormulaMenuItem = (props) => {
         onChange={props.handleFormulaCustom}
         name="UNIQUE_ID_OF_DIV"
         value={props.formula}
-        editorProps={{ $blockScrolling: true }}
+        editorProps={{$blockScrolling: true}}
       />
-      <button
-        className="btn col-xs-8 col-xs-offset-4"
-        type="button" onClick={props.formulaUpload}
-      >
+      <button className="btn col-xs-8 col-xs-offset-4" type="button" onClick={props.formulaUpload}>
         Upload Formula
       </button>
     </div>

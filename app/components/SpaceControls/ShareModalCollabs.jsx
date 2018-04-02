@@ -4,11 +4,13 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(styles);
 
 const ShareModalCollabs = (props) => {
-  const collabs = !props.collabs ? [] : props.collabs.filter((v, i) => props.collabs.indexOf(v) === i);
+  const collabs = !props.collabs
+    ? []
+    : props.collabs.filter((v, i) => props.collabs.indexOf(v) === i);
 
-  const collaborsToDisplay = collabs.map(el => (
+  const collaborsToDisplay = collabs.map((el) => (
     <div key={el}>
-      <div className={cx('userImg')}></div>
+      <div className={cx('userImg')} />
       <p>{el}</p>
     </div>
   ));

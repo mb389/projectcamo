@@ -1,9 +1,11 @@
-
 function decorationType(cell) {
   switch (cell.type) {
-    case 'Images': return `["${cell.data.join('","')}"]`;
-    case 'Reference': return null;
-    default: return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
+    case 'Images':
+      return `["${cell.data.join('","')}"]`;
+    case 'Reference':
+      return null;
+    default:
+      return !Number(cell.data) ? `"${cell.data}"` : Number(cell.data);
   }
 }
 
@@ -23,18 +25,18 @@ function findColumnIdxFromId(colId, newSheet) {
 }
 
 export function insertNewColInRows(state, newColumn) {
-  state.grid.forEach(row => {
+  state.grid.forEach((row) => {
     row[newColumn.id] = {
       type: newColumn.type,
       data: null,
       width: newColumn.width,
-      id: newColumn.id + Math.floor((Math.random() * (99999999 - 111111) + 111111))
+      id: newColumn.id + Math.floor(Math.random() * (99999999 - 111111) + 111111),
     };
   });
   return state;
 }
 
-    // TODO remove the column that we're adding to to prevent errors?
+// TODO remove the column that we're adding to to prevent errors?
 export function runCustomFunc(state, row, funcText) {
   let columnDefs = 'let document = undefined, window = undefined, alert = undefined; ';
 
@@ -59,21 +61,23 @@ export function navToNewCell(keyCode, newSheet) {
       if (newSheet.grid[rowIdx - 1]) newRowIdx = rowIdx - 1;
       return {
         newRowIdx,
-        newColId: colId
+        newColId: colId,
       };
-    case 13: case 40:
+    case 13:
+    case 40:
       if (newSheet.grid[rowIdx + 1]) newRowIdx = rowIdx + 1;
       return {
         newRowIdx,
-        newColId: colId
+        newColId: colId,
       };
-    case 39: case 9:
+    case 39:
+    case 9:
       colIdx = findColumnIdxFromId(colId, newSheet);
       if (newSheet.columnHeaders[colIdx + 1]) newColId = newSheet.columnHeaders[colIdx + 1].id;
       else newColId = colId;
       return {
         newRowIdx: rowIdx,
-        newColId
+        newColId,
       };
     case 37:
       colIdx = findColumnIdxFromId(colId, newSheet);
@@ -81,7 +85,7 @@ export function navToNewCell(keyCode, newSheet) {
       else newColId = colId;
       return {
         newRowIdx: rowIdx,
-        newColId
+        newColId,
       };
     default:
       return state;
@@ -89,16 +93,19 @@ export function navToNewCell(keyCode, newSheet) {
 }
 
 export function newColInfo(columns) {
-  const colIdIdx = columns.reduce((accum, col) => {
-    if (col.id > accum[0]) accum[0] = col.id;
-    if (col.idx > accum[1]) accum[1] = col.idx;
-    return accum;
-  }, [0, 0]);
+  const colIdIdx = columns.reduce(
+    (accum, col) => {
+      if (col.id > accum[0]) accum[0] = col.id;
+      if (col.idx > accum[1]) accum[1] = col.idx;
+      return accum;
+    },
+    [0, 0]
+  );
 
   return {
     id: (1 + Number(colIdIdx[0])).toString(),
     name: `Column  ${1 + columns.length}`,
-    idx: (1 + Number(colIdIdx[1])),
-    width: 200
+    idx: 1 + Number(colIdIdx[1]),
+    width: 200,
   };
 }

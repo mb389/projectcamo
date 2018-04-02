@@ -1,7 +1,4 @@
-import {
-  LOGIN_SUCCESS_USER,
-  SIGNUP_SUCCESS_USER
-} from '../constants';
+import {LOGIN_SUCCESS_USER, SIGNUP_SUCCESS_USER} from '../constants';
 
 /*
  * Message store for global messages, i.e. Network messages / Redirect messages
@@ -9,17 +6,20 @@ import {
  * messages/notifications should appear within the component to give the user
  * more context. - My 2 cents.
  */
-export default function message(state = {
-  message: '',
-  type: 'SUCCESS'
-}, action = {}) {
+export default function message(
+  state = {
+    message: '',
+    type: 'SUCCESS',
+  },
+  action = {}
+) {
   switch (action.type) {
     case LOGIN_SUCCESS_USER:
       return state;
     case SIGNUP_SUCCESS_USER:
       return Object.assign({}, state, {
         message: action.message,
-        type: 'SUCCESS'
+        type: 'SUCCESS',
       });
     default:
       return state;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, browserHistory } from 'react-router';
+import {Route, IndexRoute, browserHistory} from 'react-router';
 import App from 'containers/App';
 import About from 'containers/About';
 import SpaceControl from 'containers/SpaceControl';
@@ -13,21 +13,21 @@ import Dashboard from 'containers/Dashboard';
  */
 export default (store) => {
   const requireAuth = (nextState, replace, callback) => {
-    const { user: { authenticated } } = store.getState();
+    const {user: {authenticated}} = store.getState();
     if (!authenticated) {
       replace({
         pathname: '/login',
-        state: { nextPathname: nextState.location.pathname }
+        state: {nextPathname: nextState.location.pathname},
       });
     }
     callback();
   };
 
   const redirectAuth = (nextState, replace, callback) => {
-    const { user: { authenticated } } = store.getState();
+    const {user: {authenticated}} = store.getState();
     if (authenticated) {
       replace({
-        pathname: '/'
+        pathname: '/',
       });
     }
     callback();
@@ -35,12 +35,8 @@ export default (store) => {
   return (
     <Route path="/" component={App} history={browserHistory}>
       <IndexRoute component={About} />
-      <Route path="/login"
-        component={LoginOrRegister} onEnter={redirectAuth}
-      />
-      <Route path="/dashboard"
-        component={Dashboard} onEnter={requireAuth}
-      />
+      <Route path="/login" component={LoginOrRegister} onEnter={redirectAuth} />
+      <Route path="/dashboard" component={Dashboard} onEnter={requireAuth} />
       <Route path="about" component={About} />
       <Route path="space/:spaceId" component={SpaceControl} onEnter={requireAuth} />
     </Route>

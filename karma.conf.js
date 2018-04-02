@@ -16,13 +16,11 @@ module.exports = function(config) {
     frameworks: ['mocha', 'sinon'],
 
     // Point karma at the tests.webpack.js
-    files: [
-      'tests.webpack.js'
-    ],
+    files: ['tests.webpack.js'],
 
     // Run karma through preprocessor plugins
     preprocessors: {
-      'tests.webpack.js': [ 'webpack', 'sourcemap' ]
+      'tests.webpack.js': ['webpack', 'sourcemap'],
     },
 
     // Continuous Integration mode
@@ -35,7 +33,7 @@ module.exports = function(config) {
 
     webpack: {
       devtool: 'inline-source-map',
-      context: path.join(__dirname, "app"),
+      context: path.join(__dirname, 'app'),
       module: {
         loaders: [
           {
@@ -44,39 +42,37 @@ module.exports = function(config) {
             // Reason why we put this here instead of babelrc
             // https://github.com/gaearon/react-transform-hmr/issues/5#issuecomment-142313637
             query: {
-              "presets": ["es2015", "react", "stage-0"],
-              "plugins": [
-                "transform-react-remove-prop-types",
-                "transform-react-constant-elements",
-                "transform-react-inline-elements"
-              ]
+              presets: ['es2015', 'react', 'stage-0'],
+              plugins: [
+                'transform-react-remove-prop-types',
+                'transform-react-constant-elements',
+                'transform-react-inline-elements',
+              ],
             },
             include: path.join(__dirname, 'app'),
-            exclude: path.join(__dirname, '/node_modules/')
+            exclude: path.join(__dirname, '/node_modules/'),
           },
-          { test: /\.json$/, loader: "json-loader" },
-          { test: /\.css$/, loader: "null-loader" }
+          {test: /\.json$/, loader: 'json-loader'},
+          {test: /\.css$/, loader: 'null-loader'},
         ],
       },
       resolve: {
         extensions: ['', '.js', '.jsx', '.css'],
-        modulesDirectories: [
-          'app', 'node_modules'
-        ]
+        modulesDirectories: ['app', 'node_modules'],
       },
       node: {
-        fs: "empty"
+        fs: 'empty',
       },
-      watch: true
+      watch: true,
     },
 
     webpackMiddleware: {
-        // webpack-dev-middleware configuration
-        noInfo: true
+      // webpack-dev-middleware configuration
+      noInfo: true,
     },
 
     webpackServer: {
-      noInfo: true // Do not spam the console when running in karma
+      noInfo: true, // Do not spam the console when running in karma
     },
 
     plugins: [

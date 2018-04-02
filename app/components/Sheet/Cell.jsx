@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { updateCell, showLookupModal, currentCell, moveToCell } from 'actions/sheet';
+import {updateCell, showLookupModal, currentCell, moveToCell} from 'actions/sheet';
 import styles from 'css/components/table';
-import { Glyphicon, Button } from 'react-bootstrap';
+import {Glyphicon, Button} from 'react-bootstrap';
 import ContentEditable from 'react-contenteditable';
 import LinkLabel from './CellTypes/LinkLabel';
 import Checkbox from './CellTypes/Checkbox';
@@ -13,7 +13,7 @@ const cx = classNames.bind(styles);
 class Cell extends Component {
   constructor(props, state) {
     super(props, state);
-    this.state = { disabled: false };
+    this.state = {disabled: false};
     // leaving disabled in case we choose to use it later
     this.handleCell = this.handleCell.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -31,7 +31,6 @@ class Cell extends Component {
       // don't rerender when opening a select cell
       return this.props.cell.focused === nextProps.cell.focused;
     }
-
 
     for (const keys in nextProps.cell) {
       if (nextProps.cell[keys] !== this.props.cell[keys]) {
@@ -56,52 +55,72 @@ class Cell extends Component {
         cell.data = cell.data || [];
         return cell.data.map((img, i) => <img src={img} key={i} className={cx('img-thumb')} />);
       case 'Reference':
-        const labels = cell.data ? cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />) : <span key="0"></span>;
+        const labels = cell.data ? (
+          cell.data.map((label, i) => <LinkLabel data={label.data} key={i} />)
+        ) : (
+          <span key="0" />
+        );
         return (
           <div>
-            <Button bsSize="small" onClick={this.showLookupModal.bind(this, row, rowIdx, cell, cellKey)}><Glyphicon glyph="plus" /></Button>
+            <Button
+              bsSize="small"
+              onClick={this.showLookupModal.bind(this, row, rowIdx, cell, cellKey)}
+            >
+              <Glyphicon glyph="plus" />
+            </Button>
             {labels}
           </div>
         );
       case 'Checkbox':
         return (
-            <div className={cx('checkboxCheck')}>
-              <Checkbox dispatch={this.props.dispatch} cell={cell} cellKey={cellKey} rowIdx={rowIdx} row={row} />
-            </div>
-          );
+          <div className={cx('checkboxCheck')}>
+            <Checkbox
+              dispatch={this.props.dispatch}
+              cell={cell}
+              cellKey={cellKey}
+              rowIdx={rowIdx}
+              row={row}
+            />
+          </div>
+        );
       case 'Select':
-        return (<SelectOptionCell
-          dispatch={this.props.dispatch}
-          cell={cell}
-          cellKey={cellKey}
-          rowIdx={rowIdx}
-          row={row}
-        />
-            );
+        return (
+          <SelectOptionCell
+            dispatch={this.props.dispatch}
+            cell={cell}
+            cellKey={cellKey}
+            rowIdx={rowIdx}
+            row={row}
+          />
+        );
       case 'Link':
-        return (<ContentEditable
-          className={cx('cellContent', 'cellLink')}
-          html={cell.data} // innerHTML of the editable div
-          tagName="a"
-          disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
-          onChange={this.handleChange} // handle innerHTML change
-          onDoubleClick={this.editable} // allow for cell editing after focus
-          onContextMenu={this.handleLink}
-          onMouseEnter={this.setMouseEnter} // handle innerHTML change
-          onMouseLeave={this.setMouseLeave}
-        />);
+        return (
+          <ContentEditable
+            className={cx('cellContent', 'cellLink')}
+            html={cell.data} // innerHTML of the editable div
+            tagName="a"
+            disabled={this.state.disabled || this.props.disableAll} // use true to disable edition
+            onChange={this.handleChange} // handle innerHTML change
+            onDoubleClick={this.editable} // allow for cell editing after focus
+            onContextMenu={this.handleLink}
+            onMouseEnter={this.setMouseEnter} // handle innerHTML change
+            onMouseLeave={this.setMouseLeave}
+          />
+        );
       case 'Number':
         break;
       default:
-        return (<ContentEditable
-          className={cx('cellContent')}
-          html={cell.data} // innerHTML of the editable div
-          disabled={this.state.disabled || this.props.disableAll}       // use true to disable edition
-          onChange={this.handleChange} // handle innerHTML change
-          onDoubleClick={this.editable} // allow for cell editing after focus
-          onMouseEnter={this.setMouseEnter} // handle innerHTML change
-          onMouseLeave={this.setMouseLeave}
-        />);
+        return (
+          <ContentEditable
+            className={cx('cellContent')}
+            html={cell.data} // innerHTML of the editable div
+            disabled={this.state.disabled || this.props.disableAll} // use true to disable edition
+            onChange={this.handleChange} // handle innerHTML change
+            onDoubleClick={this.editable} // allow for cell editing after focus
+            onMouseEnter={this.setMouseEnter} // handle innerHTML change
+            onMouseLeave={this.setMouseLeave}
+          />
+        );
     }
     return null;
   }
@@ -114,7 +133,7 @@ class Cell extends Component {
   }
 
   editable(evt) {
-    this.setState({ disabled: false });
+    this.setState({disabled: false});
     if (evt.target.children[0]) evt.target.children[0].focus();
     else evt.target.focus();
   }
@@ -124,7 +143,7 @@ class Cell extends Component {
   }
 
   handleChange(evt) {
-    const { dispatch, cellKey, rowIdx, row } = this.props;
+    const {dispatch, cellKey, rowIdx, row} = this.props;
     const recalculateCells = [];
     for (const cell in row) {
       if (row[cell].type === 'Formula') {
@@ -141,7 +160,7 @@ class Cell extends Component {
   }
 
   keyPress(evt) {
-    if (evt.keyCode >= 37 && evt.keyCode <= 40 || evt.keyCode === 13) {
+    if ((evt.keyCode >= 37 && evt.keyCode <= 40) || evt.keyCode === 13) {
       evt.preventDefault();
       this.props.dispatch(moveToCell(evt.keyCode));
     } else {
@@ -150,13 +169,13 @@ class Cell extends Component {
   }
 
   render() {
-    const { cellKey, rowIdx, cell, row } = this.props;
+    const {cellKey, rowIdx, cell, row} = this.props;
 
     return (
       <div
         tabIndex="-1"
         className={cell.type === 'Link' && cell.data ? cx('cell', 'cellLink') : cx('cell')}
-        style={{ width: this.props.cell.width }}
+        style={{width: this.props.cell.width}}
         id={`${this.props.cellKey}${this.props.rowIdx}`}
         onDoubleClick={this.editable} // allow for cell editing after focus
         onClick={this.handleCell}
@@ -167,7 +186,7 @@ class Cell extends Component {
       >
         {this.cell(cell, cellKey, row, rowIdx)}
       </div>
-  );
+    );
   }
 }
 

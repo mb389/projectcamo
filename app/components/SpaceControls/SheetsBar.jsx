@@ -17,7 +17,8 @@ const SheetsBar = (props) => {
       key={i}
       sheet={sheetForTab.name}
       sheetId={sheetForTab.id}
-    />));
+    />
+  ));
 
   // Will need a loop over sheets in space to render the tabs
   return (
@@ -27,6 +28,5 @@ const SheetsBar = (props) => {
     </div>
   );
 };
-
 
 export default SheetsBar;

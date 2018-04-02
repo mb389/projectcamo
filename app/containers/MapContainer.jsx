@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { closeMap, getLatLongs } from 'actions/sheet';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {closeMap, getLatLongs} from 'actions/sheet';
 import MapModal from 'components/Sheet/Map/MapModal';
-
 
 class MapContainer extends Component {
   constructor(props) {
@@ -11,7 +10,8 @@ class MapContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.addressData && !nextProps.mapMarkersData) this.props.dispatch(getLatLongs(nextProps.addressData));
+    if (nextProps.addressData && !nextProps.mapMarkersData)
+      this.props.dispatch(getLatLongs(nextProps.addressData));
   }
 
   close() {
@@ -35,7 +35,7 @@ function mapStateToProps(store) {
     showMap: store.sheet.showMap,
     addressData: store.sheet.addressData,
     mapMarkersData: store.sheet.mapMarkersData,
-    mapName: store.sheet.mapColumn
+    mapName: store.sheet.mapColumn,
   };
 }
 

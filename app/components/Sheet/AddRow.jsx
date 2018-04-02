@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { addRow } from 'actions/sheet';
+import {connect} from 'react-redux';
+import {addRow} from 'actions/sheet';
 import styles from 'css/components/table';
 
 const cx = classNames.bind(styles);
@@ -18,10 +18,11 @@ class AddRow extends Component {
 
   render() {
     return (
-      <button className={cx('addRow') } onClick={this.addRow}>+</button>
+      <button className={cx('addRow')} onClick={this.addRow}>
+        +
+      </button>
     );
   }
 }
-
 
 export default connect()(AddRow);

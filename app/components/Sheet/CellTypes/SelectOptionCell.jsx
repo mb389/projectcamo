@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import classNames from 'classnames/bind';
-import { updateCell, updateModalCell } from '../../../actions/sheet';
+import {updateCell, updateModalCell} from '../../../actions/sheet';
 import styles from '../../../css/components/table';
-import { Input } from 'react-bootstrap';
+import {Input} from 'react-bootstrap';
 
 const cx = classNames.bind(styles);
 
@@ -12,9 +12,8 @@ class SelectOptionCell extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-
   handleChange(e) {
-    const { dispatch, cellKey, rowIdx, row } = this.props;
+    const {dispatch, cellKey, rowIdx, row} = this.props;
     const val = e.target.value;
 
     const recalculateCells = [];
@@ -25,17 +24,23 @@ class SelectOptionCell extends Component {
       }
     }
 
-    if (this.props.parent === 'RowModal') dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
+    if (this.props.parent === 'RowModal')
+      dispatch(updateModalCell(val, cellKey, rowIdx, null, recalculateCells));
     else dispatch(updateCell(val, cellKey, rowIdx, null, recalculateCells));
   }
 
   render() {
     function generateOptions(arr) {
-      return arr.map((opt, idx) => (<option className={cx('cellSelectOption')} key={idx} value={opt}>{opt}</option>));
+      return arr.map((opt, idx) => (
+        <option className={cx('cellSelectOption')} key={idx} value={opt}>
+          {opt}
+        </option>
+      ));
     }
 
     return (
-      <Input type="select"
+      <Input
+        type="select"
         className={cx('cellSelect')}
         placeholder={this.props.cell.data}
         value={this.props.cell.data}

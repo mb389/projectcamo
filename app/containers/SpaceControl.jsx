@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import SheetsBar from 'components/SpaceControls/SheetsBar';
 import MagicBar from 'components/SpaceControls/MagicBar';
 import Table from 'components/Sheet/Table';
@@ -12,13 +12,12 @@ import Lookup from 'components/Sheet/Lookup';
 import classNames from 'classnames/bind';
 import styles from 'css/components/space-control';
 
-
 const cx = classNames.bind(styles);
 
 class SpaceControl extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = { searching: false };
+    this.state = {searching: false};
     this.runUpdateCell = this.runUpdateCell.bind(this);
     this.superMoveCell = this.superMoveCell.bind(this);
     this.toggleMagicBar = this.toggleMagicBar.bind(this);
@@ -35,7 +34,12 @@ class SpaceControl extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.sheetNames && this.props.sheetNames && nextProps.sheetNames.length !== this.props.sheetNames.length) this.forceUpdate();
+    if (
+      nextProps.sheetNames &&
+      this.props.sheetNames &&
+      nextProps.sheetNames.length !== this.props.sheetNames.length
+    )
+      this.forceUpdate();
   }
 
   componentWillUnmount() {
@@ -74,7 +78,9 @@ class SpaceControl extends Component {
   }
 
   deleteSheet() {
-    this.props.dispatch(Actions.deleteSheet(this.props.sheetToShow._id, this.props.sheets, this.props.space._id));
+    this.props.dispatch(
+      Actions.deleteSheet(this.props.sheetToShow._id, this.props.sheets, this.props.space._id)
+    );
   }
 
   render() {
@@ -88,19 +94,19 @@ class SpaceControl extends Component {
             space={this.props.space}
             sheetNames={this.props.sheetNames}
           />
-        <MagicBar
-          cell={this.props.sheet.currentCell}
-          updateCell={this.runUpdateCell}
-          enterPress={this.superMoveCell}
-          toggleMagicBar={this.toggleMagicBar}
-          searchSheet={this.searchSheet}
-          searching={this.props.searching}
-          deleteSheet={this.deleteSheet}
-          dispatch={this.props.dispatch}
-        />
-      <ShareModal space={this.props.space} />
-        <Lookup />
-      </div>
+          <MagicBar
+            cell={this.props.sheet.currentCell}
+            updateCell={this.runUpdateCell}
+            enterPress={this.superMoveCell}
+            toggleMagicBar={this.toggleMagicBar}
+            searchSheet={this.searchSheet}
+            searching={this.props.searching}
+            deleteSheet={this.deleteSheet}
+            dispatch={this.props.dispatch}
+          />
+          <ShareModal space={this.props.space} />
+          <Lookup />
+        </div>
         <div className={cx('masterControl')}>
           <div className={cx('scrollControl')}>
             <div className={cx('tableBox')}>
@@ -115,15 +121,11 @@ class SpaceControl extends Component {
             </div>
           </div>
         </div>
-        <BottomBar
-          grid={this.props.sheet.grid}
-          columns={this.props.sheet.columnHeaders}
-        />
+        <BottomBar grid={this.props.sheet.grid} columns={this.props.sheet.columnHeaders} />
       </div>
     );
   }
 }
-
 
 function mapStateToProps(store) {
   return {
@@ -133,7 +135,7 @@ function mapStateToProps(store) {
     searching: store.spacecontrol.searching,
     filteredRows: store.sheet.filteredRows,
     sheets: store.spacecontrol.sheets,
-    sheetToShow: store.spacecontrol.sheetToShow
+    sheetToShow: store.spacecontrol.sheetToShow,
   };
 }
 

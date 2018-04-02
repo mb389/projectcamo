@@ -12,12 +12,11 @@ describe('requests', () => {
   afterEach((done) => {
     Promise.all([Sheet.remove({}), User.remove({}), Workspace.remove({})])
       .then(() => done())
-      .catch(err => done(err));
+      .catch((err) => done(err));
   });
 
   beforeEach((done) => {
-    Workspace.create({ name: 'test_space' })
-      .then(() => done(), done);
+    Workspace.create({name: 'test_space'}).then(() => done(), done);
   });
 
   describe('GET /workspace', () => {
@@ -27,7 +26,7 @@ describe('requests', () => {
         .expect('Content-Type', /json/)
         .expect(200)
         .expect((res) => {
-            // res.body is the JSON return object
+          // res.body is the JSON return object
           expect(res.body).to.be.an.instanceOf(Array);
           expect(res.body).to.have.length(0);
         })

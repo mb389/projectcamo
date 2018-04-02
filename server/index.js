@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const Promise = require('bluebird');
 const app = express();
 
-
 // Find the appropriate database to connect to, default to localhost if not found.
 const connect = () => {
   mongoose.connect(secrets.db, (err) => {
@@ -33,14 +32,15 @@ const isDev = process.env.NODE_ENV === 'development';
 if (isDev) {
   const config = require('../webpack/webpack.config.dev-client.js');
   const compiler = webpack(config);
-  app.use(require('webpack-dev-middleware')(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }));
+  app.use(
+    require('webpack-dev-middleware')(compiler, {
+      noInfo: true,
+      publicPath: config.output.publicPath,
+    })
+  );
 
   app.use(require('webpack-hot-middleware')(compiler));
 }
-
 
 // Bootstrap passport config
 require('./config/passport')(app, passport);
@@ -53,4 +53,4 @@ require('./config/routes')(app, passport);
 
 app.listen(app.get('port'));
 
-module.exports = { connect, app };
+module.exports = {connect, app};

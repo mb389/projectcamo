@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames/bind';
-import { connect } from 'react-redux';
-import { manualLogin, signUp, toggleLoginMode } from 'actions/users';
+import {connect} from 'react-redux';
+import {manualLogin, signUp, toggleLoginMode} from 'actions/users';
 import styles from 'css/components/login';
 import hourGlassSvg from 'images/hourglass.svg';
 import space from 'images/spacebg.jpg';
@@ -27,37 +27,38 @@ class LoginOrRegister extends Component {
   }
 
   onLoginSubmit() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
-    dispatch(manualLogin({
-      email,
-      password
-    }));
+    dispatch(
+      manualLogin({
+        email,
+        password,
+      })
+    );
   }
 
   onRegisterSubmit() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     const email = ReactDOM.findDOMNode(this.refs.email).value;
     const password = ReactDOM.findDOMNode(this.refs.password).value;
-    dispatch(signUp({
-      email,
-      password
-    }));
+    dispatch(
+      signUp({
+        email,
+        password,
+      })
+    );
   }
 
   renderHeader() {
-    const { isLogin } = this.props.user;
+    const {isLogin} = this.props.user;
     if (isLogin) {
       return (
         <div className={cx('header')}>
           <h1 className={cx('heading')}>Login with Email</h1>
           <div className={cx('alternative')}>
             Don't have an account?
-            <a
-              className={cx('alternative-link')}
-              onClick={this.toggleMode}
-            >
+            <a className={cx('alternative-link')} onClick={this.toggleMode}>
               Register here
             </a>
           </div>
@@ -67,13 +68,10 @@ class LoginOrRegister extends Component {
 
     return (
       <div className={cx('header')}>
-      <h1 className={cx('heading')}>Register with Email</h1>
+        <h1 className={cx('heading')}>Register with Email</h1>
         <div className={cx('alternative')}>
           Already have an account?
-          <a
-            className={cx('alternative-link')}
-            onClick={this.toggleMode}
-          >
+          <a className={cx('alternative-link')} onClick={this.toggleMode}>
             Login
           </a>
         </div>
@@ -82,52 +80,38 @@ class LoginOrRegister extends Component {
   }
 
   renderButton() {
-    const { isLogin } = this.props.user;
+    const {isLogin} = this.props.user;
     if (isLogin) {
       return (
-        <button
-          className={cx('button')}
-          onClick={this.onLoginSubmit}
-        >
+        <button className={cx('button')} onClick={this.onLoginSubmit}>
           Login
         </button>
       );
     }
 
     return (
-      <button
-        className={cx('button')}
-        onClick={this.onRegisterSubmit}
-      >
+      <button className={cx('button')} onClick={this.onRegisterSubmit}>
         Register
       </button>
     );
   }
 
   render() {
-    const { isWaiting, message } = this.props.user;
+    const {isWaiting, message} = this.props.user;
 
     return (
-      <div className={cx('login', { waiting: isWaiting })}>
-      <img className={cx('outer')} src={space} />
+      <div className={cx('login', {waiting: isWaiting})}>
+        <img className={cx('outer')} src={space} />
         <div>
-          { this.renderHeader() }
+          {this.renderHeader()}
           <img className={cx('loading')} src={hourGlassSvg} />
           <div className={cx('email-container')}>
-            <input className={cx('input')}
-              type="email"
-              ref="email"
-              placeholder="email"
-            />
-            <input className={cx('input')}
-              type="password"
-              ref="password"
-              placeholder="password"
-            />
-            <p className={cx('message', { 'message-show': message && message.length > 0 })}>
+            <input className={cx('input')} type="email" ref="email" placeholder="email" />
+            <input className={cx('input')} type="password" ref="password" placeholder="password" />
+            <p className={cx('message', {'message-show': message && message.length > 0})}>
               {message}
             </p>
-              { this.renderButton() }
+            {this.renderButton()}
           </div>
         </div>
       </div>
@@ -137,14 +121,14 @@ class LoginOrRegister extends Component {
 
 LoginOrRegister.propTypes = {
   user: PropTypes.object,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
 // Function passed in to `connect` to subscribe to Redux store updates.
 // Any time it updates, mapStateToProps is called.
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
   };
 }
 

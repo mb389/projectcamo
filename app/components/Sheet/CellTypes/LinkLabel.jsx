@@ -1,11 +1,11 @@
 import React from 'react';
-import { Label } from 'react-bootstrap';
+import {Label} from 'react-bootstrap';
 
-const LinkLabel = ({ data }) => {
+const LinkLabel = ({data}) => {
   const style = {
     fontSize: '20px',
     display: 'inline-block',
-    clear: 'both'
+    clear: 'both',
   };
 
   return (

@@ -31,6 +31,10 @@
   padding-bottom: 150px;
 }
 
+.featureWrap {
+  min-height: 50vh;
+}
+
 .imgText {
   margin-top: 20px;
 }
